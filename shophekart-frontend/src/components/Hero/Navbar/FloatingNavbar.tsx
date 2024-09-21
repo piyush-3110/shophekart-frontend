@@ -90,34 +90,40 @@ export default function FloatingNavbar() {
       </div>
 
       {/* Dropdown Menu for Small Screens */}
-      {menuOpen && (
-        <div
-          className="absolute top-0 right-0 w-full h-[100vh] bg-white shadow-lg flex flex-col py-14 px-4 space-y-6 z-10"
-        >
-          <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
-            <FaShoppingCart />
-            <span>Buy $CSHOP</span>
-          </a>
-          <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
-            <FaAnchor />
-            <span>Staking</span>
-          </a>
-          <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
-            <FaProductHunt />
-            <span>Product</span>
-          </a>
-          <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
-            <FaFileAlt />
-            <span>CSHOP Card</span>
-          </a>
-          <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
-            <FaBookOpen />
-            <span>Whitepaper</span>
-          </a>
-          {/* Connect Wallet button inside the dropdown */}
-          <ConnectButton />
-        </div>
-      )}
+      <div
+        className={`absolute top-0 h-[100vh] right-0 w-full bg-white shadow-lg flex flex-col py-14 px-4 space-y-6 z-10 overflow-hidden transition-all duration-300 ease-in-out ${
+          menuOpen
+            ? "max-h-screen opacity-100 transform translate-x-0"
+            : "max-h-screen opacity-0 transform translate-x-full"
+        }`}
+      >
+        {menuOpen && (
+          <>
+            <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
+              <FaShoppingCart />
+              <span>Buy $CSHOP</span>
+            </a>
+            <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
+              <FaAnchor />
+              <span>Staking</span>
+            </a>
+            <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
+              <FaProductHunt />
+              <span>Product</span>
+            </a>
+            <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
+              <FaFileAlt />
+              <span>CSHOP Card</span>
+            </a>
+            <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
+              <FaBookOpen />
+              <span>Whitepaper</span>
+            </a>
+            {/* Connect Wallet button inside the dropdown */}
+            <ConnectButton />
+          </>
+        )}
+      </div>
     </nav>
   );
 }

@@ -42,22 +42,25 @@ export default function FloatingNavbar() {
       }`}
     >
       {/* Logo */}
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center space-x-36">
         <div>
           <Image
             src="/images/shared/logo.png"
             alt="Logo"
-            width={120}
-            height={120}
+            className="h-[4rem]  "
+            width={160}
+            height={160}
           />
         </div>
 
         {/* Nav Links for Large Screens */}
-   {/* Navigation Links */}
-   <NavbarLinks />
+        <div className="hidden lg:flex space-x-28">
+        <NavbarLinks />
 
 {/* Connect Wallet Button */}
 <ConnectButton />
+        </div>
+
 
         {/* Hamburger/Close Icon for Small and Medium Screens */}
         <div className="lg:hidden z-50">

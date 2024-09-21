@@ -37,7 +37,7 @@ export default function FloatingNavbar() {
 
   return (
     <nav
-      className={`fixed md:flex md:items-center md:justify-around   top-0 z-[4] left-0 right-0 transition-transform duration-300 ease-in-out bg-white shadow-md py-2 px-6 ${
+      className={`fixed lg:flex lg:items-center lg:justify-around   top-0 z-[4] left-0 right-0 transition-transform duration-300 ease-in-out bg-white shadow-md py-2 px-6 ${
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >

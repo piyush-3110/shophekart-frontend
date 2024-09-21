@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.gradient-text {
+  background: linear-gradient(to right, #64ebff, #0093ff, #0069ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2rem; /* Adjust size as needed */
+  font-weight: bold; /* Optional: make it bold */
+}
+/* styles/globals.css or a specific CSS module */
+.gradient-button {
+  background: linear-gradient(to right, #64ebff, #0093ff, #0069ff);
+  border: none; /* Remove default border */
+  color: white; /* Text color */
+  padding: 1.5rem 1rem; /* Adjust padding (py-6 px-4) */
+  border-radius: 0.5rem; /* Rounded corners */
+  font-size: 1rem; /* Adjust font size as needed */
+  cursor: pointer; /* Change cursor on hover */
+  transition: background 0.3s ease; /* Smooth transition */
+}
+
+.gradient-button:hover {
+  background: linear-gradient(
+    to right,
+    #0069ff,
+    #0093ff,
+    #64ebff
+  ); /* Optional hover effect */
+}

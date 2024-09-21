@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { FaBars, FaTimes, FaShoppingCart, FaAnchor, FaProductHunt, FaFileAlt, FaBookOpen } from "react-icons/fa"; // Importing relevant icons
 import ConnectButton from "./ConnectButton";
+import NavLink from "./NavLink";
 
 export default function FloatingNavbar() {
   const [isVisible, setIsVisible] = useState(true);
@@ -52,25 +53,28 @@ export default function FloatingNavbar() {
 
         {/* Nav Links for Large Screens */}
         <div className="hidden lg:flex space-x-4">
-          <a href="#" className="text-black hover:text-blue-500">
+                                 <NavLink href="#">
+
             Buy $CSHOP
-          </a>
-          <a href="#" className="text-black hover:text-blue-500">
+          </NavLink>
+                                 <NavLink href="#">
+
             Staking
-          </a>
-          <a href="#" className="text-black hover:text-blue-500">
+          </NavLink>
+                                 <NavLink href="#">
+
             Product
-          </a>
-          <a href="#" className="text-black hover:text-blue-500">
+          </NavLink>
+                                 <NavLink href="#">
+
             CSHOP Card
-          </a>
-          <a href="#" className="text-black hover:text-blue-500">
+          </NavLink>
+                                 <NavLink href="#">
+
             Whitepaper
-          </a>
+          </NavLink>
           {/* Connect Wallet button */}
-          <button className="border-[#2546fe] text-[#2546fe] border-2 py-2 px-4 rounded hover:text-[#253384]">
-            Connect Wallet
-          </button>
+         <ConnectButton/>
         </div>
 
         {/* Hamburger/Close Icon for Small and Medium Screens */}
@@ -99,26 +103,29 @@ export default function FloatingNavbar() {
       >
         {menuOpen && (
           <>
-            <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
+            <NavLink href="#">
               <FaShoppingCart />
               <span>Buy $CSHOP</span>
-            </a>
-            <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
+            </NavLink>
+            <NavLink href="#">
               <FaAnchor />
               <span>Staking</span>
-            </a>
-            <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
+            </NavLink>
+            <NavLink href="#">
+
               <FaProductHunt />
               <span>Product</span>
-            </a>
-            <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
+            </NavLink>
+                       <NavLink href="#">
+
               <FaFileAlt />
               <span>CSHOP Card</span>
-            </a>
-            <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
+            </NavLink>
+                       <NavLink href="#">
+
               <FaBookOpen />
               <span>Whitepaper</span>
-            </a>
+            </NavLink>
             {/* Connect Wallet button inside the dropdown */}
             <ConnectButton />
           </>

@@ -1,8 +1,10 @@
 import React from 'react'
-
+import Navbar from '@/components/Hero/Navbar'
 const page = () => {
   return (
-    <div>page</div>
+    <div className='bg-[#f1f4ff]'>
+      <Navbar/>
+    </div>
   )
 }
 

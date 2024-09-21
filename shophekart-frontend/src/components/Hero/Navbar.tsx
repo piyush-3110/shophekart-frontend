@@ -3,14 +3,15 @@ import Image from 'next/image';
 
 export default function Navbar() {
   return (
-    <nav className="flex items-center justify-around bg-white py-4 px-6">
+    <nav className="flex items-center justify-around shadow-md bg-[#fefffe] py-2 px-6">
       {/* Logo */}
       <div>
         <Image
-          src="/logo.png" // Replace with your logo path
+          src="/images/shared/logo.png" // Replace with your logo path
           alt="Logo"
-          width={50}
-          height={50}
+          className='h-[4rem]'
+          width={160}
+          height={180}
         />
       </div>
 
@@ -34,7 +35,7 @@ export default function Navbar() {
       </div>
 
       {/* Connect Wallet Button */}
-      <button className="border border-[#2546fe] text-black py-2 px-4 rounded hover:bg-[#2546fe] hover:text-white">
+      <button className=" border-[#2546fe] text-[#2546fe] border-2 text-[2546fe] py-2 px-4 rounded hover:text-[#253384]">
         Connect Wallet
       </button>
     </nav>

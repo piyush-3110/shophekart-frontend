@@ -34,7 +34,7 @@ export default function FloatingNavbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 transition-transform duration-300 ease-in-out bg-white shadow-md py-2 px-6 ${
+      className={`fixed top-0 z-[4] left-0 right-0 transition-transform duration-300 ease-in-out bg-white shadow-md py-2 px-6 ${
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
@@ -76,27 +76,29 @@ export default function FloatingNavbar() {
         <div className="md:hidden">
           <FaBars
             onClick={() => setMenuOpen(!menuOpen)}
-            className="text-2xl text-black cursor-pointer"
+            className="text-2xl z-50 text-black cursor-pointer"
           />
         </div>
       </div>
 
       {/* Dropdown Menu for Small Screens */}
       {menuOpen && (
-        <div className="relative top-0 right-0 md:hidden mt-4 space-y-4 text-center bg-white shadow-lg rounded-lg py-4">
-          <a href="#" className="block text-black hover:text-blue-500">
+        <div
+          className="absolute top-0 right-0 w-full h-[100vh] bg-white shadow-lg flex flex-col justify-center items-center space-y-4 z-10"
+        >
+          <a href="#" className="text-black hover:text-blue-500">
             Buy $CSHOP
           </a>
-          <a href="#" className="block text-black hover:text-blue-500">
+          <a href="#" className="text-black hover:text-blue-500">
             Staking
           </a>
-          <a href="#" className="block text-black hover:text-blue-500">
+          <a href="#" className="text-black hover:text-blue-500">
             Product
           </a>
-          <a href="#" className="block text-black hover:text-blue-500">
+          <a href="#" className="text-black hover:text-blue-500">
             CSHOP Card
           </a>
-          <a href="#" className="block text-black hover:text-blue-500">
+          <a href="#" className="text-black hover:text-blue-500">
             Whitepaper
           </a>
           {/* Connect Wallet button inside the dropdown */}

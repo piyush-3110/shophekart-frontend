@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import {DM_Sans} from "next/font/google"
 import "./globals.css";
+ const dm = DM_Sans({
+  subsets:['latin'],
+  weight:['400','500','700'],
+ 
+ })
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
 
 export const metadata: Metadata = {
   title: "ShophEkart",
@@ -30,7 +25,7 @@ export default function RootLayout({
       <link rel="icon" href="./images/shared/favicon.png" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${dm.className} antialiased`}
       >
         {children}
       </body>

@@ -2,7 +2,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { FaBars } from "react-icons/fa"; // Importing a hamburger icon
+import { FaBars, FaTimes } from "react-icons/fa"; // Importing hamburger and close icons
 
 export default function FloatingNavbar() {
   const [isVisible, setIsVisible] = useState(true);
@@ -50,7 +50,7 @@ export default function FloatingNavbar() {
         </div>
 
         {/* Nav Links for Large Screens */}
-        <div className="hidden md:flex space-x-4">
+        <div className="hidden lg:flex space-x-4">
           <a href="#" className="text-black hover:text-blue-500">
             Buy $CSHOP
           </a>
@@ -72,12 +72,19 @@ export default function FloatingNavbar() {
           </button>
         </div>
 
-        {/* Hamburger Icon for Small and Medium Screens */}
-        <div className="md:hidden">
-          <FaBars
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="text-2xl z-50 text-black cursor-pointer"
-          />
+        {/* Hamburger/Close Icon for Small and Medium Screens */}
+        <div className="lg:hidden z-50">
+          {menuOpen ? (
+            <FaTimes
+              onClick={() => setMenuOpen(false)}
+              className="text-2xl text-black cursor-pointer"
+            />
+          ) : (
+            <FaBars
+              onClick={() => setMenuOpen(true)}
+              className="text-2xl text-black cursor-pointer"
+            />
+          )}
         </div>
       </div>
 

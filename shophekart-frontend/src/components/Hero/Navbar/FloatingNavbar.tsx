@@ -2,7 +2,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { FaBars, FaTimes } from "react-icons/fa"; // Importing hamburger and close icons
+import { FaBars, FaTimes, FaShoppingCart, FaAnchor, FaProductHunt, FaFileAlt, FaBookOpen } from "react-icons/fa"; // Importing relevant icons
+import ConnectButton from "./ConnectButton";
 
 export default function FloatingNavbar() {
   const [isVisible, setIsVisible] = useState(true);
@@ -91,27 +92,30 @@ export default function FloatingNavbar() {
       {/* Dropdown Menu for Small Screens */}
       {menuOpen && (
         <div
-          className="absolute top-0 right-0 w-full h-[100vh] bg-white shadow-lg flex flex-col justify-center items-center space-y-4 z-10"
+          className="absolute top-0 right-0 w-full h-[100vh] bg-white shadow-lg flex flex-col py-14 px-4 space-y-6 z-10"
         >
-          <a href="#" className="text-black hover:text-blue-500">
-            Buy $CSHOP
+          <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
+            <FaShoppingCart />
+            <span>Buy $CSHOP</span>
           </a>
-          <a href="#" className="text-black hover:text-blue-500">
-            Staking
+          <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
+            <FaAnchor />
+            <span>Staking</span>
           </a>
-          <a href="#" className="text-black hover:text-blue-500">
-            Product
+          <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
+            <FaProductHunt />
+            <span>Product</span>
           </a>
-          <a href="#" className="text-black hover:text-blue-500">
-            CSHOP Card
+          <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
+            <FaFileAlt />
+            <span>CSHOP Card</span>
           </a>
-          <a href="#" className="text-black hover:text-blue-500">
-            Whitepaper
+          <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
+            <FaBookOpen />
+            <span>Whitepaper</span>
           </a>
           {/* Connect Wallet button inside the dropdown */}
-          <button className="border-[#2546fe] text-[#2546fe] border-2 py-2 px-4 rounded hover:text-[#253384]">
-            Connect Wallet
-          </button>
+          <ConnectButton />
         </div>
       )}
     </nav>

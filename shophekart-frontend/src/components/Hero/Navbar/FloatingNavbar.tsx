@@ -1,11 +1,13 @@
 // components/FloatingNavbar.tsx
-"use client"
+"use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { FaBars } from "react-icons/fa"; // Importing a hamburger icon
 
 export default function FloatingNavbar() {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // Handle scroll to determine the direction
   const handleScroll = () => {
@@ -47,7 +49,7 @@ export default function FloatingNavbar() {
           />
         </div>
 
-        {/* Nav Links for Medium and Small Screens */}
+        {/* Nav Links for Large Screens */}
         <div className="hidden md:flex space-x-4">
           <a href="#" className="text-black hover:text-blue-500">
             Buy $CSHOP
@@ -64,13 +66,45 @@ export default function FloatingNavbar() {
           <a href="#" className="text-black hover:text-blue-500">
             Whitepaper
           </a>
+          {/* Connect Wallet button */}
+          <button className="border-[#2546fe] text-[#2546fe] border-2 py-2 px-4 rounded hover:text-[#253384]">
+            Connect Wallet
+          </button>
         </div>
 
-        {/* Connect Wallet Button */}
-        <button className="border-[#2546fe] text-[#2546fe] border-2 py-2 px-4 rounded hover:text-[#253384]">
-          Connect Wallet
-        </button>
+        {/* Hamburger Icon for Small and Medium Screens */}
+        <div className="md:hidden">
+          <FaBars
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="text-2xl text-black cursor-pointer"
+          />
+        </div>
       </div>
+
+      {/* Dropdown Menu for Small Screens */}
+      {menuOpen && (
+        <div className="relative top-0 right-0 md:hidden mt-4 space-y-4 text-center bg-white shadow-lg rounded-lg py-4">
+          <a href="#" className="block text-black hover:text-blue-500">
+            Buy $CSHOP
+          </a>
+          <a href="#" className="block text-black hover:text-blue-500">
+            Staking
+          </a>
+          <a href="#" className="block text-black hover:text-blue-500">
+            Product
+          </a>
+          <a href="#" className="block text-black hover:text-blue-500">
+            CSHOP Card
+          </a>
+          <a href="#" className="block text-black hover:text-blue-500">
+            Whitepaper
+          </a>
+          {/* Connect Wallet button inside the dropdown */}
+          <button className="border-[#2546fe] text-[#2546fe] border-2 py-2 px-4 rounded hover:text-[#253384]">
+            Connect Wallet
+          </button>
+        </div>
+      )}
     </nav>
   );
 }

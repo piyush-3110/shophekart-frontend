@@ -4,11 +4,14 @@ import MarqueeComp from './MarqueeComp';
 
 const Partners = () => {
   return (
-    <div className='min-h-[100vh] py-12 flex gap-8 flex-col items-center bg-white'>
+    <div className='h-[110vh] overflow-hidden  pb-8 pt-16 flex gap-8 flex-col items-center bg-white'>
       <h1 className='text-black font-semibold md:text-3xl text-lg text-center'>Partners and Supporters</h1>
+      <div>
       <MarqueeComp />
-      <div className='flex  mt-12 justify-center gap-4'>
-        <div className='flex flex-col gap-6 w-[40vw]'>
+
+      </div>
+      <div className='flex  mt-8 justify-center gap-4'>
+        <div className='flex flex-col gap-6 mt-6 w-[40vw]'>
           <h1 className='text-black font-semibold md:text-3xl text-lg'>Introducing the Crypto Shophe Debit Card</h1>
           <p className='text-[#6B6F93] font-[400] text-[16px]'>Seamlessly Convert Your Crypto into Cash Anywhere.</p>
         
@@ -43,8 +46,9 @@ const Partners = () => {
           </div>
         </div>
         </div>
-       
-        <Image alt='MasterCard' src="/images/homepage/partners/mastercard.png" height={524} width={524} className='h-auto w-[50vw] absolute top-0'></Image>
+   
+       <Image alt='MasterCard' src="/images/homepage/partners/mastercard.png" height={524} width={524} className='h-auto w-[50vw] translate-x-[10%] -translate-y-[20%]'></Image>
+    
       </div>
     </div>
   );

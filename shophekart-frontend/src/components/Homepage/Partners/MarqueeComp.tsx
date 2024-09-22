@@ -14,7 +14,7 @@ const logos = [
 
 const MarqueeComp: React.FC = () => {
   return (
-    <div className="bg-black h-[15vh] w-full flex items-center overflow-hidden">
+    <div className="bg-black h-[15vh] relative z-[2] w-full flex items-center overflow-hidden">
       <Marquee
         gradient={false} // Disable gradient effect
         speed={120} // Adjust speed here

@@ -44,16 +44,16 @@ export function Hero() {
   };
 
   return (
-    <div className="flex items-center w-full mt-10 px-12 min-h-[100vh] justify-center gap-6">
-      <div className="w-[40vw] flex flex-col gap-4">
-        <div className="text-black text-[44px] font-semibold">
+    <div className="flex lg:items-center w-full pt-36 lg:mt-10 px-12 min-h-[100vh] justify-center gap-6">
+      <div className="w-full lg:w-[40vw]  flex flex-col  lg:items-start gap-4">
+        <div className="text-black text-wrap  w-[80vw] lg:w-auto text-[23px] lg:text-[44px] font-semibold whitespace-nowrap">
           <p>{renderTextWithEffect(text1, 0, textIndex)}</p>
-          <p className="gradient-text !text-[44px]">
+          <p className="gradient-text !text-[22px] lg:!text-[44px] whitespace-nowrap">
             {renderTextWithEffect(text2, text1.length, textIndex)}
           </p>
         </div>
 
-        <p className="text-[#6B6F93] font-[400] text-[16px] leading-[27.3px]">
+        <p className="text-[#6B6F93] mt-4 lg:mt-0 font-[400] text-[16px] leading-[27.3px]">
           Empower Your Marketplace Experience. Seamlessly Connect Your Wallet to
           Buy, Sell, and Trade Unique Items with CSHOP Cryptocurrency in a
           Secure, Decentralized Platform
@@ -76,7 +76,7 @@ export function Hero() {
         </div>
       </div>
       <Image
-        className="h-[80vh] w-[40vw]"
+        className="h-[80vh] w-[40vw] hidden lg:block"
         height={1024}
         width={1024}
         src="/images/homepage/house.png"

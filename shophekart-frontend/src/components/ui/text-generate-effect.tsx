@@ -37,16 +37,11 @@ export const TextGenerateEffect = ({
           return (
             <motion.span
               key={word + idx}
-              className="dark:text-white text-black opacity-0"
+              className=" text-black opacity-0"
               style={{
                 filter: filter ? "blur(10px)" : "none",
               }}
             >
-                <div className=" text-[54px]">
-                    <p>Sell and Buy Items For</p>
-                    <p className="gradient-text">Cryptocurrencies</p>
-
-                </div>
               {word}{" "}
             </motion.span>
           );

@@ -44,16 +44,16 @@ export function Hero() {
   };
 
   return (
-    <div className="flex lg:items-center w-full pt-36 lg:mt-10 px-12 min-h-[100vh] justify-center gap-6">
-      <div className="w-full lg:w-[40vw]  flex flex-col  lg:items-start gap-4">
-        <div className="text-black text-wrap  w-[80vw] lg:w-auto text-[23px] lg:text-[44px] font-semibold whitespace-nowrap">
+    <div className="flex lg:items-center w-full pt-36 lg:pt-12 lg:mt-0 px-8 md:px-12 min-h-[80vh] md:min-h-[20vh] lg:min-h-[100vh] justify-center gap-6">
+      <div className="w-[90vw] md:w-[70vw] lg:w-[40vw]  flex flex-col  lg:items-start gap-4">
+        <div className="text-black text-wrap w-full text-[23px] md:text-[44px] font-semibold whitespace-nowrap">
           <p>{renderTextWithEffect(text1, 0, textIndex)}</p>
-          <p className="gradient-text !text-[22px] lg:!text-[44px] whitespace-nowrap">
+          <p className="gradient-text !text-[22px] md:!text-[44px] whitespace-nowrap">
             {renderTextWithEffect(text2, text1.length, textIndex)}
           </p>
         </div>
 
-        <p className="text-[#6B6F93] mt-4 lg:mt-0 font-[400] text-[16px] leading-[27.3px]">
+        <p className="text-[#6B6F93] mt-4 w-full lg:w-auto lg:mt-0 font-[400] text-[16px] leading-[27.3px]">
           Empower Your Marketplace Experience. Seamlessly Connect Your Wallet to
           Buy, Sell, and Trade Unique Items with CSHOP Cryptocurrency in a
           Secure, Decentralized Platform

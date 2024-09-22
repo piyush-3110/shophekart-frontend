@@ -1,14 +1,56 @@
 "use client";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { TextGenerateEffect } from "../../../ui/text-generate-effect";
 
 export function Hero() {
+  const [textIndex, setTextIndex] = useState(0);
+  const text1 = "Buy and Sell Items For";
+  const text2 = "CryptoCurrencies";
+
+  const totalLength = text1.length + text2.length;
+  const pauseTime = 30; // Adjust this to increase or decrease the pause after the full text appears
+
+  // Function to handle the text animation sequence
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTextIndex((prevIndex) => {
+        // Pause when full text is shown before restarting
+        if (prevIndex >= totalLength + pauseTime) {
+          return 0; // Restart the animation
+        }
+        return prevIndex + 1;
+      });
+    }, 100); // Adjust the speed of the letter appearance
+
+    return () => clearInterval(interval);
+  }, [totalLength]);
+
+  const renderTextWithEffect = (text: string, startIndex: number, index: number) => {
+    return (
+      <span>
+        {text.split("").map((char, i) => (
+          <span
+            key={i}
+            className={`inline-block transition-opacity duration-300 ${
+              index >= startIndex + i ? "opacity-100" : "opacity-0"
+            }`}
+            style={{ transitionDelay: `${i * 0.05}s` }}
+          >
+            {char === " " ? "\u00A0" /* Render non-breaking space */ : char}
+          </span>
+        ))}
+      </span>
+    );
+  };
+
   return (
     <div className="flex items-center w-full mt-10 px-12 min-h-[100vh] justify-center gap-6">
       <div className="w-[40vw] flex flex-col gap-4">
         <div className="text-black text-[44px] font-semibold">
-          <p>Buy and Sell Items For</p>
-          <p className="gradient-text !text-[44px]">CryptoCurrencies</p>
+          <p>{renderTextWithEffect(text1, 0, textIndex)}</p>
+          <p className="gradient-text !text-[44px]">
+            {renderTextWithEffect(text2, text1.length, textIndex)}
+          </p>
         </div>
 
         <p className="text-[#6B6F93] font-[400] text-[16px] leading-[27.3px]">

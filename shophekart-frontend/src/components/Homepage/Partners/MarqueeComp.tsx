@@ -8,6 +8,8 @@ const logos = [
   '/images/homepage/partners/logo4.png',
   '/images/homepage/partners/logo5.png',
   '/images/homepage/partners/logo6.png',
+  '/images/homepage/partners/logo7.jpg',
+
 ];
 
 const MarqueeComp: React.FC = () => {

@@ -18,6 +18,7 @@
   font-size: 13px; /* Adjust font size as needed */
   cursor: pointer; /* Change cursor on hover */
   transition: background 0.3s ease; /* Smooth transition */
+  box-shadow: 0 4px 12px rgba(0, 135, 255, 0.5);
 }
 
 .gradient-button:hover {

@@ -1,8 +1,16 @@
 // components/FloatingNavbar.tsx
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import { FaBars, FaTimes, FaShoppingCart, FaAnchor, FaProductHunt, FaFileAlt, FaBookOpen } from "react-icons/fa"; // Importing relevant icons
+import {
+  FaBars,
+  FaTimes,
+  FaShoppingCart,
+  FaAnchor,
+  FaProductHunt,
+  FaFileAlt,
+  FaBookOpen,
+} from "react-icons/fa"; // Importing relevant icons
 import ConnectButton from "./ConnectButton";
 
 import NavbarLinks from "./NavbarLinks";
@@ -13,7 +21,7 @@ export default function FloatingNavbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   // Handle scroll to determine the direction
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
 
     if (currentScrollY > lastScrollY) {
@@ -25,7 +33,7 @@ export default function FloatingNavbar() {
     }
 
     setLastScrollY(currentScrollY);
-  };
+  }, [lastScrollY]);
 
   useEffect(() => {
     // Add scroll event listener
@@ -33,7 +41,7 @@ export default function FloatingNavbar() {
 
     // Cleanup on unmount
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  }, [handleScroll]);
 
   return (
     <nav
@@ -55,12 +63,11 @@ export default function FloatingNavbar() {
 
         {/* Nav Links for Large Screens */}
         <div className="hidden lg:flex space-x-28">
-        <NavbarLinks />
+          <NavbarLinks />
 
-{/* Connect Wallet Button */}
-<ConnectButton />
+          {/* Connect Wallet Button */}
+          <ConnectButton />
         </div>
-
 
         {/* Hamburger/Close Icon for Small and Medium Screens */}
         <div className="lg:hidden z-50">
@@ -88,23 +95,38 @@ export default function FloatingNavbar() {
       >
         {menuOpen && (
           <>
-            <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
+            <a
+              href="#"
+              className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
+            >
               <FaShoppingCart />
               <span>Buy $CSHOP</span>
             </a>
-            <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
+            <a
+              href="#"
+              className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
+            >
               <FaAnchor />
               <span>Staking</span>
             </a>
-            <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
+            <a
+              href="#"
+              className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
+            >
               <FaProductHunt />
               <span>Product</span>
             </a>
-            <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
+            <a
+              href="#"
+              className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
+            >
               <FaFileAlt />
               <span>CSHOP Card</span>
             </a>
-            <a href="#" className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded">
+            <a
+              href="#"
+              className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
+            >
               <FaBookOpen />
               <span>Whitepaper</span>
             </a>

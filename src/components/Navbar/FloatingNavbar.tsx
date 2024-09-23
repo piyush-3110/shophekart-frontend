@@ -10,10 +10,11 @@ import {
   FaProductHunt,
   FaFileAlt,
   FaBookOpen,
-} from "react-icons/fa"; // Importing relevant icons
+} from "react-icons/fa";
 import ConnectButton from "./ConnectButton";
 
 import NavbarLinks from "./NavbarLinks";
+import Link from "next/link";
 
 export default function FloatingNavbar() {
   const [isVisible, setIsVisible] = useState(true);
@@ -95,41 +96,41 @@ export default function FloatingNavbar() {
       >
         {menuOpen && (
           <>
-            <a
-              href="#"
+            <Link
+              href="/"
               className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
             >
               <FaShoppingCart />
               <span>Buy $CSHOP</span>
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              href="/staking"
               className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
             >
               <FaAnchor />
               <span>Staking</span>
-            </a>
-            <a
+            </Link>
+            <Link
               href="#"
               className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
             >
               <FaProductHunt />
               <span>Product</span>
-            </a>
-            <a
+            </Link>
+            <Link
               href="#"
               className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
             >
               <FaFileAlt />
               <span>CSHOP Card</span>
-            </a>
-            <a
+            </Link>
+            <Link
               href="#"
               className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
             >
               <FaBookOpen />
               <span>Whitepaper</span>
-            </a>
+            </Link>
             {/* Connect Wallet button inside the dropdown */}
             <ConnectButton />
           </>

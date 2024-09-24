@@ -22,7 +22,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="./images/shared/favicon.png" />
       </head>
-      <body className={`${dm.className} antialiased`}>
+      <body className={`${dm.className} antialiased overflow-x-hidden`}>
         <FloatingNavbar />
         {children}
       </body>

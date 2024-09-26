@@ -10,20 +10,20 @@ export const Hero = () => {
             The <span className='gradient-text !text-[22px] md:!text-[40px] '>Future of Convenient </span>Cryptocurrency Spending</h1>
             <button className='gradient-button my-8'>Get Your Card</button>
         </div>
-        <div className='lg:block hidden mb-16 z-[1] relative mt-8 mr-8'>
+        <div className='lg:block hidden mb-16 z-[1] relative mt-8 '>
           <Image
             alt='MasterCard'
             src='/images/homepage/Partners/mastercard2.png'
             height={524}
             width={524}
-            className='h-[50vh] w-auto rotate-left'
+            className='h-[55vh] w-auto rotate-left'
           />
           <Image
             alt='MasterCard'
             src='/images/homepage/Partners/mastercard1.png'
             height={524}
             width={524}
-            className='h-[40vh] w-auto absolute z-[1] top-0 -right-10 rotate-right'
+            className='h-[45vh] w-auto absolute z-[1] top-0 -right-10 rotate-right'
           />
         </div>
         <div className="blob1" />

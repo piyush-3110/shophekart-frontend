@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { Presale } from "../../Presale/Presale";
 
 export function Hero() {
   const [textIndex, setTextIndex] = useState(0);
@@ -25,11 +26,7 @@ export function Hero() {
     return () => clearInterval(interval);
   }, [totalLength]);
 
-  const renderTextWithEffect = (
-    text: string,
-    startIndex: number,
-    index: number
-  ) => {
+  const renderTextWithEffect = (text: string, startIndex: number, index: number) => {
     return (
       <span>
         {text.split("").map((char, i) => (
@@ -48,7 +45,7 @@ export function Hero() {
   };
 
   return (
-    <div className="flex lg:items-center pb-12 lg:pb-0 w-full px-8 md:px-12 min-h-[80vh] md:min-h-[20vh] lg:min-h-[100vh] justify-center gap-6">
+    <div className="flex relative lg:items-center pb-12 lg:pb-16 w-full  items-center md:items-start  lg:mt-0 px-8 md:px-12 min-h-[100vh] md:min-h-[20vh] lg:min-h-[100vh] justify-center gap-6">
       <div className="w-[90vw] md:w-[70vw] lg:w-[40vw]  flex flex-col  lg:items-start gap-4">
         <div className="text-black text-wrap w-full text-[23px] md:text-[44px] font-semibold whitespace-nowrap">
           <p>{renderTextWithEffect(text1, 0, textIndex)}</p>
@@ -81,11 +78,15 @@ export function Hero() {
       </div>
       <Image
         className="h-[80vh] w-[40vw] hidden lg:block"
-        height={1024}
-        width={1024}
+        height={1014}
+        width={1014}
         src="/images/homepage/house.png"
         alt="House"
       />
+    
+      <div className="hidden lg:block lg:absolute lg:-bottom-[8rem] bottom-4 mx-4  lg:mx-auto">
+        <Presale/>
+      </div>
     </div>
   );
 }

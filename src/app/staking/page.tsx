@@ -1,5 +1,3 @@
-// src/app/staking/page.tsx
-
 "use client";
 
 import { useState } from "react";
@@ -22,6 +20,8 @@ import { StakingTab } from "@/constants/stakingTabs";
 import { STAKING_TABLE_DATA, STAKING_TABS } from "@/constants";
 import { twMerge } from "tailwind-merge";
 import { motion } from "framer-motion";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import StakeModal from "@/components/StakingPage/Table/stakeModal/StakeModal";
 
 // Define the type for the component's props (empty since no props are used)
 type PageProps = object;
@@ -88,9 +88,14 @@ const Page: React.FC<PageProps> = (): JSX.Element => {
                   />
                 </TableCell>
                 <TableCell className="flex justify-center">
-                  <Button size={ButtonSize.SMALL} shape={ButtonShape.ROUND}>
-                    Stake
-                  </Button>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button size={ButtonSize.SMALL} shape={ButtonShape.ROUND}>
+                        Stake
+                      </Button>
+                    </DialogTrigger>
+                    <StakeModal />
+                  </Dialog>
                 </TableCell>
               </TableRow>
             ))}

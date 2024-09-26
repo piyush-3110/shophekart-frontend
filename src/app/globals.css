@@ -98,10 +98,24 @@ input[type="number"] {
   filter: blur(20px); /* Optional: add blur for a softer look */
   z-index: 0; /* Ensure it stays behind the content */
 }
+.blob1 {
+  position: absolute;
+  top: 0; /* Adjust as needed */
+  right: -100px; /* Adjust as needed */
+  width: 40vw; /* Blob size */
+  height: 100vh; /* Blob size */
+  background: linear-gradient(185deg, #95ebee, #66a1f2, #5b9df1);
+  border-radius: 80%;
+  filter: blur(20px); /* Optional: add blur for a softer look */
+  z-index: 0; /* Ensure it stays behind the content */
+}
 
 @media (max-width: 768px) {
   /* md breakpoint (medium screens and up) */
   .blob {
+    display: none;
+  }
+  .blob1 {
     display: none;
   }
 }

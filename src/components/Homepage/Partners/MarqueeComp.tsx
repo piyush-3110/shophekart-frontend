@@ -2,13 +2,13 @@ import Marquee from 'react-fast-marquee';
 import Image from 'next/image';
 
 const logos = [
-  '/images/homepage/partners/logo1.png',
-  '/images/homepage/partners/logo2.png',
-  '/images/homepage/partners/logo3.png',
-  '/images/homepage/partners/logo4.png',
-  '/images/homepage/partners/logo5.png',
-  '/images/homepage/partners/logo6.png',
-  '/images/homepage/partners/logo7.jpg',
+  '/images/homepage/Partners/logo1.png',
+  '/images/homepage/Partners/logo2.png',
+  '/images/homepage/Partners/logo3.png',
+  '/images/homepage/Partners/logo4.png',
+  '/images/homepage/Partners/logo5.png',
+  '/images/homepage/Partners/logo6.png',
+  '/images/homepage/Partners/logo7.jpg',
 
 ];
 

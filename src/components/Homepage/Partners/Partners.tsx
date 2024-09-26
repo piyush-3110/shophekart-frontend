@@ -24,7 +24,7 @@ const Partners = () => {
             <div className='flex flex-col text-[#6B6F93] font-[400] text-[16px]'>
               <div className='flex lg:items-center'>
                 <Image
-                  src='/images/homepage/partners/ellipse.png'
+                  src='/images/homepage/Partners/ellipse.png'
                   alt='Logo'
                   width={16}
                   height={16}
@@ -34,7 +34,7 @@ const Partners = () => {
               </div>
               <div className='flex lg:items-center'>
                 <Image
-                  src='/images/homepage/partners/ellipse.png'
+                  src='/images/homepage/Partners/ellipse.png'
                   alt='Logo'
                   width={16}
                   height={16}
@@ -44,7 +44,7 @@ const Partners = () => {
               </div>
               <div className='flex items-center'>
                 <Image
-                  src='/images/homepage/partners/ellipse.png'
+                  src='/images/homepage/Partners/ellipse.png'
                   alt='Logo'
                   width={16}
                   height={16}
@@ -56,7 +56,7 @@ const Partners = () => {
             <div className='flex flex-col text-[#6B6F93] font-[400] text-[16px]'>
               <div className='flex items-center'>
                 <Image
-                  src='/images/homepage/partners/ellipse.png'
+                  src='/images/homepage/Partners/ellipse.png'
                   alt='Logo'
                   width={16}
                   height={16}
@@ -66,7 +66,7 @@ const Partners = () => {
               </div>
               <div className='flex items-center'>
                 <Image
-                  src='/images/homepage/partners/ellipse.png'
+                  src='/images/homepage/Partners/ellipse.png'
                   alt='Logo'
                   width={16}
                   height={16}
@@ -76,7 +76,7 @@ const Partners = () => {
               </div>
               <div className='flex items-center'>
                 <Image
-                  src='/images/homepage/partners/ellipse.png'
+                  src='/images/homepage/Partners/ellipse.png'
                   alt='Logo'
                   width={16}
                   height={16}
@@ -92,14 +92,14 @@ const Partners = () => {
         <div className='lg:block hidden z-[1] relative mt-8'>
           <Image
             alt='MasterCard'
-            src='/images/homepage/partners/mastercard2.png'
+            src='/images/homepage/Partners/mastercard2.png'
             height={524}
             width={524}
             className='h-[50vh] w-auto rotate-left'
           />
           <Image
             alt='MasterCard'
-            src='/images/homepage/partners/mastercard1.png'
+            src='/images/homepage/Partners/mastercard1.png'
             height={524}
             width={524}
             className='h-[40vh] w-auto absolute z-[1] top-0 -right-10 rotate-right'

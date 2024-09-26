@@ -4,10 +4,10 @@ import React from 'react'
 export const Hero = () => {
   return (
     <div className='min-h-[90vh] flex items-center justify-center gap-28 '>
-        <div className=' w-[40vw]'>
+        <div className=' w-auto px-8 lg:px-0 lg:w-[40vw]'>
             {/* Div for content */}
-            <h1 className='text-wrap w-full text-[23px] md:text-[40px] font-semibold'>CSHOP MasterCard: 
-            The <span className='gradient-text !text-[22px] md:!text-[40px] '>Future of Convenient </span>Cryptocurrency Spending</h1>
+            <h1 className='text-wrap w-full text-[29px] md:text-[40px] font-semibold'>CSHOP MasterCard: 
+            The <span className='gradient-text !text-[28px] md:!text-[40px] '>Future of Convenient </span>Cryptocurrency Spending</h1>
             <button className='gradient-button my-8'>Get Your Card</button>
         </div>
         <div className='lg:block hidden mb-16 z-[1] relative mt-8 '>

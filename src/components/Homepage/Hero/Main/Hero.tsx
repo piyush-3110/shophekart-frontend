@@ -78,11 +78,12 @@ export function Hero() {
       </div>
       <Image
         className="h-[80vh] w-[40vw] hidden lg:block"
-        height={1024}
-        width={1024}
+        height={1014}
+        width={1014}
         src="/images/homepage/house.png"
         alt="House"
       />
+    
       <div className="hidden lg:block lg:absolute lg:-bottom-[8rem] bottom-4 mx-4  lg:mx-auto">
         <Presale/>
       </div>

@@ -26,6 +26,7 @@ export const Hero = () => {
             className='h-[40vh] w-auto absolute z-[1] top-0 -right-10 rotate-right'
           />
         </div>
+        <div className="blob1" />
 {/* Div for mastercard */}
     </div>
   )

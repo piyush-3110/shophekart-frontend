@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+.gradient-text {
+  background: linear-gradient(to right, #01bfff, #017ffe, #003aff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2rem; /* Adjust size as needed */
+  font-weight: bold; /* Optional: make it bold */
+}
+/* styles/globals.css or a specific CSS module */
+.gradient-button {
+  background: linear-gradient(to right, #01bfff, #017ffe, #003aff);
+  border: none; /* Remove default border */
+  color: white; /* Text color */
+  padding: 16px 34px; /* Adjust padding (py-6 px-4) */
+  border-radius: 0.3rem; /* Rounded corners */
+  font-size: 13px; /* Adjust font size as needed */
+  cursor: pointer; /* Change cursor on hover */
+  transition: background 0.3s ease; /* Smooth transition */
+  box-shadow: 0 4px 12px rgba(0, 135, 255, 0.5);
+}
+.gradient-border {
+  position: relative;
+}
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  padding: 1px;
+  background: linear-gradient(to right, #01bfff, #017ffe, #003aff);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+/* styles.css */
+.countdown-background {
+  background: linear-gradient(
+    101.35deg,
+    rgba(1, 245, 255, 0.1) 0.9%,
+    rgba(1, 165, 255, 0.1) 27.77%,
+    rgba(1, 81, 255, 0.1) 61.93%,
+    rgba(1, 40, 255, 0.1) 99.49%
+  );
+}
+
+@keyframes rotateLeft {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
+}
+
+@keyframes rotateRight {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+.rotate-left {
+  animation: rotateLeft 4s ease-in-out infinite; /* Smooth left rotation */
+}
+
+.rotate-right {
+  animation: rotateRight 4s ease-in-out infinite; /* Smooth right rotation */
+}
+/* CSS for Blob Shape */
+/* CSS for Blob Shape */
+.blob {
+  position: absolute;
+  bottom: -100px; /* Adjust as needed */
+  right: -100px; /* Adjust as needed */
+  width: 400px; /* Blob size */
+  height: 400px; /* Blob size */
+  background: linear-gradient(185deg, #95ebee, #66a1f2, #5b9df1);
+  border-radius: 80%;
+  filter: blur(20px); /* Optional: add blur for a softer look */
+  z-index: 0; /* Ensure it stays behind the content */
+}
+
+@media (max-width: 768px) {
+  /* md breakpoint (medium screens and up) */
+  .blob {
+    display: none;
+  }
+}

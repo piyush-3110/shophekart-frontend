@@ -288,7 +288,7 @@ input[type="number"] {
 }
 .card-border-gradient {
   border: 1px solid transparent;
-  background: linear-gradient(#0e0b20, #0e0b20) padding-box,
+  background: linear-gradient(#101317, #101317) padding-box,
     linear-gradient(
         117.79deg,
         rgba(2, 171, 255, 0.8) -3.21%,

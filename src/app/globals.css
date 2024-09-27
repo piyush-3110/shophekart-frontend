@@ -286,3 +286,20 @@ input[type="number"] {
     border-top: 0;
   }
 }
+.card-border-gradient {
+  border: 1px solid transparent;
+  background: linear-gradient(#0e0b20, #0e0b20) padding-box,
+    linear-gradient(
+        117.79deg,
+        rgba(2, 171, 255, 0.8) -3.21%,
+        rgba(255, 255, 255, 0) 30.3%,
+        rgba(255, 255, 255, 0) 57.52%,
+        rgba(2, 47, 208, 0.8) 101.5%
+      )
+      border-box;
+  /* background-size: 200% 100%; */
+
+  /* border: 1.5px solid;
+
+border-image-source: linear-gradient(76.42deg, #AB59FF 0.22%, rgba(133, 143, 255, 0) 10.15%, rgba(77, 154, 255, 0) 78.64%, #4D9AFF 99.49%); */
+}

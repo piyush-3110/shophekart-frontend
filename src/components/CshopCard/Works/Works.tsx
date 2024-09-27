@@ -1,5 +1,6 @@
 import React from 'react'
-import Timeline from './Timeline'
+
+import  WorksCard  from './WorksCard'
 
 export const Works = () => {
    
@@ -8,7 +9,7 @@ export const Works = () => {
            <h1 className="text-white font-semibold py-8 md:text-3xl text-lg text-center">
        How It Works
       </h1>
-      <Timeline />
+     <WorksCard/>
     </div>
   )
 }

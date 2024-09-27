@@ -8,7 +8,7 @@ const Timeline = () => {
       <div className="">
         <div className="h-[350vh] bg-[#47597C] w-[1px] mx-auto relative">
           {/* First set */}
-          <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-20 h-20 ">
+          <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-28 h-28 ">
             <Image
               src="/images/CShopCard/timeline/logo1.png"
               alt="logo1"
@@ -33,7 +33,7 @@ const Timeline = () => {
           </div>
 
           {/* Second set */}
-          <div className="absolute top-[10%] left-1/2 transform -translate-x-1/2 w-20 h-20 ">
+          <div className="absolute top-[10%] left-1/2 transform -translate-x-1/2 w-28 h-28 ">
             <Image
               src="/images/CShopCard/timeline/logo1.png"
               alt="logo1"
@@ -57,7 +57,7 @@ const Timeline = () => {
           </div>
 
           {/* Third set */}
-          <div className="absolute top-[20%] left-1/2 transform -translate-x-1/2 w-20 h-20 ">
+          <div className="absolute top-[20%] left-1/2 transform -translate-x-1/2 w-28 h-28 ">
             <Image
               src="/images/CShopCard/timeline/logo1.png"
               alt="logo1"
@@ -81,7 +81,7 @@ const Timeline = () => {
           </div>
 
           {/* Fourth set */}
-          <div className="absolute top-[30%] left-1/2 transform -translate-x-1/2 w-20 h-20 ">
+          <div className="absolute top-[30%] left-1/2 transform -translate-x-1/2 w-28 h-28 ">
             <Image
               src="/images/CShopCard/timeline/logo1.png"
               alt="logo1"
@@ -105,7 +105,7 @@ const Timeline = () => {
           </div>
 
           {/* Fifth set */}
-          <div className="absolute top-[40%] left-1/2 transform -translate-x-1/2 w-20 h-20 ">
+          <div className="absolute top-[40%] left-1/2 transform -translate-x-1/2 w-28 h-28 ">
             <Image
               src="/images/CShopCard/timeline/logo1.png"
               alt="logo1"
@@ -129,7 +129,7 @@ const Timeline = () => {
           </div>
 
           {/* Sixth set */}
-          <div className="absolute top-[50%] left-1/2 transform -translate-x-1/2 w-20 h-20 ">
+          <div className="absolute top-[50%] left-1/2 transform -translate-x-1/2 w-28 h-28 ">
             <Image
               src="/images/CShopCard/timeline/logo1.png"
               alt="logo1"
@@ -153,7 +153,7 @@ const Timeline = () => {
           </div>
 
           {/* Seventh set */}
-          <div className="absolute top-[60%] left-1/2 transform -translate-x-1/2 w-20 h-20 ">
+          <div className="absolute top-[60%] left-1/2 transform -translate-x-1/2 w-28 h-28 ">
             <Image
               src="/images/CShopCard/timeline/logo1.png"
               alt="logo1"
@@ -177,7 +177,7 @@ const Timeline = () => {
           </div>
 
           {/* Eighth set */}
-          <div className="absolute top-[70%] left-1/2 transform -translate-x-1/2 w-20 h-20 ">
+          <div className="absolute top-[70%] left-1/2 transform -translate-x-1/2 w-28 h-28 ">
             <Image
               src="/images/CShopCard/timeline/logo1.png"
               alt="logo1"
@@ -201,7 +201,7 @@ const Timeline = () => {
           </div>
 
           {/* Ninth set */}
-          <div className="absolute top-[80%] left-1/2 transform -translate-x-1/2 w-20 h-20 ">
+          <div className="absolute top-[80%] left-1/2 transform -translate-x-1/2 w-28 h-28 ">
             <Image
               src="/images/CShopCard/timeline/logo1.png"
               alt="logo1"
@@ -225,7 +225,7 @@ const Timeline = () => {
           </div>
 
           {/* Tenth set */}
-          <div className="absolute top-[90%] left-1/2 transform -translate-x-1/2 w-20 h-20 ">
+          <div className="absolute top-[90%] left-1/2 transform -translate-x-1/2 w-28 h-28 ">
             <Image
               src="/images/CShopCard/timeline/logo1.png"
               alt="logo1"
@@ -249,7 +249,7 @@ const Timeline = () => {
           </div>
 
           {/* Eleventh set */}
-          <div className="absolute top-[100%] left-1/2 transform -translate-x-1/2 w-20 h-20 ">
+          <div className="absolute top-[100%] left-1/2 transform -translate-x-1/2 w-28 h-28 ">
             <Image
               src="/images/CShopCard/timeline/logo1.png"
               alt="logo1"

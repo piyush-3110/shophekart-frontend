@@ -61,6 +61,25 @@ export enum ButtonShape {
 }
 
 /**
+ * Enum of possible button types.
+ * @enum {string}
+ */
+export enum ButtonType {
+  /**
+   * button button type.
+   */
+  BUTTON = "button",
+  /**
+   * submit button type.
+   */
+  SUBMIT = "submit",
+  /**
+   * reset button type.
+   */
+  RESET = "reset",
+}
+
+/**
  * Interface for Button component props.
  * @interface
  */
@@ -71,6 +90,12 @@ type ButtonProps = {
    * @memberof ButtonProps
    */
   variant?: ButtonVariant;
+  /**
+   * The type of the button (BUTTON, SUBMIT, RESET).
+   * Defaults to BUTTON.
+   * @memberof ButtonProps
+   */
+  type?: ButtonType;
   /**
    * The size of the button (SMALL, MEDIUM, LARGE).
    * Defaults to MEDIUM.
@@ -162,6 +187,7 @@ const useShapeStyles = {
 const Button: React.FC<ButtonProps> = ({
   children,
   className,
+  type = ButtonType.BUTTON,
   variant = ButtonVariant.PRIMARY,
   size = ButtonSize.MEDIUM,
   shape = ButtonShape.SQUARE,
@@ -170,7 +196,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       {...props}
-      type="button"
+      type={type}
       className={twMerge(
         useStyles[variant],
         useSizeStyles[size],

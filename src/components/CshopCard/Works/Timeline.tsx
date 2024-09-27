@@ -8,7 +8,7 @@ const Timeline = () => {
       <div className="">
         <div className="h-[350vh] bg-[#47597C] w-[1px] mx-auto relative">
           {/* First set */}
-          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-20 h-20 ">
+          <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-20 h-20 ">
             <Image
               src="/images/CShopCard/timeline/logo1.png"
               alt="logo1"
@@ -40,6 +40,14 @@ const Timeline = () => {
               height={204}
               width={204}
             />
+                   <div
+  className="absolute h-[1px] w-[65px]  -right-[59px] top-1/2 -translate-y-1/2"
+  style={{
+    border: '1px solid transparent', // Set transparent to enable gradient
+    borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 53.5%, rgba(255, 255, 255, 0.005) 100%)',
+    borderImageSlice: 1, // Ensures the gradient is applied
+  }}
+></div>
           </div>
           <div className="absolute top-[10%] left-[100px] z-0">
             <WorksCard
@@ -56,6 +64,14 @@ const Timeline = () => {
               height={204}
               width={204}
             />
+            <div
+  className="absolute h-[1px] w-[145px] right-[75px] top-1/2 -translate-y-1/2"
+  style={{
+    border: '1px solid transparent', // Set transparent to enable gradient
+    borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 53.5%, rgba(255, 255, 255, 0.005) 100%)',
+    borderImageSlice: 1, // Ensures the gradient is applied
+  }}
+></div>
           </div>
           <div className="absolute top-[20%] -left-[450px] z-0">
             <WorksCard
@@ -72,6 +88,14 @@ const Timeline = () => {
               height={204}
               width={204}
             />
+            <div
+  className="absolute h-[1px] w-[65px]  -right-[59px] top-1/2 -translate-y-1/2"
+  style={{
+    border: '1px solid transparent', // Set transparent to enable gradient
+    borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 53.5%, rgba(255, 255, 255, 0.005) 100%)',
+    borderImageSlice: 1, // Ensures the gradient is applied
+  }}
+></div>
           </div>
           <div className="absolute top-[30%] left-[100px] z-0">
             <WorksCard
@@ -88,6 +112,14 @@ const Timeline = () => {
               height={204}
               width={204}
             />
+            <div
+  className="absolute h-[1px] w-[145px] right-[75px] top-1/2 -translate-y-1/2"
+  style={{
+    border: '1px solid transparent', // Set transparent to enable gradient
+    borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 53.5%, rgba(255, 255, 255, 0.005) 100%)',
+    borderImageSlice: 1, // Ensures the gradient is applied
+  }}
+></div>
           </div>
           <div className="absolute top-[40%] -left-[450px] z-0">
             <WorksCard
@@ -104,6 +136,14 @@ const Timeline = () => {
               height={204}
               width={204}
             />
+            <div
+  className="absolute h-[1px] w-[65px]  -right-[59px] top-1/2 -translate-y-1/2"
+  style={{
+    border: '1px solid transparent', // Set transparent to enable gradient
+    borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 53.5%, rgba(255, 255, 255, 0.005) 100%)',
+    borderImageSlice: 1, // Ensures the gradient is applied
+  }}
+></div>
           </div>
           <div className="absolute top-[50%] left-[100px] z-0">
             <WorksCard
@@ -120,6 +160,14 @@ const Timeline = () => {
               height={204}
               width={204}
             />
+            <div
+  className="absolute h-[1px] w-[145px] right-[75px] top-1/2 -translate-y-1/2"
+  style={{
+    border: '1px solid transparent', // Set transparent to enable gradient
+    borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 53.5%, rgba(255, 255, 255, 0.005) 100%)',
+    borderImageSlice: 1, // Ensures the gradient is applied
+  }}
+></div>
           </div>
           <div className="absolute top-[60%] -left-[450px] z-0">
             <WorksCard
@@ -136,6 +184,14 @@ const Timeline = () => {
               height={204}
               width={204}
             />
+            <div
+  className="absolute h-[1px] w-[65px]  -right-[59px] top-1/2 -translate-y-1/2"
+  style={{
+    border: '1px solid transparent', // Set transparent to enable gradient
+    borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 53.5%, rgba(255, 255, 255, 0.005) 100%)',
+    borderImageSlice: 1, // Ensures the gradient is applied
+  }}
+></div>
           </div>
           <div className="absolute top-[70%] left-[100px] z-0">
             <WorksCard
@@ -152,6 +208,14 @@ const Timeline = () => {
               height={204}
               width={204}
             />
+            <div
+  className="absolute h-[1px] w-[145px] right-[75px] top-1/2 -translate-y-1/2"
+  style={{
+    border: '1px solid transparent', // Set transparent to enable gradient
+    borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 53.5%, rgba(255, 255, 255, 0.005) 100%)',
+    borderImageSlice: 1, // Ensures the gradient is applied
+  }}
+></div>
           </div>
           <div className="absolute top-[80%] -left-[450px] z-0">
             <WorksCard
@@ -168,6 +232,14 @@ const Timeline = () => {
               height={204}
               width={204}
             />
+            <div
+  className="absolute h-[1px] w-[65px]  -right-[59px] top-1/2 -translate-y-1/2"
+  style={{
+    border: '1px solid transparent', // Set transparent to enable gradient
+    borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 53.5%, rgba(255, 255, 255, 0.005) 100%)',
+    borderImageSlice: 1, // Ensures the gradient is applied
+  }}
+></div>
           </div>
           <div className="absolute top-[90%] left-[100px] z-0">
             <WorksCard
@@ -184,6 +256,14 @@ const Timeline = () => {
               height={204}
               width={204}
             />
+            <div
+  className="absolute h-[1px] w-[145px] right-[75px] top-1/2 -translate-y-1/2"
+  style={{
+    border: '1px solid transparent', // Set transparent to enable gradient
+    borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 53.5%, rgba(255, 255, 255, 0.005) 100%)',
+    borderImageSlice: 1, // Ensures the gradient is applied
+  }}
+></div>
           </div>
           <div className="absolute top-[100%] -left-[450px] z-0">
             <WorksCard

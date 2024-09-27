@@ -193,3 +193,33 @@ input[type="number"] {
     @apply bg-background text-foreground;
   }
 }
+/* globals.css */
+.custom-grid-border {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+
+  border: 1px solid transparent;
+
+  border-image-slice: 1;
+}
+
+.custom-grid-border .card {
+  border-bottom: 1px solid #6b7280;
+  border-right: 1px solid #6b7280;
+}
+
+.custom-grid-border .card:nth-child(4n) {
+  border-right: 0; /* Remove border-right for last column */
+}
+
+.custom-grid-border .card:nth-last-child(-n + 4) {
+  border-bottom: 0; /* Remove border-bottom for last row */
+}
+
+.custom-grid-border .card:nth-child(-n + 4) {
+  border-top: 0; /* Remove top border for the first row */
+}
+
+.custom-grid-border .card:nth-last-child(-n + 4) {
+  border-bottom: 0; /* Remove bottom border for the last row */
+}

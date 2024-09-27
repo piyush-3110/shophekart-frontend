@@ -15,6 +15,15 @@ const Timeline = () => {
               height={204}
               width={204}
             />
+          <div
+  className="absolute h-[1px] w-[145px] right-[75px] top-1/2 -translate-y-1/2"
+  style={{
+    border: '1px solid transparent', // Set transparent to enable gradient
+    borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 53.5%, rgba(255, 255, 255, 0.005) 100%)',
+    borderImageSlice: 1, // Ensures the gradient is applied
+  }}
+></div>
+
           </div>
           <div className="absolute top-0 -left-[450px] z-0">
             <WorksCard

@@ -2,6 +2,13 @@ import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import FloatingNavbar from "@/components/Navbar/FloatingNavbar";
+import Web3ModalProvider from "@/context/Web3ModalProvider";
+import { headers } from "next/headers";
+
+import { cookieToInitialState } from "wagmi";
+
+import { config } from "@/config";
+
 const dm = DM_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
@@ -17,14 +24,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const initialState = cookieToInitialState(config, headers().get("cookie"));
+
   return (
     <html lang="en">
       <head>
         <link rel="icon" href="./images/shared/favicon.png" />
       </head>
       <body className={`${dm.className} antialiased overflow-x-hidden`}>
-        <FloatingNavbar />
-        {children}
+        <Web3ModalProvider initialState={initialState}>
+          <FloatingNavbar />
+          {children}
+        </Web3ModalProvider>
       </body>
     </html>
   );

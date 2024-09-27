@@ -11,10 +11,10 @@ import {
   FaFileAlt,
   FaBookOpen,
 } from "react-icons/fa";
-import ConnectButton from "./ConnectButton";
 
 import NavbarLinks from "./NavbarLinks";
 import Link from "next/link";
+import UserProfileDropdownButton from "../shared/UserProfileDropdownButton";
 
 export default function FloatingNavbar() {
   const [isVisible, setIsVisible] = useState(true);
@@ -67,7 +67,7 @@ export default function FloatingNavbar() {
           <NavbarLinks />
 
           {/* Connect Wallet Button */}
-          <ConnectButton />
+          <UserProfileDropdownButton />
         </div>
 
         {/* Hamburger/Close Icon for Small and Medium Screens */}
@@ -132,7 +132,7 @@ export default function FloatingNavbar() {
               <span>Whitepaper</span>
             </Link>
             {/* Connect Wallet button inside the dropdown */}
-            <ConnectButton />
+            <UserProfileDropdownButton />
           </>
         )}
       </div>

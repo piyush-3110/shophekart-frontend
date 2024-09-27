@@ -15,7 +15,7 @@ const DISCONNECTED_BUTTON_CLASS = "border border-[#022AFF] text-[#022AFF]";
 
 const ConnectWalletButton = () => {
   const { open } = useWeb3Modal();
-  const { address: walletAddress, isConnecting } = useAccount({ config });
+  const { address: walletAddress } = useAccount({ config });
 
   const handleClick = () => {
     open();
@@ -25,21 +25,13 @@ const ConnectWalletButton = () => {
     <button
       type="button"
       aria-label={walletAddress ? "Disconnect wallet" : "Connect wallet"}
-      disabled={isConnecting}
-      {...(isConnecting
-        ? { "aria-busy": true, "aria-disabled": true }
-        : { "aria-busy": false, "aria-disabled": false })}
       className={cn(
         "hover:bg-blue-100/50 py-2 px-4 rounded-sm",
-        !walletAddress || isConnecting
-          ? DISCONNECTED_BUTTON_CLASS
-          : CONNECTED_BUTTON_CLASS
+        !walletAddress ? DISCONNECTED_BUTTON_CLASS : CONNECTED_BUTTON_CLASS
       )}
       onClick={handleClick}
     >
-      {isConnecting ? (
-        <span>Connecting...</span>
-      ) : walletAddress ? (
+      {walletAddress ? (
         <div className="flex gap-1 items-center">
           <Image
             src={CHECK_ICON_SRC}

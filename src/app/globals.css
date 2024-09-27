@@ -110,7 +110,7 @@ input[type="number"] {
   z-index: 0; /* Ensure it stays behind the content */
 }
 
-@media (max-width: 768px) {
+@media (max-width: 820px) {
   /* md breakpoint (medium screens and up) */
   .blob {
     display: none;
@@ -191,5 +191,98 @@ input[type="number"] {
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+.custom-grid-border {
+  display: grid;
+  grid-template-columns: repeat(
+    4,
+    1fr
+  ); /* Default to 4 columns for large screens */
+  width: 90%; /* Specify a width greater than medium screens */
+  margin: 0 auto; /* Center the grid */
+  border: 1px solid transparent;
+  border-image-slice: 1;
+}
+
+/* Default card styles - ensure all borders are added for all screen sizes */
+.custom-grid-border .card {
+  border-bottom: 1px solid #6b7280; /* Bottom border */
+  border-right: 1px solid #6b7280; /* Right border */
+}
+
+/* Medium screens (md) */
+@media (max-width: 768px) {
+  .custom-grid-border {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    width: 90%; /* Adjust width for medium screens */
+  }
+
+  /* Ensure all borders are added */
+  .custom-grid-border .card {
+    border-bottom: 1px solid #6b7280; /* Ensure bottom border exists */
+    border-right: 1px solid #6b7280; /* Ensure right border exists */
+  }
+
+  /* Remove right border for the last column in 3 columns */
+  .custom-grid-border .card:nth-child(3n) {
+    border-right: 0;
+  }
+
+  /* Remove bottom border for the last row in 3 columns */
+  .custom-grid-border .card:nth-last-child(-n + 3) {
+    border-bottom: 0; /* Adjust according to how many cards are there */
+  }
+
+  /* Remove top border for the first row in 3 columns */
+  .custom-grid-border .card:nth-child(-n + 3) {
+    border-top: 0;
+  }
+}
+
+/* Small screens (sm) */
+@media (max-width: 640px) {
+  .custom-grid-border {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    width: 95%;
+    /* Adjust width for small screens */
+  }
+  /* Ensure all borders are added */
+  .custom-grid-border .card {
+    border-bottom: 1px solid #6b7280; /* Ensure bottom border exists */
+    border-right: 1px solid #6b7280; /* Ensure right border exists */
+  }
+
+  /* Remove right border for the last column in 2 columns */
+  .custom-grid-border .card:nth-child(2n) {
+    border-right: 0;
+  }
+
+  /* Remove bottom border for the last row in 2 columns */
+  .custom-grid-border .card:nth-last-child(-n + 2) {
+    border-bottom: 0; /* Adjust according to how many cards are there */
+  }
+
+  /* Remove top border for the first row in 2 columns */
+  .custom-grid-border .card:nth-child(-n + 2) {
+    border-top: 0;
+  }
+}
+
+/* Remove borders for large screens */
+@media (min-width: 768px) {
+  /* Remove right border for the last column in 4 columns */
+  .custom-grid-border .card:nth-child(4n) {
+    border-right: 0; /* Only for large screens */
+  }
+
+  /* Remove bottom border for the last row in large screens */
+  .custom-grid-border .card:nth-last-child(-n + 4) {
+    border-bottom: 0;
+  }
+
+  /* Remove top border for the first row in large screens */
+  .custom-grid-border .card:nth-child(-n + 4) {
+    border-top: 0;
   }
 }

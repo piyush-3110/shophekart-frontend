@@ -5,59 +5,61 @@ import WorksCard from "./WorksCard";
 // Array to store the content for each section
 const timelineData = [
   {
-    heading: "Spend Instantly",
+    heading: "Activate Your Card",
     content:
-      "Once your card is topped up, you can start spending immediately with any supported retailer. Enjoy the flexibility of using your cryptocurrency in the real world.",
+      "Once you receive your Shophekart MasterCard (either physical or virtual), the first step is to activate it. For the physical card, follow the instructions provided during delivery, while the virtual card is activated immediately after issuance. To activate, log in to your Shophekart dashboard and navigate to the Card Management section. Here, you'll see an option to activate your card by confirming your details and setting up your card's PIN for secure transactions.",
   },
   {
-    heading: "Instant Access",
+    heading: "Top Up Your Card",
     content:
-      "With your card topped up, enjoy instant access to your funds, making shopping quick and easy.",
+      "Before making purchases, top up your card with any of the supported cryptocurrencies, such as USDT, USDC, or CSHOP tokens. Simply transfer your crypto from your wallet to your card through the Shophekart platform.You can top up as frequently as needed, and all funds will be available for instant use.",
   },
   {
-    heading: "Secure Transactions",
+    heading: "Select Your Payment Currency",
     content:
-      "Shop with confidence knowing your transactions are secured with the latest technology.",
+      "The CSHOP MasterCard supports multiple currencies. Depending on your location or the merchant's preferred currency, the card will automatically convert your crypto into the local fiat currency. If you want to avoid exchange rate fluctuations, use the Lock Exchange Rate feature to secure a favorable rate before making purchases.",
   },
   {
-    heading: "Real-World Spending",
+    heading: "Online Transactions",
     content:
-      "Easily spend your crypto at any retailer that accepts our cards, bridging the gap between digital and physical.",
+      "For online purchases, enter your card details (either virtual or physical) at checkout, just like a regular credit or debit card. For added security, you may be prompted to verify the transaction via 2-factor authentication through the Shophekart app.",
   },
   {
-    heading: "Track Your Spending",
+    heading: "In-Store Purchases",
     content:
-      "Monitor your expenses and manage your finances effectively with our user-friendly app.",
+      "The CSHOP MasterCard supports multiple currencies. Depending on your location or the merchant's preferred currency, the card will automatically convert your crypto into the local fiat currency. If you want to avoid exchange rate fluctuations, use the Lock Exchange Rate feature to secure a favorable rate before making purchases.",
   },
   {
-    heading: "Flexible Spending",
+    heading: "ATM Withdrawals",
     content:
-      "Spend your cryptocurrency as you wish without restrictions on where or how.",
+      "Withdraw cash at any ATM that supports MasterCard transactions. With a generous monthly withdrawal limit of up to €60,000, you can access your funds without significant restrictions.",
   },
   {
-    heading: "Flexible Spending",
+    heading: "Monitor Your Card Activity",
     content:
-      "Spend your cryptocurrency as you wish without restrictions on where or how.",
+      "Keep track of your spending, top-ups, and remaining balances through the Shophekart dashboard. You'll also be able to view your locked exchange rates, transaction history, and manage any business-related expenses (if using the CSHOP Business Card).",
   },
   {
-    heading: "Flexible Spending",
+    heading: "Real-Time Control for Business Users",
     content:
-      "Spend your cryptocurrency as you wish without restrictions on where or how.",
+      "For business users, the CSHOP Business Card allows you to set real-time spending rules, track employee transactions, and manage operational expenses efficiently. You can assign cards to staff members, set limits, and control spending from a central dashboard.",
   },
   {
-    heading: "Flexible Spending",
+    heading: "Security and Protection",
     content:
-      "Spend your cryptocurrency as you wish without restrictions on where or how.",
+      "Enjoy peace of mind with CCSS Level 3 security, ensuring your crypto funds and card data are safe. If your card is lost or stolen, immediately freeze or cancel it through your dashboard to prevent unauthorized use.",
+  },
+
+ 
+  {
+    heading: "Access Customer Support",
+    content:
+      "If you run into any issues or need assistance, reach out to Shophekart's 24/7 customer support team, available through chat, email, or phone",
   },
   {
-    heading: "Flexible Spending",
+    heading: "Physical or Virtual? The Choice is Yours!",
     content:
-      "Spend your cryptocurrency as you wish without restrictions on where or how.",
-  },
-  {
-    heading: "Flexible Spending",
-    content:
-      "Spend your cryptocurrency as you wish without restrictions on where or how.",
+      "Apply for a physical or virtual card and start spending immediately. The virtual card option allows you to begin online transactions instantly, while the physical card integrates your cryptocurrency spending into your daily life, tourism, and even business activities.",
   },
 ];
 
@@ -82,9 +84,9 @@ const Timeline = () => {
               {/* Connecting line */}
               <div
                 className={
-                  index % 2 === 0
+                  index % 2 === 1
                     ? "absolute h-[1px] w-[145px] right-[75px] top-1/2 -translate-y-1/2"
-                    : "absolute h-[1px] w-[65px] -right-[59px] top-1/2 -translate-y-1/2"
+                    : "absolute h-[1px] w-[85px] -right-[59px] top-1/2 -translate-y-1/2"
                 }
                 style={{
                   border: "1px solid transparent",
@@ -98,7 +100,7 @@ const Timeline = () => {
             {/* WorksCard section */}
             <div
               className={
-                index % 2 === 0
+                index % 2 === 1
                   ? `absolute top-[${index * 10}%] -left-[450px] z-0`
                   : `absolute top-[${index * 10}%] left-[100px] z-0`
               }

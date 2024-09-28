@@ -66,7 +66,7 @@ const timelineData = [
 const Timeline = () => {
   return (
     <div className="">
-      <div className="h-[350vh] bg-[#47597C] w-[1px] mx-auto relative">
+      <div className="md:h-[350vh] h-[600vh] bg-[#47597C] w-[1px] ml-12 lg:mx-auto relative">
         {timelineData.map((data, index) => (
           <div key={index}>
             {/* Timeline logos */}
@@ -85,8 +85,8 @@ const Timeline = () => {
               <div
                 className={
                   index % 2 === 1
-                    ? "absolute h-[1px] w-[145px] right-[75px] top-1/2 -translate-y-1/2"
-                    : "absolute h-[1px] w-[85px] -right-[59px] top-1/2 -translate-y-1/2"
+                    ? "absolute h-[1px]  lg:w-[145px] w-[85px] -right-[30px] md:-right-[59px] lg:right-[75px] top-1/2 -translate-y-1/2"
+                    : "absolute h-[1px] w-[85px]  -right-[30px] md:-right-[59px] top-1/2 -translate-y-1/2"
                 }
                 style={{
                   border: "1px solid transparent",
@@ -101,8 +101,8 @@ const Timeline = () => {
             <div
               className={
                 index % 2 === 1
-                  ? `absolute top-[${index * 10}%] -left-[450px] z-0`
-                  : `absolute top-[${index * 10}%] left-[100px] z-0`
+                  ? `absolute top-[${index * 10}%] left-[50px] md:left-[100px] lg:-left-[450px] z-0`
+                  : `absolute top-[${index * 10}%] left-[50px] md:left-[100px] z-0`
               }
             >
               <WorksCard heading={data.heading} content={data.content} />

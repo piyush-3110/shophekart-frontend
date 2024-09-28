@@ -6,7 +6,7 @@ import Timeline from './Timeline'
 export const Works = () => {
    
   return (
-    <div className='min-h-[100vh] bg-black pb-40'>
+    <div className='min-h-[100vh] bg-black pb-[23rem] md:pb-[18rem]'>
            <h1 className="text-white font-semibold py-16 md:text-3xl text-lg text-center">
        How It Works
       </h1>

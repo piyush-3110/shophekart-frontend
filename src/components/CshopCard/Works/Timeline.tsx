@@ -34,6 +34,31 @@ const timelineData = [
     content:
       "Spend your cryptocurrency as you wish without restrictions on where or how.",
   },
+  {
+    heading: "Flexible Spending",
+    content:
+      "Spend your cryptocurrency as you wish without restrictions on where or how.",
+  },
+  {
+    heading: "Flexible Spending",
+    content:
+      "Spend your cryptocurrency as you wish without restrictions on where or how.",
+  },
+  {
+    heading: "Flexible Spending",
+    content:
+      "Spend your cryptocurrency as you wish without restrictions on where or how.",
+  },
+  {
+    heading: "Flexible Spending",
+    content:
+      "Spend your cryptocurrency as you wish without restrictions on where or how.",
+  },
+  {
+    heading: "Flexible Spending",
+    content:
+      "Spend your cryptocurrency as you wish without restrictions on where or how.",
+  },
 ];
 
 const Timeline = () => {

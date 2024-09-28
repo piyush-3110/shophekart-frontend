@@ -101,9 +101,10 @@ const Timeline = () => {
             <div
               className={
                 index % 2 === 1
-                  ? `absolute top-[${index * 10}%] left-[50px] md:left-[100px] lg:-left-[450px] z-0`
-                  : `absolute top-[${index * 10}%] left-[50px] md:left-[100px] z-0`
+                  ? `absolute  left-[50px] md:left-[100px] lg:-left-[450px] z-0`
+                  : `absolute  left-[50px] md:left-[100px] z-0`
               }
+              style={{ top: `${index * 10}%` }}
             >
               <WorksCard heading={data.heading} content={data.content} />
             </div>

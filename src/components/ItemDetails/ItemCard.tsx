@@ -10,11 +10,11 @@ const ItemCard: React.FC<ItemCardProps> = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(images[0]);
 
   return (
-    <div className="bg-[#F4F6FA] shadow-sm p-4 rounded-lg w-[22rem]">
+    <div className="bg-[#F4F6FA] shadow-sm p-4 rounded-lg h-[28rem] w-[22rem]">
       {/* Main Image */}
       <div className="mb-4">
         <img
-          className="w-full bg-[#F4F6FA] h-[14rem] object-contain rounded-md"
+          className="w-full bg-[#F4F6FA] h-[80%] object-contain rounded-md"
           src={selectedImage}
           alt="Main Item"
         />

@@ -14,16 +14,12 @@ export const ItemDetail = () => {
     <div className='bg-white px-12 py-8'>
     <div className='flex flex-col items-center justify-center gap-8'>
       
-        <div className='flex gap-6 items-center justify-center'>
-              {/* {Item Details Section} */}
+        <div className='flex gap-6 items-center justify-center'> {/* {Item Details Section} */}
+              
               <div>
-          {/* Item Image Section */}
-
-                <ItemCard images={imageUrls} />
+   <ItemCard images={imageUrls} />
               </div>
-<div className='flex flex-col gap-3'>
-         {/* Item Description Section */}
-         <Rating ratingValue={3.5} />
+<div className='flex flex-col gap-3'>  
 </div>
         </div>
         <div>

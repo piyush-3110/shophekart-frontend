@@ -1,5 +1,6 @@
 import React from 'react'
 import { ItemReview } from './ItemReview'
+import ItemCard from './ItemCard'
 
 export const ItemDetail = () => {
   return (
@@ -11,7 +12,7 @@ export const ItemDetail = () => {
               <div>
           {/* Item Image Section */}
 
-                <ItemDetail/>
+                <ItemCard/>
               </div>
 <div className='flex flex-col gap-3'>
          {/* Item Description Section */}

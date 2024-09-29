@@ -1,8 +1,11 @@
+import { ItemDetail } from '@/components/ItemDetails/ItemDetail'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>page</div>
+    <div>
+        <ItemDetail/>
+    </div>
   )
 }
 

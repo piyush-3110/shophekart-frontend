@@ -94,7 +94,7 @@ export const ItemDescription = () => {
           <p className="text-sm font-[400] text-[#6B6F93]">Global Shipping</p>
         </div>
       </div>
-      <p className="text-sm font-[400] mt-3 text-[#6B6F93]">Current Bid</p>
+      <p className="text-sm font-[400]  text-[#6B6F93]">Current Bid</p>
       <div className="flex gap-2 items-center">
         <h1 className="text-[#160041] font-[700] text-xl">120 CSHOP</h1>
         <div className="w-[1px] bg-[#6B6F93] h-4"></div>
@@ -182,7 +182,7 @@ export const ItemDescription = () => {
           </div>
         </div>
       </div>
-      <div></div>
+      <button className="gradient-button mt-3 !text-sm !w-fit">Place a bid</button>
     </div>
   );
 };

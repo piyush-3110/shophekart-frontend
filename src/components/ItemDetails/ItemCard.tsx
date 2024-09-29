@@ -10,7 +10,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(images[0]);
 
   return (
-    <div className="bg-[#F4F6FA] shadow-sm p-4 rounded-lg h-[28rem] w-[20rem] lg:w-[22rem]">
+    <div className="bg-[#F4F6FA] shadow-sm p-4 rounded-lg h-[28rem] w-[90vw] md:w-[20rem] lg:w-[22rem]">
       {/* Main Image */}
       <div className="mb-4">
         <img

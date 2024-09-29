@@ -27,7 +27,7 @@ export const ItemDescription = () => {
   ];
 
   return (
-    <div className="flex flex-col gap-3 w-[50vw] lg:w-[40vw]">
+    <div className="flex flex-col gap-3 pl-4 md:pl-0 w-[95vw] md:w-[50vw] lg:w-[40vw]">
       <ItemInfoHeader />
       <ItemDescriptionText />
       <div className="flex justify-between items-center">

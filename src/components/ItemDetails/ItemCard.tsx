@@ -1,36 +1,32 @@
-"use client"
+"use client";
 import React, { useState } from 'react';
 
-const ItemCard = () => {
-  // State to keep track of the currently selected image
-  const [selectedImage, setSelectedImage] = useState('https://via.placeholder.com/300x200');
+interface ItemCardProps {
+  images: string[]; // Array of image URLs passed as a prop
+}
 
-  // List of thumbnail images
-  const thumbnails = [
-    'https://via.placeholder.com/300x200', // Default main image
-    'https://via.placeholder.com/300x201',
-    'https://via.placeholder.com/300x202',
-    'https://via.placeholder.com/300x203',
-  ];
+const ItemCard: React.FC<ItemCardProps> = ({ images }) => {
+  // Use the first image in the array as the default selected image
+  const [selectedImage, setSelectedImage] = useState(images[0]);
 
   return (
-    <div className=" bg-[#F4F6FA] shadow-sm p-4 rounded-lg w-[22rem]">
+    <div className="bg-[#F4F6FA] shadow-sm p-4 rounded-lg w-[22rem]">
       {/* Main Image */}
-      <div className=" mb-4">
+      <div className="mb-4">
         <img
-          className="w-full bg-[#F4F6FA] h-[14rem] object-cover rounded-md"
+          className="w-full bg-[#F4F6FA] h-[14rem] object-contain rounded-md"
           src={selectedImage}
           alt="Main Item"
         />
       </div>
 
       {/* Thumbnails */}
-      <div className=" grid grid-cols-4 gap-2">
-        {thumbnails.map((thumbnail, index) => (
+      <div className="grid grid-cols-4 gap-2">
+        {images.map((thumbnail, index) => (
           <img
             key={index}
-            className={` w-full h-16 bg-white object-cover rounded-md cursor-pointer ${
-              selectedImage === thumbnail ? 'border-2 border-blue-500' : ''
+            className={`w-full h-16 bg-white object-contain rounded-md cursor-pointer ${
+              selectedImage === thumbnail ? 'border-1 border-blue-300' : ''
             }`}
             src={thumbnail}
             alt={`Thumbnail ${index + 1}`}

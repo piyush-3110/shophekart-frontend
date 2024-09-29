@@ -1,7 +1,7 @@
 import React from 'react'
 import { ItemReview } from './ItemReview'
 import ItemCard from './ItemCard'
-import Rating from './Rating';
+import { ItemDescription } from './ItemDescription';
 
 export const ItemDetail = () => {
     const imageUrls = [
@@ -16,10 +16,11 @@ export const ItemDetail = () => {
       
         <div className='flex gap-6 items-center justify-center'> {/* {Item Details Section} */}
               
-              <div>
+              <div >
    <ItemCard images={imageUrls} />
               </div>
-<div className='flex flex-col gap-3'>  
+<div className=''>  
+    <ItemDescription/>
 </div>
         </div>
         <div>

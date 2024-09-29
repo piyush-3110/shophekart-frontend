@@ -31,6 +31,11 @@ Made by new technic corduroy, sturdier than normal fabric. Super soft and lightw
         <h1 className='text-sm text-[#160041] font-[400]'>Auction Ends In:</h1>
         <Countdown targetDate="2024-10-10T15:30:00Z" />
     </div>
+    <div className='flex gap-2 items-center'>
+        <Image src="/images/itemDetails/shipping.png" alt="logo" width={19} height={19}/>
+    <p className='text-sm font-[400] text-[#6B6F93]'>Global Shipping</p>
+
+    </div>
 </div>
     </div>
   )

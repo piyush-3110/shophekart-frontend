@@ -8,6 +8,7 @@ import Countdown from './CountDown';
 export const ItemDescription = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [selectedSize, setSelectedSize] = useState<string | null>('S'); // State to track the selected size
 
   // Toggle dropdown open/close on click
   const toggleDropdown = () => {
@@ -29,8 +30,12 @@ export const ItemDescription = () => {
     };
   }, []);
 
+  const handleSizeClick = (size: string) => {
+    setSelectedSize(size); // Update selected size when user clicks on a size
+  };
+
   return (
-    <div className='flex flex-col gap-3  w-[40vw]'>
+    <div className='flex flex-col gap-3 w-[40vw]'>
       <div className='rounded-xl bg-[#022BFF] w-fit px-3 py-1 text-white text-sm'>Bags</div>
       <h1 className='text-[#160041] font-[700] text-xl'>Camera Sling Bag</h1>
       <div className='flex gap-2 items-center'>
@@ -84,6 +89,38 @@ export const ItemDescription = () => {
               </div>
             )}
           </div>
+        </div>
+      </div>
+      <div className='flex gap-8 items-start'>
+        <div>
+          <p className='text-sm font-[400] text-[#6B6F93]'>Size</p>
+          <div className='flex gap-1 mt-2'>
+            {/* Add bg-[#160041] when a size is selected */}
+            <div 
+              className={`text-center text-md font-[700] py-1 px-2 cursor-pointer ${selectedSize === 'S' ? 'bg-[#160041] text-white' : 'bg-[#F4F6FA] text-black'}`}
+              onClick={() => handleSizeClick('S')}
+            >
+              S
+            </div>
+            <div 
+              className={`text-center text-md font-[700] py-1 px-2 cursor-pointer ${selectedSize === 'M' ? 'bg-[#160041] text-white' : 'bg-[#F4F6FA] text-black'}`}
+              onClick={() => handleSizeClick('M')}
+            >
+              M
+            </div>
+            <div 
+              className={`text-center text-md font-[700] py-1 px-2 cursor-pointer ${selectedSize === 'L' ? 'bg-[#160041] text-white' : 'bg-[#F4F6FA] text-black'}`}
+              onClick={() => handleSizeClick('L')}
+            >
+              L
+            </div>
+
+
+        </div>
+        </div>
+        <div>
+        <p className='text-sm font-[400]  text-[#6B6F93]'>Colors</p>
+        {/* {add colors like yellow , blue , green , red add the circle of the colors like standard website do and make the selected color outline turn blue by default yellow is selected  } */}
         </div>
       </div>
     </div>

@@ -30,7 +30,7 @@ export const ItemDescription = () => {
     <div className="flex flex-col gap-3 pl-4 md:pl-0 w-[95vw] md:w-[50vw] lg:w-[40vw]">
       <ItemInfoHeader />
       <ItemDescriptionText />
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center">
         <div className="flex gap-2 items-center">
           <h1 className="text-sm text-[#160041] font-[400]">Auction Ends In:</h1>
           <Countdown targetDate="2024-10-10T15:30:00Z" />

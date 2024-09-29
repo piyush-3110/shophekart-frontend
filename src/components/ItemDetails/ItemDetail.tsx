@@ -1,7 +1,8 @@
 import React from 'react'
-import { ItemReview } from './ItemReview'
+
 import ItemCard from './ItemCard'
 import { ItemDescription } from './ItemDescription';
+import { ReviewCard } from './ReviewCard';
 
 export const ItemDetail = () => {
     const imageUrls = [
@@ -24,7 +25,12 @@ export const ItemDetail = () => {
 </div>
         </div>
         <div>
-<ItemReview/>
+        <div className='flex w-[70vw] justify-between items-center '>
+      <h1 className="text-[#160041] font-[700] text-lg">Comments</h1>
+      <button className='py-2 px-4 border-[1px] text-[#022AFF] text-sm border-[#022AFF]'> Write a comment</button>
+            
+        </div>
+<ReviewCard/>
         </div>
     </div>
     </div>

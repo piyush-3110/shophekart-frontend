@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect } from 'react';
 import { IoClose } from 'react-icons/io5'; // Close icon (install react-icons if not installed)
+import { Slider } from './Slider';
 
 interface ModalProps {
   isOpen: boolean;
@@ -41,10 +42,9 @@ export const PurchaseHistoryModal: React.FC<ModalProps> = ({ isOpen, onClose }) 
         </button>
 
         {/* Modal Content */}
-        <div className="overflow-y-auto h-full">
+        <div className="overflow-y-auto flex flex-col py-4  h-full">
         <h1 className="text-[#160041] font-[700] text-center text-xl">Purchase History</h1>
-
-        
+        <Slider/>
         </div>
       </div>
     </div>

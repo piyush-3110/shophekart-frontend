@@ -42,8 +42,9 @@ export const PurchaseHistoryModal: React.FC<ModalProps> = ({ isOpen, onClose }) 
 
         {/* Modal Content */}
         <div className="overflow-y-auto h-full">
-          <h2 className="text-xl font-bold mb-4">Purchase History</h2>
-          <p>Your purchase history will be displayed here.</p>
+        <h1 className="text-[#160041] font-[700] text-center text-xl">Purchase History</h1>
+
+        
         </div>
       </div>
     </div>

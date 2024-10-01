@@ -25,7 +25,7 @@ const TableForSale: React.FC<TableProps> = ({ headers, data }) => {
   return (
     <div className="w-full py-4">
       {/* Table Header */}
-      <div className="grid grid-cols-6 text-left font-bold text-[#6B6F93] text-[18px] py-4">
+      <div className="grid grid-cols-6 text-left font-bold gap-3 text-[#6B6F93] text-[18px] py-4">
         {headers.map((header, index) => (
           <p key={index} className={`col-span-${header.span || 1}`}>
             {header.title}
@@ -50,8 +50,8 @@ const TableForSale: React.FC<TableProps> = ({ headers, data }) => {
           <p className="text-[#160041] text-sm">{item.price}</p>
           <p className="text-[#160041] text-sm">{item.shipping}</p>
           <div className="flex space-x-2">
-            <button className="text-blue-500 text-sm">Edit</button>
-            <button className="text-red-500 text-sm">Delete</button>
+            <button className="text-blue-500 text-sm font-[700]">Edit</button>
+            <button className="text-red-500 text-sm font-[700]">Delete</button>
           </div>
         </div>
       ))}

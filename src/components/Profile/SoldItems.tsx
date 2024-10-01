@@ -1,7 +1,10 @@
 import React from 'react'
+import { ProductCard } from './ProductCard'
 
 export const SoldItems = () => {
   return (
-    <div>Items</div>
+    <div>
+      <ProductCard/>
+    </div>
   )
 }

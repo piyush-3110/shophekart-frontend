@@ -24,7 +24,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
   unhelpfulCount,
 }) => {
   return (
-    <div className='flex gap-4 mt-6'>
+    <div className='flex gap-4 mt-6 py-3'>
       <Image src={avatarUrl} alt='avatar' height={74} width={74} className='h-12 w-12' />
       <div className='flex flex-col gap-2'>
         <div className='flex items-center gap-3'>

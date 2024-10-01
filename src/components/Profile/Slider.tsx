@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import SoldItems  from './SoldItems';
 import ItemsForSale  from './ItemsForSale';
-import { ReviewCard } from '../ItemDetails/ReviewCard';
+import { ReviewSection } from './ReviewSection';
 
 export const Slider = () => {
   // State to manage the active tab
@@ -16,7 +16,7 @@ export const Slider = () => {
       case 'itemsForSale':
         return <ItemsForSale />;
       case 'comments':
-        return <ReviewCard />;
+        return <ReviewSection />;
       default:
         return null;
     }

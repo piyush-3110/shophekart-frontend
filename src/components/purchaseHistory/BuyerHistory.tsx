@@ -21,7 +21,7 @@ const BuyerHistory: React.FC = () => {
       soldPrice: "12 CSHOP",
     },
     {
-      imageUrl: "/images/itemDetails/shoes.png",
+      imageUrl: "/images/itemDetails/bag.png",
       category: "Shoes",
       status: "Received",
       title: "Running Shoes",
@@ -30,7 +30,7 @@ const BuyerHistory: React.FC = () => {
       soldPrice: "17 CSHOP",
     },
     {
-      imageUrl: "/images/itemDetails/watch.png",
+      imageUrl: "/images/itemDetails/bag.png",
       category: "Watches",
       status: "Pending",
       title: "Smart Watch",

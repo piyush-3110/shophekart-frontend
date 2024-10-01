@@ -1,8 +1,8 @@
-import React from 'react';
-import { FaCommentDots } from 'react-icons/fa'; // Import the chat icon
+import React, { useState } from 'react';
+import { FaCommentDots } from 'react-icons/fa';
+import { RatingCommentModal } from './RatingCommentModal'; // Import the new modal
 import { ProductCard } from '../Profile/ProductCard';
 
-// Define types for the item data
 interface ItemData {
   imageUrl: string;
   category: string;
@@ -13,13 +13,22 @@ interface ItemData {
   soldPrice: string;
 }
 
-// TableForBuyer Component
 interface TableProps {
   headers: { title: string; span?: number }[];
   data: ItemData[];
 }
 
 const TableForBuyer: React.FC<TableProps> = ({ headers, data }) => {
+  const [isModalOpen, setModalOpen] = useState(false); // State to manage modal visibility
+
+  const handleCommentClick = () => {
+    setModalOpen(true); // Open the modal
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false); // Close the modal
+  };
+
   return (
     <div className="relative w-full py-4">
       <div className="w-full py-4 overflow-x-auto scrollbar-hide">
@@ -48,12 +57,17 @@ const TableForBuyer: React.FC<TableProps> = ({ headers, data }) => {
             <p className="text-[#160041] text-sm">{item.soldPrice}</p>
             <p className="text-[#160041] text-sm">{item.status}</p>
             <div className="flex items-center col-span-2">
-              <FaCommentDots className="text-[#022BFF] mr-2" /> {/* Chat icon */}
-              <button className="text-[#022BFF] font-semibold">Add a Rating & Comment</button>
+              <FaCommentDots className="text-[#022BFF] mr-2" />
+              <button className="text-[#022BFF] font-semibold" onClick={handleCommentClick}>
+                Add a Rating & Comment
+              </button>
             </div>
           </div>
         ))}
       </div>
+
+      {/* Rating Comment Modal */}
+      <RatingCommentModal isOpen={isModalOpen} onClose={handleModalClose} />
     </div>
   );
 };

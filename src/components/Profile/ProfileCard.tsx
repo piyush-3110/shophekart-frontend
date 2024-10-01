@@ -6,7 +6,7 @@ export const ProfileCard = () => {
   return (
   
         <div className='min-h-[40vh] pb-6 rounded-md bg-white border border-red-200 shadow-sm w-[80%] mx-auto'>
-            <div className='h-[33%] relative w-full '>
+            <div className='h-[136px] relative w-full '>
                 <Image src="/images/profile/cover.png" width={524} height={524} className='w-[99%] mx-auto h-full mt-1 object-cover' alt='images'/>
                 <Image src="/images/profile/profile.png" alt='profile' height={500} width={500} className='h-24 absolute z-[1] -bottom-9 left-8 w-24'/>
             </div>

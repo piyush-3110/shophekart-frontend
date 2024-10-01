@@ -46,9 +46,9 @@ export const Slider = () => {
           width = '60px'; // Underline width for "Items"
           translateX = '0%'; // Position of "Items" underline
           break;
-        case 'SellerHistory':
-          width = '80px'; // Underline width for "Items For Sale"
-          translateX = '100px'; // Adjust position for "Items For Sale"
+        case 'sellerHistory':
+          width = '60px'; // Underline width for "Items For Sale"
+          translateX = '150px'; // Adjust position for "Items For Sale"
           break;
      
         default:

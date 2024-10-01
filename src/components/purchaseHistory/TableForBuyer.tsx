@@ -57,7 +57,7 @@ const TableForBuyer: React.FC<TableProps> = ({ headers, data }) => {
             <p className="text-[#160041] text-sm">{item.soldPrice}</p>
             <p className="text-[#160041] text-sm">{item.status}</p>
             <div className="flex items-center col-span-2">
-              <FaCommentDots className="text-[#022BFF] mr-2" />
+              <FaCommentDots className="text-[#022BFF] " />
               <button className="text-[#022BFF] font-semibold" onClick={handleCommentClick}>
                 Add a Rating & Comment
               </button>

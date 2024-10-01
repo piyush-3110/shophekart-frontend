@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import MarqueeComp from './MarqueeComp';
-import { PurchaseHistory } from './PurchaseHistory';
+// import { PurchaseHistory } from './PurchaseHistory';
 
 const Partners = () => {
   return (
@@ -107,7 +107,7 @@ const Partners = () => {
           />
         </div>
       </div>
-    <PurchaseHistory/>
+    {/* <PurchaseHistory/> */}
       <div className="blob" />
 
     </div>

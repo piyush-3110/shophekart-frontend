@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { BuyerHistory } from './BuyerHistory';
+import BuyerHistory from './BuyerHistory';
 import { SellerHistory } from './SellerHistory';
 
 export const Slider = () => {

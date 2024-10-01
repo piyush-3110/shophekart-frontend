@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
-import FloatingNavbar from "@/components/Navbar/FloatingNavbar";
 import Web3ModalProvider from "@/context/Web3ModalProvider";
 import { headers } from "next/headers";
 
@@ -33,7 +32,6 @@ export default function RootLayout({
       </head>
       <body className={`${dm.className} antialiased overflow-x-hidden`}>
         <Web3ModalProvider initialState={initialState}>
-          <FloatingNavbar />
           {children}
         </Web3ModalProvider>
       </body>

@@ -1,11 +1,9 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import SoldItems from './SoldItems';
-import ItemsForSale from './ItemsForSale';
-import { ReviewSection } from './ReviewSection';
+import BuyerHistory from './BuyerHistory';
 
 export const Slider = () => {
-  const [activeTab, setActiveTab] = useState('items');
+  const [activeTab, setActiveTab] = useState('buyerHistory');
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   // Detect screen size to adjust underline width/position for small screens
@@ -27,12 +25,11 @@ export const Slider = () => {
   // Function to render the content based on the active tab
   const renderContent = () => {
     switch (activeTab) {
-      case 'items':
-        return <SoldItems />;
-      case 'itemsForSale':
-        return <ItemsForSale />;
-      case 'comments':
-        return <ReviewSection />;
+      case 'buyerHistory':
+        return <BuyerHistory />;
+      case 'sellerHistory':
+        return <BuyerHistory />;
+   
       default:
         return null;
     }
@@ -45,18 +42,15 @@ export const Slider = () => {
     if (isSmallScreen) {
       // Adjust values for small screens (sm)
       switch (activeTab) {
-        case 'items':
+        case 'buyerHistory':
           width = '60px'; // Underline width for "Items"
           translateX = '0%'; // Position of "Items" underline
           break;
-        case 'itemsForSale':
-          width = '80px'; // Underline width for "Items For Sale"
-          translateX = '100px'; // Adjust position for "Items For Sale"
+        case 'sellerHistory':
+          width = '60px'; // Underline width for "Items For Sale"
+          translateX = '150px'; // Adjust position for "Items For Sale"
           break;
-        case 'comments':
-          width = '80px'; // Underline width for "Comments"
-          translateX = '240px'; // Adjust position for "Comments"
-          break;
+     
         default:
           width = '4rem';
           translateX = '0%';
@@ -64,18 +58,15 @@ export const Slider = () => {
     } else {
       // Default values for medium and large screens (md, lg)
       switch (activeTab) {
-        case 'items':
-          width = '90px';
+        case 'buyerHistory':
+          width = '120px';
           translateX = '0%';
           break;
-        case 'itemsForSale':
-          width = '124px';
-          translateX = '133px';
+        case 'sellerHistory':
+          width = '120px';
+          translateX = '160px';
           break;
-        case 'comments':
-          width = '6rem';
-          translateX = '297px';
-          break;
+       
         default:
           width = '4rem';
           translateX = '0%';
@@ -89,30 +80,25 @@ export const Slider = () => {
   };
 
   return (
-    <div className="relative w-full">
+    <div className="relative  w-full">
       {/* Slider with clickable tabs */}
-      <div className="text-lg font-[700] pt-32 px-6 md:px-16 lg:px-32 text-[#B9B2C6] flex gap-10 items-center relative">
+      <div className="text-lg font-[700]  px-6 pt-6  text-[#B9B2C6] flex gap-10 buyerHistory-center relative">
         {/* Tab for Items */}
         <p
-          onClick={() => setActiveTab('items')}
-          className={`cursor-pointer relative ${activeTab === 'items' ? 'gradient-text !text-lg' : ''}`}
+          onClick={() => setActiveTab('buyerHistory')}
+          className={`cursor-pointer relative ${activeTab === 'buyerHistory' ? 'gradient-text !text-lg' : ''}`}
         >
-          Sold Items
+        Buyer History
         </p>
         {/* Tab for Items For Sale */}
         <p
-          onClick={() => setActiveTab('itemsForSale')}
-          className={`cursor-pointer relative ${activeTab === 'itemsForSale' ? 'gradient-text !text-lg' : ''}`}
+          onClick={() => setActiveTab('sellerHistory')}
+          className={`cursor-pointer relative ${activeTab === 'sellerHistory' ? 'gradient-text !text-lg' : ''}`}
         >
-          Items For Sale
+          Seller History
         </p>
         {/* Tab for Comments */}
-        <p
-          onClick={() => setActiveTab('comments')}
-          className={`cursor-pointer relative ${activeTab === 'comments' ? 'gradient-text !text-lg' : ''}`}
-        >
-          Comments
-        </p>
+     
 
         {/* Underline effect */}
         <div
@@ -125,7 +111,7 @@ export const Slider = () => {
       </div>
 
       {/* Render the content based on the selected tab */}
-      <div className="px-6 md:px-16 lg:px-32">
+      <div className="px-6 pt-6">
         {renderContent()}
       </div>
     </div>

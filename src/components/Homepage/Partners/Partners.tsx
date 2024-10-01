@@ -1,10 +1,11 @@
 import React from 'react';
 import Image from 'next/image';
 import MarqueeComp from './MarqueeComp';
+// import { PurchaseHistory } from './PurchaseHistory';
 
 const Partners = () => {
   return (
-    <div className='relative min-h-[80vh] overflow-hidden pb-8 pt-12 flex gap-12 flex-col items-center bg-white'>
+    <div className='relative overflow-x-hidden min-h-[80vh] overflow-hidden pb-8 pt-12 flex gap-12 flex-col items-center bg-white'>
       <h1 className='text-black font-semibold md:text-3xl text-lg text-center'>
         Partners and Supporters
       </h1>
@@ -106,8 +107,9 @@ const Partners = () => {
           />
         </div>
       </div>
-
+    {/* <PurchaseHistory/> */}
       <div className="blob" />
+
     </div>
   );
 };

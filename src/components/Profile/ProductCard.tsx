@@ -43,7 +43,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         {/* Details Section */}
-        <div className='gap-2 flex flex-col w-[15rem]'>
+        <div className='gap-2 flex flex-col w-[16rem]'>
           {/* Category and Status */}
           <div className='flex gap-2 items-center'>
             <div className='rounded-xl bg-[#022BFF] w-fit px-3 py-1 text-white text-sm'>

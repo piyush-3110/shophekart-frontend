@@ -4,8 +4,8 @@ import Table from './Table';
 
 const SoldItems: React.FC = () => {
   const headers = [
-    { title: "Items", span: 2 },
-    { title: "Rating" },
+    { title: "Items", span:2 },
+    { title: "Rating",span:2 },
     { title: "Type" },
     { title: "Sold Price" },
     { title: "Shipping" },

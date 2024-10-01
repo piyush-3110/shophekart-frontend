@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { Items } from './Items';
+import {  SoldItems } from './SoldItems';
 import { ItemsForSale } from './ItemsForSale';
 import { ReviewCard } from '../ItemDetails/ReviewCard';
 
@@ -12,7 +12,7 @@ export const Slider = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 'items':
-        return <Items />;
+        return <SoldItems />;
       case 'itemsForSale':
         return <ItemsForSale />;
       case 'comments':
@@ -27,16 +27,16 @@ export const Slider = () => {
     let width, translateX;
     switch (activeTab) {
       case 'items':
-        width = '48px'; // Underline width for "Items"
+        width = '90px'; // Underline width for "Items"
         translateX = '0%'; // Position of "Items" underline
         break;
       case 'itemsForSale':
         width = '124px'; // Underline width for "Items For Sale"
-        translateX = '90px'; // Adjust the position for the "Items For Sale" underline
+        translateX = '133px'; // Adjust the position for the "Items For Sale" underline
         break;
       case 'comments':
         width = '6rem'; // Underline width for "Comments"
-        translateX = '254px'; // Adjust the position for the "Comments" underline
+        translateX = '297px'; // Adjust the position for the "Comments" underline
         break;
       default:
         width = '4rem';
@@ -57,7 +57,7 @@ export const Slider = () => {
           onClick={() => setActiveTab('items')}
           className={`cursor-pointer relative ${activeTab === 'items' ? 'gradient-text !text-lg' : ''}`}
         >
-          Items
+          Sold Items
         </p>
         {/* Tab for Items For Sale */}
         <p

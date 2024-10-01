@@ -2,7 +2,8 @@ import React from 'react'
 
 import ItemCard from './ItemCard'
 import { ItemDescription } from './ItemDescription';
-import { ReviewCard } from './ReviewCard';
+
+import { ReviewSection } from '../Profile/ReviewSection';
 
 export const ItemDetail = () => {
     const imageUrls = [
@@ -31,10 +32,8 @@ export const ItemDetail = () => {
             
         </div>
         <div className='pl-3 md:pl-16 flex flex-col items-center gap-3'>
-        <ReviewCard/>
-        <ReviewCard/>
-        <ReviewCard/>
-        <ReviewCard/>
+        <ReviewSection/>
+        
         <button className='text-[#022AFF] font-[700] mx-auto text-sm underline text-center'>Load more</button>
 
         </div>

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import SoldItems  from './SoldItems';
-import { ItemsForSale } from './ItemsForSale';
+import ItemsForSale  from './ItemsForSale';
 import { ReviewCard } from '../ItemDetails/ReviewCard';
 
 export const Slider = () => {

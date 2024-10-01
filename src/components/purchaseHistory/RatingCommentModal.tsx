@@ -38,12 +38,8 @@ export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({ isOpen, 
     setRating(index);
   };
 
-  const handleMouseLeave = () => {
-    setRating(0); // Reset to original rating if not submitted
-  };
-
   const handleStarClick = (index: number) => {
-    setRating(index);
+    setRating(index); // Set the rating to the clicked star
   };
 
   const handleSubmit = () => {
@@ -65,9 +61,8 @@ export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({ isOpen, 
 
         {/* Modal Content */}
         <div className="flex flex-col h-full py-4 gap-3">
-        <h1 className="text-[#160041] font-[700] text-center  text-xl">Add a rating</h1>
+          <h1 className="text-[#160041] font-[700] text-center text-xl">Add a rating</h1>
 
-          
           {/* Star Rating */}
           <div className="flex justify-center mb-4">
             {[1, 2, 3, 4, 5].map((star) => (
@@ -75,7 +70,6 @@ export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({ isOpen, 
                 key={star}
                 className={`cursor-pointer text-2xl ${star <= rating ? 'text-[#DFB300]' : 'text-[#DEDEDE]'}`}
                 onMouseEnter={() => handleMouseEnter(star)}
-                onMouseLeave={handleMouseLeave}
                 onClick={() => handleStarClick(star)}
               >
                 ★
@@ -86,7 +80,7 @@ export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({ isOpen, 
           {/* Comment Field */}
           <label className="text-[#ADB3C6] mb-2">Add a Comment</label>
           <textarea
-            className="border border-[#EFF1F7] w-full h-[10rem] bg-[#F9FBFC] text-[#DEDEDE] placeholder-[#ADB3C6] p-2 rounded"
+            className="border border-[#EFF1F7] w-full h-[10rem] text-[#302f2f] bg-[#F9FBFC] placeholder-[#ADB3C6] p-2 rounded"
             placeholder="Your comment here..."
             value={comment}
             onChange={(e) => setComment(e.target.value)}

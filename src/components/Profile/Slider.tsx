@@ -22,6 +22,32 @@ export const Slider = () => {
     }
   };
 
+  // Function to dynamically calculate the underline width and position
+  const getUnderlineStyle = () => {
+    let width, translateX;
+    switch (activeTab) {
+      case 'items':
+        width = '48px'; // Underline width for "Items"
+        translateX = '0%'; // Position of "Items" underline
+        break;
+      case 'itemsForSale':
+        width = '124px'; // Underline width for "Items For Sale"
+        translateX = '90px'; // Adjust the position for the "Items For Sale" underline
+        break;
+      case 'comments':
+        width = '6rem'; // Underline width for "Comments"
+        translateX = '254px'; // Adjust the position for the "Comments" underline
+        break;
+      default:
+        width = '4rem';
+        translateX = '0%';
+    }
+    return {
+      width,
+      transform: `translateX(${translateX})`,
+    };
+  };
+
   return (
     <div className="relative w-full">
       {/* Slider with clickable tabs */}
@@ -50,15 +76,9 @@ export const Slider = () => {
 
         {/* Underline effect */}
         <div
-          className="absolute bottom-0 h-1 w-full transition-all duration-300"
+          className="absolute bottom-0 h-[2px] transition-all  duration-300"
           style={{
-            transform:
-              activeTab === 'items'
-                ? 'translateX(0%)'
-                : activeTab === 'itemsForSale'
-                ? 'translateX(150%)'
-                : 'translateX(400%)',
-            width: '4rem', // Ensures the underline takes up one-third of the total width
+            ...getUnderlineStyle(), // Apply the dynamic underline width and position
             background: 'linear-gradient(91.75deg, #01F6FF -12.59%, #017EFF 19.66%, #0127FF 68.04%)',
           }}
         />

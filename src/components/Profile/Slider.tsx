@@ -51,7 +51,7 @@ export const Slider = () => {
   return (
     <div className="relative w-full">
       {/* Slider with clickable tabs */}
-      <div className="text-lg font-[700] pt-32 px-32 text-[#B9B2C6] flex gap-10 items-center relative">
+      <div className="text-lg font-[700] pt-32 px-6 lg:px-32 text-[#B9B2C6] flex gap-10 items-center relative">
         {/* Tab for Items */}
         <p
           onClick={() => setActiveTab('items')}
@@ -85,7 +85,7 @@ export const Slider = () => {
       </div>
 
       {/* Render the content based on the selected tab */}
-      <div className="px-32">
+      <div className="px-6 lg:px-32">
         {renderContent()}
       </div>
     </div>

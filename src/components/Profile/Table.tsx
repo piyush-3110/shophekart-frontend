@@ -24,9 +24,9 @@ interface TableProps {
 // Table Component
 const Table: React.FC<TableProps> = ({ headers, data }) => {
   return (
-    <div className="w-full py-4">
+    <div className="w-full py-4 overflow-x-auto">
       {/* Table Header */}
-      <div className="grid grid-cols-7 text-left font-bold text-[#6B6F93] text-[18px]  py-4">
+      <div className="grid grid-cols-7 min-w-[800px] text-left font-bold text-[#6B6F93] text-[18px] py-4">
         {headers.map((header, index) => (
           <p key={index} className={`col-span-${header.span || 1}`}>
             {header.title}
@@ -36,20 +36,19 @@ const Table: React.FC<TableProps> = ({ headers, data }) => {
 
       {/* Table Entries */}
       {data.map((item, index) => (
-        <div key={index} className="grid  grid-cols-7 gap-4 items-center py-4">
-          <div className='col-span-2'>
-          <ProductCard 
-            imageUrl={item.imageUrl}
-            category={item.category}
-            status={item.status}
-            title={item.title}
-            description={item.description}
-          />
+        <div key={index} className="grid grid-cols-7 gap-4 min-w-[800px] items-center py-4">
+          <div className="col-span-2">
+            <ProductCard 
+              imageUrl={item.imageUrl}
+              category={item.category}
+              status={item.status}
+              title={item.title}
+              description={item.description}
+            />
           </div>
-         <div className='col-span-2'>
-         <RatingFetcher ratingValue={item.ratingValue} ratingNumber={item.ratingNumber} />
-
-         </div>
+          <div className="col-span-2">
+            <RatingFetcher ratingValue={item.ratingValue} ratingNumber={item.ratingNumber} />
+          </div>
           <p className="text-[#160041] text-sm">{item.type}</p>
           <p className="text-[#160041] text-sm">{item.soldPrice}</p>
           <p className="text-[#160041] text-sm">{item.shipping}</p>

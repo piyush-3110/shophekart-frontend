@@ -1,4 +1,3 @@
-import Navbar from "@/components/products/shared/navbar";
 import NavigationTabs from "@/components/products/shared/navigationTabs";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
@@ -14,9 +13,6 @@ const CATEGORIES: { label: string }[] = [
 const Layout = ({ children }: { children: React.ReactElement }) => {
   return (
     <main className="space-y-11">
-      <div className="px-32">
-        <Navbar />
-      </div>
       <div className="flex flex-wrap gap-x-5 gap-y-4 px-2 lg:px-32">
         {CATEGORIES.map(({ label }, index) => {
           return <span key={index}>{label}</span>;

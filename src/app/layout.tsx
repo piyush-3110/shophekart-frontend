@@ -7,6 +7,7 @@ import { headers } from "next/headers";
 import { cookieToInitialState } from "wagmi";
 
 import { config } from "@/config";
+import RenderedNavbar from "@/components/Navbar/RenderedNavbar";
 
 const dm = DM_Sans({
   subsets: ["latin"],
@@ -32,6 +33,7 @@ export default function RootLayout({
       </head>
       <body className={`${dm.className} antialiased overflow-x-hidden`}>
         <Web3ModalProvider initialState={initialState}>
+          <RenderedNavbar />
           {children}
         </Web3ModalProvider>
       </body>

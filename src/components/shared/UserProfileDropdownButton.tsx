@@ -12,18 +12,35 @@ import {
   DropdownMenuItem,
 } from "../ui/dropdown-menu";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
-import Image from "next/image";
+import Link from "next/link";
+import {
+  ChatIcon,
+  HelpIcon,
+  HistoryIcon,
+  LogoutIcon,
+  ShippingIcon,
+  UserProfileIcon,
+} from "@/icons";
 
-const DROPDOWN_MENU_ITEMS: { label: string; icon: string }[] = [
-  { label: "Profile", icon: "/icons/profileDropdown/userProfileIcon.svg" },
-  { label: "Chat", icon: "/icons/profileDropdown/chatIcon.svg" },
-  { label: "Support & helps", icon: "/icons/profileDropdown/helpIcon.svg" },
-  { label: "Purchase history", icon: "/icons/profileDropdown/historyIcon.svg" },
+const DROPDOWN_MENU_ITEMS: {
+  label: string;
+  icon: React.ReactNode;
+  link?: string;
+}[] = [
+  {
+    label: "Profile",
+    icon: <UserProfileIcon />,
+    link: "/profile",
+  },
+  { label: "Chat", icon: <ChatIcon /> },
+  { label: "Support & helps", icon: <HelpIcon /> },
+  { label: "Purchase history", icon: <HistoryIcon /> },
   {
     label: "Shipping details",
-    icon: "/icons/profileDropdown/shippingIcon.svg",
+    icon: <ShippingIcon />,
+    link: "/shipping-details",
   },
-  { label: "Logout", icon: "/icons/profileDropdown/logoutIcon.svg" },
+  { label: "Logout", icon: <LogoutIcon /> },
 ];
 
 const UserProfileDropdownButton = () => {
@@ -49,18 +66,23 @@ const UserProfileDropdownButton = () => {
               />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="-translate-x-1/4 mt-4">
-              {DROPDOWN_MENU_ITEMS.map(({ label, icon }, index) => {
+              {DROPDOWN_MENU_ITEMS.map(({ label, icon, link }, index) => {
+                if (link) {
+                  return (
+                    <Link href={link} key={index}>
+                      <DropdownMenuItem className="flex items-center gap-2 cursor-pointer">
+                        {icon}
+                        <span>{label}</span>
+                      </DropdownMenuItem>
+                    </Link>
+                  );
+                }
                 return (
                   <DropdownMenuItem
                     key={index}
                     className="flex items-center gap-2 cursor-pointer"
                   >
-                    <Image
-                      src={icon}
-                      alt={label + " icon"}
-                      width={18}
-                      height={18}
-                    />
+                    {icon}
                     <span>{label}</span>
                   </DropdownMenuItem>
                 );

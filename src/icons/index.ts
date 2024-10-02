@@ -1,2 +1,9 @@
 export { default as ShippingIcon } from "./ShippingIcon";
 export { default as CloseIcon } from "./CloseIcon";
+export { default as CartIcon } from "./CartIcon";
+export { default as TranslateIcon } from "./TranslateIcon";
+export { default as ChatIcon } from "./ChatIcon";
+export { default as HelpIcon } from "./HelpIcon";
+export { default as HistoryIcon } from "./HistoryIcon";
+export { default as LogoutIcon } from "./LogoutIcon";
+export { default as UserProfileIcon } from "./UserProfileIcon";

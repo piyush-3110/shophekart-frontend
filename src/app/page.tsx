@@ -4,12 +4,9 @@ import { Hero } from "@/components/Homepage/Hero/Main/Hero";
 import { Tokenomics } from "@/components/Homepage/Tokenomics/Tokenomics";
 import { Roadmap } from "@/components/Homepage/Roadmap/Roadmap";
 import Partners from "@/components/Homepage/Partners/Partners";
-import FloatingNavbar from "@/components/Navbar/FloatingNavbar";
 const page = () => {
   return (
     <div className="bg-[#f1f4ff] ">
-          <FloatingNavbar />
-
       <Hero />
       <Tokenomics />
       <Roadmap />

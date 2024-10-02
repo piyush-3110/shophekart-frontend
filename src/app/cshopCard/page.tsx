@@ -1,18 +1,15 @@
-import { Features } from "@/components/CshopCard/Features/Features"
-import { Hero } from "@/components/CshopCard/Hero"
-import { Works } from "@/components/CshopCard/Works/Works"
-import FloatingNavbar from "@/components/Navbar/FloatingNavbar"
+import { Features } from "@/components/CshopCard/Features/Features";
+import { Hero } from "@/components/CshopCard/Hero";
+import { Works } from "@/components/CshopCard/Works/Works";
 
 const page = () => {
   return (
     <div>
-          <FloatingNavbar />
-
-        <Hero/>
-        <Features/>
-        <Works/>
+      <Hero />
+      <Features />
+      <Works />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;

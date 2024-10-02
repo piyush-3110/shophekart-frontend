@@ -2,6 +2,7 @@
 
 import AuctionCard from "@/components/products/auction/AuctionCard";
 import ProductPagination from "@/components/products/shared/productPagination";
+import Link from "next/link";
 
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -58,7 +59,7 @@ const Page = () => {
   const pageParam = searchParams.get("page");
   const page = pageParam ? parseInt(pageParam) : 1;
 
-  const productsPerPage = 1;
+  const productsPerPage = 6;
   const totalPages = Math.ceil(PRODUCT_DETAIL.length / productsPerPage);
 
   const startIndex = (page - 1) * productsPerPage;
@@ -84,13 +85,14 @@ const Page = () => {
             index
           ) => {
             return (
-              <AuctionCard
-                key={index}
-                auctionDeadline={auctionDeadline}
-                productImage={productImage}
-                productName={productName}
-                productPrice={productPrice}
-              />
+              <Link href={"/itemDetails"} key={index}>
+                <AuctionCard
+                  auctionDeadline={auctionDeadline}
+                  productImage={productImage}
+                  productName={productName}
+                  productPrice={productPrice}
+                />
+              </Link>
             );
           }
         )}

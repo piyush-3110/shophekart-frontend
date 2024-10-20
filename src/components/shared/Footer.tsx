@@ -44,7 +44,6 @@ export const Footer = () => {
             <LiaLinkedinIn size={24} />
           </a>
         </div>
-<div className='flex flex-row justify-between'>
 
 
         {/* Home Section Column */}
@@ -58,7 +57,7 @@ export const Footer = () => {
         </div>
 
         {/* Useful Information Section Column */}
-        <div className='flex flex-col ml-8  gap-2'>
+        <div className='flex flex-col lg:ml-8  gap-2'>
           <h4 className='text-[12px] mb-2 font-[300]'>Useful Information</h4>
           <p className='text-[14px] font-[400]'>Whitepaper</p>
           <p className='text-[14px] font-[400]'>Privacy Policy</p>
@@ -66,6 +65,6 @@ export const Footer = () => {
         </div>
         </div>
       </div>
-    </div>
+
   );
 };

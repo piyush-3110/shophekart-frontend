@@ -4,10 +4,12 @@ import { LiaTelegram, LiaWhatsapp, LiaFacebook, LiaInstagram, LiaLinkedinIn } fr
 export const Footer = () => {
   return (
     <div className='px-6 bg-[#151718] text-white py-16 md:px-16'>
-      <div className='grid grid-cols-4 justify-between '>
+      <div className='grid lg:grid-cols-4 grid-cols-1 md:grid-cols-2 gap-8 lg:gap-0 lg:justify-between '>
         {/* First Column */}
         <div className='flex flex-col gap-2'>
-          <div className='mb-4'>LOGO</div>
+          <div className=''>
+            <img src='/images/shared/footerlogo.png' alt='LOGO' className='h-[3rem] w-auto  -translate-x-4'></img>
+          </div>
           <p className='text-sm font-[400]'>+1 891 989-11-91</p>
           <p className='text-sm font-[400]'>info@cryptoshophe.com</p>
           <a 
@@ -24,6 +26,7 @@ export const Footer = () => {
         </div>
 
         {/* Social Media Icons Column */}
+        
         <div className='flex gap-3 items-center h-full '>
           <a href="https://t.me/" target="_blank" rel="noopener noreferrer" className='hover:text-blue-500 bg-[#27272A] py-2 px-2 rounded-full'>
             <LiaTelegram size={24} />
@@ -41,9 +44,11 @@ export const Footer = () => {
             <LiaLinkedinIn size={24} />
           </a>
         </div>
+<div className='flex flex-row justify-between'>
+
 
         {/* Home Section Column */}
-        <div className='flex flex-col ml-8 font-[400] gap-2'>
+        <div className='flex flex-col lg:ml-8 font-[400] gap-2'>
           <h4 className='text-[12px] mb-2 font-[300]'>Home</h4>
           <p className='text-[14px] font-[400]'>Presale</p>
           <p className='text-[14px] font-[400]'>Tokenomics</p>
@@ -58,6 +63,7 @@ export const Footer = () => {
           <p className='text-[14px] font-[400]'>Whitepaper</p>
           <p className='text-[14px] font-[400]'>Privacy Policy</p>
           <p className='text-[14px] font-[400]'>Terms and Conditions</p>
+        </div>
         </div>
       </div>
     </div>

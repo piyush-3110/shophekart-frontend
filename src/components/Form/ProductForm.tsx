@@ -62,7 +62,6 @@ const ProductForm = () => {
     });
 
     try {
-      // Send the form data with images to your backend API
       const response = await axios.post('http://localhost:3000/api/v1/fixedProduct/create', formDataToSubmit, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -160,7 +159,7 @@ const ProductForm = () => {
 
 <SelectField
   label="Delivery option"
-  options={['Select delivery option', 'Local', 'Global']}
+  options={['Select delivery option', 'LOCAL', 'GLOBAL']}
   name="shippingType"  // Add name property
   value={formData.shippingType}
   onChange={handleChange}

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from 'react';
 import UploadImage from './UploadImage';
 import axios from 'axios';
@@ -20,12 +20,10 @@ const ProductForm = () => {
     details: '',
     category: '',
     currencyType: '',
-    currencyAddress: '',
     stock: '',
     price: '',
     shippingCharges: '',
     shippingType: '',
-    images: [],
   });
 
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
@@ -45,7 +43,8 @@ const ProductForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-setLoading(true);
+    setLoading(true);
+
     const formDataToSubmit = new FormData();
     formDataToSubmit.append('name', formData.name);
     formDataToSubmit.append('description', formData.description);
@@ -59,14 +58,14 @@ setLoading(true);
     formDataToSubmit.append('shippingType', formData.shippingType);
     formDataToSubmit.append('productIdOnChain', '123456'); // Example product ID on chain
     formDataToSubmit.append('sellerId', '64a92b4f8f3b74a0acbfcfc1'); // Example seller ID
-    formDataToSubmit.append('currencyAddress','dshsjkahbsahsagdjhfsad');
+    formDataToSubmit.append('currencyAddress', 'dshsjkahbsahsagdjhfsad');
+    
     // Append each image file to the FormData
     selectedImages.forEach((file) => {
       formDataToSubmit.append('images', file);
     });
 
     try {
-
       const response = await axios.post('http://localhost:3000/api/v1/fixedProduct/create', formDataToSubmit, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -75,9 +74,23 @@ setLoading(true);
       setLoading(false);
       toast.success('Product Created Successfully');
       
+      // Clear the form and selected images
+      setFormData({
+        name: '',
+        description: '',
+        productAddress: '',
+        details: '',
+        category: '',
+        currencyType: '',
+        stock: '',
+        price: '',
+        shippingCharges: '',
+        shippingType: '',
+      });
+      setSelectedImages([]); // Reset selected images
+
     } catch (error) {
       setLoading(false);
-
       toast.error("Failed to create product");
     }
   };
@@ -95,14 +108,13 @@ setLoading(true);
           value={formData.name}
           onChange={handleChange}
         />
-<TextArea
-  label="Description"
-  placeholder="Write your description here..."
-  name="description"  // Add name property
-  value={formData.description}
-  onChange={handleChange}
-/>
-
+        <TextArea
+          label="Description"
+          placeholder="Write your description here..."
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+        />
         <InputField
           label="Product Address"
           placeholder="Street, City, State, Country, Postal Code"
@@ -110,36 +122,30 @@ setLoading(true);
           value={formData.productAddress}
           onChange={handleChange}
         />
-
         <RichTextEditor
           label="Product Details"
           value={formData.details}
           onChange={handleRichTextChange} // Pass rich text changes separately
         />
-
-<SelectField
-  label="Category"
-  options={['Select product category', 'Electronics', 'Apparel', 'Home Goods']}
-  name="category"  // Add name property
-  value={formData.category}
-  onChange={handleChange}
-  
-/>
-
+        <SelectField
+          label="Category"
+          options={['Select product category', 'Electronics', 'Apparel', 'Home Goods']}
+          name="category"
+          value={formData.category}
+          onChange={handleChange}
+        />
         <div>
           <label className="block text-sm font-medium mb-1">Product media</label>
           <UploadImage onFileSelect={handleFileSelect} />
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <SelectField
-  label="Currency Type"
-  options={['Select Currency Type', 'USDT', 'BNB', 'CSHOP', 'USDC']}
-  name="currencyType"  // Add name property
-  value={formData.currencyType}
-  onChange={handleChange}
-/>
-
+          <SelectField
+            label="Currency Type"
+            options={['Select Currency Type', 'USDT', 'BNB', 'CSHOP', 'USDC']}
+            name="currencyType"
+            value={formData.currencyType}
+            onChange={handleChange}
+          />
           <InputField
             label="Stock"
             placeholder="Enter stock"
@@ -148,7 +154,6 @@ setLoading(true);
             value={formData.stock}
             onChange={handleChange}
           />
-
           <InputField
             label="Price"
             placeholder="Enter price"
@@ -157,7 +162,6 @@ setLoading(true);
             value={formData.price}
             onChange={handleChange}
           />
-
           <InputField
             label="Shipping charges"
             placeholder="Enter Shipping price"
@@ -166,18 +170,16 @@ setLoading(true);
             value={formData.shippingCharges}
             onChange={handleChange}
           />
-
-<SelectField
-  label="Delivery option"
-  options={['Select delivery option', 'LOCAL', 'GLOBAL']}
-  name="shippingType"  // Add name property
-  value={formData.shippingType}
-  onChange={handleChange}
-/>
+          <SelectField
+            label="Delivery option"
+            options={['Select delivery option', 'LOCAL', 'GLOBAL']}
+            name="shippingType"
+            value={formData.shippingType}
+            onChange={handleChange}
+          />
         </div>
-
         <Button text={loading ? <Loader /> : "Save and publish product"} disabled={loading} />
-        <ToastNotification/>
+        <ToastNotification />
       </form>
     </div>
   );

@@ -67,9 +67,9 @@ const ProductForm = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log('Product Created:', response.data);
+      console.log('Product Created Successfully');
     } catch (error) {
-      console.error('Error creating product:', error);
+      console.error("Failed to create product");
     }
   };
 
@@ -114,6 +114,7 @@ const ProductForm = () => {
   name="category"  // Add name property
   value={formData.category}
   onChange={handleChange}
+  
 />
 
         <div>

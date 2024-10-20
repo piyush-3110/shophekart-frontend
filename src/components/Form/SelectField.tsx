@@ -18,6 +18,7 @@ const SelectField: React.FC<SelectFieldProps> = ({ label, options, value, name, 
         name={name}  // Now using name property
         value={value} // Controlled value
         onChange={onChange} // Handle changes via the parent component
+      required
       >
         {options.map((option, index) => (
           <option key={index} value={option}>

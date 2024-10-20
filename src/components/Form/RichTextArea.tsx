@@ -20,6 +20,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ label, placeholder = "W
         placeholder={placeholder}
         className="bg-white border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
         theme="snow"
+        
       />
     </div>
   );

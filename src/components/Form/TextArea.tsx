@@ -20,6 +20,7 @@ const TextArea: React.FC<TextAreaProps> = ({ label, placeholder, value, name, on
         onChange={onChange} // Handling input changes
         className="border border-gray-300 rounded-lg w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         rows={4}
+        required
       />
     </div>
   );

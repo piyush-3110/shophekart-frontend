@@ -1,85 +1,63 @@
 import React, { useState } from 'react';
-import InputField from './InputField';
-import SelectField from './SelectField';
 import UploadImage from './UploadImage';
-import Button from './Button';
+import axios from 'axios';
+import SelectField from './SelectField';
 import RichTextEditor from './RichTextArea';
+import InputField from './InputField';
 import TextArea from './TextArea';
 
 const ProductForm = () => {
-  // State to hold form data
   const [formData, setFormData] = useState({
     name: '',
     description: '',
     productAddress: '',
-    details: '',
     category: '',
-    currencyType: '',
     stock: '',
     price: '',
     shippingCharges: '',
-    shippingType: '',
-    images: [],
+    deliveryOption: '',
   });
+  const [selectedImages, setSelectedImages] = useState<File[]>([]);
 
-  const [richText, setRichText] = useState(''); // For handling Rich Text Editor content
-
-  // Handle input change
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle image upload
-  const handleImageUpload = (images) => {
-    setFormData({ ...formData, images });
+  const handleFileSelect = (files: File[]) => {
+    setSelectedImages(files); // Capture selected images from UploadImage component
   };
 
-  // Handle form submission
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    const data = new FormData();
-    data.append('name', formData.name);
-    data.append('description', formData.description);
-    data.append('productAddress', formData.productAddress);
-    data.append('details', richText); // From Rich Text Editor
-    data.append('category', formData.category);
-    data.append('currencyType', formData.currencyType);
-    data.append('stock', formData.stock);
-    data.append('price', formData.price);
-    data.append('shippingCharges', formData.shippingCharges);
-    data.append('shippingType', formData.shippingType);
-    
-    // Add some placeholder values for now
-    data.append('productIdOnChain', '123456'); // Example product ID on chain
-    data.append('sellerId', '64a92b4f8f3b74a0acbfcfc1'); // Example seller ID
-    
-    // Append images
-    formData.images.forEach((image) => {
-      data.append('images', image);
+
+    const formDataToSubmit = new FormData();
+    formDataToSubmit.append('name', formData.name);
+    formDataToSubmit.append('description', formData.description);
+    formDataToSubmit.append('productAddress', formData.productAddress);
+    formDataToSubmit.append('category', formData.category);
+    formDataToSubmit.append('stock', formData.stock);
+    formDataToSubmit.append('price', formData.price);
+    formDataToSubmit.append('shippingCharges', formData.shippingCharges);
+    formDataToSubmit.append('deliveryOption', formData.deliveryOption);
+
+    // Append each image file to the FormData
+    selectedImages.forEach((file) => {
+      formDataToSubmit.append('images', file);
     });
 
     try {
-      const response = await fetch('http://localhost:3000/api/v1/fixedProduct/create', {
-        method: 'POST',
-        body: data,
+      // Send the form data with images to your backend API
+      const response = await axios.post('http://localhost:3000/api/v1/fixedProduct/create', formDataToSubmit, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
-      const result = await response.json();
-      console.log(result);
-      if (response.ok) {
-        alert('Product created successfully!');
-      } else {
-        alert('Error creating product: ' + result.message);
-      }
+      console.log('Product Created:', response.data);
     } catch (error) {
-      console.error('Error:', error);
-      alert('An error occurred while submitting the form.');
+      console.error('Error creating product:', error);
     }
   };
-
   return (
     <div className="p-8 w-[95vw] md:w-[80vw] my-10 mx-auto bg-white shadow-lg rounded-lg">
       <h2 className="text-2xl font-bold mb-6">Add product</h2>
@@ -121,7 +99,7 @@ const ProductForm = () => {
 
         <div>
           <label className="block text-sm font-medium mb-1">Product media</label>
-          <UploadImage onImageUpload={handleImageUpload} />
+          <UploadImage onFileSelect={handleFileSelect} />
         </div>
 
         <div className='grid grid-cols-1 md:grid-cols-2 gap-5'>

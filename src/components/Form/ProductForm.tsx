@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from 'react';
 import UploadImage from './UploadImage';
 import axios from 'axios';
@@ -7,6 +7,9 @@ import RichTextEditor from './RichTextArea';
 import InputField from './InputField';
 import TextArea from './TextArea';
 import Button from './Button';
+import ToastNotification from './ToastNotification';
+import Loader from './Loader';
+import { toast } from 'react-toastify';
 
 const ProductForm = () => {
   const [formData, setFormData] = useState({
@@ -16,15 +19,14 @@ const ProductForm = () => {
     details: '',
     category: '',
     currencyType: '',
-    currencyAddress: '',
     stock: '',
     price: '',
     shippingCharges: '',
     shippingType: '',
-    images: [],
   });
 
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -32,34 +34,20 @@ const ProductForm = () => {
   };
 
   const handleRichTextChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, details: value })); // Update 'details' field with rich text content
+    setFormData((prev) => ({ ...prev, details: value }));
   };
 
   const handleFileSelect = (files: File[]) => {
-    setSelectedImages(files); // Capture selected images from UploadImage component
+    setSelectedImages(files);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true); // Start loading
 
     const formDataToSubmit = new FormData();
-    formDataToSubmit.append('name', formData.name);
-    formDataToSubmit.append('description', formData.description);
-    formDataToSubmit.append('productAddress', formData.productAddress);
-    formDataToSubmit.append('details', formData.details); // From Rich Text Editor
-    formDataToSubmit.append('category', '670f8fa48dc51375007dfff1');
-    formDataToSubmit.append('currencyType', formData.currencyType);
-    formDataToSubmit.append('stock', formData.stock);
-    formDataToSubmit.append('price', formData.price);
-    formDataToSubmit.append('shippingCharges', formData.shippingCharges);
-    formDataToSubmit.append('shippingType', formData.shippingType);
-    formDataToSubmit.append('productIdOnChain', '123456'); // Example product ID on chain
-    formDataToSubmit.append('sellerId', '64a92b4f8f3b74a0acbfcfc1'); // Example seller ID
-    formDataToSubmit.append('currencyAddress','dshsjkahbsahsagdjhfsad');
-    // Append each image file to the FormData
-    selectedImages.forEach((file) => {
-      formDataToSubmit.append('images', file);
-    });
+    Object.keys(formData).forEach(key => formDataToSubmit.append(key, formData[key as keyof typeof formData]));
+    selectedImages.forEach((file) => formDataToSubmit.append('images', file));
 
     try {
       const response = await axios.post('http://localhost:3000/api/v1/fixedProduct/create', formDataToSubmit, {
@@ -67,32 +55,35 @@ const ProductForm = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log('Product Created Successfully');
+      toast.success('Product created successfully!');
     } catch (error) {
-      console.error("Failed to create product");
+      toast.error('Failed to create product');
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
   return (
     <div className="p-8 w-[95vw] md:w-[80vw] my-10 mx-auto bg-white shadow-lg rounded-lg">
-      <h2 className="text-2xl font-bold mb-6">Add product</h2>
-
+      <h2 className="text-2xl font-bold mb-6">Add Product</h2>
+      <ToastNotification />
       <form className="space-y-6" onSubmit={handleSubmit}>
         <InputField
           label="Name"
           placeholder="E.g. Smart watch"
           name="name"
-          type="string"
+          type="text"
           value={formData.name}
           onChange={handleChange}
         />
-<TextArea
-  label="Description"
-  placeholder="Write your description here..."
-  name="description"  // Add name property
-  value={formData.description}
-  onChange={handleChange}
-/>
+
+        <TextArea
+          label="Description"
+          placeholder="Write your description here..."
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+        />
 
         <InputField
           label="Product Address"
@@ -105,37 +96,36 @@ const ProductForm = () => {
         <RichTextEditor
           label="Product Details"
           value={formData.details}
-          onChange={handleRichTextChange} // Pass rich text changes separately
+          onChange={handleRichTextChange}
         />
 
-<SelectField
-  label="Category"
-  options={['Select product category', 'Electronics', 'Apparel', 'Home Goods']}
-  name="category"  // Add name property
-  value={formData.category}
-  onChange={handleChange}
-  
-/>
+        <SelectField
+          label="Category"
+          options={['Select product category', 'Electronics', 'Apparel', 'Home Goods']}
+          name="category"
+          value={formData.category}
+          onChange={handleChange}
+        />
 
         <div>
-          <label className="block text-sm font-medium mb-1">Product media</label>
+          <label className="block text-sm font-medium mb-1">Product Media</label>
           <UploadImage onFileSelect={handleFileSelect} />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <SelectField
-  label="Currency Type"
-  options={['Select Currency Type', 'USDT', 'BNB', 'CSHOP', 'USDC']}
-  name="currencyType"  // Add name property
-  value={formData.currencyType}
-  onChange={handleChange}
-/>
+          <SelectField
+            label="Currency Type"
+            options={['Select Currency Type', 'USDT', 'BNB', 'CSHOP', 'USDC']}
+            name="currencyType"
+            value={formData.currencyType}
+            onChange={handleChange}
+          />
 
           <InputField
             label="Stock"
             placeholder="Enter stock"
             name="stock"
-            type='number'
+            type="number"
             value={formData.stock}
             onChange={handleChange}
           />
@@ -144,30 +134,30 @@ const ProductForm = () => {
             label="Price"
             placeholder="Enter price"
             name="price"
-            type='number'
+            type="number"
             value={formData.price}
             onChange={handleChange}
           />
 
           <InputField
-            label="Shipping charges"
+            label="Shipping Charges"
             placeholder="Enter Shipping price"
             name="shippingCharges"
-            type='number'
+            type="number"
             value={formData.shippingCharges}
             onChange={handleChange}
           />
 
-<SelectField
-  label="Delivery option"
-  options={['Select delivery option', 'LOCAL', 'GLOBAL']}
-  name="shippingType"  // Add name property
-  value={formData.shippingType}
-  onChange={handleChange}
-/>
+          <SelectField
+            label="Delivery Option"
+            options={['Select delivery option', 'Local', 'Global']}
+            name="shippingType"
+            value={formData.shippingType}
+            onChange={handleChange}
+          />
         </div>
 
-        <Button text="Save and publish product" />
+        <Button text={loading ? <Loader /> : "Save and publish product"} disabled={loading} />
       </form>
     </div>
   );

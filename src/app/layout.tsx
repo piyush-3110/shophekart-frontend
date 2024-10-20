@@ -8,6 +8,7 @@ import { cookieToInitialState } from "wagmi";
 
 import { config } from "@/config";
 import RenderedNavbar from "@/components/Navbar/RenderedNavbar";
+import Footer from "@/components/Footer/Footer";
 
 const dm = DM_Sans({
   subsets: ["latin"],
@@ -35,6 +36,7 @@ export default function RootLayout({
         <Web3ModalProvider initialState={initialState}>
           <RenderedNavbar />
           {children}
+          <Footer/>
         </Web3ModalProvider>
       </body>
     </html>

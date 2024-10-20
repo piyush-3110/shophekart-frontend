@@ -1,3 +1,4 @@
+"use client"
 import axios from 'axios';
 import BuyCard from "@/components/products/BuyCard";
 import ProductPagination from "@/components/products/shared/productPagination";

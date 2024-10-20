@@ -8,7 +8,7 @@ import { cookieToInitialState } from "wagmi";
 
 import { config } from "@/config";
 import RenderedNavbar from "@/components/Navbar/RenderedNavbar";
-import { Footer } from "@/components/shared/Footer";
+import Footer from "@/components/Footer/Footer";
 
 const dm = DM_Sans({
   subsets: ["latin"],

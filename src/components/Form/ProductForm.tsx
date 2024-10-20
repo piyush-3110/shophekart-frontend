@@ -46,7 +46,7 @@ const ProductForm = () => {
     formDataToSubmit.append('description', formData.description);
     formDataToSubmit.append('productAddress', formData.productAddress);
     formDataToSubmit.append('details', formData.details); // From Rich Text Editor
-    formDataToSubmit.append('category', formData.category);
+    formDataToSubmit.append('category', '670f8fa48dc51375007dfff1');
     formDataToSubmit.append('currencyType', formData.currencyType);
     formDataToSubmit.append('stock', formData.stock);
     formDataToSubmit.append('price', formData.price);
@@ -133,6 +133,7 @@ const ProductForm = () => {
             label="Stock"
             placeholder="Enter stock"
             name="stock"
+            type='number'
             value={formData.stock}
             onChange={handleChange}
           />
@@ -141,6 +142,7 @@ const ProductForm = () => {
             label="Price"
             placeholder="Enter price"
             name="price"
+            type='number'
             value={formData.price}
             onChange={handleChange}
           />
@@ -149,6 +151,7 @@ const ProductForm = () => {
             label="Shipping charges"
             placeholder="Enter Shipping price"
             name="shippingCharges"
+            type='number'
             value={formData.shippingCharges}
             onChange={handleChange}
           />

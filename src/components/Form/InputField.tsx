@@ -5,16 +5,23 @@ interface InputFieldProps {
   placeholder: string;
   name: string;
   value: string;
-  
+  type?: string; // Optional type prop
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const InputField: React.FC<InputFieldProps> = ({ label, placeholder, name, value, onChange }) => {
+const InputField: React.FC<InputFieldProps> = ({
+  label,
+  placeholder,
+  name,
+  value,
+  type = 'text', // Default to 'text' if not provided
+  onChange,
+}) => {
   return (
     <div>
       <label className="block text-sm font-medium mb-1">{label}</label>
       <input
-        type="text"
+        type={type}
         name={name}
         value={value}
         onChange={onChange}

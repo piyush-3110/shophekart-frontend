@@ -5,24 +5,33 @@ import SelectField from './SelectField';
 import RichTextEditor from './RichTextArea';
 import InputField from './InputField';
 import TextArea from './TextArea';
+import Button from './Button';
 
 const ProductForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
     productAddress: '',
+    details: '',
     category: '',
+    currencyType: '',
+    currencyAddress: '',
     stock: '',
     price: '',
     shippingCharges: '',
-    deliveryOption: '',
-    details:'',
+    shippingType: '',
+    images: [],
   });
+
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleRichTextChange = (value: string) => {
+    setFormData((prev) => ({ ...prev, details: value })); // Update 'details' field with rich text content
   };
 
   const handleFileSelect = (files: File[]) => {
@@ -36,14 +45,16 @@ const ProductForm = () => {
     formDataToSubmit.append('name', formData.name);
     formDataToSubmit.append('description', formData.description);
     formDataToSubmit.append('productAddress', formData.productAddress);
-    formDataToSubmit.append('details', formData.details);
-
+    formDataToSubmit.append('details', formData.details); // From Rich Text Editor
     formDataToSubmit.append('category', formData.category);
+    formDataToSubmit.append('currencyType', formData.currencyType);
     formDataToSubmit.append('stock', formData.stock);
     formDataToSubmit.append('price', formData.price);
     formDataToSubmit.append('shippingCharges', formData.shippingCharges);
-    formDataToSubmit.append('deliveryOption', formData.deliveryOption);
-
+    formDataToSubmit.append('shippingType', formData.shippingType);
+    formDataToSubmit.append('productIdOnChain', '123456'); // Example product ID on chain
+    formDataToSubmit.append('sellerId', '64a92b4f8f3b74a0acbfcfc1'); // Example seller ID
+    formDataToSubmit.append('currencyAddress','dshsjkahbsahsagdjhfsad');
     // Append each image file to the FormData
     selectedImages.forEach((file) => {
       formDataToSubmit.append('images', file);
@@ -61,6 +72,7 @@ const ProductForm = () => {
       console.error('Error creating product:', error);
     }
   };
+
   return (
     <div className="p-8 w-[95vw] md:w-[80vw] my-10 mx-auto bg-white shadow-lg rounded-lg">
       <h2 className="text-2xl font-bold mb-6">Add product</h2>
@@ -70,6 +82,7 @@ const ProductForm = () => {
           label="Name"
           placeholder="E.g. Smart watch"
           name="name"
+          type="string"
           value={formData.name}
           onChange={handleChange}
         />
@@ -77,7 +90,7 @@ const ProductForm = () => {
         <TextArea
           label="Description"
           placeholder="Write your description here..."
-
+          
           value={formData.description}
           onChange={handleChange}
         />
@@ -90,11 +103,14 @@ const ProductForm = () => {
           onChange={handleChange}
         />
 
-        <RichTextEditor label="Product Details" value={formData.details} onChange={setRichText} />
+        <RichTextEditor
+          label="Product Details"
+          value={formData.details}
+          onChange={handleRichTextChange} // Pass rich text changes separately
+        />
 
         <SelectField
           label="Category"
-          name="category"
           options={['Select product category', 'Electronics', 'Apparel', 'Home Goods']}
           value={formData.category}
           onChange={handleChange}
@@ -105,10 +121,9 @@ const ProductForm = () => {
           <UploadImage onFileSelect={handleFileSelect} />
         </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-5'>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <SelectField
             label="Currency Type"
-            name="currencyType"
             options={['Select Currency Type', 'USDT', 'BNB', 'CSHOP', 'USDC']}
             value={formData.currencyType}
             onChange={handleChange}
@@ -120,13 +135,6 @@ const ProductForm = () => {
             name="stock"
             value={formData.stock}
             onChange={handleChange}
-          />
-
-          <SelectField
-            label="Type of offer"
-            options={['Buy now']}
-            value="Buy now"
-            disabled={true} // Disable since only "Buy now" is available
           />
 
           <InputField
@@ -147,7 +155,6 @@ const ProductForm = () => {
 
           <SelectField
             label="Delivery option"
-            name="shippingType"
             options={['Select delivery option', 'Local', 'Global']}
             value={formData.shippingType}
             onChange={handleChange}

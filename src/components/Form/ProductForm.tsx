@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react';
 import UploadImage from './UploadImage';
 import axios from 'axios';
@@ -86,14 +87,13 @@ const ProductForm = () => {
           value={formData.name}
           onChange={handleChange}
         />
-
-        <TextArea
-          label="Description"
-          placeholder="Write your description here..."
-          
-          value={formData.description}
-          onChange={handleChange}
-        />
+<TextArea
+  label="Description"
+  placeholder="Write your description here..."
+  name="description"  // Add name property
+  value={formData.description}
+  onChange={handleChange}
+/>
 
         <InputField
           label="Product Address"
@@ -109,12 +109,13 @@ const ProductForm = () => {
           onChange={handleRichTextChange} // Pass rich text changes separately
         />
 
-        <SelectField
-          label="Category"
-          options={['Select product category', 'Electronics', 'Apparel', 'Home Goods']}
-          value={formData.category}
-          onChange={handleChange}
-        />
+<SelectField
+  label="Category"
+  options={['Select product category', 'Electronics', 'Apparel', 'Home Goods']}
+  name="category"  // Add name property
+  value={formData.category}
+  onChange={handleChange}
+/>
 
         <div>
           <label className="block text-sm font-medium mb-1">Product media</label>
@@ -122,12 +123,13 @@ const ProductForm = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <SelectField
-            label="Currency Type"
-            options={['Select Currency Type', 'USDT', 'BNB', 'CSHOP', 'USDC']}
-            value={formData.currencyType}
-            onChange={handleChange}
-          />
+        <SelectField
+  label="Currency Type"
+  options={['Select Currency Type', 'USDT', 'BNB', 'CSHOP', 'USDC']}
+  name="currencyType"  // Add name property
+  value={formData.currencyType}
+  onChange={handleChange}
+/>
 
           <InputField
             label="Stock"
@@ -156,12 +158,13 @@ const ProductForm = () => {
             onChange={handleChange}
           />
 
-          <SelectField
-            label="Delivery option"
-            options={['Select delivery option', 'Local', 'Global']}
-            value={formData.shippingType}
-            onChange={handleChange}
-          />
+<SelectField
+  label="Delivery option"
+  options={['Select delivery option', 'Local', 'Global']}
+  name="shippingType"  // Add name property
+  value={formData.shippingType}
+  onChange={handleChange}
+/>
         </div>
 
         <Button text="Save and publish product" />

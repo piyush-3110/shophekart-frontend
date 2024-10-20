@@ -3,7 +3,12 @@
 import React, { useEffect, useState } from 'react';
 import SelectField from './SelectField';
 import axios from 'axios';
-
+interface CategoryOption {
+    label: string;
+    value: string;
+  }
+  
+  
 interface CategorySelectProps {
   category: string;
   onChange: (categoryId: string) => void;
@@ -32,13 +37,15 @@ const CategorySelect: React.FC<CategorySelectProps> = ({ category, onChange }) =
 
   return (
     <div>
-      <SelectField
-        label="Category"
-        options={loading ? ['Loading...'] : categories.map(cat => ({ label: cat.label, value: cat._id }))}
-        name="category"
-        value={category}
-        onChange={(e) => onChange(e.target.value)}
-      />
+<SelectField
+  label="Category"
+  options={loading ? [] as CategoryOption[] : categories.map(cat => ({ label: cat.label, value: cat._id }))}
+  name="category"
+  value={category}
+  onChange={(e) => onChange(e.target.value)}
+/>
+
+
     </div>
   );
 };

@@ -1,18 +1,20 @@
 // In SelectField.tsx
 import React from 'react';
 
-interface Option {
+interface CategoryOption {
   label: string;
   value: string;
 }
 
+
 interface SelectFieldProps {
   label: string;
-  options: Option[]; // Change this to accept an array of Option objects
+  options: CategoryOption[];
   value: string;
-  name: string; // Add name property to interface
+  name: string;
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
+
 
 const SelectField: React.FC<SelectFieldProps> = ({ label, options, value, name, onChange }) => {
   return (

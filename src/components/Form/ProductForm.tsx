@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react';
 import UploadImage from './UploadImage';
 import axios from 'axios';
@@ -172,21 +173,19 @@ const ProductForm = () => {
           />
           <SelectField
             label="Shipping Type"
-            options={['Select Shipping Type', 'Free', 'Paid'].map(type => ({ label: type, value: type }))}
+            options={['Select Shipping Type', 'LOCAL', 'GLOBAL'].map(type => ({ label: type, value: type }))}
             name="shippingType"
             value={formData.shippingType}
             onChange={handleChange}
           />
         </div>
-        <div className="flex justify-center">
-          <Button type="submit" text="Submit" />
-        </div>
+        
+        <Button text={loading ? <Loader /> : "Save and publish product"} disabled={loading} />
+        <ToastNotification />
       </form>
-
-      {loading && <Loader />}
-      <ToastNotification />
     </div>
   );
 };
+
 
 export default ProductForm;

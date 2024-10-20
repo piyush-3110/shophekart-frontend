@@ -16,6 +16,7 @@ const ProductForm = () => {
     price: '',
     shippingCharges: '',
     deliveryOption: '',
+    details:'',
   });
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
 
@@ -35,6 +36,8 @@ const ProductForm = () => {
     formDataToSubmit.append('name', formData.name);
     formDataToSubmit.append('description', formData.description);
     formDataToSubmit.append('productAddress', formData.productAddress);
+    formDataToSubmit.append('details', formData.details);
+
     formDataToSubmit.append('category', formData.category);
     formDataToSubmit.append('stock', formData.stock);
     formDataToSubmit.append('price', formData.price);
@@ -74,6 +77,7 @@ const ProductForm = () => {
         <TextArea
           label="Description"
           placeholder="Write your description here..."
+
           value={formData.description}
           onChange={handleChange}
         />
@@ -86,7 +90,7 @@ const ProductForm = () => {
           onChange={handleChange}
         />
 
-        <RichTextEditor label="Product Details" value={richText} onChange={setRichText} />
+        <RichTextEditor label="Product Details" value={formData.details} onChange={setRichText} />
 
         <SelectField
           label="Category"

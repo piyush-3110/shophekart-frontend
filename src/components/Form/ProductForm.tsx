@@ -1,8 +1,6 @@
-"use client";
 import React, { useState } from 'react';
 import UploadImage from './UploadImage';
 import axios from 'axios';
-import SelectField from './SelectField';
 import RichTextEditor from './RichTextArea';
 import InputField from './InputField';
 import TextArea from './TextArea';
@@ -10,6 +8,8 @@ import Button from './Button';
 import { toast } from 'react-toastify';
 import ToastNotification from './ToastNotification';
 import Loader from './Loader';
+import CategorySelect from './CategorySelect'; // Import CategorySelect
+import SelectField from './SelectField';
 
 const ProductForm = () => {
   const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ const ProductForm = () => {
     description: '',
     productAddress: '',
     details: '',
-    category: '',
+    category: '', // Will hold category ID
     currencyType: '',
     stock: '',
     price: '',
@@ -34,11 +34,15 @@ const ProductForm = () => {
   };
 
   const handleRichTextChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, details: value })); // Update 'details' field with rich text content
+    setFormData((prev) => ({ ...prev, details: value }));
   };
 
   const handleFileSelect = (files: File[]) => {
-    setSelectedImages(files); // Capture selected images from UploadImage component
+    setSelectedImages(files);
+  };
+
+  const handleCategoryChange = (categoryId: string) => {
+    setFormData((prev) => ({ ...prev, category: categoryId })); // Set the selected category ID
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -49,8 +53,8 @@ const ProductForm = () => {
     formDataToSubmit.append('name', formData.name);
     formDataToSubmit.append('description', formData.description);
     formDataToSubmit.append('productAddress', formData.productAddress);
-    formDataToSubmit.append('details', formData.details); // From Rich Text Editor
-    formDataToSubmit.append('category', '670f8fa48dc51375007dfff1');
+    formDataToSubmit.append('details', formData.details);
+    formDataToSubmit.append('category', formData.category); // Send category ID to backend
     formDataToSubmit.append('currencyType', formData.currencyType);
     formDataToSubmit.append('stock', formData.stock);
     formDataToSubmit.append('price', formData.price);
@@ -59,8 +63,7 @@ const ProductForm = () => {
     formDataToSubmit.append('productIdOnChain', '123456'); // Example product ID on chain
     formDataToSubmit.append('sellerId', '64a92b4f8f3b74a0acbfcfc1'); // Example seller ID
     formDataToSubmit.append('currencyAddress', 'dshsjkahbsahsagdjhfsad');
-    
-    // Append each image file to the FormData
+
     selectedImages.forEach((file) => {
       formDataToSubmit.append('images', file);
     });
@@ -73,7 +76,7 @@ const ProductForm = () => {
       });
       setLoading(false);
       toast.success('Product Created Successfully');
-      
+
       // Clear the form and selected images
       setFormData({
         name: '',
@@ -125,14 +128,11 @@ const ProductForm = () => {
         <RichTextEditor
           label="Product Details"
           value={formData.details}
-          onChange={handleRichTextChange} // Pass rich text changes separately
+          onChange={handleRichTextChange}
         />
-        <SelectField
-          label="Category"
-          options={['Select product category', 'Electronics', 'Apparel', 'Home Goods']}
-          name="category"
-          value={formData.category}
-          onChange={handleChange}
+        <CategorySelect
+          category={formData.category}
+          onChange={handleCategoryChange}
         />
         <div>
           <label className="block text-sm font-medium mb-1">Product media</label>
@@ -141,7 +141,7 @@ const ProductForm = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <SelectField
             label="Currency Type"
-            options={['Select Currency Type', 'USDT', 'BNB', 'CSHOP', 'USDC']}
+            options={['Select Currency Type', 'USDT', 'BNB', 'CSHOP', 'USDC'].map(type => ({ label: type, value: type }))}
             name="currencyType"
             value={formData.currencyType}
             onChange={handleChange}
@@ -171,16 +171,20 @@ const ProductForm = () => {
             onChange={handleChange}
           />
           <SelectField
-            label="Delivery option"
-            options={['Select delivery option', 'LOCAL', 'GLOBAL']}
+            label="Shipping Type"
+            options={['Select Shipping Type', 'Free', 'Paid'].map(type => ({ label: type, value: type }))}
             name="shippingType"
             value={formData.shippingType}
             onChange={handleChange}
           />
         </div>
-        <Button text={loading ? <Loader /> : "Save and publish product"} disabled={loading} />
-        <ToastNotification />
+        <div className="flex justify-center">
+          <Button type="submit" text="Submit" />
+        </div>
       </form>
+
+      {loading && <Loader />}
+      <ToastNotification />
     </div>
   );
 };

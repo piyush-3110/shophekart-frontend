@@ -74,7 +74,6 @@ const ProductForm = () => {
         <TextArea
           label="Description"
           placeholder="Write your description here..."
-          name="description"
           value={formData.description}
           onChange={handleChange}
         />

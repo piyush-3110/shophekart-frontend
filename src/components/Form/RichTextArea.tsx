@@ -8,7 +8,7 @@ interface RichTextEditorProps {
   placeholder?: string;
 }
 
-const RichTextEditor: React.FC<RichTextEditorProps> = ({ label, placeholder = "Write your product description here..." }) => {
+const RichTextEditor: React.FC<RichTextEditorProps> = ({ label, placeholder = "Write your product details here..." }) => {
   const [value, setValue] = useState('');
 
   return (

@@ -15,11 +15,13 @@ interface BuyCardProp {
   rating: number;
   stock: number;
   shippingType: string;
+  id:string;
   allImages:string[];
 }
 
 const BuyCard: FC<BuyCardProp> = ({
   productPrice,
+  id,
   productName,
   productImage,
   currencyType,

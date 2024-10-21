@@ -8,7 +8,7 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface Product {
-  id: string;
+  _id: string;
   name: string;
   price: number;
   currencyType: string;
@@ -71,6 +71,7 @@ const Page = () => {
           return (
             <Link key={index} href={`/itemDetails`}>
               <BuyCard
+              id={product._id}
                 productPrice={product.price}
                 productName={product.name}
                 productImage={product.images[0]}

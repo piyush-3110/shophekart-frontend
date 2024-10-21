@@ -20,7 +20,7 @@ interface ShippingField {
   colSpan?: number;
 }
 
-// Define static shipping fields
+
 const ShippingFields: ShippingField[] = [
   { id: "firstName", label: "First name", placeholder: "E.g. Jordan", type: "text" },
   { id: "lastName", label: "Last name", placeholder: "E.g. Smith", type: "text" },
@@ -34,7 +34,7 @@ const ShippingFields: ShippingField[] = [
 ];
 
 const Page = () => {
-  // Initialize form data with useState
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -47,9 +47,9 @@ const Page = () => {
     city: "",
   });
 
-  const { user } = useUserStore(); // Access the user from Zustand store to get buyerId
+  const { user } = useUserStore(); 
 
-  // Use useMemo to memoize the list of countries
+
   const countries = useMemo(
     () => Country.getAllCountries().map(({ name }) => ({ label: name, value: name })),
     []

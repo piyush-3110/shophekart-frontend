@@ -30,7 +30,7 @@ export function ComboboxDemo({
   data,
   notFoundText,
   placeholder,
-  onValueChange, // Accept the prop
+  onValueChange, 
 }: ComboboxDemoProps) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
@@ -41,7 +41,7 @@ export function ComboboxDemo({
     setOpen(false);
 
     if (onValueChange) {
-      onValueChange(selectedValue); // Trigger onValueChange when value changes
+      onValueChange(selectedValue); 
     }
   };
 
@@ -73,7 +73,7 @@ export function ComboboxDemo({
                 <CommandItem
                   key={data.value}
                   value={data.value}
-                  onSelect={handleSelect} // Use the handleSelect function
+                  onSelect={handleSelect} 
                 >
                   <Check
                     className={cn(

@@ -1,3 +1,4 @@
+"use client"
 import { ItemDetail } from '@/components/ItemDetails/ItemDetail';
 import React from 'react';
 import { useParams } from 'next/navigation';  // Import useParams to get the id from the route
@@ -8,7 +9,7 @@ const ItemDetailPage = () => {
   return (
     <div>
       {/* Pass the id to the ItemDetail component as a prop */}
-      <ItemDetail id={id} />
+      <ItemDetail id={id.toString()} />
     </div>
   );
 };

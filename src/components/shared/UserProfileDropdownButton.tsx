@@ -21,6 +21,10 @@ import {
   ShippingIcon,
   UserProfileIcon,
 } from "@/icons";
+import { useMutation } from "@tanstack/react-query";
+import { SiweService } from "@/services";
+import { toast } from "@/hooks/use-toast";
+import { useUserStore } from "@/store/userStore";
 
 const DROPDOWN_MENU_ITEMS: {
   label: string;
@@ -40,12 +44,34 @@ const DROPDOWN_MENU_ITEMS: {
     icon: <ShippingIcon />,
     link: "/shipping-details",
   },
-  { label: "Logout", icon: <LogoutIcon /> },
+  // { label: "Logout", icon: <LogoutIcon /> },
 ];
 
 const UserProfileDropdownButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { isConnected } = useAccount({ config });
+
+  const { user, setUser } = useUserStore();
+
+  const { mutateAsync } = useMutation({
+    mutationFn: async () => {
+      const response = await SiweService.logout();
+      setUser(response.data);
+      return response;
+    },
+    onError() {
+      toast({
+        title: "There was some problem while logging out",
+        variant: "destructive",
+      });
+    },
+    onSuccess() {
+      toast({
+        title: "Logged out successfully",
+      });
+    },
+  });
+
   return (
     <div className="flex items-center w-fit">
       <ConnectWalletButton />
@@ -55,40 +81,52 @@ const UserProfileDropdownButton = () => {
             <AvatarImage src="/images/navbar/defaultUserAvatar.png" />
             <AvatarFallback>U</AvatarFallback>
           </Avatar>
-          <DropdownMenu>
-            <DropdownMenuTrigger
-              onClick={() => {
-                setIsOpen(!isOpen);
-              }}
-            >
-              <ChevronDownIcon
-                className={`duration-300 ${isOpen && "rotate-180"}`}
-              />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="-translate-x-1/4 mt-4">
-              {DROPDOWN_MENU_ITEMS.map(({ label, icon, link }, index) => {
-                if (link) {
+          {user && (
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                onClick={() => {
+                  setIsOpen(!isOpen);
+                }}
+              >
+                <ChevronDownIcon
+                  className={`duration-300 ${isOpen && "rotate-180"}`}
+                />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="-translate-x-1/4 mt-4">
+                {DROPDOWN_MENU_ITEMS.map(({ label, icon, link }, index) => {
+                  if (link) {
+                    return (
+                      <Link href={link} key={index}>
+                        <DropdownMenuItem className="flex items-center gap-2 cursor-pointer">
+                          {icon}
+                          <span>{label}</span>
+                        </DropdownMenuItem>
+                      </Link>
+                    );
+                  }
                   return (
-                    <Link href={link} key={index}>
-                      <DropdownMenuItem className="flex items-center gap-2 cursor-pointer">
-                        {icon}
-                        <span>{label}</span>
-                      </DropdownMenuItem>
-                    </Link>
+                    <DropdownMenuItem
+                      key={index}
+                      className="flex items-center gap-2 cursor-pointer"
+                    >
+                      {icon}
+                      <span>{label}</span>
+                    </DropdownMenuItem>
                   );
-                }
-                return (
-                  <DropdownMenuItem
-                    key={index}
-                    className="flex items-center gap-2 cursor-pointer"
+                })}
+                <DropdownMenuItem className="flex items-center gap-2 cursor-pointer">
+                  <LogoutIcon />
+                  <button
+                    onClick={() => {
+                      mutateAsync();
+                    }}
                   >
-                    {icon}
-                    <span>{label}</span>
-                  </DropdownMenuItem>
-                );
-              })}
-            </DropdownMenuContent>
-          </DropdownMenu>
+                    Logout
+                  </button>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </div>
       )}
     </div>

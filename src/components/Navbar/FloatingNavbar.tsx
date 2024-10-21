@@ -15,6 +15,8 @@ import {
 import NavbarLinks from "./NavbarLinks";
 import Link from "next/link";
 import UserProfileDropdownButton from "../shared/UserProfileDropdownButton";
+import AuthButton from "../shared/AuthButton";
+import { useUserStore } from "@/store/userStore";
 
 export default function FloatingNavbar() {
   const [isVisible, setIsVisible] = useState(true);
@@ -44,6 +46,8 @@ export default function FloatingNavbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
+  const { user } = useUserStore();
+
   return (
     <nav
       className={`sticky lg:flex lg:items-center lg:justify-around top-0 z-[4] left-0 transition-transform duration-300 ease-in-out bg-white py-2 px-6 ${
@@ -68,6 +72,9 @@ export default function FloatingNavbar() {
 
           {/* Connect Wallet Button */}
           <UserProfileDropdownButton />
+
+          {/* Login & Logout Button */}
+          {!user && <AuthButton />}
         </div>
 
         {/* Hamburger/Close Icon for Small and Medium Screens */}

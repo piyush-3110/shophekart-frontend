@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Lens } from "@/components/ui/lens";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
+import { useRouter } from 'next/navigation'; // Import useRouter
 
 interface BuyCardProp {
   productPrice: number;
@@ -17,11 +18,11 @@ interface BuyCardProp {
   shippingType: string;
   id:string;
   allImages:string[];
+  
 }
 
 const BuyCard: FC<BuyCardProp> = ({
   productPrice,
-  id,
   productName,
   productImage,
   currencyType,
@@ -29,9 +30,17 @@ const BuyCard: FC<BuyCardProp> = ({
   rating,
   stock,
   shippingType,
-  allImages
+  allImages,id
 }) => {
-  const [hovering, setHovering] = useState(false);
+  const router = useRouter(); // Initialize router
+const[hovering,setHovering]= useState(false)
+  // Handle navigation to ItemDetail page
+  const handleBuyNow = () => {
+    // Pass data via query parameters or URL
+    const url = `/itemDetails/${id}?price=${productPrice}&name=${encodeURIComponent(productName)}&image=${encodeURIComponent(JSON.stringify(allImages))}&currency=${currencyType}&description=${encodeURIComponent(description)}&rating=${rating}&stock=${stock}&shippingType=${shippingType}`;
+console.log(url);
+    router.push(url);
+  };
 
   return (
     <div>
@@ -51,17 +60,20 @@ const BuyCard: FC<BuyCardProp> = ({
           </Lens>
           <motion.div
             animate={{
-              filter: hovering ? "blur(2px)" : "blur(0px)",
+              filter: hovering ? 'blur(2px)' : 'blur(0px)',
             }}
-            className="py-4 px-6 rounded-sm relative  mt-4 bg-white"
+            className="py-4 px-6 rounded-sm relative mt-4 bg-white"
           >
-            <h2 className="text-2xl text-left font-bold">
-              {productName}
-            </h2>
-            <p className="text-left font-semibold mt-1"> Price: {productPrice} <span>{currencyType}</span></p>
-         
+            <h2 className="text-2xl text-left font-bold">{productName}</h2>
+            <p className="text-left font-semibold mt-1">
+              Price: {productPrice} <span>{currencyType}</span>
+            </p>
             <Separator className="mt-2" />
-            <button type="button" className="text-[#022AFF] mt-2">
+            <button
+              type="button"
+              className="text-[#022AFF] mt-2"
+              onClick={handleBuyNow} // Call handleBuyNow on click
+            >
               Buy Now
             </button>
           </motion.div>

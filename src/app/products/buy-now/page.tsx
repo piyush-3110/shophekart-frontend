@@ -13,7 +13,6 @@ interface Product {
   price: number;
   currencyType: string;
   images: string[];
-  
 }
 
 const Page = () => {
@@ -38,7 +37,6 @@ const Page = () => {
     try {
       const response = await axios.get('http://localhost:3000/api/v1/fixedProduct/getAll');
       setProducts(response.data.fixedProducts);
-      console.log(response);
       setIsLoading(false);
     } catch (error) {
       console.error(error);
@@ -50,10 +48,13 @@ const Page = () => {
   }, []);
 
   useEffect(() => {
-    if (page < 1) {
-      router.push(`${pathname}?page=1`);
-    } else if (page > totalPages) {
-      router.push(`${pathname}?page=${totalPages}`);
+    // Prevent pushing the same URL if it's already the correct page
+    if (totalPages > 0) {
+      if (page < 1) {
+        router.push(`${pathname}?page=1`);
+      } else if (page > totalPages) {
+        router.push(`${pathname}?page=${totalPages}`);
+      }
     }
   }, [page, pathname, router, totalPages]);
 
@@ -66,13 +67,13 @@ const Page = () => {
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-4">
         {productList.map((product, index) => {
           return (
-            <Link key={index} href={`/itemDetails`}>
+            <Link key={product._id} href={`/itemDetails`}>
               <BuyCard
-              id={product._id}
+                id={product._id}
                 productPrice={product.price}
                 productName={product.name}
                 productImage={product.images[0]}
-               currencyType={product.currencyType}
+                currencyType={product.currencyType}
               />
             </Link>
           );

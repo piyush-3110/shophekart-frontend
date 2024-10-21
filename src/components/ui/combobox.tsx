@@ -19,17 +19,31 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
+interface ComboboxDemoProps {
+  data: { label: string; value: string }[];
+  notFoundText: string;
+  placeholder: string;
+  onValueChange?: (value: string) => void;
+}
+
 export function ComboboxDemo({
   data,
   notFoundText,
   placeholder,
-}: {
-  data: { label: string; value: string }[];
-  notFoundText: string;
-  placeholder: string;
-}) {
+  onValueChange, // Accept the prop
+}: ComboboxDemoProps) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
+
+  const handleSelect = (currentValue: string) => {
+    const selectedValue = currentValue === value ? "" : currentValue;
+    setValue(selectedValue);
+    setOpen(false);
+
+    if (onValueChange) {
+      onValueChange(selectedValue); // Trigger onValueChange when value changes
+    }
+  };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -59,10 +73,7 @@ export function ComboboxDemo({
                 <CommandItem
                   key={data.value}
                   value={data.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
-                    setOpen(false);
-                  }}
+                  onSelect={handleSelect} // Use the handleSelect function
                 >
                   <Check
                     className={cn(

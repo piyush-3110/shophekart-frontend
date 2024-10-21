@@ -1,12 +1,16 @@
 import React from "react";
 
-const ItemDescriptionText = () => {
+interface ItemDescriptionTextProps {
+  description: string;
+  details: string;
+}
+
+const ItemDescriptionText: React.FC<ItemDescriptionTextProps> = ({ description, details }) => {
   return (
-    <p className="text-sm font-[400] text-[#6B6F93]">
-      Made by new technic corduroy, sturdier than normal fabric. Super soft
-      and lightweight. Water resistance and reinforced bottom. Not only the
-      durability of the product, but also maintains its lightness.
-    </p>
+    <div>
+      <p className="text-sm font-[400] text-[#6B6F93] mb-2">{description}</p>
+      <p className="text-sm font-[400] text-[#6B6F93]">{details}</p>
+    </div>
   );
 };
 

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import BuyerHistory from './BuyerHistory';
+import { SellerHistory } from './SellerHistory';
 
 export const Slider = () => {
   const [activeTab, setActiveTab] = useState('buyerHistory');
@@ -28,7 +29,7 @@ export const Slider = () => {
       case 'buyerHistory':
         return <BuyerHistory />;
       case 'sellerHistory':
-        return <BuyerHistory />;
+        return <SellerHistory />;
    
       default:
         return null;

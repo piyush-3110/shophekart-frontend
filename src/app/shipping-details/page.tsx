@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { Country } from "country-state-city";
-
+import Footer from "@/components/Footer/Footer";
 const countries = Country.getAllCountries().map(({ name }) => {
   return {
     label: name,
@@ -130,6 +130,7 @@ const Page = () => {
           </Button>
         </form>
       </section>
+      <Footer/>
     </main>
   );
 };

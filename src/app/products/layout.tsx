@@ -1,7 +1,7 @@
 import NavigationTabs from "@/components/products/shared/navigationTabs";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
-
+import Footer from "@/components/Footer/Footer";
 const CATEGORIES: { label: string }[] = [
   { label: "Technology" },
   { label: "Trinkets" },
@@ -21,6 +21,7 @@ const Layout = ({ children }: { children: React.ReactElement }) => {
       <Separator color="#D7DDE7" />
       <NavigationTabs />
       <div className="px-2 lg:px-32">{children}</div>
+      <Footer/>
     </main>
   );
 };

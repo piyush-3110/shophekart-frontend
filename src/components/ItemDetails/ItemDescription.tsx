@@ -57,13 +57,13 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
           productIdOnChain: productIdOnChain, // Product ID on the blockchain
         }),
       });
-
+      const data = await response.json();
       if (response.ok) {
-        const data = await response.json();
-        toast.success("Order created successfully!"); // Show success toast notification
+  
+        toast.success(data.message); // Show success toast notification
         console.log("Order created successfully:", data);
       } else {
-        toast.error("Failed to create order"); // Show error toast notification
+        toast.error(data.message); // Show error toast notification
         console.error("Failed to create order:", response.statusText);
       }
     } catch (error) {

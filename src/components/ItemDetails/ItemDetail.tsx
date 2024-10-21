@@ -18,6 +18,7 @@ interface Product {
   currencyType: string;
   stock: number;
   sellerId: string;
+  shippingType:string;
   // Add any other fields you may want to use from the fetched data
 }
 
@@ -68,6 +69,7 @@ export const ItemDetail: React.FC<ItemDetailProps> = ({ id }) => {
               price={product.price}
               currencyType={product.currencyType}
               stock={product.stock}
+              shippingType={product.shippingType}
             />
           </div>
         </div>

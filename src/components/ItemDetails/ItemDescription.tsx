@@ -2,7 +2,7 @@
 import React from "react";
 import ItemInfoHeader from "./ItemInfoHeader";
 import ItemDescriptionText from "./ItemDescriptionText";
-import BidSection from "./BidSection";
+
 
 interface ItemDescriptionProps {
   name: string;

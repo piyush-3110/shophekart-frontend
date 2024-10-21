@@ -25,13 +25,13 @@ const BuyCard: FC<BuyCardProp> = ({
 const[hovering,setHovering]= useState(false)
   // Handle navigation to ItemDetail page
   const handleBuyNow = () => {
-    // Pass data via query parameters or URL
     const url = `/itemDetails/${id}`;
     console.log('Navigating to: ', url);
     setTimeout(() => {
       router.push(url);
     }, 100);
   };
+  
 
   return (
     <div>

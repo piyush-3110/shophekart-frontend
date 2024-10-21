@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import ItemInfoHeader from "./ItemInfoHeader";
 import ItemDescriptionText from "./ItemDescriptionText";
+import { toast } from "react-toastify";
+import Loader from "../Form/Loader"; // Import the Loader component
+import ToastNotification from "../Form/ToastNotification";
 
 interface ItemDescriptionProps {
   name: string;
@@ -35,7 +38,10 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
   stock,
   shippingType,
 }) => {
+  const [loading, setLoading] = useState(false); // State for loading
+
   const handleBuyNow = async () => {
+    setLoading(true); // Set loading to true when the buy now button is clicked
     try {
       const response = await fetch("http://localhost:3000/api/v1/order/create", {
         method: "POST",
@@ -54,15 +60,17 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
 
       if (response.ok) {
         const data = await response.json();
+        toast.success("Order created successfully!"); // Show success toast notification
         console.log("Order created successfully:", data);
-        // You can add more logic here, such as showing a success message or redirecting
       } else {
+        toast.error("Failed to create order"); // Show error toast notification
         console.error("Failed to create order:", response.statusText);
-        // Handle error response
       }
     } catch (error) {
+      toast.error("Error creating order"); // Show error toast notification
       console.error("Error creating order:", error);
-      // Handle network or other errors
+    } finally {
+      setLoading(false); // Set loading to false after the request is complete
     }
   };
 
@@ -82,8 +90,14 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
         </div>
       </div>
 
-      <button className="gradient-button mt-3 !text-sm !w-fit" onClick={handleBuyNow}>
-        Buy Now
+      <button 
+        className="gradient-button mt-3 !text-sm !w-fit"
+        onClick={handleBuyNow}
+        disabled={loading} // Disable button when loading
+      >
+        {loading ? <Loader /> : "Buy Now"} {/* Show loader when loading */}
+        <ToastNotification />
+
       </button>
     </div>
   );

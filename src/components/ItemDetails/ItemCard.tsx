@@ -12,27 +12,29 @@ const ItemCard: React.FC<ItemCardProps> = ({ images }) => {
   return (
     <div className="bg-[#F4F6FA] shadow-sm p-4 rounded-lg h-[28rem] w-[90vw] md:w-[20rem] lg:w-[22rem]">
       {/* Main Image */}
-      <div className="mb-4">
+      <div className="flex items-center justify-center h-[80%]">
         <img
-          className="w-full bg-[#F4F6FA] h-[80%] object-contain rounded-md"
+          className="max-h-full max-w-full object-contain rounded-md"
           src={selectedImage}
           alt="Main Item"
         />
       </div>
 
       {/* Thumbnails */}
-      <div className="grid grid-cols-4 gap-2">
-        {images.map((thumbnail, index) => (
-          <img
-            key={index}
-            className={`w-full h-16 bg-white object-contain rounded-md cursor-pointer ${
-              selectedImage === thumbnail ? 'border-1 border-blue-300' : ''
-            }`}
-            src={thumbnail}
-            alt={`Thumbnail ${index + 1}`}
-            onClick={() => setSelectedImage(thumbnail)}
-          />
-        ))}
+      <div className="flex justify-center mt-4">
+        <div className="grid grid-cols-4 gap-2 w-fit">
+          {images.map((thumbnail, index) => (
+            <img
+              key={index}
+              className={`w-full h-16 bg-white object-contain rounded-md cursor-pointer ${
+                selectedImage === thumbnail ? 'border-1 border-blue-300' : ''
+              }`}
+              src={thumbnail}
+              alt={`Thumbnail ${index + 1}`}
+              onClick={() => setSelectedImage(thumbnail)}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -6,41 +6,32 @@ import { Lens } from "@/components/ui/lens";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { useRouter } from 'next/navigation'; // Import useRouter
-
 interface BuyCardProp {
   productPrice: number;
   productName: string;
   productImage: string;
-  currencyType: string;
-  description: string;
-  rating: number;
-  stock: number;
-  shippingType: string;
   id:string;
-  allImages:string[];
-  
+  currencyType:string;
 }
 
 const BuyCard: FC<BuyCardProp> = ({
   productPrice,
   productName,
   productImage,
-  currencyType,
-  description,
-  rating,
-  stock,
-  shippingType,
-  allImages,id
+  id,
+  currencyType
 }) => {
   const router = useRouter(); // Initialize router
 const[hovering,setHovering]= useState(false)
   // Handle navigation to ItemDetail page
   const handleBuyNow = () => {
-    // Pass data via query parameters or URL
-    const url = `/itemDetails/${id}?price=${productPrice}&name=${encodeURIComponent(productName)}&image=${encodeURIComponent(JSON.stringify(allImages))}&currency=${currencyType}&description=${encodeURIComponent(description)}&rating=${rating}&stock=${stock}&shippingType=${shippingType}`;
-console.log(url);
-    router.push(url);
+    const url = `/itemDetails/${id}`;
+    console.log('Navigating to: ', url);
+    setTimeout(() => {
+      router.push(url);
+    }, 100);
   };
+  
 
   return (
     <div>

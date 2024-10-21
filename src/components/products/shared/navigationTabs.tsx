@@ -7,7 +7,6 @@ import Link from "next/link";
 import React, { useState } from "react";
 
 const PRODUCTS_NAV_TABS: { label: string; link: string }[] = [
-  { label: "Auction", link: "/products/auction" },
   { label: "Buy now", link: "/products/buy-now" },
 ];
 

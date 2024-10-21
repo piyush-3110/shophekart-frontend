@@ -13,11 +13,7 @@ interface Product {
   price: number;
   currencyType: string;
   images: string[];
-  description: string;
-  allImages: string[];
-  rating: number;
-  stock: number;
-  shippingType: string;
+  
 }
 
 const Page = () => {
@@ -42,6 +38,7 @@ const Page = () => {
     try {
       const response = await axios.get('http://localhost:3000/api/v1/fixedProduct/getAll');
       setProducts(response.data.fixedProducts);
+      console.log(response);
       setIsLoading(false);
     } catch (error) {
       console.error(error);
@@ -75,12 +72,7 @@ const Page = () => {
                 productPrice={product.price}
                 productName={product.name}
                 productImage={product.images[0]}
-                allImages ={product.images}
-                currencyType={product.currencyType}
-                description={product.description}
-                rating={product.rating}
-                stock={product.stock}
-                shippingType={product.shippingType}
+               currencyType={product.currencyType}
               />
             </Link>
           );

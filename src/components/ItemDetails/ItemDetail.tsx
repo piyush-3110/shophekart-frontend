@@ -1,11 +1,16 @@
+"use client"
+
 import React from 'react'
 
 import ItemCard from './ItemCard'
 import { ItemDescription } from './ItemDescription';
 
 import { ReviewSection } from '../Profile/ReviewSection';
+interface ItemDetailProps {
+  id: string; // Accept id as a prop
+}
+export const ItemDetail: React.FC<ItemDetailProps> = ({ id }) => {
 
-export const ItemDetail = () => {
     const imageUrls = [
         '/images/itemDetails/bag.png',
         '/images/itemDetails/bag.png',

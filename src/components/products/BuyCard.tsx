@@ -6,7 +6,6 @@ import { Lens } from "@/components/ui/lens";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { useRouter } from 'next/navigation'; // Import useRouter
-
 interface BuyCardProp {
   productPrice: number;
   productName: string;
@@ -28,8 +27,10 @@ const[hovering,setHovering]= useState(false)
   const handleBuyNow = () => {
     // Pass data via query parameters or URL
     const url = `/itemDetails/${id}`;
-console.log(url);
-    router.push(url);
+    console.log('Navigating to: ', url);
+    setTimeout(() => {
+      router.push(url);
+    }, 100);
   };
 
   return (

@@ -37,7 +37,7 @@ export default function RootLayout({
         <Web3ModalProvider initialState={initialState}>
           <RenderedNavbar />
           {children}
-          <Footer/>
+          <Footer />
           <Toaster />
         </Web3ModalProvider>
       </body>

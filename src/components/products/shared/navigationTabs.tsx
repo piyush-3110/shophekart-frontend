@@ -51,10 +51,8 @@ const NavigationTabs = () => {
 
         {/* Order History Button */}
         <Button
-          className="relative"
-          onClick={openModal}
-          variant={ButtonVariant.SECONDARY}
-        >
+          className="relative gradient-button"
+          onClick={openModal}>
           Order History
         </Button>
       </div>

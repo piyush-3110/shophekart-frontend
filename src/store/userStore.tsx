@@ -14,7 +14,7 @@ type Store = {
   setUser(user: IUser | null): void;
 };
 
-const localStorageUser = localStorage.getItem("user");
+const localStorageUser = window && localStorage.getItem("user");
 
 export const useUserStore = create<Store>()((set) => ({
   user: localStorageUser ? JSON.parse(localStorageUser) : null,

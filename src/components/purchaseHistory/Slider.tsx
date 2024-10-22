@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import BuyerHistory from './BuyerHistory';
-import { SellerHistory } from './SellerHistory';
 
 export const Slider = () => {
   const [activeTab, setActiveTab] = useState('buyerHistory');
@@ -28,8 +27,7 @@ export const Slider = () => {
     switch (activeTab) {
       case 'buyerHistory':
         return <BuyerHistory />;
-      case 'sellerHistory':
-        return <SellerHistory />;
+    
    
       default:
         return null;
@@ -92,12 +90,7 @@ export const Slider = () => {
         Buyer History
         </p>
         {/* Tab for Items For Sale */}
-        <p
-          onClick={() => setActiveTab('sellerHistory')}
-          className={`cursor-pointer relative ${activeTab === 'sellerHistory' ? 'gradient-text !text-lg' : ''}`}
-        >
-          Seller History
-        </p>
+      
         {/* Tab for Comments */}
      
 

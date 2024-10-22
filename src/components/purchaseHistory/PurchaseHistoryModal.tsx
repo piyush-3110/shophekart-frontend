@@ -43,7 +43,7 @@ export const PurchaseHistoryModal: React.FC<ModalProps> = ({ isOpen, onClose }) 
 
         {/* Modal Content */}
         <div className="overflow-y-auto flex flex-col py-4  h-full">
-        <h1 className="text-[#160041] font-[700] text-center text-xl">Purchase History</h1>
+        <h1 className="text-[#160041] font-[700] text-center text-xl">Order History</h1>
         <Slider/>
         </div>
       </div>

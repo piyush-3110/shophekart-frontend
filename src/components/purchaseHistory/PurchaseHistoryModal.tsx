@@ -32,10 +32,10 @@ export const PurchaseHistoryModal: React.FC<ModalProps> = ({ isOpen, onClose }) 
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm"
+      className="fixed inset-0 w-full z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm"
       onClick={handleOutsideClick}
     >
-      <div className="relative w-[90vw] h-[90vh] bg-white shadow-lg rounded-lg p-6">
+      <div className="relative w-[90vw] h-[80vh] bg-white shadow-lg rounded-lg p-6">
         {/* Close Icon */}
         <button className="absolute top-4 right-4 text-gray-500 hover:text-gray-700" onClick={onClose}>
           <IoClose size={24} />

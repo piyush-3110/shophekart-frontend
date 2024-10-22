@@ -8,7 +8,7 @@ import Button from "./Button";
 import { toast } from "react-toastify";
 import ToastNotification from "./ToastNotification";
 import Loader from "./Loader";
-import CategorySelect from "./CategorySelect";
+import CategorySelect from "./CategorySelect"; // Import CategorySelect
 import SelectField from "./SelectField";
 import { HttpRequestService, PinataService } from "@/services";
 import { useWriteContract } from "wagmi";

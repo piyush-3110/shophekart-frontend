@@ -19,6 +19,12 @@ interface Product {
   stock: number;
   sellerId: string;
   shippingType:string;
+  _id:string;
+  buyerId:string;
+  tokenId:number;
+  productIdOnChain:string;
+  shippingDuration:number;
+  shippingCharges: number;
   // Add any other fields you may want to use from the fetched data
 }
 
@@ -65,6 +71,12 @@ export const ItemDetail: React.FC<ItemDetailProps> = ({ id }) => {
             <ItemDescription
               name={product.name}
               description={product.description}
+              buyerId='67151ba41a526ba9fd1a9a31'
+              id={product._id}
+              shippingCharges={product.shippingCharges}
+              shippingDuration={product.shippingDuration}
+              tokenId={2378734}
+              productIdOnChain='18923n1287912'
               details={product.details}
               price={product.price}
               currencyType={product.currencyType}

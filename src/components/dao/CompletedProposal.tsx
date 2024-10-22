@@ -2,6 +2,6 @@ import React from 'react'
 
 export const CompletedProposal = () => {
   return (
-    <div>CompletedProposal</div>
+    <div className='text-white'>CompletedProposal</div>
   )
 }

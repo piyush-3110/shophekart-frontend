@@ -65,12 +65,12 @@ export const ProposalSlider = () => {
       // Default values for medium and large screens (md, lg)
       switch (activeTab) {
         case 'activeProposal':
-          width = '160px';
+          width = '140px';
           translateX = '0%';
           break;
         case 'completedProposal':
-          width = '160px';
-          translateX = '200px';
+          width = '180px';
+          translateX = '180px';
           break;
         case 'rejectedProposal':
           width = '160px';
@@ -89,9 +89,9 @@ export const ProposalSlider = () => {
   };
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full py-6">
       {/* Slider with clickable tabs */}
-      <div className="text-lg font-[700] px-6 pt-6 text-white flex gap-10 justify-center relative">
+      <div className="text-lg font-[700] py-6 px-6 pt-9 text-white flex gap-10 relative">
         {/* Tab for Active Proposal */}
         <p
           onClick={() => setActiveTab('activeProposal')}

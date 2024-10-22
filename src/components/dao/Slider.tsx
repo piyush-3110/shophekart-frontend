@@ -1,17 +1,18 @@
 "use client";
 import React from 'react';
 import { CardSpotlightDemo } from '../tokenization/CardSpotlightDemo';
+import { ProposalSlider } from './ProposalSlider';
 
 export const Slider = () => {
 
     return (
         <div 
-            className="px-8 md:px-12 py-8 min-h-[100vh] bg-[#000] bg-cover bg-center "
+            className="px-8 md:px-12 py-8 lg:py-12 min-h-[100vh] bg-[#000] bg-cover bg-center "
         >
-            <p className="text-2xl font-bold mb-6 text-center text-white">
+            <p className="text-2xl font-bold mb-9 text-center text-white">
        Proposal and Voting
       </p>
-            <div className='flex flex-col lg:flex-row gap-6 lg:items-center '>
+            
 
             <div className='grid grid-cols-1 gap-3 md:grid-cols-3 w-[90vw]'>
             <CardSpotlightDemo 
@@ -29,11 +30,9 @@ export const Slider = () => {
   description="Track all proposals that have been submitted by you. This feature allows you to keep a comprehensive record of all the proposals you've submitted."
 value="2"
 />
-
-
-
-            </div>
-            </div>
+   </div>
+           
+            <ProposalSlider/>
         </div>
     );
 };

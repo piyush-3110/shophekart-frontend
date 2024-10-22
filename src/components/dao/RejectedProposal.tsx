@@ -2,6 +2,6 @@ import React from 'react'
 
 export const RejectedProposal = () => {
   return (
-    <div>RejectedProposal</div>
+    <div className='text-white'>RejectedProposal</div>
   )
 }

@@ -3,7 +3,7 @@ import React from 'react';
 export const ActiveProposal = () => {
   
   const proposals = [
-    "Proposal to reduce transaction fees for DAO members.",
+    "Proposal to reduce transaction fees for DAO members. Proposal to reduce transaction fees for DAO membersProposal to reduce transaction fees for DAO members",
     "Proposal to integrate a new governance token system.",
     "Proposal to launch a community rewards program.",
     "Proposal to improve voting transparency.",
@@ -11,11 +11,11 @@ export const ActiveProposal = () => {
   ];
 
   return (
-    <div className="text-white space-y-6">
+    <div className="text-white pt-6 space-y-6">
       {proposals.map((proposal, index) => (
         <div
           key={index}
-          className="flex justify-between border border-white items-center py-2 px-4  rounded-lg"
+          className="flex justify-between border  border-neutral-800 items-center py-2 px-4  rounded-lg"
         >
           {/* Left side: Proposal text */}
           <p className="max-w-md truncate">{proposal}</p>

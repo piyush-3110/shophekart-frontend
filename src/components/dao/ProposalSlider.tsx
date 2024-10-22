@@ -91,7 +91,7 @@ export const ProposalSlider = () => {
   return (
     <div className="relative w-full py-6">
       {/* Slider with clickable tabs */}
-      <div className="text-lg font-[700] py-6 px-6 pt-9 text-white flex gap-10 relative">
+      <div className="text-lg font-[700]  px-6  text-white flex gap-10 relative">
         {/* Tab for Active Proposal */}
         <p
           onClick={() => setActiveTab('activeProposal')}

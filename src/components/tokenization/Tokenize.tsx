@@ -26,6 +26,9 @@ export const Tokenize = () => {
         <div 
             className="px-8 md:px-12 py-8 min-h-[100vh] bg-[#000] bg-cover bg-center "
         >
+            <p className="text-2xl font-bold mb-6 text-center text-white">
+        What will we tokenize?
+      </p>
             <div className='flex flex-col lg:flex-row gap-6 lg:items-center '>
 
         
@@ -48,7 +51,7 @@ export const Tokenize = () => {
 />
 <CardSpotlightDemo 
   heading="Tokenized Collectibles" 
-  description="Rare items like limited-edition sneakers, designer fashion, and unique collectibles will also be available for tokenization, allowing a vibrant marketplace for these in-demand products." 
+  description="Rare items like limited-edition sneakers, designer fashion, and unique collectibles will also be available for tokenization, allowing a vibrant marketplace for these in-demand products." 
 />
 
 

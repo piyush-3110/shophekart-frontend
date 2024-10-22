@@ -31,7 +31,8 @@ export const ActiveProposal = () => {
       {proposals.map((proposal, index) => (
         <div
           key={index}
-          className="flex justify-between border border-neutral-800 items-center py-2 px-4 rounded-lg"
+          className="flex justify-between border border-neutral-800 items-center py-2 px-4 rounded-lg cursor-pointer" // Add cursor-pointer to indicate it's clickable
+          onClick={() => openModal(proposal)} // Open modal with current proposal when the div is clicked
         >
           {/* Left side: Proposal text */}
           <p className="max-w-md truncate">{proposal}</p>
@@ -40,13 +41,19 @@ export const ActiveProposal = () => {
           <div>
             <button
               className="text-green-500 px-4 py-2 mr-2"
-              onClick={() => openModal(proposal)} // Open modal with current proposal
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent the div click from firing when clicking this button
+                openModal(proposal); // Optional: If you want to open the modal for button clicks too
+              }}
             >
               Approve
             </button>
             <button
               className="text-red-500 px-4 py-2"
-              onClick={() => openModal(proposal)} // Open modal with current proposal
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent the div click from firing when clicking this button
+                openModal(proposal); // Optional: If you want to open the modal for button clicks too
+              }}
             >
               Reject
             </button>

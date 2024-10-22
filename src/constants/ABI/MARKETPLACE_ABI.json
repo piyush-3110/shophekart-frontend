@@ -1,0 +1,783 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_nftContractAddress",
+        "type": "address"
+      },
+      { "internalType": "address", "name": "_escrowAddress", "type": "address" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  { "inputs": [], "name": "EnforcedPause", "type": "error" },
+  { "inputs": [], "name": "ExpectedPause", "type": "error" },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "owner", "type": "address" }
+    ],
+    "name": "OwnableInvalidOwner",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "account", "type": "address" }
+    ],
+    "name": "OwnableUnauthorizedAccount",
+    "type": "error"
+  },
+  { "inputs": [], "name": "ReentrancyGuardReentrantCall", "type": "error" },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "marketItemId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "seller",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "quantity",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "price",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "canceled",
+        "type": "bool"
+      }
+    ],
+    "name": "MarketItemCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "marketItemId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "newPrice",
+        "type": "uint256"
+      }
+    ],
+    "name": "MarketItemModified",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "marketItemId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "buyer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "price",
+        "type": "uint256"
+      }
+    ],
+    "name": "MarketItemSold",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "Paused",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "Unpaused",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
+    "name": "UserBlocked",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
+    "name": "UserUnblocked",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "CSHOP",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "EscrowAddress",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "user", "type": "address" }
+    ],
+    "name": "blockUser",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "name": "blockedUsers",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "marketItemId", "type": "uint256" }
+    ],
+    "name": "cancelMarketItem",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "marketItemId", "type": "uint256" },
+      { "internalType": "address", "name": "_buyer", "type": "address" },
+      {
+        "internalType": "uint256",
+        "name": "_shippingCharge",
+        "type": "uint256"
+      }
+    ],
+    "name": "changeShippingAmountForUser",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "quantity", "type": "uint256" },
+      { "internalType": "address", "name": "token", "type": "address" },
+      { "internalType": "uint256", "name": "price", "type": "uint256" },
+      {
+        "internalType": "uint256",
+        "name": "shippingCharge",
+        "type": "uint256"
+      },
+      { "internalType": "string", "name": "tokenURI", "type": "string" }
+    ],
+    "name": "createMarketItem",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "escrowContractAddress",
+    "outputs": [
+      {
+        "internalType": "contract IEscrowShophekart",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "fetchActiveMarketItemIds",
+    "outputs": [
+      { "internalType": "uint256[]", "name": "", "type": "uint256[]" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "fetchAllMarketItems",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "marketItemId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address payable",
+            "name": "seller",
+            "type": "address"
+          },
+          { "internalType": "address", "name": "token", "type": "address" },
+          { "internalType": "uint256", "name": "price", "type": "uint256" },
+          {
+            "internalType": "uint256",
+            "name": "shippingCharge",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "tokenIDs",
+            "type": "uint256[]"
+          },
+          { "internalType": "uint256", "name": "quantity", "type": "uint256" },
+          {
+            "internalType": "uint256",
+            "name": "availableQuantity",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "soldQuantity",
+            "type": "uint256"
+          },
+          { "internalType": "bool", "name": "sold", "type": "bool" },
+          { "internalType": "bool", "name": "canceled", "type": "bool" }
+        ],
+        "internalType": "struct ShophekartMarketplace.MarketItem[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "fetchCanceledMarketItems",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "marketItemId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address payable",
+            "name": "seller",
+            "type": "address"
+          },
+          { "internalType": "address", "name": "token", "type": "address" },
+          { "internalType": "uint256", "name": "price", "type": "uint256" },
+          {
+            "internalType": "uint256",
+            "name": "shippingCharge",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "tokenIDs",
+            "type": "uint256[]"
+          },
+          { "internalType": "uint256", "name": "quantity", "type": "uint256" },
+          {
+            "internalType": "uint256",
+            "name": "availableQuantity",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "soldQuantity",
+            "type": "uint256"
+          },
+          { "internalType": "bool", "name": "sold", "type": "bool" },
+          { "internalType": "bool", "name": "canceled", "type": "bool" }
+        ],
+        "internalType": "struct ShophekartMarketplace.MarketItem[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "fetchSoldMarketItems",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "marketItemId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address payable",
+            "name": "seller",
+            "type": "address"
+          },
+          { "internalType": "address", "name": "token", "type": "address" },
+          { "internalType": "uint256", "name": "price", "type": "uint256" },
+          {
+            "internalType": "uint256",
+            "name": "shippingCharge",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "tokenIDs",
+            "type": "uint256[]"
+          },
+          { "internalType": "uint256", "name": "quantity", "type": "uint256" },
+          {
+            "internalType": "uint256",
+            "name": "availableQuantity",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "soldQuantity",
+            "type": "uint256"
+          },
+          { "internalType": "bool", "name": "sold", "type": "bool" },
+          { "internalType": "bool", "name": "canceled", "type": "bool" }
+        ],
+        "internalType": "struct ShophekartMarketplace.MarketItem[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "marketItemId", "type": "uint256" }
+    ],
+    "name": "getFinalAmount",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getListingFee",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "marketItemId", "type": "uint256" }
+    ],
+    "name": "getMarketItem",
+    "outputs": [
+      { "internalType": "uint256", "name": "", "type": "uint256" },
+      { "internalType": "address", "name": "", "type": "address" },
+      { "internalType": "address", "name": "", "type": "address" },
+      { "internalType": "uint256", "name": "", "type": "uint256" },
+      { "internalType": "uint256", "name": "", "type": "uint256" },
+      { "internalType": "uint256[]", "name": "", "type": "uint256[]" },
+      { "internalType": "uint256", "name": "", "type": "uint256" },
+      { "internalType": "uint256", "name": "", "type": "uint256" },
+      { "internalType": "uint256", "name": "", "type": "uint256" },
+      { "internalType": "bool", "name": "", "type": "bool" },
+      { "internalType": "bool", "name": "", "type": "bool" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "tokenId", "type": "uint256" }
+    ],
+    "name": "getMarketItemIdByTokenId",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getMarketItemIdCount",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "itemId", "type": "uint256" },
+      { "internalType": "address", "name": "user", "type": "address" }
+    ],
+    "name": "getShippingCharge",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getSoldItemCount",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getTotalSoldQuantity",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "user", "type": "address" }
+    ],
+    "name": "getUserListedItemIds",
+    "outputs": [
+      { "internalType": "uint256[]", "name": "", "type": "uint256[]" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "marketItemId", "type": "uint256" },
+      { "internalType": "address", "name": "_user", "type": "address" }
+    ],
+    "name": "hasRequestedShippingAdjustment",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "user", "type": "address" }
+    ],
+    "name": "isUserBlocked",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "listingFee",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "marketItemIdToMarketItem",
+    "outputs": [
+      { "internalType": "uint256", "name": "marketItemId", "type": "uint256" },
+      {
+        "internalType": "address payable",
+        "name": "seller",
+        "type": "address"
+      },
+      { "internalType": "address", "name": "token", "type": "address" },
+      { "internalType": "uint256", "name": "price", "type": "uint256" },
+      {
+        "internalType": "uint256",
+        "name": "shippingCharge",
+        "type": "uint256"
+      },
+      { "internalType": "uint256", "name": "quantity", "type": "uint256" },
+      {
+        "internalType": "uint256",
+        "name": "availableQuantity",
+        "type": "uint256"
+      },
+      { "internalType": "uint256", "name": "soldQuantity", "type": "uint256" },
+      { "internalType": "bool", "name": "sold", "type": "bool" },
+      { "internalType": "bool", "name": "canceled", "type": "bool" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "marketplaceFeePercent",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "marketItemId", "type": "uint256" },
+      { "internalType": "uint256", "name": "newPrice", "type": "uint256" }
+    ],
+    "name": "modifyItemPrice",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "amountInWei", "type": "uint256" }
+    ],
+    "name": "modifyListingFee",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "percent", "type": "uint256" }
+    ],
+    "name": "modifyMarketplaceFeePercent",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "nftContractAddress",
+    "outputs": [
+      { "internalType": "contract IShophekart", "name": "", "type": "address" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "pause",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "paused",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "marketItemId", "type": "uint256" }
+    ],
+    "name": "purchaseByPayingInBNB",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "marketItemId", "type": "uint256" }
+    ],
+    "name": "purchaseByPayingInToken",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "marketItemId", "type": "uint256" }
+    ],
+    "name": "requestShippingChargeAdjustment",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_CSHOP", "type": "address" }
+    ],
+    "name": "setCSHOPAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_escrowAddress", "type": "address" }
+    ],
+    "name": "setEscrowAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_nftContractAddress",
+        "type": "address"
+      }
+    ],
+    "name": "setNFTContractAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address payable",
+        "name": "_tresurryWallet",
+        "type": "address"
+      }
+    ],
+    "name": "setTreasuryWallet",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "newOwner", "type": "address" }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "tresurryWallet",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "unPause",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "user", "type": "address" }
+    ],
+    "name": "unblockUser",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "marketItemId", "type": "uint256" },
+      {
+        "internalType": "uint256",
+        "name": "_newShippingCharge",
+        "type": "uint256"
+      }
+    ],
+    "name": "updateShippingCharge",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "", "type": "address" },
+      { "internalType": "uint256", "name": "", "type": "uint256" }
+    ],
+    "name": "userListedItemIds",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "withdrawFunds",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  { "stateMutability": "payable", "type": "receive" }
+]

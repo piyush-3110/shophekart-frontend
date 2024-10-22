@@ -1,36 +1,57 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-"use client"
-import React, { useState } from 'react';
-import UploadImage from './UploadImage';
-import axios from 'axios';
-import RichTextEditor from './RichTextArea';
-import InputField from './InputField';
-import TextArea from './TextArea';
-import Button from './Button';
-import { toast } from 'react-toastify';
-import ToastNotification from './ToastNotification';
-import Loader from './Loader';
-import CategorySelect from './CategorySelect'; // Import CategorySelect
-import SelectField from './SelectField';
+"use client";
+import React, { useState } from "react";
+import UploadImage from "./UploadImage";
+import RichTextEditor from "./RichTextArea";
+import InputField from "./InputField";
+import TextArea from "./TextArea";
+import Button from "./Button";
+import { toast } from "react-toastify";
+import ToastNotification from "./ToastNotification";
+import Loader from "./Loader";
+import CategorySelect from "./CategorySelect"; // Import CategorySelect
+import SelectField from "./SelectField";
+import { HttpRequestService, PinataService } from "@/services";
+import { useWriteContract } from "wagmi";
+import { config } from "@/config";
+import CONTRACT_CONFIG from "@/constants/contractConfig";
+import { parseEther } from "viem";
+import TOKEN_ADDRESS from "@/constants/tokenAddress";
+import { IProduct } from "@/types";
+import { envConfig } from "@/config/envConfig";
+import axios from "axios";
+import { useUserStore } from "@/store/userStore";
 
 const ProductForm = () => {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    productAddress: '',
-    details: '',
-    category: '', // Will hold category ID
-    currencyType: '',
-    stock: '',
-    price: '',
-    shippingCharges: '',
-    shippingType: '',
+    name: "",
+    description: "",
+    productAddress: "",
+    details: "",
+    category: "", // Will hold category ID
+    currencyType: "CSHOP",
+    stock: "",
+    price: "",
+    shippingCharges: "",
+    shippingType: "",
   });
 
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
+  const { writeContractAsync, isPending } = useWriteContract({ config });
+  const { user } = useUserStore();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const currencyTypeAddresses = {
+    USDT: TOKEN_ADDRESS.usdt,
+    BNB: TOKEN_ADDRESS.bnb,
+    CSHOP: TOKEN_ADDRESS.cshop,
+    USDC: TOKEN_ADDRESS.usdc,
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -52,51 +73,114 @@ const ProductForm = () => {
     setLoading(true);
 
     const formDataToSubmit = new FormData();
-    formDataToSubmit.append('name', formData.name);
-    formDataToSubmit.append('description', formData.description);
-    formDataToSubmit.append('productAddress', formData.productAddress);
-    formDataToSubmit.append('details', formData.details);
-    formDataToSubmit.append('category', formData.category); // Send category ID to backend
-    formDataToSubmit.append('currencyType', formData.currencyType);
-    formDataToSubmit.append('stock', formData.stock);
-    formDataToSubmit.append('price', formData.price);
-    formDataToSubmit.append('shippingCharges', formData.shippingCharges);
-    formDataToSubmit.append('shippingType', formData.shippingType);
-    formDataToSubmit.append('productIdOnChain', '123456'); // Example product ID on chain
-    formDataToSubmit.append('sellerId', '64a92b4f8f3b74a0acbfcfc1'); // Example seller ID
-    formDataToSubmit.append('currencyAddress', 'dshsjkahbsahsagdjhfsad');
+    formDataToSubmit.append("name", formData.name);
+    formDataToSubmit.append("description", formData.description);
+    formDataToSubmit.append("productAddress", formData.productAddress);
+    formDataToSubmit.append("details", formData.details);
+    formDataToSubmit.append("category", formData.category); // Send category ID to backend
+    formDataToSubmit.append("currencyType", formData.currencyType);
+    formDataToSubmit.append("stock", formData.stock);
+    formDataToSubmit.append("price", formData.price);
+    formDataToSubmit.append("shippingCharges", formData.shippingCharges);
+    formDataToSubmit.append("shippingType", formData.shippingType);
+    formDataToSubmit.append("productIdOnChain", "123456"); // Example product ID on chain
+    formDataToSubmit.append("sellerId", user?._id ?? ""); // Example seller ID
+    formDataToSubmit.append(
+      "currencyAddress",
+      currencyTypeAddresses[
+        formData.currencyType as keyof typeof currencyTypeAddresses
+      ]
+    );
 
     selectedImages.forEach((file) => {
-      formDataToSubmit.append('images', file);
+      formDataToSubmit.append("images", file);
     });
-
+    let product;
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/fixedProduct/create', formDataToSubmit, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      const response = await HttpRequestService.postApi<IProduct, FormData>(
+        `/fixedProduct/create`,
+        formDataToSubmit,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      const res = await PinataService.uplaodFile({
+        name: response.data.name,
+        description: response.data.description,
+        image: response.data.images[0],
+        attributes: [
+          {
+            trait_type: "Category",
+            value: response.data.category.label,
+          },
+          {
+            trait_type: "Token",
+            value: response.data.currencyType,
+          },
+          {
+            trait_type: "Price",
+            value: response.data.price.toString(),
+          },
+        ],
       });
+
+      const TOKEN_URI = PinataService.getFile(res.IpfsHash);
+
+      if (response.success) {
+        product = response.data;
+
+        await writeContractAsync({
+          ...CONTRACT_CONFIG.marketplace,
+          functionName: "createMarketItem",
+          args: [
+            Number(formData.stock),
+            currencyTypeAddresses[
+              formData.currencyType as keyof typeof currencyTypeAddresses
+            ],
+            parseEther(formData.price),
+            parseEther(formData.shippingCharges),
+            TOKEN_URI,
+          ],
+          value: parseEther("0.001"),
+        });
+      }
+
       setLoading(false);
-      toast.success('Product Created Successfully');
+      toast.success("Product Created Successfully");
 
       // Clear the form and selected images
       setFormData({
-        name: '',
-        description: '',
-        productAddress: '',
-        details: '',
-        category: '',
-        currencyType: '',
-        stock: '',
-        price: '',
-        shippingCharges: '',
-        shippingType: '',
+        name: "",
+        description: "",
+        productAddress: "",
+        details: "",
+        category: "",
+        currencyType: "",
+        stock: "",
+        price: "",
+        shippingCharges: "",
+        shippingType: "",
       });
       setSelectedImages([]); // Reset selected images
-
     } catch (error) {
+      if (product) {
+        try {
+          await axios.delete(
+            `${envConfig.BACKEND_URL}/product/${product._id}/delete`,
+            {
+              withCredentials: true,
+            }
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
       setLoading(false);
-      toast.error("Failed to create product");
+      if (error) toast.error("Failed to create product");
     }
   };
 
@@ -137,13 +221,21 @@ const ProductForm = () => {
           onChange={handleCategoryChange}
         />
         <div>
-          <label className="block text-sm font-medium mb-1">Product media</label>
+          <label className="block text-sm font-medium mb-1">
+            Product media
+          </label>
           <UploadImage onFileSelect={handleFileSelect} />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <SelectField
             label="Currency Type"
-            options={['Select Currency Type', 'USDT', 'BNB', 'CSHOP', 'USDC'].map(type => ({ label: type, value: type }))}
+            options={[
+              "Select Currency Type",
+              "USDT",
+              "BNB",
+              "CSHOP",
+              "USDC",
+            ].map((type) => ({ label: type, value: type }))}
             name="currencyType"
             value={formData.currencyType}
             onChange={handleChange}
@@ -152,7 +244,7 @@ const ProductForm = () => {
             label="Stock"
             placeholder="Enter stock"
             name="stock"
-            type='number'
+            type="number"
             value={formData.stock}
             onChange={handleChange}
           />
@@ -160,7 +252,7 @@ const ProductForm = () => {
             label="Price"
             placeholder="Enter price"
             name="price"
-            type='number'
+            type="number"
             value={formData.price}
             onChange={handleChange}
           />
@@ -168,25 +260,29 @@ const ProductForm = () => {
             label="Shipping charges"
             placeholder="Enter Shipping price"
             name="shippingCharges"
-            type='number'
+            type="number"
             value={formData.shippingCharges}
             onChange={handleChange}
           />
           <SelectField
             label="Shipping Type"
-            options={['Select Shipping Type', 'LOCAL', 'GLOBAL'].map(type => ({ label: type, value: type }))}
+            options={["Select Shipping Type", "LOCAL", "GLOBAL"].map(
+              (type) => ({ label: type, value: type })
+            )}
             name="shippingType"
             value={formData.shippingType}
             onChange={handleChange}
           />
         </div>
-        
-        <Button text={loading ? <Loader /> : "Save and publish product"} disabled={loading} />
+
+        <Button
+          text={loading || isPending ? <Loader /> : "Save and publish product"}
+          disabled={loading || isPending}
+        />
         <ToastNotification />
       </form>
     </div>
   );
 };
-
 
 export default ProductForm;

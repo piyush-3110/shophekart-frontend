@@ -1,11 +1,8 @@
 import { create } from "zustand";
 
 export interface IUser {
+  _id: string;
   walletAddress: `0x${string}`;
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  phoneNumber?: string;
   trustScore: number;
 }
 

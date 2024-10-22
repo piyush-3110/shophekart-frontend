@@ -1,26 +1,19 @@
-"use client"
-import axios from 'axios';
+"use client";
 import BuyCard from "@/components/products/BuyCard";
 import ProductPagination from "@/components/products/shared/productPagination";
 import Link from "next/link";
 
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
-interface Product {
-  _id: string;
-  name: string;
-  price: number;
-  currencyType: string;
-  images: string[];
-}
+import { HttpRequestService } from "@/services";
+import { IProduct } from "@/types";
 
 const Page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<IProduct[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const pageParam = searchParams.get("page");
@@ -35,8 +28,10 @@ const Page = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/v1/fixedProduct/getAll');
-      setProducts(response.data.fixedProducts);
+      const response = await HttpRequestService.fetchApi<IProduct[]>(
+        "/fixedProduct/getAll"
+      );
+      setProducts(response.data);
       setIsLoading(false);
     } catch (error) {
       console.error(error);
@@ -65,7 +60,7 @@ const Page = () => {
   return (
     <section className="space-y-8 py-8">
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-4">
-        {productList.map((product, index) => {
+        {productList.map((product) => {
           return (
             <Link key={product._id} href={`/itemDetails/${product._id}`}>
               <BuyCard

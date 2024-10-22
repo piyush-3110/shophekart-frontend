@@ -7,7 +7,7 @@ export const Slider = () => {
 
     return (
         <div 
-            className="px-8 md:px-12 py-8 lg:py-12 min-h-[100vh] bg-[#000] bg-cover bg-center "
+            className="px-2 md:px-8 md:px-12 py-8 lg:py-12 min-h-[100vh] bg-[#000] bg-cover bg-center "
         >
             <p className="text-2xl font-bold mb-9 text-center text-white">
        Proposal and Voting

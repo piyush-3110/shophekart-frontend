@@ -46,16 +46,16 @@ export const ProposalSlider = () => {
       // Adjust values for small screens (sm)
       switch (activeTab) {
         case 'activeProposal':
-          width = '100px'; // Underline width for "Active Proposal"
+          width = '95px'; // Underline width for "Active Proposal"
           translateX = '0%'; // Position of "Active Proposal" underline
           break;
         case 'completedProposal':
           width = '100px'; // Underline width for "Completed Proposal"
-          translateX = '120px'; // Adjust position for "Completed Proposal"
+          translateX = '100px'; // Adjust position for "Completed Proposal"
           break;
         case 'rejectedProposal':
           width = '100px'; // Underline width for "Rejected Proposal"
-          translateX = '240px'; // Adjust position for "Rejected Proposal"
+          translateX = '200px'; // Adjust position for "Rejected Proposal"
           break;
         default:
           width = '4rem';
@@ -91,7 +91,7 @@ export const ProposalSlider = () => {
   return (
     <div className="relative w-full py-6">
       {/* Slider with clickable tabs */}
-      <div className="text-lg font-[700]  px-6  text-white flex gap-10 relative">
+      <div className="text-lg font-[700]  px-6  text-white flex gap-5 md:gap-10 relative">
         {/* Tab for Active Proposal */}
         <p
           onClick={() => setActiveTab('activeProposal')}

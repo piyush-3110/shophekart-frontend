@@ -38,9 +38,9 @@ export const ActiveProposal = () => {
           <p className="max-w-md truncate">{proposal}</p>
 
           {/* Right side: Approve and Reject buttons */}
-          <div>
+          <div className='flex items-center'>
             <button
-              className="text-green-500 px-4 py-2 mr-2"
+              className="text-green-500 hidden md:block px-4 py-2 mr-2"
               onClick={(e) => {
                 e.stopPropagation(); // Prevent the div click from firing when clicking this button
                 openModal(proposal); // Optional: If you want to open the modal for button clicks too
@@ -49,7 +49,7 @@ export const ActiveProposal = () => {
               Approve
             </button>
             <button
-              className="text-red-500 px-4 py-2"
+              className="text-red-500 hidden md:block px-4 py-2"
               onClick={(e) => {
                 e.stopPropagation(); // Prevent the div click from firing when clicking this button
                 openModal(proposal); // Optional: If you want to open the modal for button clicks too

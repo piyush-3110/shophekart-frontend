@@ -27,12 +27,15 @@ export const ProposalModal: React.FC<ModalProps> = ({
   // Disable background scroll when modal is open
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflowX = 'hidden'; // Prevent horizontal overflow
+      document.body.style.overflowY = 'hidden';   // Allow vertical scrolling
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflowX = 'hidden';   // Restore horizontal scrolling
+      document.body.style.overflowY = 'auto';   // Restore vertical scrolling
     }
     return () => {
-      document.body.style.overflow = 'auto'; // Clean up when modal is closed
+      document.body.style.overflowX = 'hidden';   // Clean up to restore horizontal scrolling
+      document.body.style.overflowY = 'auto';    // Clean up to restore vertical scrolling
     };
   }, [isOpen]);
 

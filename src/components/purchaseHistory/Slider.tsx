@@ -27,8 +27,7 @@ export const Slider = () => {
     switch (activeTab) {
       case 'buyerHistory':
         return <BuyerHistory />;
-      case 'sellerHistory':
-        return <BuyerHistory />;
+    
    
       default:
         return null;
@@ -91,12 +90,7 @@ export const Slider = () => {
         Buyer History
         </p>
         {/* Tab for Items For Sale */}
-        <p
-          onClick={() => setActiveTab('sellerHistory')}
-          className={`cursor-pointer relative ${activeTab === 'sellerHistory' ? 'gradient-text !text-lg' : ''}`}
-        >
-          Seller History
-        </p>
+      
         {/* Tab for Comments */}
      
 

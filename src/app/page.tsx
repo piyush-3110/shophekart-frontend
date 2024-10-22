@@ -6,7 +6,7 @@ import { Roadmap } from "@/components/Homepage/Roadmap/Roadmap";
 import Partners from "@/components/Homepage/Partners/Partners";
 const page = () => {
   return (
-    <div className="bg-[#f1f4ff] ">
+    <div className="bg-[#f1f4ff] w-full overflow-x-hidden">
       <Hero />
       <Tokenomics />
       <Roadmap />

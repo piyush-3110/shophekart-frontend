@@ -57,13 +57,13 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
           productIdOnChain: productIdOnChain, // Product ID on the blockchain
         }),
       });
-
+      const data = await response.json();
       if (response.ok) {
-        const data = await response.json();
-        toast.success("Order created successfully!"); // Show success toast notification
+  
+        toast.success(data.message); // Show success toast notification
         console.log("Order created successfully:", data);
       } else {
-        toast.error("Failed to create order"); // Show error toast notification
+        toast.error(data.message); // Show error toast notification
         console.error("Failed to create order:", response.statusText);
       }
     } catch (error) {
@@ -79,7 +79,7 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
       <ItemInfoHeader name={name} stock={stock} />
       <ItemDescriptionText description={description} details={details} />
 
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center">
+      <div className="flex flex-col md:flex-row md:gap-6 md:items-center">
         <h1 className="text-[#160041] font-[700] text-xl">
           {price} {currencyType}
         </h1>

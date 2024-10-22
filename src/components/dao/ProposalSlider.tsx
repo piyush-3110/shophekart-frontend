@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import ActiveProposal from './ActiveProposal'; // Component for Active Proposals
-import CompletedProposal from './CompletedProposal'; // Component for Completed Proposals
-import RejectedProposal from './RejectedProposal'; // Component for Rejected Proposals
+import { ActiveProposal } from './ActiveProposal'; // Component for Active Proposals
+import { CompletedProposal } from './CompletedProposal'; // Component for Completed Proposals
+import { RejectedProposal } from './RejectedProposal'; // Component for Rejected Proposals
 
 export const ProposalSlider = () => {
   const [activeTab, setActiveTab] = useState('activeProposal');

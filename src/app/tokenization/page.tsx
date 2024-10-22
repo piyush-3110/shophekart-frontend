@@ -1,7 +1,15 @@
+
 import React from 'react'
 
-export const page = () => {
+import Footer from '@/components/Footer/Footer'
+import Hero from '@/components/tokenization/Hero'
+
+const page = () => {
   return (
-    <div>page</div>
+    <div>
+     <Hero/>
+       <Footer/>
+    </div>
   )
 }
+export default page;

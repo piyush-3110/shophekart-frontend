@@ -3,7 +3,7 @@
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
 
 import { cookieStorage, createStorage } from "wagmi";
-import { mainnet, sepolia } from "wagmi/chains";
+import { bsc, bscTestnet } from "wagmi/chains";
 
 // Your Reown Cloud project ID
 export const projectId = "5414a59b644946d2fd01f5710c4784ad";
@@ -17,7 +17,7 @@ const metadata = {
 };
 
 // Create wagmiConfig
-const chains = [mainnet, sepolia] as const;
+const chains = [bsc, bscTestnet] as const;
 export const config = defaultWagmiConfig({
   chains,
   projectId,

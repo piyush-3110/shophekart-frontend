@@ -1,11 +1,10 @@
 // In SelectField.tsx
-import React from 'react';
+import React from "react";
 
 interface CategoryOption {
   label: string;
   value: string;
 }
-
 
 interface SelectFieldProps {
   label: string;
@@ -15,8 +14,13 @@ interface SelectFieldProps {
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-
-const SelectField: React.FC<SelectFieldProps> = ({ label, options, value, name, onChange }) => {
+const SelectField: React.FC<SelectFieldProps> = ({
+  label,
+  options,
+  value,
+  name,
+  onChange,
+}) => {
   return (
     <div>
       <label className="block text-sm font-medium mb-1">{label}</label>

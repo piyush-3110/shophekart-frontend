@@ -10,7 +10,16 @@ import ToastNotification from "./ToastNotification";
 import Loader from "./Loader";
 import CategorySelect from "./CategorySelect";
 import SelectField from "./SelectField";
-import { HttpRequestService } from "@/services";
+import { HttpRequestService, PinataService } from "@/services";
+import { useWriteContract } from "wagmi";
+import { config } from "@/config";
+import CONTRACT_CONFIG from "@/constants/contractConfig";
+import { parseEther } from "viem";
+import TOKEN_ADDRESS from "@/constants/tokenAddress";
+import { IProduct } from "@/types";
+import { envConfig } from "@/config/envConfig";
+import axios from "axios";
+import { useUserStore } from "@/store/userStore";
 
 const ProductForm = () => {
   const [loading, setLoading] = useState(false);
@@ -20,7 +29,7 @@ const ProductForm = () => {
     productAddress: "",
     details: "",
     category: "", // Will hold category ID
-    currencyType: "",
+    currencyType: "CSHOP",
     stock: "",
     price: "",
     shippingCharges: "",
@@ -28,6 +37,15 @@ const ProductForm = () => {
   });
 
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
+  const { writeContractAsync, isPending } = useWriteContract({ config });
+  const { user } = useUserStore();
+
+  const currencyTypeAddresses = {
+    USDT: TOKEN_ADDRESS.usdt,
+    BNB: TOKEN_ADDRESS.bnb,
+    CSHOP: TOKEN_ADDRESS.cshop,
+    USDC: TOKEN_ADDRESS.usdc,
+  };
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -66,15 +84,20 @@ const ProductForm = () => {
     formDataToSubmit.append("shippingCharges", formData.shippingCharges);
     formDataToSubmit.append("shippingType", formData.shippingType);
     formDataToSubmit.append("productIdOnChain", "123456"); // Example product ID on chain
-    formDataToSubmit.append("sellerId", "64a92b4f8f3b74a0acbfcfc1"); // Example seller ID
-    formDataToSubmit.append("currencyAddress", "dshsjkahbsahsagdjhfsad");
+    formDataToSubmit.append("sellerId", user?._id ?? ""); // Example seller ID
+    formDataToSubmit.append(
+      "currencyAddress",
+      currencyTypeAddresses[
+        formData.currencyType as keyof typeof currencyTypeAddresses
+      ]
+    );
 
     selectedImages.forEach((file) => {
       formDataToSubmit.append("images", file);
     });
-
+    let product;
     try {
-      await HttpRequestService.postApi(
+      const response = await HttpRequestService.postApi<IProduct, FormData>(
         `/fixedProduct/create`,
         formDataToSubmit,
         {
@@ -83,6 +106,48 @@ const ProductForm = () => {
           },
         }
       );
+
+      const res = await PinataService.uplaodFile({
+        name: response.data.name,
+        description: response.data.description,
+        image: response.data.images[0],
+        attributes: [
+          {
+            trait_type: "Category",
+            value: response.data.category.label,
+          },
+          {
+            trait_type: "Token",
+            value: response.data.currencyType,
+          },
+          {
+            trait_type: "Price",
+            value: response.data.price.toString(),
+          },
+        ],
+      });
+
+      const TOKEN_URI = PinataService.getFile(res.IpfsHash);
+
+      if (response.success) {
+        product = response.data;
+
+        await writeContractAsync({
+          ...CONTRACT_CONFIG.marketplace,
+          functionName: "createMarketItem",
+          args: [
+            Number(formData.stock),
+            currencyTypeAddresses[
+              formData.currencyType as keyof typeof currencyTypeAddresses
+            ],
+            parseEther(formData.price),
+            parseEther(formData.shippingCharges),
+            TOKEN_URI,
+          ],
+          value: parseEther("0.001"),
+        });
+      }
+
       setLoading(false);
       toast.success("Product Created Successfully");
 
@@ -101,6 +166,19 @@ const ProductForm = () => {
       });
       setSelectedImages([]); // Reset selected images
     } catch (error) {
+      if (product) {
+        try {
+          await axios.delete(
+            `${envConfig.BACKEND_URL}/product/${product._id}/delete`,
+            {
+              withCredentials: true,
+            }
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
       setLoading(false);
       if (error) toast.error("Failed to create product");
     }
@@ -198,8 +276,8 @@ const ProductForm = () => {
         </div>
 
         <Button
-          text={loading ? <Loader /> : "Save and publish product"}
-          disabled={loading}
+          text={loading || isPending ? <Loader /> : "Save and publish product"}
+          disabled={loading || isPending}
         />
         <ToastNotification />
       </form>

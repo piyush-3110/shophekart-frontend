@@ -26,11 +26,11 @@ export const Tokenize = () => {
         <div 
             className="px-8 md:px-12 py-8 min-h-[100vh] bg-[#000] bg-cover bg-center "
         >
-            <div className='flex gap-6 items-center '>
+            <div className='flex flex-col lg:flex-row gap-6 lg:items-center '>
 
         
             <div ref={animationContainer} className="w-[90vw] lg:h-[80vh] lg:w-[40vw] "></div>
-            <div className='grid grid-cols-1 gap-3 md:grid-cols-2 w-[50vw]'>
+            <div className='grid grid-cols-1 gap-3 md:grid-cols-2 lg:w-[50vw]'>
             <CardSpotlightDemo 
   heading="Luxury Cars" 
   description="Tokenize classic and high-end vehicles, enabling owners to sell either the entire car or fractional shares. This will make rare and vintage automobiles more accessible to a broader range of investors and collectors.

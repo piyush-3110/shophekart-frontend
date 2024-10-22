@@ -43,7 +43,7 @@ export const ProposalModal: React.FC<ModalProps> = ({
       className="fixed inset-0 w-full z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm"
       onClick={handleOutsideClick}
     >
-      <div className="relative w-[90vw] h-[60vh] bg-white shadow-lg rounded-lg p-6">
+      <div className="relative max-w-[90vw] h-fit bg-white shadow-lg rounded-lg p-8">
         {/* Close Icon */}
         <button className="absolute top-4 right-4 text-gray-500 hover:text-gray-700" onClick={onClose}>
           <IoClose size={24} />
@@ -53,10 +53,10 @@ export const ProposalModal: React.FC<ModalProps> = ({
         <div className="overflow-y-auto flex flex-col py-4 h-full">
           {/* Proposal Text */}
           <h1 className="text-[#160041] font-[700] text-center text-xl mb-4">Proposal</h1>
-          <p className="text-black text-center mb-6">{proposalText}</p>
+          <p className="text-black  mb-6">{proposalText}</p>
 
           {/* Approve and Reject buttons (conditionally rendered) */}
-          <div className="flex justify-center gap-10">
+          <div className="flex  gap-10">
             {showApproveButton && (
               <button className="text-green-500 font-semibold hover:underline">
                 Approve

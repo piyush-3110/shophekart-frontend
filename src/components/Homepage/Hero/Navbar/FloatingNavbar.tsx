@@ -54,7 +54,7 @@ export default function FloatingNavbar() {
         </div>
 
         {/* Nav Links for Large Screens */}
-        <div className="hidden lg:flex space-x-28">
+        <div className="hidden  lg:flex space-x-28">
         <NavbarLinks />
 
 {/* Connect Wallet Button */}

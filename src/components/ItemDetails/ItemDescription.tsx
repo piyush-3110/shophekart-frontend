@@ -1,23 +1,29 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import ItemInfoHeader from "./ItemInfoHeader";
 import ItemDescriptionText from "./ItemDescriptionText";
-import { toast } from "react-toastify";
-import Loader from "../Form/Loader"; // Import the Loader component
+import Loader from "../Form/Loader";
 import ToastNotification from "../Form/ToastNotification";
+import { useToast } from "@/hooks/use-toast";
+import { useMutation } from "@tanstack/react-query";
+import { HttpRequestService } from "@/services";
+import { TOrder } from "@/types";
+import { calculateDeliveryDate } from "@/utils";
+import { TCreateOrder } from "@/types/order";
+import { TCurrencyType } from "@/types/product";
+import { useCreateOrderOnChain } from "@/hooks";
 
 interface ItemDescriptionProps {
   name: string;
   description: string;
   details: string;
   price: number;
-  currencyType: string;
+  currencyType: TCurrencyType;
   buyerId: string;
   shippingDuration: number;
   stock: number;
   id: string;
-  shippingType: string; // Shipping information
+  shippingType: string;
   tokenId: number;
   productIdOnChain: string;
   shippingCharges: number;
@@ -32,47 +38,56 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
   shippingDuration,
   productIdOnChain,
   tokenId,
-  id, // This is productId
+  id,
   buyerId,
   currencyType,
   stock,
   shippingType,
 }) => {
-  const [loading, setLoading] = useState(false); // State for loading
+  const { toast } = useToast();
 
-  const handleBuyNow = async () => {
-    setLoading(true); // Set loading to true when the buy now button is clicked
-    try {
-      const response = await fetch("http://localhost:3000/api/v1/order/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          buyerId: buyerId, // Buyer ID from props
-          deliveryBy: new Date(new Date().setDate(new Date().getDate() + shippingDuration)).toISOString().split("T")[0], // Calculate delivery date based on shippingDuration
-          productId: id, // Product ID (same as id in props)
-          shippingPrice: shippingCharges, // Shipping price from props
-          tokenId: tokenId, // Token ID as a number
-          productIdOnChain: productIdOnChain, // Product ID on the blockchain
-        }),
-      });
+  const { createOrderBNB, createOrderOtherToken, isPending, isSuccess } =
+    useCreateOrderOnChain();
 
-      if (response.ok) {
-        const data = await response.json();
-        toast.success("Order created successfully!"); // Show success toast notification
-        console.log("Order created successfully:", data);
+  useEffect(() => {
+    if (isSuccess) toast({ title: "Order placed successfully" });
+  }, [isSuccess, toast]);
+
+  const { mutateAsync, isPending: isLoading } = useMutation({
+    mutationFn: async () => {
+      const response = await HttpRequestService.postApi<TOrder, TCreateOrder>(
+        "/order/create",
+        {
+          buyerId,
+          deliveryBy: calculateDeliveryDate(shippingDuration),
+          productId: id,
+          productIdOnChain,
+          shippingPrice: shippingCharges,
+          tokenId,
+        }
+      );
+
+      return response;
+    },
+    onSuccess: async () => {
+      if (currencyType === "BNB") {
+        await createOrderBNB(16, shippingCharges, price);
       } else {
-        toast.error("Failed to create order"); // Show error toast notification
-        console.error("Failed to create order:", response.statusText);
+        await createOrderOtherToken(
+          currencyType.toLowerCase(),
+          17,
+          shippingCharges,
+          price
+        );
       }
-    } catch (error) {
-      toast.error("Error creating order"); // Show error toast notification
-      console.error("Error creating order:", error);
-    } finally {
-      setLoading(false); // Set loading to false after the request is complete
-    }
-  };
+    },
+    onError: () => {
+      toast({
+        title: "Error buying item",
+        variant: "destructive",
+      });
+    },
+  });
 
   return (
     <div className="flex flex-col gap-3 pl-4 md:pl-0 w-[95vw] md:w-[50vw] lg:w-[40vw]">
@@ -90,14 +105,14 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
         </div>
       </div>
 
-      <button 
+      <button
         className="gradient-button mt-3 !text-sm !w-fit"
-        onClick={handleBuyNow}
-        disabled={loading} // Disable button when loading
+        onClick={() => {
+          mutateAsync();
+        }}
+        disabled={isLoading || isPending}
       >
-        {loading ? <Loader /> : "Buy Now"} {/* Show loader when loading */}
-        <ToastNotification />
-
+        {isLoading || isPending ? <Loader /> : "Buy Now"} <ToastNotification />
       </button>
     </div>
   );

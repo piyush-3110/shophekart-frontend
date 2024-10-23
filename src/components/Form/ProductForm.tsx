@@ -8,7 +8,7 @@ import Button from "./Button";
 import { toast } from "react-toastify";
 import ToastNotification from "./ToastNotification";
 import Loader from "./Loader";
-import CategorySelect from "./CategorySelect"; // Import CategorySelect
+import CategorySelect from "./CategorySelect";
 import SelectField from "./SelectField";
 import { HttpRequestService, PinataService } from "@/services";
 import { useWriteContract } from "wagmi";
@@ -20,9 +20,16 @@ import { IProduct } from "@/types";
 import { envConfig } from "@/config/envConfig";
 import axios from "axios";
 import { useUserStore } from "@/store/userStore";
+import { waitForTransactionReceipt } from "@wagmi/core";
+import { useWatchContractEvent } from "wagmi";
+import { bscTestnet } from "viem/chains";
+import { MARKETPLACE_ABI } from "@/constants/ABI";
 
 const ProductForm = () => {
   const [loading, setLoading] = useState(false);
+
+  const [marketItemId, setMarketItemId] = useState<bigint | null>(null);
+
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -34,10 +41,30 @@ const ProductForm = () => {
     price: "",
     shippingCharges: "",
     shippingType: "",
+    shippingDuration: "",
   });
 
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
-  const { writeContractAsync, isPending } = useWriteContract({ config });
+  const { writeContractAsync, isPending } = useWriteContract({
+    config,
+  });
+
+  useWatchContractEvent({
+    // ...CONTRACT_CONFIG.marketplace,
+    address: "0xc479963Bbc64f53a3bE9F0841611D440645cB20F",
+    abi: MARKETPLACE_ABI,
+    eventName: "MarketItemCreated",
+    batch: false,
+    onLogs(logs) {
+      setMarketItemId(logs[0].args?.marketItemId.toString());
+    },
+    chainId: bscTestnet.id,
+    onError(error) {
+      console.log(error);
+    },
+    config,
+  });
+
   const { user } = useUserStore();
 
   const currencyTypeAddresses = {
@@ -82,8 +109,12 @@ const ProductForm = () => {
     formDataToSubmit.append("stock", formData.stock);
     formDataToSubmit.append("price", formData.price);
     formDataToSubmit.append("shippingCharges", formData.shippingCharges);
+    formDataToSubmit.append("shippingDuration", formData.shippingDuration);
     formDataToSubmit.append("shippingType", formData.shippingType);
-    formDataToSubmit.append("productIdOnChain", "123456"); // Example product ID on chain
+    formDataToSubmit.append(
+      "productIdOnChain",
+      marketItemId?.toString() ?? "12345"
+    );
     formDataToSubmit.append("sellerId", user?._id ?? ""); // Example seller ID
     formDataToSubmit.append(
       "currencyAddress",
@@ -114,7 +145,7 @@ const ProductForm = () => {
         attributes: [
           {
             trait_type: "Category",
-            value: response.data.category.label,
+            value: formData.category,
           },
           {
             trait_type: "Token",
@@ -128,11 +159,10 @@ const ProductForm = () => {
       });
 
       const TOKEN_URI = PinataService.getFile(res.IpfsHash);
-
       if (response.success) {
         product = response.data;
 
-        await writeContractAsync({
+        const hash = await writeContractAsync({
           ...CONTRACT_CONFIG.marketplace,
           functionName: "createMarketItem",
           args: [
@@ -145,6 +175,10 @@ const ProductForm = () => {
             TOKEN_URI,
           ],
           value: parseEther("0.001"),
+        });
+
+        await waitForTransactionReceipt(config, {
+          hash,
         });
       }
 
@@ -163,6 +197,7 @@ const ProductForm = () => {
         price: "",
         shippingCharges: "",
         shippingType: "",
+        shippingDuration: "",
       });
       setSelectedImages([]); // Reset selected images
     } catch (error) {
@@ -180,7 +215,10 @@ const ProductForm = () => {
       }
 
       setLoading(false);
-      if (error) toast.error("Failed to create product");
+      if (error) {
+        console.log(error);
+        toast.error("Failed to create product");
+      }
     }
   };
 
@@ -271,6 +309,14 @@ const ProductForm = () => {
             )}
             name="shippingType"
             value={formData.shippingType}
+            onChange={handleChange}
+          />
+          <InputField
+            label="Shipping duration"
+            placeholder="Enter Shipping duration in days"
+            name="shippingDuration"
+            type="number"
+            value={formData.shippingDuration}
             onChange={handleChange}
           />
         </div>

@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export function Hero() {
   const [textIndex, setTextIndex] = useState(0);
-  const text1 = "Available Soon: Tokenization Framework for";
+  const text1 = "Coming Soon: Tokenization Framework for";
   const text2 = "High-Value Items";
 
   const totalLength = text1.length + text2.length;
@@ -46,7 +46,7 @@ export function Hero() {
   return (
     <div className="flex relative lg:items-center pb-12 lg:pb-16 w-full  items-center md:items-start  lg:mt-0 px-8 md:px-12 min-h-[100vh] md:min-h-[20vh] lg:min-h-[100vh] justify-center gap-6">
       <div className="w-[90vw] md:w-[70vw] lg:w-[40vw]  flex flex-col  lg:items-start gap-4">
-        <div className="text-black text-wrap w-full text-[23px] md:text-[44px] font-semibold ">
+        <div className="text-black text-wrap w-full text-[23px] md:text-[38px] font-semibold ">
           <p>{renderTextWithEffect(text1, 0, textIndex)}</p>
           <p className="gradient-text !text-[22px] md:!text-[44px] whitespace-nowrap">
             {renderTextWithEffect(text2, text1.length, textIndex)}

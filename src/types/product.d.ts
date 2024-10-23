@@ -1,10 +1,10 @@
-interface ICategoryDocument {
-  _id: string;
-  label: string;
-  parentCategory: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+// interface ICategoryDocument {
+//   _id: string;
+//   label: string;
+//   parentCategory: string;
+//   createdAt: Date;
+//   updatedAt: Date;
+// }
 
 export type TCurrencyType = "USDT" | "USDC" | "CSHOP" | "BNB";
 
@@ -24,7 +24,7 @@ type IProduct = {
   status: "draft" | "published" | "archived" | "deleted";
   rating: number;
   productAddress: string | null;
-  category: ICategoryDocument;
+  category: string;
   price: number;
   stock: number;
 };

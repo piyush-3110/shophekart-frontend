@@ -1,59 +1,42 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import ItemCard from './ItemCard';
-import { ItemDescription } from './ItemDescription';
-import { ReviewSection } from '../Profile/ReviewSection';
+import React from "react";
+import ItemCard from "./ItemCard";
+import { ItemDescription } from "./ItemDescription";
+import { ReviewSection } from "../Profile/ReviewSection";
+import { HttpRequestService } from "@/services";
+import { IProduct } from "@/types";
+import { useQuery } from "@tanstack/react-query";
+import { useUserStore } from "@/store/userStore";
 
 interface ItemDetailProps {
   id: string; // Accept id as a prop
 }
 
-interface Product {
-  name: string;
-  description: string;
-  details: string;
-  images: string[];
-  price: number;
-  currencyType: string;
-  stock: number;
-  sellerId: string;
-  shippingType:string;
-  _id:string;
-  buyerId:string;
-  tokenId:number;
-  productIdOnChain:string;
-  shippingDuration:number;
-  shippingCharges: number;
-  // Add any other fields you may want to use from the fetched data
-}
-
 export const ItemDetail: React.FC<ItemDetailProps> = ({ id }) => {
-  const [product, setProduct] = useState<Product | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { user } = useUserStore();
+  const {
+    data: product,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ["product", id],
+    queryFn: async () => {
+      const response = await HttpRequestService.fetchApi<IProduct>(
+        `/fixedProduct/${id}`
+      );
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await fetch(`http://localhost:3000/api/v1/fixedProduct/${id}`);
-        if (response.ok) {
-          const data = await response.json();
-          setProduct(data.fixedProduct); // Assuming `fixedProduct` is the key containing the product data
-        } else {
-          console.error("Failed to fetch product.");
-        }
-      } catch (error) {
-        console.error("Error fetching product:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+      return response.data;
+    },
+  });
 
-    fetchProduct();
-  }, [id]);
-
-  if (loading) {
+  if (isLoading) {
     return <div>Loading...</div>;
+  }
+
+  if (error) {
+    console.log(error);
+    return <div>{JSON.stringify(error)}</div>;
   }
 
   if (!product) {
@@ -61,9 +44,11 @@ export const ItemDetail: React.FC<ItemDetailProps> = ({ id }) => {
   }
 
   return (
-    <div className='bg-white px-4 lg:px-12 py-8'>
-      <div className='flex flex-col items-center justify-center gap-8'>
-        <div className='flex flex-col md:flex-row gap-4 lg:gap-12 items-center justify-center'> {/* {Item Details Section} */}
+    <div className="bg-white px-4 lg:px-12 py-8">
+      <div className="flex flex-col items-center justify-center gap-8">
+        <div className="flex flex-col md:flex-row gap-4 lg:gap-12 items-center justify-center">
+          {" "}
+          {/* {Item Details Section} */}
           <div>
             <ItemCard images={product.images} /> {/* Display fetched images */}
           </div>
@@ -71,12 +56,12 @@ export const ItemDetail: React.FC<ItemDetailProps> = ({ id }) => {
             <ItemDescription
               name={product.name}
               description={product.description}
-              buyerId='67151ba41a526ba9fd1a9a31'
+              buyerId={user?._id ?? "67151ba41a526ba9fd1a9a31"}
               id={product._id}
               shippingCharges={product.shippingCharges}
               shippingDuration={product.shippingDuration}
               tokenId={2378734}
-              productIdOnChain='18923n1287912'
+              productIdOnChain="18923n1287912"
               details={product.details}
               price={product.price}
               currencyType={product.currencyType}
@@ -86,13 +71,18 @@ export const ItemDetail: React.FC<ItemDetailProps> = ({ id }) => {
           </div>
         </div>
         <div>
-          <div className='flex pl-3 md:pl-16 w-[95vw] md:w-[80vw] justify-between items-center '>
+          <div className="flex pl-3 md:pl-16 w-[95vw] md:w-[80vw] justify-between items-center ">
             <h1 className="text-[#160041] font-[700] text-lg">Comments</h1>
-            <button className='py-2 px-4 border-[1px] text-[#022AFF] text-sm border-[#022AFF]'> Write a comment</button>
+            <button className="py-2 px-4 border-[1px] text-[#022AFF] text-sm border-[#022AFF]">
+              {" "}
+              Write a comment
+            </button>
           </div>
-          <div className='pl-3 md:pl-16 flex flex-col items-center gap-3'>
-            <ReviewSection/>
-            <button className='text-[#022AFF] font-[700] mx-auto text-sm underline text-center'>Load more</button>
+          <div className="pl-3 md:pl-16 flex flex-col items-center gap-3">
+            <ReviewSection />
+            <button className="text-[#022AFF] font-[700] mx-auto text-sm underline text-center">
+              Load more
+            </button>
           </div>
         </div>
       </div>

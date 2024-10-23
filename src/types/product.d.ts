@@ -6,15 +6,18 @@ interface ICategoryDocument {
   updatedAt: Date;
 }
 
+export type TCurrencyType = "USDT" | "USDC" | "CSHOP" | "BNB";
+
 type IProduct = {
   _id: string;
-  productIdOnChain: string;
+  productIdOnChain: number;
   sellerId: string;
-  currencyType: "USDT" | "USDC" | "CSHOP" | "BNB";
+  currencyType: TCurrencyType;
   currencyAddress: string;
   name: string;
   description: string;
   shippingCharges: number;
+  shippingDuration: number;
   details: string;
   images: string[];
   shippingType: "GLOBAL" | "LOCAL";

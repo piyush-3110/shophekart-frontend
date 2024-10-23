@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import BuyerHistory from './BuyerHistory';
+import {SellerHistory} from './SellerHistory'; // Import the SellerHistory component
 
 export const Slider = () => {
   const [activeTab, setActiveTab] = useState('buyerHistory');
@@ -27,8 +28,8 @@ export const Slider = () => {
     switch (activeTab) {
       case 'buyerHistory':
         return <BuyerHistory />;
-    
-   
+      case 'sellerHistory':
+        return <SellerHistory />; // Render the SellerHistory component when this tab is active
       default:
         return null;
     }
@@ -42,14 +43,13 @@ export const Slider = () => {
       // Adjust values for small screens (sm)
       switch (activeTab) {
         case 'buyerHistory':
-          width = '60px'; // Underline width for "Items"
-          translateX = '0%'; // Position of "Items" underline
+          width = '60px'; // Underline width for "Buyer History"
+          translateX = '0%'; // Position of "Buyer History" underline
           break;
         case 'sellerHistory':
-          width = '60px'; // Underline width for "Items For Sale"
-          translateX = '150px'; // Adjust position for "Items For Sale"
+          width = '60px'; // Underline width for "Seller History"
+          translateX = '150px'; // Adjust position for "Seller History"
           break;
-     
         default:
           width = '4rem';
           translateX = '0%';
@@ -65,7 +65,6 @@ export const Slider = () => {
           width = '120px';
           translateX = '160px';
           break;
-       
         default:
           width = '4rem';
           translateX = '0%';
@@ -79,20 +78,23 @@ export const Slider = () => {
   };
 
   return (
-    <div className="relative  w-full">
+    <div className="relative w-full">
       {/* Slider with clickable tabs */}
-      <div className="text-lg font-[700]  px-6 pt-6  text-[#B9B2C6] flex gap-10 buyerHistory-center relative">
-        {/* Tab for Items */}
+      <div className="text-lg font-[700] px-6 pt-6 text-[#B9B2C6] flex gap-10 buyerHistory-center relative">
+        {/* Tab for Buyer History */}
         <p
           onClick={() => setActiveTab('buyerHistory')}
           className={`cursor-pointer relative ${activeTab === 'buyerHistory' ? 'gradient-text !text-lg' : ''}`}
         >
-        Buyer History
+          Buyer History
         </p>
-        {/* Tab for Items For Sale */}
-      
-        {/* Tab for Comments */}
-     
+        {/* Tab for Seller History */}
+        <p
+          onClick={() => setActiveTab('sellerHistory')}
+          className={`cursor-pointer relative ${activeTab === 'sellerHistory' ? 'gradient-text !text-lg' : ''}`}
+        >
+          Seller History
+        </p>
 
         {/* Underline effect */}
         <div

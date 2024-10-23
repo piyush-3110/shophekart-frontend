@@ -7,19 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { Country } from "country-state-city";
-<<<<<<< HEAD
-import Footer from "@/components/Footer/Footer";
-const countries = Country.getAllCountries().map(({ name }) => {
-  return {
-    label: name,
-    value: name,
-  };
-});
-=======
 import { useUserStore } from "@/store/userStore"; 
 import httpRequestService from "@/services/httpRequest.service"; 
 
->>>>>>> baf4b3bc09323c738d57b416b0f3a17c64f23c2b
 
 interface ShippingField {
   id: string;
@@ -158,7 +148,6 @@ const Page = () => {
           </Button>
         </form>
       </section>
-      <Footer/>
     </main>
   );
 };

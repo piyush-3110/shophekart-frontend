@@ -132,7 +132,8 @@ export default function FloatingNavbar() {
               <span>CSHOP Card</span>
             </Link>
             <Link
-              href="#"
+              href="https://shophekart.gitbook.io/shophekart"
+              target="_blank"
               className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
             >
               <FaBookOpen />

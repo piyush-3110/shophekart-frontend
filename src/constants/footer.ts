@@ -11,7 +11,7 @@ const footerLinksData = {
     },
     usefulInfoLinks: {
       links: [
-        { text: "Whitepaper", url: "#" },
+        { text: "Whitepaper", url: "https://shophekart.gitbook.io/shophekart" },
         { text: "Privacy policy", url: "#" },
         { text: "Terms and conditions", url: "#" }
       ]

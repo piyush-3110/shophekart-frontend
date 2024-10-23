@@ -47,7 +47,7 @@ export const CreateProposalModal: React.FC<ModalProps> = ({ isOpen, onClose }) =
 
         
         <div className="overflow-y-auto flex flex-col py-4  h-full">
-        <h1 className="text-[#160041] font-[700] text-center text-xl">Order History</h1>
+        <h1 className="text-[#160041] font-[700] text-center text-xl">Create Proposal</h1>
         <textarea
             className="border rounded-lg p-4 mb-4 w-full h-40 placeholder-gray-400"
             placeholder="Create Proposal"

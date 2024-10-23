@@ -12,7 +12,7 @@ const page = () => {
      
      <Hero/>
      <Tokenize/>
-       <Footer/>
+    <Footer/>
     </div>
   )
 }

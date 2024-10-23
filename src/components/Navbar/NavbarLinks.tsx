@@ -38,7 +38,7 @@ const NavbarLinks = () => {
   }, [isPlatformOpen, isStakingOpen]);
 
   return (
-    <div className="flex space-x-8 items-center justify-center">
+    <div className="flex space-x-8  items-center justify-center">
       <NavLink href="/">Buy $CSHOP</NavLink>
 
       {/* Staking Dropdown */}

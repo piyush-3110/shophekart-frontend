@@ -30,7 +30,7 @@ const Searchbar = () => {
       />
       <button
         onClick={handleSearch} // Trigger search when the button is clicked
-        className="px-4 py-2 bg-blue-500 text-white rounded-r-lg"
+        className="gradient-button text-white"
       >
         Search
       </button>

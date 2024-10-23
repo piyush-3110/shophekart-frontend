@@ -12,12 +12,13 @@ const PAGINATION_CONSTANT = 6;
 
 const Page = () => {
   const searchParams = useSearchParams();
-  const searchTerm = useUserStore((state) => state.searchTerm);  // Access debounced search term
+  const searchTerm = useUserStore((state) => state.searchTerm);  // Access search term from Zustand
   const pageParam = searchParams.get("page");
   const currentPage = pageParam ? parseInt(pageParam) : 1;
 
+  // Fetch products based on searchTerm or get all on page load
   const { data, error, isLoading } = useQuery({
-    queryKey: ["products", searchTerm],  // Include searchTerm in queryKey to refetch
+    queryKey: ["products", searchTerm],
     queryFn: async () => {
       const endpoint = searchTerm
         ? `/fixedProduct/search?query=${searchTerm}`
@@ -25,6 +26,9 @@ const Page = () => {
       const response = await HttpRequestService.fetchApi<IProduct[]>(endpoint);
       return response;
     },
+    enabled: searchTerm !== undefined,  // Only fetch when page is loaded or searchTerm changes
+    staleTime: Infinity, // Keep data fresh until page is reloaded
+   
   });
 
   if (isLoading) {
@@ -41,6 +45,7 @@ const Page = () => {
     );
   }
 
+  // Calculate pagination data
   const totalPages =
     data?.data?.length > 0
       ? Math.ceil(data?.data.length / PAGINATION_CONSTANT)

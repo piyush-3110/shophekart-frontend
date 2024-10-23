@@ -5,6 +5,7 @@ import Web3ModalProvider from "@/context/Web3ModalProvider";
 import { headers } from "next/headers";
 
 import { cookieToInitialState } from "wagmi";
+import NextTopLoader from 'nextjs-toploader';
 
 import { config } from "@/config";
 import RenderedNavbar from "@/components/Navbar/RenderedNavbar";

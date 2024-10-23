@@ -67,7 +67,7 @@ export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({ isOpen, 
         comment,         
       };
 
-      // Make the POST request to the backend API
+
       const response = await httpRequestService.postApi("/review/create", reviewData);
 
       if (response.success) {

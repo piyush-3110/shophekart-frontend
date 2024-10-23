@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import BuyCard from "@/components/products/BuyCard";
 import ProductPagination from "@/components/products/shared/productPagination";
 import Link from "next/link";
@@ -6,13 +6,13 @@ import { useSearchParams } from "next/navigation";
 import { HttpRequestService } from "@/services";
 import { IProduct } from "@/types";
 import { useQuery } from "@tanstack/react-query";
-import { useUserStore } from "@/store/userStore"; // Import Zustand store
+import { useUserStore } from "@/store/userStore";
 
 const PAGINATION_CONSTANT = 6;
 
 const Page = () => {
   const searchParams = useSearchParams();
-  const searchTerm = useUserStore((state) => state.searchTerm);  // Access search term from store
+  const searchTerm = useUserStore((state) => state.searchTerm);  // Access debounced search term
   const pageParam = searchParams.get("page");
   const currentPage = pageParam ? parseInt(pageParam) : 1;
 
@@ -20,9 +20,8 @@ const Page = () => {
     queryKey: ["products", searchTerm],  // Include searchTerm in queryKey to refetch
     queryFn: async () => {
       const endpoint = searchTerm
-        ? `/fixedProduct/search?query=${searchTerm}`  // Call the search API if there's a search term
-        : "/fixedProduct/getAll";  // Fetch all products if no search term
-
+        ? `/fixedProduct/search?query=${searchTerm}`
+        : "/fixedProduct/getAll";
       const response = await HttpRequestService.fetchApi<IProduct[]>(endpoint);
       return response;
     },

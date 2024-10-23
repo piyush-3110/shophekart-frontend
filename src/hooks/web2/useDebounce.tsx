@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from "react";
 
 // Custom hook to debounce a value (e.g., search term)

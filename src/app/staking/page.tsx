@@ -1,5 +1,5 @@
 "use client";
-
+import Footer from "@/components/Footer/Footer";
 import { useState } from "react";
 import {
   Table,
@@ -102,6 +102,7 @@ const Page: React.FC<PageProps> = (): JSX.Element => {
           </TableBody>
         </Table>
       </div>
+      <Footer/>
     </main>
   );
 };

@@ -50,7 +50,7 @@ export default function FloatingNavbar() {
 
   return (
     <nav
-      className={`sticky lg:flex lg:items-center lg:justify-around top-0 z-[4] left-0 transition-transform duration-300 ease-in-out bg-white py-2 px-6 ${
+      className={`sticky lg:flex lg:items-center w-full  lg:justify-around top-0 z-[4] left-0 transition-transform duration-300 ease-in-out bg-white py-2 px-6 ${
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
@@ -132,7 +132,8 @@ export default function FloatingNavbar() {
               <span>CSHOP Card</span>
             </Link>
             <Link
-              href="#"
+              href="https://shophekart.gitbook.io/shophekart"
+              target="_blank"
               className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
             >
               <FaBookOpen />

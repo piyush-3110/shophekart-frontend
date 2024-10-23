@@ -1,7 +1,6 @@
 "use client";
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IoClose } from 'react-icons/io5'; // Close icon
-import { useState } from 'react';
 
 interface RatingCommentModalProps {
   isOpen: boolean;
@@ -11,6 +10,7 @@ interface RatingCommentModalProps {
 export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({ isOpen, onClose }) => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
+  const [reviewType, setReviewType] = useState('');
 
   // Close the modal when clicking outside of it
   const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -19,15 +19,17 @@ export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({ isOpen, 
     }
   };
 
-  // Disable background scroll when modal is open
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflowX = 'hidden'; 
+      document.body.style.overflowY = 'hidden';   
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflowX = 'hidden';   // Restore horizontal scrolling
+      document.body.style.overflowY = 'auto';   // Restore vertical scrolling
     }
     return () => {
-      document.body.style.overflow = 'auto'; // Clean up when modal is closed
+      document.body.style.overflowX = 'hidden';   // Clean up to restore horizontal scrolling
+      document.body.style.overflowY = 'auto';    // Clean up to restore vertical scrolling
     };
   }, [isOpen]);
 
@@ -44,7 +46,7 @@ export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({ isOpen, 
 
   const handleSubmit = () => {
     // Handle submit logic here (e.g., send data to backend)
-    console.log(`Submitted Rating: ${rating}, Comment: ${comment}`);
+    console.log(`Submitted Rating: ${rating}, Comment: ${comment}, Review Type: ${reviewType}`);
     onClose(); // Close the modal after submission
   };
 
@@ -76,6 +78,19 @@ export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({ isOpen, 
               </div>
             ))}
           </div>
+
+          {/* Review Type Dropdown */}
+          <label className="text-[#ADB3C6] mb-2">Review Type</label>
+          <select
+            className="border border-[#EFF1F7] w-full p-2 rounded mb-4 bg-[#F9FBFC] text-[#302f2f]"
+            value={reviewType}
+            onChange={(e) => setReviewType(e.target.value)}
+          >
+            <option value="">Select review type</option>
+            <option value="Positive">Positive</option>
+            <option value="Negative">Negative</option>
+            <option value="Neutral">Neutral</option>
+          </select>
 
           {/* Comment Field */}
           <label className="text-[#ADB3C6] mb-2">Add a Comment</label>

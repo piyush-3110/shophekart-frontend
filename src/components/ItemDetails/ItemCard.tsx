@@ -22,7 +22,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ images }) => {
 
       {/* Thumbnails */}
       <div className="flex justify-center mt-4">
-        <div className="grid grid-cols-4 gap-2 w-fit">
+        <div className="grid grid-cols-5 gap-1 w-fit">
           {images.map((thumbnail, index) => (
             <img
               key={index}

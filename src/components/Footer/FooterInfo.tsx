@@ -1,6 +1,9 @@
 import Image from 'next/image';
 import React from 'react';
-import { FaTelegramPlane, FaWhatsapp, FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
+import { FaBitcoin } from "react-icons/fa";
+import { SiCoinmarketcap } from "react-icons/si";
+
+import { FaTelegramPlane, FaInstagram, FaTwitter } from 'react-icons/fa';
 
 const FooterInfo: React.FC = () => {
   return (
@@ -16,19 +19,19 @@ const FooterInfo: React.FC = () => {
       <p>info@cryptoshophe.com</p>
       </div>
       <div className="flex space-x-4 mt-4 sm:mt-0">
-        <a href="#" className="text-gray-400 hover:text-white">
+        <a href="https://t.me/shophekart" target="_blank" className="text-gray-400 hover:text-white">
           <FaTelegramPlane className="w-6 h-6" />
         </a>
-        <a href="#" className="text-gray-400 hover:text-white">
-          <FaWhatsapp className="w-6 h-6" />
+        <a href="https://coinmarketcap.com/community/profile/Shophekart/" target='_blank' className="text-gray-400 hover:text-white">
+          <SiCoinmarketcap className="w-6 h-6" />
         </a>
-        <a href="#" className="text-gray-400 hover:text-white">
-          <FaFacebookF className="w-6 h-6" />
+        <a href="https://bitcointalk.org/index.php?topic=5513028" target="_blank" className="text-gray-400 hover:text-white">
+          <FaBitcoin className="w-6 h-6" />
         </a>
-        <a href="#" className="text-gray-400 hover:text-white">
+        <a href="https://www.instagram.com/shophekart/" target='_blank' className="text-gray-400 hover:text-white">
           <FaInstagram className="w-6 h-6" />
         </a>
-        <a href="#" className="text-gray-400  hover:text-white">
+        <a href="https://x.com/shophekart" target='_blank' className="text-gray-400  hover:text-white">
           <FaTwitter className="w-6 h-6" />
         </a>
       </div>

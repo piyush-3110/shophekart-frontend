@@ -8,7 +8,7 @@ const NavbarLinks = () => {
       <NavLink href="#">Staking</NavLink>
       <NavLink href="#">Product</NavLink>
       <NavLink href="#">CSHOP Card</NavLink>
-      <NavLink href="#">Whitepaper</NavLink>
+      <NavLink href="https://shophekart.gitbook.io/shophekart">Whitepaper</NavLink>
     </div>
   );
 };

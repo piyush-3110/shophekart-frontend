@@ -11,7 +11,8 @@ type Store = {
   setUser(user: IUser | null): void;
 };
 
-const localStorageUser = window && localStorage.getItem("user");
+const localStorageUser =
+  typeof window !== "undefined" ? localStorage.getItem("user") : null;
 
 export const useUserStore = create<Store>()((set) => ({
   user: localStorageUser ? JSON.parse(localStorageUser) : null,

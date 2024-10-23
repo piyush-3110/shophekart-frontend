@@ -8,16 +8,20 @@ export interface IUser {
 
 type Store = {
   user: IUser | null;
+  searchTerm: string;  // Add searchTerm to store
   setUser(user: IUser | null): void;
+  setSearchTerm: (term: string) => void;  // Setter for searchTerm
 };
 
 const localStorageUser =
   typeof window !== "undefined" ? localStorage.getItem("user") : null;
 
-export const useUserStore = create<Store>()((set) => ({
+export const useUserStore = create<Store>((set) => ({
   user: localStorageUser ? JSON.parse(localStorageUser) : null,
+  searchTerm: "",  // Initialize searchTerm
   setUser: (user) => {
     localStorage.setItem("user", JSON.stringify(user));
-    set({ user: user });
+    set({ user });
   },
+  setSearchTerm: (term) => set({ searchTerm: term }),  // Update search term
 }));

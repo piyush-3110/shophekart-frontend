@@ -5,7 +5,7 @@ import axios, { AxiosRequestConfig } from "axios";
 const httpRequestService = {
   fetchApi: async <T>(endpoint: string, options: AxiosRequestConfig = {}) => {
     const response = await axios.get(`${envConfig.BACKEND_URL}${endpoint}`, {
-      withCredentials: true,
+      // withCredentials: true,
       ...options,
     });
     return response.data as IHttpResponse<T>;
@@ -20,7 +20,7 @@ const httpRequestService = {
       `${envConfig.BACKEND_URL}${endpoint}`,
       data,
       {
-        withCredentials: true,
+        // withCredentials: true,
         ...options,
       }
     );

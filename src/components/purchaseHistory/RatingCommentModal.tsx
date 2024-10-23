@@ -1,6 +1,8 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { IoClose } from 'react-icons/io5'; // Close icon
+import { IoClose } from 'react-icons/io5';
+import httpRequestService from "@/services/httpRequest.service";
+import { useUserStore } from "@/store/userStore"; 
 
 interface RatingCommentModalProps {
   isOpen: boolean;
@@ -11,8 +13,12 @@ export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({ isOpen, 
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const [reviewType, setReviewType] = useState('');
+  const { user } = useUserStore(); 
 
-  // Close the modal when clicking outside of it
+
+  const targetId = '67192457d7dc8fc2f77376f7'; 
+
+
   const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -24,30 +30,57 @@ export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({ isOpen, 
       document.body.style.overflowX = 'hidden'; 
       document.body.style.overflowY = 'hidden';   
     } else {
-      document.body.style.overflowX = 'hidden';   // Restore horizontal scrolling
-      document.body.style.overflowY = 'auto';   // Restore vertical scrolling
+      document.body.style.overflowX = 'hidden';   
+      document.body.style.overflowY = 'auto';   
     }
     return () => {
-      document.body.style.overflowX = 'hidden';   // Clean up to restore horizontal scrolling
-      document.body.style.overflowY = 'auto';    // Clean up to restore vertical scrolling
+      document.body.style.overflowX = 'hidden';  
+      document.body.style.overflowY = 'auto';    
     };
   }, [isOpen]);
 
   if (!isOpen) return null;
 
-  // Handle rating hover and click
+
   const handleMouseEnter = (index: number) => {
     setRating(index);
   };
 
   const handleStarClick = (index: number) => {
-    setRating(index); // Set the rating to the clicked star
+    setRating(index); 
   };
 
-  const handleSubmit = () => {
-    // Handle submit logic here (e.g., send data to backend)
-    console.log(`Submitted Rating: ${rating}, Comment: ${comment}, Review Type: ${reviewType}`);
-    onClose(); // Close the modal after submission
+  const handleSubmit = async () => {
+    if (!user) {
+      console.error("User not logged in");
+      return;
+    }
+
+    try {
+
+      const reviewData = {
+        targetId,              
+        reviewerId: user._id,  
+        targetType: 'product', 
+        reviewType: reviewType.toLowerCase(), 
+        rating,                
+        comment,         
+      };
+
+      // Make the POST request to the backend API
+      const response = await httpRequestService.postApi("/review/create", reviewData);
+
+      if (response.success) {
+        console.log("Review submitted successfully:", response.data);
+
+      } else {
+        console.error("Failed to submit review:", response.message);
+      }
+    } catch (error) {
+      console.error("Error submitting review:", error);
+    }
+
+    onClose(); 
   };
 
   return (

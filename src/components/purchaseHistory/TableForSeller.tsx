@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { FaCommentDots } from 'react-icons/fa';
-import { RatingCommentModal } from './RatingCommentModal'; // Import the new modal
+
 import { ProductCard } from '../Profile/ProductCard';
 
 interface ItemData {
@@ -19,9 +18,8 @@ interface TableProps {
 }
 
 const TableForSeller: React.FC<TableProps> = ({ headers, data }) => {
-  const [isModalOpen, setModalOpen] = useState(false); // State to manage modal visibility
-  const [statuses, setStatuses] = useState<string[]>(data.map(item => item.status)); // Manage each item's status locally
-  const [loading, setLoading] = useState(false); // Track loading state for the API call
+  const [statuses, setStatuses] = useState<string[]>(data.map(item => item.status)); 
+  const [loading, setLoading] = useState(false); 
 
   // Handle dropdown change for the order status
   const handleStatusChange = (index: number, newStatus: string) => {
@@ -60,13 +58,7 @@ const TableForSeller: React.FC<TableProps> = ({ headers, data }) => {
     }
   };
 
-  const handleCommentClick = () => {
-    setModalOpen(true); // Open the modal
-  };
 
-  const handleModalClose = () => {
-    setModalOpen(false); // Close the modal
-  };
 
   return (
     <div className="relative w-full py-4">
@@ -118,17 +110,13 @@ const TableForSeller: React.FC<TableProps> = ({ headers, data }) => {
               >
                 {loading ? 'Updating...' : 'Submit'}
               </button>
-              <FaCommentDots className="text-[#022BFF] ml-4" />
-              <button className="text-[#022BFF] font-semibold ml-1" onClick={handleCommentClick}>
-                Add a Rating & Comment
-              </button>
+             
+           
             </div>
           </div>
         ))}
       </div>
 
-      {/* Rating Comment Modal */}
-      <RatingCommentModal isOpen={isModalOpen} onClose={handleModalClose} />
     </div>
   );
 };

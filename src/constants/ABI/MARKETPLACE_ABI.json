@@ -253,7 +253,7 @@
       { "internalType": "string", "name": "tokenURI", "type": "string" }
     ],
     "name": "createMarketItem",
-    "outputs": [],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "payable",
     "type": "function"
   },

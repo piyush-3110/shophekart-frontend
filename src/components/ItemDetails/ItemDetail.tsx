@@ -60,7 +60,7 @@ export const ItemDetail: React.FC<ItemDetailProps> = ({ id }) => {
               id={product._id}
               shippingCharges={product.shippingCharges}
               shippingDuration={product.shippingDuration}
-              tokenId={2378734}
+              tokenId={product.productIdOnChain}
               productIdOnChain="18923n1287912"
               details={product.details}
               price={product.price}

@@ -71,11 +71,11 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
     },
     onSuccess: async () => {
       if (currencyType === "BNB") {
-        await createOrderBNB(16, shippingCharges, price);
+        await createOrderBNB(tokenId, shippingCharges, price);
       } else {
         await createOrderOtherToken(
           currencyType.toLowerCase(),
-          17,
+          tokenId,
           shippingCharges,
           price
         );

@@ -36,7 +36,9 @@ export default function RootLayout({
       </head>
       <body className={`${dm.className} antialiased overflow-x-hidden`}>
         <Web3ModalProvider initialState={initialState}>
+        
           <RenderedNavbar />
+          <NextTopLoader color="#0163ff" />
           {children}
           
           <Toaster />

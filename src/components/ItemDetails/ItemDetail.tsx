@@ -25,7 +25,7 @@ export const ItemDetail: React.FC<ItemDetailProps> = ({ id }) => {
       const response = await HttpRequestService.fetchApi<IProduct>(
         `/fixedProduct/${id}`
       );
-
+console.log(response)
       return response.data;
     },
   });

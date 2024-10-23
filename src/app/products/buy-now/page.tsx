@@ -23,6 +23,7 @@ const Page = () => {
       const response = await HttpRequestService.fetchApi<IProduct[]>(
         "/fixedProduct/getAll"
       );
+      console.log(response); // Check the structure of the response
       return response;
     },
   });
@@ -32,22 +33,20 @@ const Page = () => {
   }
 
   if (error || !data) {
-    return <div>Opps something went wrong...</div>;
+    return <div>Oops, something went wrong...</div>;
   }
 
-  if (data.data.length < 1) {
-    return (
-      <div>Seems like there are no products available at the moment...</div>
-    );
+  // Default to an empty array if data.data is undefined
+  const products = data?.data || [];
+
+  if (products.length < 1) {
+    return <div>Seems like there are no products available at the moment...</div>;
   }
 
-  const totalPages =
-    data?.data?.length > 0
-      ? Math.ceil(data?.data.length / PAGINATION_CONSTANT)
-      : 1;
+  const totalPages = Math.ceil(products.length / PAGINATION_CONSTANT);
   const startIndex = (currentPage - 1) * PAGINATION_CONSTANT;
   const endIndex = startIndex + PAGINATION_CONSTANT;
-  const paginatedProducts = data?.data.slice(startIndex, endIndex);
+  const paginatedProducts = products.slice(startIndex, endIndex);
 
   return (
     <section className="space-y-8 py-8">

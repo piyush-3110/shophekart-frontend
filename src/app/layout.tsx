@@ -11,6 +11,9 @@ import RenderedNavbar from "@/components/Navbar/RenderedNavbar";
 import { Toaster } from "@/components/ui/toaster";
 
 
+
+
+
 const dm = DM_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "700"],

@@ -1,11 +1,11 @@
 type TOrder = {
   _id: string;
-  orderStatus: "pending" | "processing" | "delivered" | "cancelled";
+  orderStatus: "pending" | "delivering" | "delivered" | "cancelled" | "dispute";
   deliveryBy: Date;
   buyerId: string;
   productId: string;
   productIdOnChain: string;
-  tokenId: number;
+  nftId: number;
   soldAtPrice: number;
   shippingPrice: number;
   createdAt: Date;
@@ -15,10 +15,9 @@ type TOrder = {
 export default TOrder;
 
 export type TCreateOrder = {
-  productIdOnChain: string;
+  productIdOnChain: number;
   deliveryBy: string;
   buyerId: string;
   productId: string;
-  tokenId: number;
   shippingPrice: number;
 };

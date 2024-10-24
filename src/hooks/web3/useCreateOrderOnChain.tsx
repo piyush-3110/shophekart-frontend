@@ -1,14 +1,30 @@
 import { useCallback, useState } from "react";
 import { config } from "@/config";
 import CONTRACT_CONFIG from "@/constants/contractConfig";
-import { parseEther } from "viem";
-import { useWriteContract } from "wagmi";
-import { waitForTransactionReceipt } from "@wagmi/core";
+import { Abi, parseEther } from "viem";
+import { useReadContract, useWriteContract } from "wagmi";
+import { Config, waitForTransactionReceipt } from "@wagmi/core";
 import { toast } from "../use-toast";
 
-function useCreateOrderOnChain() {
+function useCreateOrderOnChain(userId: `0x${string}`) {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+
+  const { data: nftIds, isSuccess: nftIdSuccess } = useReadContract<
+    Abi,
+    "getEscrowIDsOfUserBuyer",
+    [`0x${string}`],
+    Config,
+    bigint[] | undefined
+  >({
+    config,
+    ...CONTRACT_CONFIG.escrow,
+    functionName: "getEscrowIDsOfUserBuyer",
+    args: [userId],
+    query: {
+      enabled: isSuccess,
+    },
+  });
 
   const { writeContractAsync } = useWriteContract({
     config,
@@ -40,6 +56,7 @@ function useCreateOrderOnChain() {
         return hash;
       } catch (error) {
         console.log(error);
+        // TODO: delete order from backend
       } finally {
         setIsLoading(false);
       }
@@ -87,6 +104,7 @@ function useCreateOrderOnChain() {
         return { hash, approveHash };
       } catch (error) {
         console.log(error);
+        // TODO: delete order from backend
       } finally {
         setIsLoading(false);
       }
@@ -98,7 +116,8 @@ function useCreateOrderOnChain() {
     createOrderBNB: createOrderBNBCallback,
     createOrderOtherToken: createOrderOtherTokencallback,
     isPending: isLoading,
-    isSuccess,
+    isSuccess: isSuccess && nftIdSuccess,
+    nftIds,
   };
 }
 

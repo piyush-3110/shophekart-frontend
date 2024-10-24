@@ -12,6 +12,7 @@ import { calculateDeliveryDate } from "@/utils";
 import { TCreateOrder } from "@/types/order";
 import { TCurrencyType } from "@/types/product";
 import { useCreateOrderOnChain } from "@/hooks";
+import { useUserStore } from "@/store/userStore";
 
 interface ItemDescriptionProps {
   name: string;
@@ -24,8 +25,7 @@ interface ItemDescriptionProps {
   stock: number;
   id: string;
   shippingType: string;
-  tokenId: number;
-  productIdOnChain: string;
+  productIdOnChain: number;
   shippingCharges: number;
 }
 
@@ -37,7 +37,6 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
   shippingCharges,
   shippingDuration,
   productIdOnChain,
-  tokenId,
   id,
   buyerId,
   currencyType,
@@ -45,15 +44,21 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
   shippingType,
 }) => {
   const { toast } = useToast();
+  const { user } = useUserStore();
 
-  const { createOrderBNB, createOrderOtherToken, isPending, isSuccess } =
-    useCreateOrderOnChain();
+  const {
+    createOrderBNB,
+    createOrderOtherToken,
+    isPending,
+    isSuccess,
+    nftIds,
+  } = useCreateOrderOnChain(user?.walletAddress as `0x${string}`);
 
-  useEffect(() => {
-    if (isSuccess) toast({ title: "Order placed successfully" });
-  }, [isSuccess, toast]);
-
-  const { mutateAsync, isPending: isLoading } = useMutation({
+  const {
+    mutateAsync,
+    isPending: isLoading,
+    data,
+  } = useMutation({
     mutationFn: async () => {
       const response = await HttpRequestService.postApi<TOrder, TCreateOrder>(
         "/order/create",
@@ -63,7 +68,6 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
           productId: id,
           productIdOnChain,
           shippingPrice: shippingCharges,
-          tokenId,
         }
       );
 
@@ -71,11 +75,11 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
     },
     onSuccess: async () => {
       if (currencyType === "BNB") {
-        await createOrderBNB(tokenId, shippingCharges, price);
+        await createOrderBNB(productIdOnChain, shippingCharges, price);
       } else {
         await createOrderOtherToken(
           currencyType.toLowerCase(),
-          tokenId,
+          productIdOnChain,
           shippingCharges,
           price
         );
@@ -88,6 +92,28 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
       });
     },
   });
+
+  useEffect(() => {
+    if (isSuccess && nftIds && data) {
+      (async () => {
+        const stringNftId = nftIds[nftIds.length - 1].toString();
+        try {
+          await HttpRequestService.updateApi<
+            TOrder,
+            { orderId: string; nftId: number }
+          >("/order/update-nft-id", {
+            orderId: data.data._id,
+            nftId: Number(stringNftId),
+          });
+
+          toast({ title: "Order placed successfully" });
+        } catch (error) {
+          console.log(error);
+          toast({ title: "Error updating NFT ID", variant: "destructive" });
+        }
+      })();
+    }
+  }, [isSuccess, toast, data, nftIds]);
 
   return (
     <div className="flex flex-col gap-3 pl-4 md:pl-0 w-[95vw] md:w-[50vw] lg:w-[40vw]">

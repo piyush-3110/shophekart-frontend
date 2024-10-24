@@ -94,7 +94,7 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
   });
 
   useEffect(() => {
-    if (isSuccess && nftIds && data) {
+    if (isSuccess && nftIds?.length && nftIds.length > 0 && data) {
       (async () => {
         const stringNftId = nftIds[nftIds.length - 1].toString();
         try {

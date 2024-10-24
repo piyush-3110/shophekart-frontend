@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import { ProductCard } from '../Profile/ProductCard';
+import { ProductCard } from "../Profile/ProductCard";
+import { OrderService } from "@/services";
+import { toast } from "@/hooks/use-toast";
+import { useChangeOrderStatus } from "@/hooks";
 
 interface ItemData {
   imageUrl: string;
@@ -10,6 +13,8 @@ interface ItemData {
   description: string;
   type: string;
   soldPrice: string;
+  nftId: number;
+  orderId: string;
 }
 
 interface TableProps {
@@ -18,8 +23,13 @@ interface TableProps {
 }
 
 const TableForSeller: React.FC<TableProps> = ({ headers, data }) => {
-  const [statuses, setStatuses] = useState<string[]>(data.map(item => item.status)); 
-  const [loading, setLoading] = useState(false); 
+  const [statuses, setStatuses] = useState<string[]>(
+    data.map((item) => item.status)
+  );
+
+  const [orderId, setOrderId] = useState<string>("");
+
+  const { isLoading, isSuccess, mutateAsync } = useChangeOrderStatus(orderId);
 
   // Handle dropdown change for the order status
   const handleStatusChange = (index: number, newStatus: string) => {
@@ -33,32 +43,27 @@ const TableForSeller: React.FC<TableProps> = ({ headers, data }) => {
     const updatedStatus = statuses[index];
     const item = data[index];
 
-    setLoading(true);
+    setOrderId(item.orderId);
 
-    try {
-      // Simulating an API call to update order status
-      const response = await fetch(`/api/update-order-status`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ itemId: item.title, newStatus: updatedStatus }), // Adjust the payload according to your API structure
-      });
-
-      if (response.ok) {
-        alert(`Status updated to "${updatedStatus}" for ${item.title}`);
-      } else {
-        alert('Failed to update the status');
+    if (updatedStatus === "delivering") {
+      try {
+        await mutateAsync(item.orderId);
+      } catch (error) {
+        console.log(error);
+        toast({
+          title: "Error while updating order status",
+        });
       }
-    } catch (error) {
-      console.error('Error updating status:', error);
-      alert('An error occurred. Please try again.');
-    } finally {
-      setLoading(false);
     }
   };
 
-
+  useEffect(() => {
+    if (isSuccess) {
+      toast({
+        title: "Order status updated successfully",
+      });
+    }
+  }, [isSuccess]);
 
   return (
     <div className="relative w-full py-4">
@@ -74,7 +79,10 @@ const TableForSeller: React.FC<TableProps> = ({ headers, data }) => {
 
         {/* Table Entries */}
         {data.map((item, index) => (
-          <div key={index} className="grid grid-cols-7 gap-4 min-w-[800px] items-center py-4">
+          <div
+            key={index}
+            className="grid grid-cols-7 gap-4 min-w-[800px] items-center py-4"
+          >
             <div className="col-span-2">
               <ProductCard
                 imageUrl={item.imageUrl}
@@ -94,10 +102,10 @@ const TableForSeller: React.FC<TableProps> = ({ headers, data }) => {
                 onChange={(e) => handleStatusChange(index, e.target.value)}
                 className="border border-gray-300 rounded-md p-1 text-sm"
               >
-                <option value="pending">Pending</option>
-                <option value="shipped">Shipped</option>
-                <option value="delivered">Delivered</option>
-                <option value="cancelled">Cancelled</option>
+                <option value="pending" disabled>
+                  Pending
+                </option>
+                <option value="delivering">Delivering</option>
               </select>
             </div>
 
@@ -106,17 +114,14 @@ const TableForSeller: React.FC<TableProps> = ({ headers, data }) => {
               <button
                 onClick={() => handleSubmitStatus(index)}
                 className="text-green-600 font-semibold"
-                disabled={loading}
+                disabled={isLoading}
               >
-                {loading ? 'Updating...' : 'Submit'}
+                {isLoading ? "Updating..." : "Submit"}
               </button>
-             
-           
             </div>
           </div>
         ))}
       </div>
-
     </div>
   );
 };

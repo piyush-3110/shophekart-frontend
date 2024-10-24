@@ -11,19 +11,19 @@ export const Hero = () => {
             <button className='gradient-button my-8'>Get Your Card</button>
         </div>
         <div className='lg:block hidden mb-16 z-[1] relative mt-8 '>
+        <Image
+            alt='MasterCard'
+            src='/images/homepage/Partners/mastercard1.png'
+            height={524}
+            width={524}
+            className='h-[40vh] w-auto rotate-left'
+          />
           <Image
             alt='MasterCard'
             src='/images/homepage/Partners/mastercard2.png'
             height={524}
             width={524}
-            className='h-[47vh] w-auto rotate-left'
-          />
-          <Image
-            alt='MasterCard'
-            src='/images/homepage/Partners/mastercard1.png'
-            height={524}
-            width={524}
-            className='h-[40vh] w-auto absolute z-[1] top-0 -right-10 rotate-right'
+            className='h-[50vh] w-auto absolute z-[1] top-0 -right-10 rotate-right'
           />
         </div>
         <div className="blob1" />

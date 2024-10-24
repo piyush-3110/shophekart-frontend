@@ -1,58 +1,39 @@
-// src/components/products/shared/Searchbar.tsx (1-44)
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+"use client";
 import { Input } from "@/components/ui/input";
-import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { useUserStore } from "@/store/userStore"; // Import Zustand store
 import Image from "next/image";
-import React from "react";
-import { IoMenu } from "react-icons/io5";
-
-const DROPDOWN_CATEGORIES: { label: string }[] = [
-  { label: "Category" },
-  { label: "Category" },
-  { label: "Category" },
-  { label: "Category" },
-];
+import { useState } from "react";
 
 const Searchbar = () => {
+  const setSearchTerm = useUserStore((state) => state.setSearchTerm); // Set search term in Zustand store
+  const [localSearch, setLocalSearch] = useState(""); // Local state for input value
+
+  // Handle search button click
+  const handleSearch = () => {
+    setSearchTerm(localSearch); // Set the search term only when the search button is clicked
+  };
+
   return (
     <div className="flex items-center relative h-12 w-full max-w-lg md:max-w-4xl">
-      <div className="flex-1 h-full">
-        <Input
-          placeholder="Search products"
-          className="py-4 pl-12 rounded-r-none rounded-l size-full peer"
-        />
-        <Image
-          width={18}
-          height={18}
-          src={"/icons/productNavbar/searchIcon.svg"}
-          alt="search icon"
-          className="absolute top-1/2 -translate-y-1/2 left-4"
-        />
-      </div>
-      <DropdownMenu>
-        <DropdownMenuTrigger className="py-4 h-full px-3 lg:px-6 flex items-center gap-2 rounded-r bg-primary-gradient">
-          <IoMenu className="text-2xl hidden x" />
-          <span className="min-w-fit">All categories</span>
-          <ChevronDownIcon className="text-2xl" />
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          {DROPDOWN_CATEGORIES.map(({ label }, index) => {
-            return (
-              <DropdownMenuItem
-                key={index}
-                className="flex items-center gap-2 cursor-pointer"
-              >
-                <span>{label}</span>
-              </DropdownMenuItem>
-            );
-          })}
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <Input
+        value={localSearch}
+        onChange={(e) => setLocalSearch(e.target.value)} // Update local state with input value
+        placeholder="Search products"
+        className="py-4 pl-12 rounded-r-none rounded-l size-full peer"
+      />
+      <Image
+        width={18}
+        height={18}
+        src={"/icons/productNavbar/searchIcon.svg"}
+        alt="search icon"
+        className="absolute top-1/2 -translate-y-1/2 left-4"
+      />
+      <button
+        onClick={handleSearch} // Trigger search when the button is clicked
+        className="gradient-button text-white"
+      >
+        Search
+      </button>
     </div>
   );
 };

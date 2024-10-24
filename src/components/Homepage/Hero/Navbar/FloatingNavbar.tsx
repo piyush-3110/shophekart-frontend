@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // components/FloatingNavbar.tsx
 "use client";
 import { useEffect, useState } from "react";
@@ -54,7 +55,7 @@ export default function FloatingNavbar() {
         </div>
 
         {/* Nav Links for Large Screens */}
-        <div className="hidden lg:flex space-x-28">
+        <div className="hidden  lg:flex space-x-28">
         <NavbarLinks />
 
 {/* Connect Wallet Button */}

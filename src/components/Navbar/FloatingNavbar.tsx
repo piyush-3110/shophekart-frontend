@@ -1,4 +1,3 @@
-// components/FloatingNavbar.tsx
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
@@ -10,6 +9,7 @@ import {
   FaProductHunt,
   FaFileAlt,
   FaBookOpen,
+  FaChevronDown,
 } from "react-icons/fa";
 
 import NavbarLinks from "./NavbarLinks";
@@ -23,15 +23,15 @@ export default function FloatingNavbar() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Handle scroll to determine the direction
+  const [isPlatformOpen, setIsPlatformOpen] = useState(false);
+  const [isStakingOpen, setIsStakingOpen] = useState(false);
+
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
 
     if (currentScrollY > lastScrollY) {
-      // If scrolling down, hide the navbar
       setIsVisible(false);
     } else {
-      // If scrolling up, show the navbar
       setIsVisible(true);
     }
 
@@ -39,10 +39,7 @@ export default function FloatingNavbar() {
   }, [lastScrollY]);
 
   useEffect(() => {
-    // Add scroll event listener
     window.addEventListener("scroll", handleScroll);
-
-    // Cleanup on unmount
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
@@ -74,7 +71,7 @@ export default function FloatingNavbar() {
           <UserProfileDropdownButton />
 
           {/* Login & Logout Button */}
-          {!user && <AuthButton />}
+          {user && <AuthButton />}
         </div>
 
         {/* Hamburger/Close Icon for Small and Medium Screens */}
@@ -110,20 +107,78 @@ export default function FloatingNavbar() {
               <FaShoppingCart />
               <span>Buy $CSHOP</span>
             </Link>
-            <Link
-              href="/staking"
-              className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
-            >
-              <FaAnchor />
-              <span>Staking</span>
-            </Link>
-            <Link
-              href="/products/buy-now"
-              className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
-            >
-              <FaProductHunt />
-              <span>Product</span>
-            </Link>
+            {user && <AuthButton />}
+
+            {/* Staking Dropdown for Mobile */}
+            <div className="flex flex-col">
+              <button
+                className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
+                onClick={() => setIsStakingOpen(!isStakingOpen)}
+              >
+                <FaAnchor/>
+                <span>Staking</span>
+                <FaChevronDown
+                  className={`transition-transform duration-300 ease-in-out ${
+                    isStakingOpen ? "rotate-180" : "rotate-0"
+                  }`}
+                />
+              </button>
+              {isStakingOpen && (
+                <div className="flex flex-col space-y-2 mt-2">
+                  <Link
+                    href="/staking"
+                    className="text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
+                  >
+                    Staking
+                  </Link>
+                  <Link
+                    href="/dao"
+                    className="text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
+                  >
+                    DAO
+                  </Link>
+
+                </div>
+              )}
+            </div>
+
+            {/* Platform Dropdown for Mobile */}
+            <div className="flex flex-col">
+              <button
+                className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
+                onClick={() => setIsPlatformOpen(!isPlatformOpen)}
+              >
+                <FaProductHunt/>
+           
+<span>
+Platform
+</span>
+               
+                
+                <FaChevronDown
+                  className={`transition-transform duration-300 ease-in-out ${
+                    isPlatformOpen ? "rotate-180" : "rotate-0"
+                  }`}
+                />
+              </button>
+              {isPlatformOpen && (
+                <div className="flex flex-col gap-2 space-y-2 mt-2">
+                  <Link
+                    href="/products/buy-now"
+                    className="text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
+                  >
+                    Crypto Shop
+                  </Link>
+                  <Link
+                    href="/tokenization"
+                    className="text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
+                  >
+                    Tokenization
+                  </Link>
+                </div>
+              )}
+            </div>
+
             <Link
               href="#"
               className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
@@ -139,6 +194,7 @@ export default function FloatingNavbar() {
               <FaBookOpen />
               <span>Whitepaper</span>
             </Link>
+
             {/* Connect Wallet button inside the dropdown */}
             <UserProfileDropdownButton />
           </>

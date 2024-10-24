@@ -5,8 +5,8 @@ import { Presale } from "../../Presale/Presale";
 
 export function Hero() {
   const [textIndex, setTextIndex] = useState(0);
-  const text1 = "Buy and Sell Items For";
-  const text2 = "CryptoCurrencies";
+  const text1 = "Tokenize, Trade, And";
+  const text2 = "Own";
 
   const totalLength = text1.length + text2.length;
   const pauseTime = 30; // Adjust this to increase or decrease the pause after the full text appears
@@ -55,9 +55,7 @@ export function Hero() {
         </div>
 
         <p className="text-[#6B6F93] mt-4 w-full lg:w-auto lg:mt-0 font-[400] text-[16px] leading-[27.3px]">
-          Empower Your Marketplace Experience. Seamlessly Connect Your Wallet to
-          Buy, Sell, and Trade Unique Items with CSHOP Cryptocurrency in a
-          Secure, Decentralized Platform
+          The world&apos;s first platform where you can shop, tokenize luxury goods, and trade physical and digital assets seamlessy on secondary market.
         </p>
 
         <div className="flex gap-4 items-center mt-4">

@@ -1,58 +1,64 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useEffect, useState } from 'react';
 import { ReviewCard } from '../ItemDetails/ReviewCard';
-
-// Dummy data for the review cards (replace with actual data as needed)
-const reviews = [
-  {
-    id: 1,
-    avatarUrl: "/images/itemDetails/avatar.png",
-    reviewerName: "Piyush",
-    reviewDate: "25 Sept, 2024",
-    title: "Great for the Price",
-    content: "Bag is much better than I expected. I was not looking for an expensive bag as I find they wear out as much as the cheaper ones. For the price, this is a great bargain. I am short, but I ordered the large bag. It is big enough without making me look like I am lugging a suitcase.",
-    ratingValue: 4.5,
-    helpfulCount: 8,
-    unhelpfulCount: 0,
-  },
-  {
-    id: 2,
-    avatarUrl: "/images/itemDetails/avatar.png",
-    reviewerName: "Princy",
-    reviewDate: "24 Sept, 2024",
-    title: "Not Bad",
-    content: "It's decent for the price. Good value overall.",
-    ratingValue: 3.0,
-    helpfulCount: 3,
-    unhelpfulCount: 1,
-  },
-  {
-    id: 2,
-    avatarUrl: "/images/itemDetails/avatar.png",
-    reviewerName: "Yashaswi",
-    reviewDate: "24 Sept, 2024",
-    title: "Not Bad",
-    content: "It's decent for the price. Good value overall.",
-    ratingValue: 3.0,
-    helpfulCount: 3,
-    unhelpfulCount: 1,
-  },
-  // Add more reviews as needed...
-];
+import httpRequestService from '@/services/httpRequest.service'; 
 
 export const ReviewSection: React.FC = () => {
+  const [reviews, setReviews] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const targetId = '67192457d7dc8fc2f77376f7'; 
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        setLoading(true);
+        const response = await httpRequestService.fetchApi<any[]>(`/review/target/${targetId}`);
+
+        const mappedReviews = response.data.map(review => ({
+          reviewId: review._id,
+          avatarUrl: "/images/itemDetails/avatar.png",
+          reviewerName: review.reviewerId,
+          reviewDate: new Date(review.createdAt).toLocaleDateString(),
+          title: review.comment.substring(0, 20), 
+          content: review.comment,
+          ratingValue: review.rating,
+          initialHelpfulCount: review.likes, 
+          initialUnhelpfulCount: review.dislikes, 
+        }));
+        console.log(mappedReviews);
+        setReviews(mappedReviews);
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchReviews();
+  }, [targetId]);
+
+  if (loading) {
+    return <p>Loading reviews...</p>;
+  }
+
+  if (reviews.length === 0) {
+    return <p>No reviews found.</p>;
+  }
+
   return (
     <div className="flex flex-col space-y-4">
       {reviews.map((review) => (
         <ReviewCard
-          key={review.id}
+          key={review.reviewId} 
+          reviewId={review.reviewId} 
           avatarUrl={review.avatarUrl}
           reviewerName={review.reviewerName}
           reviewDate={review.reviewDate}
           title={review.title}
           content={review.content}
           ratingValue={review.ratingValue}
-          helpfulCount={review.helpfulCount}
-          unhelpfulCount={review.unhelpfulCount}
+          initialHelpfulCount={review.initialHelpfulCount}
+          initialUnhelpfulCount={review.initialUnhelpfulCount}
         />
       ))}
     </div>

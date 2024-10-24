@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useRef, useEffect } from 'react';
 import { ProductCard } from './ProductCard';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'; // Import arrow icons

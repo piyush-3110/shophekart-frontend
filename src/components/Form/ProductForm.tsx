@@ -84,7 +84,7 @@ const ProductForm = () => {
         formDataToSubmit.append("images", file);
       });
 
-      await mutateAsync(formDataToSubmit);
+      await mutateAsync(formData);
 
       // const formDataToSubmit = new FormData();
       // Object.entries(formData).forEach(([key, value]) => {

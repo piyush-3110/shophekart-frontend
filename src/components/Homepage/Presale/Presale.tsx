@@ -41,7 +41,7 @@ export const Presale = () => {
 
   return (
     <>
-      <div className="h-[16rem] bg-white border py-6  rounded-md shadow-lg px-20 flex items-center justify-end gap-20">
+      <div className="h-fit lg:h-[16rem] lg:w-auto w-[95vw] bg-white border py-6  rounded-md shadow-lg px-20 flex lg:items-center lg:flex-row flex-col lg:justify-end gap-20">
         <div>
           <h1 className="text-lg text-black font-semibold pb-6 ">Presale Ends in:</h1>
           {/* Countdown display */}
@@ -52,7 +52,7 @@ export const Presale = () => {
             <CountdownDiv value={timeLeft.seconds} label="Seconds" />
           </div>
         </div>
-        <div className='h-[12rem] border border-[#f1eeee] '></div>
+        <div className='h-[12rem] hidden lg:block border border-[#f1eeee] '></div>
         <div>
         <h1 className="text-lg text-black font-semibold pb-6">Buy tokens now:</h1>
 <BuyToken/>

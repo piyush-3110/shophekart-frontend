@@ -5,10 +5,14 @@ import Web3ModalProvider from "@/context/Web3ModalProvider";
 import { headers } from "next/headers";
 
 import { cookieToInitialState } from "wagmi";
+import NextTopLoader from 'nextjs-toploader';
 
 import { config } from "@/config";
 import RenderedNavbar from "@/components/Navbar/RenderedNavbar";
 import { Toaster } from "@/components/ui/toaster";
+
+
+
 
 
 const dm = DM_Sans({
@@ -35,7 +39,9 @@ export default function RootLayout({
       </head>
       <body className={`${dm.className} antialiased overflow-x-hidden`}>
         <Web3ModalProvider initialState={initialState}>
+        
           <RenderedNavbar />
+          <NextTopLoader color="#0163ff" />
           {children}
           
           <Toaster />

@@ -5,7 +5,7 @@ import MarqueeComp from './MarqueeComp';
 
 const Partners = () => {
   return (
-    <div className='relative overflow-x-hidden min-h-[80vh] overflow-hidden pb-8 pt-12 flex gap-12 flex-col items-center bg-white'>
+    <div className='relative overflow-x-hidden min-h-[100vh] overflow-hidden pb-8 pt-12 flex gap-12 flex-col items-center bg-white'>
       <h1 className='text-black font-semibold md:text-3xl text-lg text-center'>
         Partners and Supporters
       </h1>
@@ -15,7 +15,7 @@ const Partners = () => {
       <div className='flex mt-4 justify-center gap-16'>
         <div className='flex flex-col items-center md:items-start md:pl-12 gap-6 mt-6 w-[90vw] md:w-[90vw] lg:w-[40vw]'>
           <h1 className='text-black font-semibold md:text-3xl text-lg'>
-            Introducing the Crypto Shophe Debit Card
+            Introducing the Crypto Shophekart Debit Card
           </h1>
           <p className='text-[#6B6F93] font-[400] text-[16px]'>
             Seamlessly Convert Your Crypto into Cash Anywhere.

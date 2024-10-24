@@ -5,7 +5,7 @@ import MarqueeComp from './MarqueeComp';
 
 const Partners = () => {
   return (
-    <div className='relative overflow-x-hidden min-h-[90vh] overflow-hidden pb-8 pt-12 flex gap-12 flex-col items-center bg-white'>
+    <div className='relative overflow-x-hidden min-h-[100vh] overflow-hidden pb-8 pt-12 flex gap-12 flex-col items-center bg-white'>
       <h1 className='text-black font-semibold md:text-3xl text-lg text-center'>
         Partners and Supporters
       </h1>

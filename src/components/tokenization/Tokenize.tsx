@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import lottie from 'lottie-web';
 import { CardSpotlightDemo } from './CardSpotlightDemo';
 
-const Tokenize = () => {
+const Tokenized = () => {
     const animationContainer = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -61,4 +61,4 @@ const Tokenize = () => {
         </div>
     );
 };
-export default Tokenize;
+export default Tokenized;

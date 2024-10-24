@@ -14,16 +14,17 @@ export const ReviewSection: React.FC = () => {
         const response = await httpRequestService.fetchApi<any[]>(`/review/target/${targetId}`);
 
         const mappedReviews = response.data.map(review => ({
-          id: review._id,
+          reviewId: review._id,
           avatarUrl: "/images/itemDetails/avatar.png",
           reviewerName: review.reviewerId,
           reviewDate: new Date(review.createdAt).toLocaleDateString(),
           title: review.comment.substring(0, 20), 
           content: review.comment,
           ratingValue: review.rating,
-          helpfulCount: review.likes,
-          unhelpfulCount: review.dislikes,
+          initialHelpfulCount: review.likes, 
+          initialUnhelpfulCount: review.dislikes, 
         }));
+        console.log(mappedReviews);
         setReviews(mappedReviews);
       } catch (error) {
         console.error("Error fetching reviews:", error);
@@ -47,15 +48,16 @@ export const ReviewSection: React.FC = () => {
     <div className="flex flex-col space-y-4">
       {reviews.map((review) => (
         <ReviewCard
-          key={review.id}
+          key={review.reviewId} 
+          reviewId={review.reviewId} 
           avatarUrl={review.avatarUrl}
           reviewerName={review.reviewerName}
           reviewDate={review.reviewDate}
           title={review.title}
           content={review.content}
           ratingValue={review.ratingValue}
-          helpfulCount={review.helpfulCount}
-          unhelpfulCount={review.unhelpfulCount}
+          initialHelpfulCount={review.initialHelpfulCount}
+          initialUnhelpfulCount={review.initialUnhelpfulCount}
         />
       ))}
     </div>

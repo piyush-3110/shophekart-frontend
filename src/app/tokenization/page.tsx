@@ -2,15 +2,15 @@
 import React from 'react'
 
 import Footer from '@/components/Footer/Footer'
-import  Hero  from '@/components/tokenization/Hero';
 import Tokenized from '../../components/tokenization/Tokenize';
+import Hero1 from '@/components/tokenization/Hero';
 
 
 const page = () => {
   return (
     <div>
      
-     <Hero/>
+    <Hero1/>
     <Tokenized/>
     <Footer/>
     </div>

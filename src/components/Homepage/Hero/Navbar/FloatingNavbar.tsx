@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // components/FloatingNavbar.tsx
 "use client";
 import { useEffect, useState } from "react";

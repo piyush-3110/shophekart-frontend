@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import { LiaTelegram, LiaWhatsapp, LiaFacebook, LiaInstagram, LiaLinkedinIn } from "react-icons/lia";
 

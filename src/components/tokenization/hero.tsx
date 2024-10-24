@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-export default function Hero1() {
+const Hero1=()=> {
   const [textIndex, setTextIndex] = useState(0);
   const text1 = "Coming Soon: Tokenization Framework for";
   const text2 = "High-Value Items";
@@ -72,3 +72,4 @@ export default function Hero1() {
     </div>
   );
 }
+export default  Hero1;

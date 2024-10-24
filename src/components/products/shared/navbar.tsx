@@ -23,7 +23,7 @@ const Navbar: React.FC<INavbarProps> = ({ className, ...props }) => {
       </Link>
 
       {/* Hamburger Menu for small screens */}
-      <div className="sm:hidden z-50 flex items-center ml-auto">
+      <div className="sm:hidden z-50 flex items-center mr-[1rem] ml-auto">
         {menuOpen ? (
           <FaTimes onClick={() => setMenuOpen(false)} className="text-2xl text-black cursor-pointer" />
         ) : (
@@ -36,6 +36,14 @@ const Navbar: React.FC<INavbarProps> = ({ className, ...props }) => {
         <div className="min-w-[300px] w-[600px]">
           <Searchbar />
         </div>
+
+        {/* Add Product Button */}
+        <Link href="/form">
+          <button className="text-white gradient-button">
+            Add Product
+          </button>
+        </Link>
+
         <div className="w-fit">
           <UserProfileDropdownButton />
         </div>
@@ -49,16 +57,18 @@ const Navbar: React.FC<INavbarProps> = ({ className, ...props }) => {
       >
         {menuOpen && (
           <>
-            
-            {/* <Link href={"/profile"}>Profile</Link>
-            <Link href={"/checkout"}>Checkout</Link>
-            <button type="button" aria-label="translate">
-              Translate
-            </button> */}
-            <UserProfileDropdownButton />
-            <div className="min-w-[300px] w-full">
+               <div className="min-w-[300px] w-full">
               <Searchbar />
             </div>
+
+            <UserProfileDropdownButton />
+       
+            {/* Add Product Button inside hamburger menu */}
+            <Link href="/form">
+              <button className="text-white gradient-button">
+                Add Product
+              </button>
+            </Link>
           </>
         )}
       </div>

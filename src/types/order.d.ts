@@ -21,3 +21,22 @@ export type TCreateOrder = {
   productId: string;
   shippingPrice: number;
 };
+
+export type TSellerOrder = {
+  orderStatus: "pending" | "delivering" | "delivered" | "cancelled" | "dispute";
+  deliveryBy: string;
+  buyerId: string;
+  productIdOnChain: number;
+  nftId: number;
+  categoryLabel: string;
+  _id: string;
+  soldAtPrice: number;
+  shippingPrice: number;
+  product: {
+    imageUrl: string[];
+    name: string;
+    description: string;
+    type: "FixedProduct";
+    currencyType: "USDT" | "USDC" | "CSHOP" | "BNB";
+  }[];
+};

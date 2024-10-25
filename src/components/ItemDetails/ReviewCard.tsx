@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import Rating from './Rating';
 import axios from 'axios';
 import { useUserStore } from '@/store/userStore';
-import { useToast } from '@/hooks/use-toast'; 
+import { useToast } from '@/hooks/use-toast';
+import { envConfig } from '@/config/envConfig'; // Importing envConfig
 
 interface ReviewCardProps {
   reviewId: string;
@@ -31,7 +32,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
   const [helpfulCount, setHelpfulCount] = useState(initialHelpfulCount);
   const [unhelpfulCount, setUnhelpfulCount] = useState(initialUnhelpfulCount);
 
-  const { user } = useUserStore(); 
+  const { user } = useUserStore();
   const { toast } = useToast(); // Get the toast function from the hook
 
   const handleLike = async () => {
@@ -41,8 +42,8 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
     }
 
     try {
-      const response = await axios.patch(`http://localhost:8080/api/v1/review/increase-like/${reviewId}`, {
-        userId: user._id, 
+      const response = await axios.patch(`${envConfig.BACKEND_URL}/review/increase-like/${reviewId}`, {
+        userId: user._id,
       });
 
       if (response.data.success) {
@@ -56,7 +57,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
         console.error('Failed to increase like:', response.data.message);
       }
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 400) { 
+      if (axios.isAxiosError(error) && error.response?.status === 400) {
         toast({
           title: "Already Liked",
           description: "You have already liked this review.",
@@ -75,8 +76,8 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
     }
 
     try {
-      const response = await axios.patch(`http://localhost:8080/api/v1/review/increase-dislike/${reviewId}`, {
-        userId: user._id, 
+      const response = await axios.patch(`${envConfig.BACKEND_URL}/review/increase-dislike/${reviewId}`, {
+        userId: user._id,
       });
 
       if (response.data.success) {
@@ -90,7 +91,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
         console.error('Failed to increase dislike:', response.data.message);
       }
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 400) { 
+      if (axios.isAxiosError(error) && error.response?.status === 400) {
         toast({
           title: "Already Disliked",
           description: "You have already disliked this review.",

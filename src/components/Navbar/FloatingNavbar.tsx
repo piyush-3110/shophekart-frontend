@@ -66,12 +66,12 @@ export default function FloatingNavbar() {
         {/* Nav Links for Large Screens */}
         <div className="hidden lg:flex space-x-28">
           <NavbarLinks />
+          {!user && <AuthButton />}
 
           {/* Connect Wallet Button */}
           <UserProfileDropdownButton />
 
           {/* Login & Logout Button */}
-          {user && <AuthButton />}
         </div>
 
         {/* Hamburger/Close Icon for Small and Medium Screens */}
@@ -107,7 +107,6 @@ export default function FloatingNavbar() {
               <FaShoppingCart />
               <span>Buy $CSHOP</span>
             </Link>
-            {user && <AuthButton />}
 
             {/* Staking Dropdown for Mobile */}
             <div className="flex flex-col">
@@ -197,6 +196,8 @@ Platform
 
             {/* Connect Wallet button inside the dropdown */}
             <UserProfileDropdownButton />
+            {!user && <AuthButton />}
+
           </>
         )}
       </div>

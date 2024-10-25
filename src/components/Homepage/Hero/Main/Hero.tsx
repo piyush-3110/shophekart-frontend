@@ -7,8 +7,9 @@ export function Hero() {
   const [textIndex, setTextIndex] = useState(0);
   const text1 = "Tokenize, Trade, And";
   const text2 = "Own";
+  const delayBetweenText = 10; // Delay between the appearance of text1 and text2
 
-  const totalLength = text1.length + text2.length;
+  const totalLength = text1.length + text2.length + delayBetweenText;
   const pauseTime = 30; // Adjust this to increase or decrease the pause after the full text appears
 
   // Function to handle the text animation sequence
@@ -50,7 +51,7 @@ export function Hero() {
         <div className="text-black text-wrap w-full text-[23px] md:text-[44px] font-semibold whitespace-nowrap">
           <p>{renderTextWithEffect(text1, 0, textIndex)}</p>
           <p className="gradient-text !text-[22px] md:!text-[44px] whitespace-nowrap">
-            {renderTextWithEffect(text2, text1.length, textIndex)}
+            {renderTextWithEffect(text2, text1.length + delayBetweenText, textIndex)}
           </p>
         </div>
 
@@ -81,7 +82,7 @@ export function Hero() {
         src="/images/homepage/house.png"
         alt="House"
       />
-    
+
       <div className="hidden lg:block lg:absolute lg:-bottom-[8rem] bottom-4 mx-4  lg:mx-auto">
         <Presale/>
       </div>

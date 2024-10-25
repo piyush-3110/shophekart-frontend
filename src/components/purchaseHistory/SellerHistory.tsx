@@ -1,5 +1,8 @@
-import React from 'react';
-import TableForSeller from './TableForSeller'; // Import the updated TableForSeller component
+import React from "react";
+import TableForSeller from "./TableForSeller"; // Import the updated TableForSeller component
+import { useQuery } from "@tanstack/react-query";
+import { HttpRequestService } from "@/services";
+import { TSellerOrder } from "@/types/order";
 
 export const SellerHistory: React.FC = () => {
   const headers = [
@@ -10,35 +13,46 @@ export const SellerHistory: React.FC = () => {
     { title: "Rating" },
   ];
 
-  const data = [
-    {
-      imageUrl: "/images/itemDetails/bag.png",
-      category: "Bags",
-      status: "Shipped", // Example status, can be 'Pending', 'Shipped', 'Delivered', 'Cancelled'
-      title: "Camera Sling Bag",
-      description: "This is an amazing product that will change your life.",
-      type: "Auction",
-      soldPrice: "12 CSHOP",
+  const {
+    data: orders,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ["sellerHistory"],
+    queryFn: async () => {
+      const response = await HttpRequestService.fetchApi<TSellerOrder[]>(
+        "/order/my/seller"
+      );
+      return response.data;
     },
-    {
-      imageUrl: "/images/itemDetails/bag.png",
-      category: "Shoes",
-      status: "Delivered",
-      title: "Running Shoes",
-      description: "High quality running shoes designed for comfort.",
-      type: "Buy Now",
-      soldPrice: "17 CSHOP",
-    },
-    {
-      imageUrl: "/images/itemDetails/bag.png",
-      category: "Watches",
-      status: "Pending",
-      title: "Smart Watch",
-      description: "A sleek and modern smartwatch with various health features.",
-      type: "Auction",
-      soldPrice: "15 CSHOP",
-    },
-  ];
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+
+  if (error) {
+    return <div>Opps .... Something went wrong</div>;
+  }
+
+  if (!orders || orders.length < 1) {
+    return <div>No orders found</div>;
+  }
+
+  const data = orders.map((order) => {
+    const data = {
+      imageUrl: order.product[0].imageUrl[0],
+      category: order.categoryLabel,
+      status: order.orderStatus,
+      title: order.product[0].name,
+      description: order.product[0].description,
+      type: order.product[0].type === "FixedProduct" ? "Buy Now" : "Auction",
+      soldPrice: `${order.soldAtPrice + order.shippingPrice} ${
+        order.product[0].currencyType
+      }`,
+      nftId: order.nftId,
+      orderId: order._id,
+    };
+    return data;
+  });
 
   return <TableForSeller headers={headers} data={data} />;
 };

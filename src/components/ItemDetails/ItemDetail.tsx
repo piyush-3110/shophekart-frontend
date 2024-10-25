@@ -60,8 +60,7 @@ console.log(response)
               id={product._id}
               shippingCharges={product.shippingCharges}
               shippingDuration={product.shippingDuration}
-              tokenId={2378734}
-              productIdOnChain="18923n1287912"
+              productIdOnChain={product.productIdOnChain}
               details={product.details}
               price={product.price}
               currencyType={product.currencyType}

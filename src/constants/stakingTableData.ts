@@ -1,77 +1,77 @@
 import { StakingTableDataItem } from "@/types/stakingTableDataTypes";
 
-/**
- * The staking table data.
- * @type {StakingTableDataItem[]}
- */
+// Updated staking data with 9 fields in total
 const STAKING_TABLE_DATA: StakingTableDataItem[] = [
+  // Combined Data (Stake Options and My Stake in the same rows)
   {
-    /**
-     * The token symbol.
-     */
     token: "CSHOP",
-    /**
-     * The annual percentage rate.
-     */
     apr: 25,
-    /**
-     * The staking period.
-     */
     stakePeriod: "60 days",
-    /**
-     * The total staked amount.
-     */
-    totalStaked: 0,
-    /**
-     * The total value locked in USD.
-     */
-    tvlUsd: "68.78k",
-    /**
-     * The mining pool data.
-     */
-    miningPool: {
-      /**
-       * The total tokens available in the mining pool.
-       */
+    totalStaked: 1000, // Filled for Stake Options
+    tvlUsd: "68.78k", // Filled for Stake Options
+    miningPool: { // Filled for Stake Options
       totalTokens: 0,
-      /**
-       * The current tokens available in the mining pool.
-       */
       currentTokens: 0,
     },
+    myStake: 100, // Filled for My Stake
+    rewardEarned: "$300", // Filled for My Stake
+    tokenUnlockPeriod: "2024-12-01", // Filled for My Stake
   },
   {
     token: "CSHOP",
     apr: 20,
     stakePeriod: "50 days",
-    totalStaked: 0,
-    tvlUsd: "60.35k",
-    miningPool: {
-      totalTokens:0,
-      currentTokens:0,
+    totalStaked: 800, // Filled for Stake Options
+    tvlUsd: "60.35k", // Filled for Stake Options
+    miningPool: { // Filled for Stake Options
+      totalTokens: 0,
+      currentTokens: 0,
     },
+    myStake: 80, // Filled for My Stake
+    rewardEarned: "$240", // Filled for My Stake
+    tokenUnlockPeriod: "2024-11-01", // Filled for My Stake
   },
   {
     token: "CSHOP",
     apr: 15,
     stakePeriod: "30 days",
-    totalStaked:0,
-    tvlUsd: "50.28k",
-    miningPool: {
+    totalStaked: 500, // Filled for Stake Options
+    tvlUsd: "50.28k", // Filled for Stake Options
+    miningPool: { // Filled for Stake Options
       totalTokens: 0,
       currentTokens: 0,
     },
+    myStake: 50, // Filled for My Stake
+    rewardEarned: "$150", // Filled for My Stake
+    tokenUnlockPeriod: "2024-10-15", // Filled for My Stake
   },
   {
     token: "CSHOP",
     apr: 12,
     stakePeriod: "10 days",
-    totalStaked: 0,
-    tvlUsd: "12.6k",
-    miningPool: {
-      totalTokens:0,
-      currentTokens:0,
+    totalStaked: 300, // Filled for Stake Options
+    tvlUsd: "12.6k", // Filled for Stake Options
+    miningPool: { // Filled for Stake Options
+      totalTokens: 0,
+      currentTokens: 0,
     },
+    myStake: 30, // Filled for My Stake
+    rewardEarned: "$90", // Filled for My Stake
+    tokenUnlockPeriod: "2024-10-05", // Filled for My Stake
+  },
+  {
+    token: "CSHOP",
+    apr: 10,
+    stakePeriod: "5 days",
+    totalStaked: 100, // Filled for Stake Options
+    tvlUsd: "5.00k", // Filled for Stake Options
+    miningPool: { // Filled for Stake Options
+      totalTokens: 0,
+      currentTokens: 0,
+    },
+    myStake: 10, // Filled for My Stake
+    rewardEarned: "$30", // Filled for My Stake
+    tokenUnlockPeriod: "2024-09-30", // Filled for My Stake
   },
 ];
 

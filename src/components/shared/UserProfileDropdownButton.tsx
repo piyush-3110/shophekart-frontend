@@ -24,7 +24,7 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import { SiweService } from "@/services";
 import { toast } from "@/hooks/use-toast";
-import { useUserStore } from "@/store/userStore";
+import { useUserStore } from "@/store";
 
 const DROPDOWN_MENU_ITEMS: {
   label: string;
@@ -114,7 +114,7 @@ const UserProfileDropdownButton = () => {
                     </DropdownMenuItem>
                   );
                 })}
-                <DropdownMenuItem className="flex items-center gap-2 cursor-pointer">
+                {/* <DropdownMenuItem className="flex items-center gap-2 cursor-pointer">
                   <LogoutIcon />
                   <button
                     onClick={() => {
@@ -123,7 +123,7 @@ const UserProfileDropdownButton = () => {
                   >
                     Logout
                   </button>
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
               </DropdownMenuContent>
             </DropdownMenu>
           )}

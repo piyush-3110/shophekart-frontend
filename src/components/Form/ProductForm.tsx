@@ -9,7 +9,7 @@ import ToastNotification from "./ToastNotification";
 import Loader from "./Loader";
 import CategorySelect from "./CategorySelect";
 import SelectField from "./SelectField";
-import { useUserStore } from "@/store/userStore";
+import { useUserStore } from "@/store";
 import { useCreateProduct } from "@/hooks";
 import { TCreateProductData } from "@/types";
 

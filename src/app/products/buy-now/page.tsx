@@ -6,13 +6,13 @@ import { useSearchParams } from "next/navigation";
 import { HttpRequestService } from "@/services";
 import { IProduct } from "@/types";
 import { useQuery } from "@tanstack/react-query";
-import { useUserStore } from "@/store/userStore";
+import { useUserStore } from "@/store";
 
 const PAGINATION_CONSTANT = 6;
 
 const Page = () => {
   const searchParams = useSearchParams();
-  const searchTerm = useUserStore((state) => state.searchTerm);  // Access search term from Zustand
+  const searchTerm = useUserStore((state) => state.searchTerm); // Access search term from Zustand
   const pageParam = searchParams.get("page");
   const currentPage = pageParam ? parseInt(pageParam) : 1;
 
@@ -26,9 +26,8 @@ const Page = () => {
       const response = await HttpRequestService.fetchApi<IProduct[]>(endpoint);
       return response;
     },
-    enabled: searchTerm !== undefined,  // Only fetch when page is loaded or searchTerm changes
+    enabled: searchTerm !== undefined, // Only fetch when page is loaded or searchTerm changes
     staleTime: Infinity, // Keep data fresh until page is reloaded
-   
   });
 
   if (isLoading) {
@@ -43,7 +42,9 @@ const Page = () => {
   const products = data?.data || [];
 
   if (products.length < 1) {
-    return <div>Seems like there are no products available at the moment...</div>;
+    return (
+      <div>Seems like there are no products available at the moment...</div>
+    );
   }
 
   const totalPages = Math.ceil(products.length / PAGINATION_CONSTANT);

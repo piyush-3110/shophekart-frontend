@@ -47,13 +47,12 @@ export const GenerateModal: React.FC<SimpleModalProps> = ({ isOpen, onClose }) =
 
         {/* Modal Content */}
         <div className="flex flex-col h-full py-4 gap-3">
-          <h1 className="text-[#160041] font-[700] text-center text-xl">Enter Text</h1>
 
           {/* Text Input */}
           <input
             type="text"
             className="border border-[#EFF1F7] w-full p-2 rounded bg-[#F9FBFC] text-[#302f2f] mb-4"
-            placeholder="Enter some text"
+            placeholder="Enter referral text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />

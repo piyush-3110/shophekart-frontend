@@ -17,10 +17,10 @@ const Generate: React.FC = () => {
     <div className="flex flex-col items-center justify-center">
       {/* Generate Button */}
       <button
-        className="gradient-button"
+        className="gradient-button !py-2 !px-2"
         onClick={openModal}
       >
-        Generate
+        Generate Referral
       </button>
 
       {/* SimpleModal component */}

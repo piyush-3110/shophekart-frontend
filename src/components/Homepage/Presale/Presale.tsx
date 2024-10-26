@@ -3,6 +3,7 @@ import { CountdownDiv } from './CountdownDiv';
 import { BuyToken } from './BuyToken';
 
 import PresaleProgress from './PresaleProgress';
+import Generate from './Generate';
 
 export const Presale = () => {
   const [timeLeft, setTimeLeft] = useState({
@@ -64,8 +65,12 @@ export const Presale = () => {
         </div>
         <div className='h-[12rem] hidden lg:block border border-[#f1eeee] '></div>
         <div>
-        <h1 className="text-lg text-black font-semibold ">Buy tokens now:</h1>
-        <h1 className='gradient-text py-3 !text-sm'>Balance: <span className="">0 CSHOP</span>
+          <div className='flex gap-2 items-center'>
+          <h1 className="text-lg text-black font-semibold ">Buy tokens now: </h1>
+<Generate/>
+          </div>
+        <h1 className='gradient-text py-3 !text-sm'>Balance: <span className="">0 CSHOP</span></h1>
+        <h1 className='gradient-text py-2 !text-sm'>Referral: <span className=""></span>
         </h1>
 <BuyToken/>
           {/* Placeholder for the buy token form */}

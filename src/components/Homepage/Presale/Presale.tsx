@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CountdownDiv } from './CountdownDiv';
 import { BuyToken } from './BuyToken';
+import MiningPoolProgress from '@/components/StakingPage/Table/MiningPoolProgress';
 
 export const Presale = () => {
   const [timeLeft, setTimeLeft] = useState({
@@ -42,8 +43,12 @@ export const Presale = () => {
   return (
     <>
       <div className="h-fit lg:h-[16rem] lg:w-auto w-[95vw] bg-white border py-6  rounded-md shadow-lg px-20 flex lg:items-center lg:flex-row flex-col lg:justify-end gap-20">
-        <div>
+        <div className=''>
+        
+         
           <h1 className="text-lg text-black font-semibold pb-6 ">Presale Ends in:</h1>
+
+       
           {/* Countdown display */}
           <div className="flex gap-4">
             <CountdownDiv value={timeLeft.days} label="Days" />
@@ -51,6 +56,10 @@ export const Presale = () => {
             <CountdownDiv value={timeLeft.minutes} label="Minutes" />
             <CountdownDiv value={timeLeft.seconds} label="Seconds" />
           </div>
+          <div className="mt-2">
+<MiningPoolProgress totalTokens={100} currentTokens={0}/>
+
+</div>
         </div>
         <div className='h-[12rem] hidden lg:block border border-[#f1eeee] '></div>
         <div>

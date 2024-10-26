@@ -21,7 +21,7 @@ const STAKING_TABLE_DATA: StakingTableDataItem[] = [
     /**
      * The total staked amount.
      */
-    totalStaked: 200562.8,
+    totalStaked: 0,
     /**
      * The total value locked in USD.
      */
@@ -33,44 +33,44 @@ const STAKING_TABLE_DATA: StakingTableDataItem[] = [
       /**
        * The total tokens available in the mining pool.
        */
-      totalTokens: 20000.0,
+      totalTokens: 0,
       /**
        * The current tokens available in the mining pool.
        */
-      currentTokens: 18612.63,
+      currentTokens: 0,
     },
   },
   {
     token: "CSHOP",
     apr: 20,
     stakePeriod: "50 days",
-    totalStaked: 195250.66,
+    totalStaked: 0,
     tvlUsd: "60.35k",
     miningPool: {
-      totalTokens: 20000.0,
-      currentTokens: 6585.22,
+      totalTokens:0,
+      currentTokens:0,
     },
   },
   {
     token: "CSHOP",
     apr: 15,
     stakePeriod: "30 days",
-    totalStaked: 155807.25,
+    totalStaked:0,
     tvlUsd: "50.28k",
     miningPool: {
-      totalTokens: 20000.0,
-      currentTokens: 2150.75,
+      totalTokens: 0,
+      currentTokens: 0,
     },
   },
   {
     token: "CSHOP",
     apr: 12,
     stakePeriod: "10 days",
-    totalStaked: 65620.14,
+    totalStaked: 0,
     tvlUsd: "12.6k",
     miningPool: {
-      totalTokens: 20000.0,
-      currentTokens: 1058.45,
+      totalTokens:0,
+      currentTokens:0,
     },
   },
 ];

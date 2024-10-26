@@ -15,8 +15,8 @@ import {
 import NavbarLinks from "./NavbarLinks";
 import Link from "next/link";
 import UserProfileDropdownButton from "../shared/UserProfileDropdownButton";
-import AuthButton from "../shared/AuthButton";
-import { useUserStore } from "@/store/userStore";
+// import AuthButton from "../shared/AuthButton";
+// import { useUserStore } from "@/store/";
 
 export default function FloatingNavbar() {
   const [isVisible, setIsVisible] = useState(true);
@@ -43,7 +43,7 @@ export default function FloatingNavbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  const { user } = useUserStore();
+  // const { user } = useUserStore();
 
   return (
     <nav
@@ -66,7 +66,7 @@ export default function FloatingNavbar() {
         {/* Nav Links for Large Screens */}
         <div className="hidden lg:flex space-x-28">
           <NavbarLinks />
-          {!user && <AuthButton />}
+          {/* {!user && <AuthButton />} */}
 
           {/* Connect Wallet Button */}
           <UserProfileDropdownButton />
@@ -114,7 +114,7 @@ export default function FloatingNavbar() {
                 className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
                 onClick={() => setIsStakingOpen(!isStakingOpen)}
               >
-                <FaAnchor/>
+                <FaAnchor />
                 <span>Staking</span>
                 <FaChevronDown
                   className={`transition-transform duration-300 ease-in-out ${
@@ -136,7 +136,6 @@ export default function FloatingNavbar() {
                   >
                     DAO
                   </Link>
-
                 </div>
               )}
             </div>
@@ -147,13 +146,10 @@ export default function FloatingNavbar() {
                 className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
                 onClick={() => setIsPlatformOpen(!isPlatformOpen)}
               >
-                <FaProductHunt/>
-           
-<span>
-Platform
-</span>
-               
-                
+                <FaProductHunt />
+
+                <span>Platform</span>
+
                 <FaChevronDown
                   className={`transition-transform duration-300 ease-in-out ${
                     isPlatformOpen ? "rotate-180" : "rotate-0"
@@ -196,8 +192,7 @@ Platform
 
             {/* Connect Wallet button inside the dropdown */}
             <UserProfileDropdownButton />
-            {!user && <AuthButton />}
-
+            {/* {!user && <AuthButton />} */}
           </>
         )}
       </div>

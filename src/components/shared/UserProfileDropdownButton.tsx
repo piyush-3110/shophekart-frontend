@@ -3,8 +3,6 @@
 import React, { useState } from "react";
 import ConnectWalletButton from "./ConnectWalletButton";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { useAccount } from "wagmi";
-import { config } from "@/config";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -17,13 +15,9 @@ import {
   ChatIcon,
   HelpIcon,
   HistoryIcon,
-  LogoutIcon,
   ShippingIcon,
   UserProfileIcon,
 } from "@/icons";
-import { useMutation } from "@tanstack/react-query";
-import { SiweService } from "@/services";
-import { toast } from "@/hooks/use-toast";
 import { useUserStore } from "@/store";
 
 const DROPDOWN_MENU_ITEMS: {
@@ -44,89 +38,57 @@ const DROPDOWN_MENU_ITEMS: {
     icon: <ShippingIcon />,
     link: "/shipping-details",
   },
-  // { label: "Logout", icon: <LogoutIcon /> },
 ];
 
 const UserProfileDropdownButton = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { isConnected } = useAccount({ config });
 
-  const { user, setUser } = useUserStore();
-
-  const { mutateAsync } = useMutation({
-    mutationFn: async () => {
-      const response = await SiweService.logout();
-      setUser(response.data);
-      return response;
-    },
-    onError() {
-      toast({
-        title: "There was some problem while logging out",
-        variant: "destructive",
-      });
-    },
-    onSuccess() {
-      toast({
-        title: "Logged out successfully",
-      });
-    },
-  });
+  const { user, authStatus } = useUserStore();
 
   return (
     <div className="flex items-center w-fit">
       <ConnectWalletButton />
-      {isConnected && (
+      {authStatus === "authenticated" && user && (
         <div className="flex items-center gap-4">
           <Avatar>
             <AvatarImage src="/images/navbar/defaultUserAvatar.png" />
             <AvatarFallback>U</AvatarFallback>
           </Avatar>
-          {user && (
-            <DropdownMenu>
-              <DropdownMenuTrigger
-                onClick={() => {
-                  setIsOpen(!isOpen);
-                }}
-              >
-                <ChevronDownIcon
-                  className={`duration-300 ${isOpen && "rotate-180"}`}
-                />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="-translate-x-1/4 mt-4">
-                {DROPDOWN_MENU_ITEMS.map(({ label, icon, link }, index) => {
-                  if (link) {
-                    return (
-                      <Link href={link} key={index}>
-                        <DropdownMenuItem className="flex items-center gap-2 cursor-pointer">
-                          {icon}
-                          <span>{label}</span>
-                        </DropdownMenuItem>
-                      </Link>
-                    );
-                  }
+
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              onClick={() => {
+                setIsOpen(!isOpen);
+              }}
+            >
+              <ChevronDownIcon
+                className={`duration-300 ${isOpen && "rotate-180"}`}
+              />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="-translate-x-1/4 mt-4">
+              {DROPDOWN_MENU_ITEMS.map(({ label, icon, link }, index) => {
+                if (link) {
                   return (
-                    <DropdownMenuItem
-                      key={index}
-                      className="flex items-center gap-2 cursor-pointer"
-                    >
-                      {icon}
-                      <span>{label}</span>
-                    </DropdownMenuItem>
+                    <Link href={link} key={index}>
+                      <DropdownMenuItem className="flex items-center gap-2 cursor-pointer">
+                        {icon}
+                        <span>{label}</span>
+                      </DropdownMenuItem>
+                    </Link>
                   );
-                })}
-                {/* <DropdownMenuItem className="flex items-center gap-2 cursor-pointer">
-                  <LogoutIcon />
-                  <button
-                    onClick={() => {
-                      mutateAsync();
-                    }}
+                }
+                return (
+                  <DropdownMenuItem
+                    key={index}
+                    className="flex items-center gap-2 cursor-pointer"
                   >
-                    Logout
-                  </button>
-                </DropdownMenuItem> */}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          )}
+                    {icon}
+                    <span>{label}</span>
+                  </DropdownMenuItem>
+                );
+              })}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       )}
     </div>

@@ -1,3 +1,4 @@
+import { AuthenticationStatus } from "@rainbow-me/rainbowkit";
 import { create } from "zustand";
 
 export interface IUser {
@@ -11,6 +12,8 @@ type Store = {
   searchTerm: string; // Add searchTerm to store
   setUser(user: IUser | null): void;
   setSearchTerm: (term: string) => void; // Setter for searchTerm
+  authStatus: AuthenticationStatus;
+  setAuthStatus: (status: AuthenticationStatus) => void;
 };
 
 const localStorageUser =
@@ -24,6 +27,10 @@ const useUserStore = create<Store>((set) => ({
     set({ user });
   },
   setSearchTerm: (term) => set({ searchTerm: term }), // Update search term
+  authStatus: "loading",
+  setAuthStatus(status) {
+    return set({ authStatus: status });
+  },
 }));
 
 export default useUserStore;

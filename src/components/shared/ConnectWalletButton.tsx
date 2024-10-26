@@ -1,52 +1,95 @@
-"use client";
+// "use client";
 
-import { config } from "@/config";
-import { useWeb3Modal } from "@web3modal/wagmi/react";
-import { useAccount } from "wagmi";
 import { cn } from "@/lib/utils";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
 
-// Constants
-const CHECK_ICON_SRC = "/icons/greenCheckIcon.svg";
-const CHECK_ICON_SIZE = 18;
-const ADDRESS_DISPLAY_LENGTH = 7;
-const CONNECTED_BUTTON_CLASS = "text-[#02BC7D]";
-const DISCONNECTED_BUTTON_CLASS = "border border-[#022AFF] text-[#022AFF]";
-
-const ConnectWalletButton = () => {
-  const { open } = useWeb3Modal();
-  const { address: walletAddress } = useAccount({ config });
-
-  const handleClick = () => {
-    open();
-  };
-
+export default function ConnectWalletButton() {
   return (
-    <button
-      type="button"
-      aria-label={walletAddress ? "Disconnect wallet" : "Connect wallet"}
-      className={cn(
-        "hover:bg-blue-100/50 py-2 px-4 rounded-sm",
-        !walletAddress ? DISCONNECTED_BUTTON_CLASS : CONNECTED_BUTTON_CLASS
-      )}
-      onClick={handleClick}
-    >
-      {walletAddress ? (
-        <div className="flex gap-1 items-center">
-          <Image
-            src={CHECK_ICON_SRC}
-            alt="Connected wallet checkmark"
-            width={CHECK_ICON_SIZE}
-            height={CHECK_ICON_SIZE}
-            aria-hidden={true}
-          />
-          <span>{walletAddress.slice(0, ADDRESS_DISPLAY_LENGTH)}...</span>
-        </div>
-      ) : (
-        <span>Connect wallet</span>
-      )}
-    </button>
-  );
-};
+    <ConnectButton.Custom>
+      {({
+        account,
+        chain,
+        openAccountModal,
+        openChainModal,
+        openConnectModal,
+        authenticationStatus,
+        mounted,
+      }) => {
+        const ready = mounted && authenticationStatus !== "loading";
+        const connected =
+          ready &&
+          account &&
+          chain &&
+          (!authenticationStatus || authenticationStatus === "authenticated");
 
-export default ConnectWalletButton;
+        // Constants
+        const CHECK_ICON_SRC = "/icons/greenCheckIcon.svg";
+        const CHECK_ICON_SIZE = 18;
+        const CONNECTED_BUTTON_CLASS = "text-[#02BC7D]";
+        const DISCONNECTED_BUTTON_CLASS =
+          "border border-[#022AFF] text-[#022AFF]";
+
+        return (
+          <div
+            {...(!ready && {
+              "aria-hidden": true,
+              style: {
+                opacity: 0,
+                pointerEvents: "none",
+                userSelect: "none",
+              },
+            })}
+          >
+            {(() => {
+              if (!connected) {
+                return (
+                  <button
+                    onClick={openConnectModal}
+                    className={cn(
+                      "hover:bg-blue-100/50 py-2 px-4 rounded-sm",
+                      DISCONNECTED_BUTTON_CLASS
+                    )}
+                    type="button"
+                  >
+                    Connect Wallet
+                  </button>
+                );
+              }
+
+              if (chain.unsupported) {
+                return (
+                  <button onClick={openChainModal} type="button">
+                    Wrong network
+                  </button>
+                );
+              }
+
+              return (
+                <button
+                  onClick={openAccountModal}
+                  className={cn(
+                    "hover:bg-blue-100/50 py-2 px-4 rounded-sm",
+                    CONNECTED_BUTTON_CLASS
+                  )}
+                  type="button"
+                >
+                  <div className="flex gap-1 items-center">
+                    <Image
+                      src={CHECK_ICON_SRC}
+                      alt="Connected wallet checkmark"
+                      width={CHECK_ICON_SIZE}
+                      height={CHECK_ICON_SIZE}
+                      aria-hidden={true}
+                    />
+                    <span> {account.displayName}</span>
+                  </div>
+                </button>
+              );
+            })()}
+          </div>
+        );
+      }}
+    </ConnectButton.Custom>
+  );
+}

@@ -2,18 +2,11 @@ import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import Web3ModalProvider from "@/context/Web3ModalProvider";
-import { headers } from "next/headers";
 
-import { cookieToInitialState } from "wagmi";
-import NextTopLoader from 'nextjs-toploader';
+import NextTopLoader from "nextjs-toploader";
 
-import { config } from "@/config";
 import RenderedNavbar from "@/components/Navbar/RenderedNavbar";
 import { Toaster } from "@/components/ui/toaster";
-
-
-
-
 
 const dm = DM_Sans({
   subsets: ["latin"],
@@ -30,20 +23,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const initialState = cookieToInitialState(config, headers().get("cookie"));
-
   return (
     <html lang="en">
       <head>
         <link rel="icon" href="./images/shared/favicon.png" />
       </head>
       <body className={`${dm.className} antialiased overflow-x-hidden`}>
-        <Web3ModalProvider initialState={initialState}>
-        
+        <Web3ModalProvider>
           <RenderedNavbar />
           <NextTopLoader color="#0163ff" />
           {children}
-          
           <Toaster />
         </Web3ModalProvider>
       </body>

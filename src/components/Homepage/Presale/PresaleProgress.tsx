@@ -44,13 +44,11 @@ const PresaleProgress: React.FC<MiningPoolProgressProps> = ({
   const progress = ((currentTokens / totalTokens) * 100).toFixed(2);
   return (
     <div className="space-y-4 w-[75%]" data-testid="mining-pool-progress">
-      <div className="flex gap-4 justify-between">
-        <span>
-          {currentTokens.toFixed(2)}/{totalTokens.toFixed(2)}
-        </span>
-        <span>{progress}%</span>
-      </div>
+      <div className="flex gap-4 justify-between items-center">
       <Progress value={parseFloat(progress)} />
+
+        <span className="gradient-text !text-sm">{progress}%</span>
+      </div>
     </div>
   );
 };

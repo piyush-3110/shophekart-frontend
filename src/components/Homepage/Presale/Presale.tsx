@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { CountdownDiv } from './CountdownDiv';
 import { BuyToken } from './BuyToken';
-import MiningPoolProgress from '@/components/StakingPage/Table/MiningPoolProgress';
+
+import PresaleProgress from './PresaleProgress';
 
 export const Presale = () => {
   const [timeLeft, setTimeLeft] = useState({
@@ -57,13 +58,15 @@ export const Presale = () => {
             <CountdownDiv value={timeLeft.seconds} label="Seconds" />
           </div>
           <div className="mt-2">
-<MiningPoolProgress totalTokens={100} currentTokens={0}/>
+<PresaleProgress totalTokens={100} currentTokens={0}/>
 
 </div>
         </div>
         <div className='h-[12rem] hidden lg:block border border-[#f1eeee] '></div>
         <div>
-        <h1 className="text-lg text-black font-semibold pb-6">Buy tokens now:</h1>
+        <h1 className="text-lg text-black font-semibold ">Buy tokens now:</h1>
+        <h1 className='gradient-text py-3 !text-sm'>Balance: <span className="">0 CSHOP</span>
+        </h1>
 <BuyToken/>
           {/* Placeholder for the buy token form */}
         </div>

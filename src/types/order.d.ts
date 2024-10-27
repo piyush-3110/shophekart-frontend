@@ -22,7 +22,7 @@ export type TCreateOrder = {
   shippingPrice: number;
 };
 
-export type TSellerOrder = {
+export type TOrderHistory = {
   orderStatus: "pending" | "delivering" | "delivered" | "cancelled" | "dispute";
   deliveryBy: string;
   buyerId: string;

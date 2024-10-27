@@ -7,7 +7,7 @@ import { ReviewSection } from "../Profile/ReviewSection";
 import { HttpRequestService } from "@/services";
 import { IProduct } from "@/types";
 import { useQuery } from "@tanstack/react-query";
-import { useUserStore } from "@/store/userStore";
+import { useUserStore } from "@/store";
 
 interface ItemDetailProps {
   id: string; // Accept id as a prop
@@ -25,7 +25,7 @@ export const ItemDetail: React.FC<ItemDetailProps> = ({ id }) => {
       const response = await HttpRequestService.fetchApi<IProduct>(
         `/fixedProduct/${id}`
       );
-console.log(response)
+      console.log(response);
       return response.data;
     },
   });

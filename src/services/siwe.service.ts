@@ -1,18 +1,18 @@
-import { SiweMessage } from "siwe";
+// import { SiweMessage } from "siwe";
 import { HttpRequestService } from ".";
 
 type TSiweSignInProps = {
-  signature: `0x${string}`;
-  message: SiweMessage;
+  signature: `${string}`;
+  message: unknown;
 };
 
 const siweService = {
-  async signIn({ signature, message }: TSiweSignInProps): Promise<string> {
+  async signIn({ signature, message }: TSiweSignInProps): Promise<boolean> {
     const response = await HttpRequestService.postApi<null, TSiweSignInProps>(
       "/user/verify",
       { signature, message }
     );
-    return response.message;
+    return response.success;
   },
 
   async fetchNonce(): Promise<string> {

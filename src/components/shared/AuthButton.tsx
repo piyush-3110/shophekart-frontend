@@ -4,7 +4,7 @@ import { useSiweSignIn } from "@/hooks";
 import { toast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { UserService } from "@/services";
-import { useUserStore } from "@/store/userStore";
+import { useUserStore } from "@/store";
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 

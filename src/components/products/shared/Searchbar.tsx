@@ -1,6 +1,6 @@
 "use client";
 import { Input } from "@/components/ui/input";
-import { useUserStore } from "@/store/userStore"; // Import Zustand store
+import { useUserStore } from "@/store"; // Import Zustand store
 import Image from "next/image";
 import { useState } from "react";
 

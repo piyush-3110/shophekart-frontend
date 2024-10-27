@@ -1,37 +1,116 @@
 "use client";
 
-import React, { ReactNode } from "react";
-import { config, projectId } from "@/config";
-
-import { createWeb3Modal } from "@web3modal/wagmi/react";
+import React, { ReactNode, useEffect, useRef } from "react";
+import { config } from "@/config";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import { State, WagmiProvider } from "wagmi";
+import { WagmiProvider } from "wagmi";
+import {
+  createAuthenticationAdapter,
+  RainbowKitAuthenticationProvider,
+  RainbowKitProvider,
+} from "@rainbow-me/rainbowkit";
+import { SiweService, UserService } from "@/services";
+import { createSiweMessage, parseSiweMessage } from "viem/siwe";
+import { useUserStore } from "@/store";
 
 // Setup queryClient
 const queryClient = new QueryClient();
 
-if (!projectId) throw new Error("Project ID is not defined");
-
-// Create modal
-createWeb3Modal({
-  wagmiConfig: config,
-  projectId,
-  enableAnalytics: true, // Optional - defaults to your Cloud configuration
-  enableOnramp: true, // Optional - false as default
-});
-
 export default function Web3ModalProvider({
   children,
-  initialState,
 }: {
   children: ReactNode;
-  initialState?: State;
 }) {
+  const fetchingStatusRef = useRef(false);
+  const verifyingRef = useRef(false);
+  const { authStatus, setAuthStatus, setUser } = useUserStore();
+
+  useEffect(() => {
+    const fetchStatus = async () => {
+      if (fetchingStatusRef.current || verifyingRef.current) {
+        return;
+      }
+
+      fetchingStatusRef.current = true;
+
+      try {
+        const response = await UserService.getProfile();
+        setAuthStatus(
+          response.walletAddress ? "authenticated" : "unauthenticated"
+        );
+        setUser(response);
+      } catch {
+        setAuthStatus("unauthenticated");
+      } finally {
+        fetchingStatusRef.current = false;
+      }
+    };
+
+    // 1. page loads
+    fetchStatus();
+
+    // 2. window is focused (in case user logs out of another window)
+    window.addEventListener("focus", fetchStatus);
+    return () => window.removeEventListener("focus", fetchStatus);
+  }, [setAuthStatus, setUser]);
+
+  const authenticationAdapter = createAuthenticationAdapter({
+    getNonce: async () => {
+      const nonce = await SiweService.fetchNonce();
+      return nonce;
+    },
+    createMessage: ({ nonce, address, chainId }) => {
+      const message = createSiweMessage({
+        domain: window.location.host,
+        address,
+        statement: "Sign in with Ethereum to the app.",
+        uri: window.location.origin,
+        version: "1",
+        chainId,
+        nonce,
+      });
+
+      return message;
+    },
+
+    verify: async ({ message, signature }) => {
+      try {
+        const verifyRes = await SiweService.signIn({
+          signature,
+          message: parseSiweMessage(message),
+        });
+
+        if (verifyRes) {
+          setAuthStatus(verifyRes ? "authenticated" : "unauthenticated");
+        }
+
+        return verifyRes;
+      } catch {
+        return false;
+      }
+    },
+
+    signOut: async () => {
+      await SiweService.logout();
+      setUser(null);
+      setAuthStatus("unauthenticated");
+    },
+  });
+
   return (
-    <WagmiProvider config={config} initialState={initialState}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <RainbowKitAuthenticationProvider
+          adapter={authenticationAdapter}
+          status={authStatus}
+        >
+          <RainbowKitProvider modalSize="compact">
+            {children}
+          </RainbowKitProvider>
+        </RainbowKitAuthenticationProvider>
+      </QueryClientProvider>
     </WagmiProvider>
   );
 }

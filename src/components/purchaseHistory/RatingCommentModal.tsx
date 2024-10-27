@@ -1,25 +1,28 @@
 "use client";
-import React, { useEffect, useState } from 'react';
-import { IoClose } from 'react-icons/io5';
+import React, { useEffect, useState } from "react";
+import { IoClose } from "react-icons/io5";
 import httpRequestService from "@/services/httpRequest.service";
-import { useUserStore } from "@/store/userStore"; 
+import { useUserStore } from "@/store";
 
 interface RatingCommentModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({ isOpen, onClose }) => {
+export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({
+  isOpen,
+  onClose,
+}) => {
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState('');
-  const [reviewType, setReviewType] = useState('');
-  const { user } = useUserStore(); 
+  const [comment, setComment] = useState("");
+  const [reviewType, setReviewType] = useState("");
+  const { user } = useUserStore();
 
+  const targetId = "67192457d7dc8fc2f77376f7";
 
-  const targetId = '67192457d7dc8fc2f77376f7'; 
-
-
-  const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleOutsideClick = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
     if (e.target === e.currentTarget) {
       onClose();
     }
@@ -27,27 +30,26 @@ export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({ isOpen, 
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflowX = 'hidden'; 
-      document.body.style.overflowY = 'hidden';   
+      document.body.style.overflowX = "hidden";
+      document.body.style.overflowY = "hidden";
     } else {
-      document.body.style.overflowX = 'hidden';   
-      document.body.style.overflowY = 'auto';   
+      document.body.style.overflowX = "hidden";
+      document.body.style.overflowY = "auto";
     }
     return () => {
-      document.body.style.overflowX = 'hidden';  
-      document.body.style.overflowY = 'auto';    
+      document.body.style.overflowX = "hidden";
+      document.body.style.overflowY = "auto";
     };
   }, [isOpen]);
 
   if (!isOpen) return null;
-
 
   const handleMouseEnter = (index: number) => {
     setRating(index);
   };
 
   const handleStarClick = (index: number) => {
-    setRating(index); 
+    setRating(index);
   };
 
   const handleSubmit = async () => {
@@ -57,22 +59,22 @@ export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({ isOpen, 
     }
 
     try {
-
       const reviewData = {
-        targetId,              
-        reviewerId: user._id,  
-        targetType: 'product', 
-        reviewType: reviewType.toLowerCase(), 
-        rating,                
-        comment,         
+        targetId,
+        reviewerId: user._id,
+        targetType: "product",
+        reviewType: reviewType.toLowerCase(),
+        rating,
+        comment,
       };
 
-
-      const response = await httpRequestService.postApi("/review/create", reviewData);
+      const response = await httpRequestService.postApi(
+        "/review/create",
+        reviewData
+      );
 
       if (response.success) {
         console.log("Review submitted successfully:", response.data);
-
       } else {
         console.error("Failed to submit review:", response.message);
       }
@@ -80,7 +82,7 @@ export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({ isOpen, 
       console.error("Error submitting review:", error);
     }
 
-    onClose(); 
+    onClose();
   };
 
   return (
@@ -90,20 +92,27 @@ export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({ isOpen, 
     >
       <div className="relative w-[90vw] md:w-[35rem] px-6 py-4 bg-white shadow-lg rounded-lg p-6">
         {/* Close Icon */}
-        <button className="absolute top-4 right-4 text-gray-500 hover:text-gray-700" onClick={onClose}>
+        <button
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+          onClick={onClose}
+        >
           <IoClose size={24} />
         </button>
 
         {/* Modal Content */}
         <div className="flex flex-col h-full py-4 gap-3">
-          <h1 className="text-[#160041] font-[700] text-center text-xl">Add a rating</h1>
+          <h1 className="text-[#160041] font-[700] text-center text-xl">
+            Add a rating
+          </h1>
 
           {/* Star Rating */}
           <div className="flex justify-center mb-4">
             {[1, 2, 3, 4, 5].map((star) => (
               <div
                 key={star}
-                className={`cursor-pointer text-2xl ${star <= rating ? 'text-[#DFB300]' : 'text-[#DEDEDE]'}`}
+                className={`cursor-pointer text-2xl ${
+                  star <= rating ? "text-[#DFB300]" : "text-[#DEDEDE]"
+                }`}
                 onMouseEnter={() => handleMouseEnter(star)}
                 onClick={() => handleStarClick(star)}
               >
@@ -135,10 +144,7 @@ export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({ isOpen, 
           />
 
           {/* Submit Button */}
-          <button
-            className="gradient-button"
-            onClick={handleSubmit}
-          >
+          <button className="gradient-button" onClick={handleSubmit}>
             Submit
           </button>
         </div>

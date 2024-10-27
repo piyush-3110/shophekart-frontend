@@ -7,9 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { Country } from "country-state-city";
-import { useUserStore } from "@/store/userStore"; 
-import httpRequestService from "@/services/httpRequest.service"; 
-
+import { useUserStore } from "@/store";
+import httpRequestService from "@/services/httpRequest.service";
 
 interface ShippingField {
   id: string;
@@ -20,21 +19,60 @@ interface ShippingField {
   colSpan?: number;
 }
 
-
 const ShippingFields: ShippingField[] = [
-  { id: "firstName", label: "First name", placeholder: "E.g. Jordan", type: "text" },
-  { id: "lastName", label: "Last name", placeholder: "E.g. Smith", type: "text" },
-  { id: "userEmail", label: "Email address", placeholder: "E.g. jordan@mail.com", type: "email" },
-  { id: "phoneNumber", label: "Phone number", placeholder: "+ 156 555 2568", type: "tel" },
-  { id: "country", label: "Country", placeholder: "Select the country", type: "text" },
-  { id: "postalCode", label: "Postal code", placeholder: "62805", type: "text" },
-  { id: "address", label: "Address", placeholder: "Enter your address here...", colSpan: 2, type: "text" },
-  { id: "state", label: "State/Province", placeholder: "New York", type: "text" },
+  {
+    id: "firstName",
+    label: "First name",
+    placeholder: "E.g. Jordan",
+    type: "text",
+  },
+  {
+    id: "lastName",
+    label: "Last name",
+    placeholder: "E.g. Smith",
+    type: "text",
+  },
+  {
+    id: "userEmail",
+    label: "Email address",
+    placeholder: "E.g. jordan@mail.com",
+    type: "email",
+  },
+  {
+    id: "phoneNumber",
+    label: "Phone number",
+    placeholder: "+ 156 555 2568",
+    type: "tel",
+  },
+  {
+    id: "country",
+    label: "Country",
+    placeholder: "Select the country",
+    type: "text",
+  },
+  {
+    id: "postalCode",
+    label: "Postal code",
+    placeholder: "62805",
+    type: "text",
+  },
+  {
+    id: "address",
+    label: "Address",
+    placeholder: "Enter your address here...",
+    colSpan: 2,
+    type: "text",
+  },
+  {
+    id: "state",
+    label: "State/Province",
+    placeholder: "New York",
+    type: "text",
+  },
   { id: "city", label: "City", placeholder: "E.g. Los Angeles", type: "text" },
 ];
 
 const Page = () => {
-
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -47,11 +85,14 @@ const Page = () => {
     city: "",
   });
 
-  const { user } = useUserStore(); 
-
+  const { user } = useUserStore();
 
   const countries = useMemo(
-    () => Country.getAllCountries().map(({ name }) => ({ label: name, value: name })),
+    () =>
+      Country.getAllCountries().map(({ name }) => ({
+        label: name,
+        value: name,
+      })),
     []
   );
 
@@ -73,15 +114,18 @@ const Page = () => {
     const buyerId = user._id;
 
     try {
-      const response = await httpRequestService.postApi("/shipping-address/create", {
-        address: formData.address,
-        buyerId,
-        city: formData.city,
-        country: formData.country,
-        postalCode: formData.postalCode,
-        state: formData.state,
-        isPrimary: true,
-      });
+      const response = await httpRequestService.postApi(
+        "/shipping-address/create",
+        {
+          address: formData.address,
+          buyerId,
+          city: formData.city,
+          country: formData.country,
+          postalCode: formData.postalCode,
+          state: formData.state,
+          isPrimary: true,
+        }
+      );
 
       if (response.success) {
         alert("Shipping address created successfully!");
@@ -120,7 +164,12 @@ const Page = () => {
                     data={countries}
                     notFoundText="No country found"
                     placeholder={field.placeholder}
-                    onValueChange={(value) => setFormData((prevData) => ({ ...prevData, country: value }))}
+                    onValueChange={(value) =>
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        country: value,
+                      }))
+                    }
                   />
                 ) : (
                   <Input
@@ -136,8 +185,9 @@ const Page = () => {
             ))}
           </div>
           <p className="text-[#6B6F93] mt-8">
-            (These details will only be shared with sellers so they know where to ship items to.
-            You can change this data at any time. They are not shared with anyone publicly.)
+            (These details will only be shared with sellers so they know where
+            to ship items to. You can change this data at any time. They are not
+            shared with anyone publicly.)
           </p>
           <Button
             type={ButtonType.SUBMIT}

@@ -12,7 +12,7 @@ import { calculateDeliveryDate } from "@/utils";
 import { TCreateOrder } from "@/types/order";
 import { TCurrencyType } from "@/types/product";
 import { useCreateOrderOnChain } from "@/hooks";
-import { useUserStore } from "@/store/userStore";
+import { useUserStore } from "@/store";
 
 interface ItemDescriptionProps {
   name: string;

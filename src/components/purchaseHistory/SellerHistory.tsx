@@ -2,9 +2,14 @@ import React from "react";
 import TableForSeller from "./TableForSeller"; // Import the updated TableForSeller component
 import { useQuery } from "@tanstack/react-query";
 import { HttpRequestService } from "@/services";
-import { TSellerOrder } from "@/types/order";
+import { TOrderHistory } from "@/types/order";
+import FetchError from "../shared/FetchError";
+import { useUserStore } from "@/store";
+import AccessDeniedMessage from "../shared/AccessDeniedMessage";
 
 export const SellerHistory: React.FC = () => {
+  const { authStatus } = useUserStore();
+
   const headers = [
     { title: "Items", span: 2 },
     { title: "Type" },
@@ -17,23 +22,27 @@ export const SellerHistory: React.FC = () => {
     data: orders,
     error,
     isLoading,
+    refetch,
   } = useQuery({
     queryKey: ["sellerHistory"],
+    enabled: authStatus === "authenticated",
     queryFn: async () => {
-      const response = await HttpRequestService.fetchApi<TSellerOrder[]>(
+      const response = await HttpRequestService.fetchApi<TOrderHistory[]>(
         "/order/my/seller"
       );
       return response.data;
     },
   });
 
+  if (authStatus !== "authenticated") return <AccessDeniedMessage />;
+
   if (isLoading) return <div>Loading...</div>;
 
-  if (error) {
-    return <div>Opps .... Something went wrong</div>;
+  if (error || !orders) {
+    return <FetchError refetch={refetch} />;
   }
 
-  if (!orders || orders.length < 1) {
+  if (orders.length < 1) {
     return <div>No orders found</div>;
   }
 

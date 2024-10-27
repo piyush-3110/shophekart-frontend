@@ -11,8 +11,8 @@ export const Footer = () => {
           <div className=''>
             <img src='/images/shared/footerlogo.png' alt='LOGO' className='h-[3rem] w-auto  -translate-x-4'></img>
           </div>
-          <p className='text-sm font-[400]'>+1 891 989-11-91</p>
-          <p className='text-sm font-[400]'>info@cryptoshophe.com</p>
+          {/* <p className='text-sm font-[400]'>+1 891 989-11-91</p> */}
+          <p className='text-sm font-[400]'>shophekart.com</p>
           <a 
             href='#' 
             className='py-3 mt-2 text-sm font-[400] px-4 w-fit inline-block text-white bg-transparent hover:bg-gradient-to-r hover:from-[#01F6FF] hover:via-[#017EFF] hover:to-[#0127FF] transition-all duration-500 ease-in-out'

@@ -6,6 +6,7 @@ import { TOrderHistory } from "@/types/order";
 import FetchError from "../shared/FetchError";
 import { useUserStore } from "@/store";
 import AccessDeniedMessage from "../shared/AccessDeniedMessage";
+import OrderHistoryTableSkeleton from "./OrderHistoryTableSkeleton";
 
 export const SellerHistory: React.FC = () => {
   const { authStatus } = useUserStore();
@@ -15,7 +16,6 @@ export const SellerHistory: React.FC = () => {
     { title: "Type" },
     { title: "Price" },
     { title: "Status" },
-    { title: "Rating" },
   ];
 
   const {
@@ -36,14 +36,21 @@ export const SellerHistory: React.FC = () => {
 
   if (authStatus !== "authenticated") return <AccessDeniedMessage />;
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <OrderHistoryTableSkeleton headers={headers} />;
 
   if (error || !orders) {
     return <FetchError refetch={refetch} />;
   }
 
   if (orders.length < 1) {
-    return <div>No orders found</div>;
+    return (
+      <div className="flex justify-center items-center h-full">
+        <div className="max-w-md text-center text-gray-600">
+          <h2 className="text-2xl font-bold mb-4">No orders found yet!</h2>
+          <p>Don&apos;t worry, we&apos;re sure you&apos;ll have some soon.</p>
+        </div>
+      </div>
+    );
   }
 
   const data = orders.map((order) => {

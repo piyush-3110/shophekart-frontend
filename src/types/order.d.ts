@@ -22,7 +22,7 @@ export type TCreateOrder = {
   shippingPrice: number;
 };
 
-export type TOrderHistory = {
+export type TSellerOrderHistory = {
   orderStatus: "pending" | "delivering" | "delivered" | "cancelled" | "dispute";
   deliveryBy: string;
   buyerId: string;
@@ -39,4 +39,24 @@ export type TOrderHistory = {
     type: "FixedProduct";
     currencyType: "USDT" | "USDC" | "CSHOP" | "BNB";
   }[];
+};
+
+export type TBuyerOrderHistory = {
+  _id: string;
+  nftId: number;
+  soldAtPrice: number;
+  buyerId: Types.ObjectId;
+  productIdOnChain: number;
+  shippingPrice: number;
+  orderStatus: string;
+  deliveryBy: Date;
+  category: string;
+  product: {
+    description: string;
+    type: string;
+    currencyType: string;
+    productAddress: string;
+    imageUrl: string;
+    name: string;
+  };
 };

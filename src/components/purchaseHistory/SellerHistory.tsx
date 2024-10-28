@@ -2,7 +2,7 @@ import React from "react";
 import TableForSeller from "./TableForSeller"; // Import the updated TableForSeller component
 import { useQuery } from "@tanstack/react-query";
 import { HttpRequestService } from "@/services";
-import { TOrderHistory } from "@/types/order";
+import { TSellerOrderHistory } from "@/types/order";
 import FetchError from "../shared/FetchError";
 import { useUserStore } from "@/store";
 import AccessDeniedMessage from "../shared/AccessDeniedMessage";
@@ -27,7 +27,7 @@ export const SellerHistory: React.FC = () => {
     queryKey: ["sellerHistory"],
     enabled: authStatus === "authenticated",
     queryFn: async () => {
-      const response = await HttpRequestService.fetchApi<TOrderHistory[]>(
+      const response = await HttpRequestService.fetchApi<TSellerOrderHistory[]>(
         "/order/my/seller"
       );
       return response.data;

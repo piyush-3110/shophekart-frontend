@@ -7,6 +7,7 @@ import NextTopLoader from "nextjs-toploader";
 
 import RenderedNavbar from "@/components/Navbar/RenderedNavbar";
 import { Toaster } from "@/components/ui/toaster";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const dm = DM_Sans({
   subsets: ["latin"],
@@ -30,10 +31,12 @@ export default function RootLayout({
       </head>
       <body className={`${dm.className} antialiased overflow-x-hidden`}>
         <Web3ModalProvider>
-          <RenderedNavbar />
-          <NextTopLoader color="#0163ff" />
-          {children}
-          <Toaster />
+          <TooltipProvider>
+            <RenderedNavbar />
+            <NextTopLoader color="#0163ff" />
+            {children}
+            <Toaster />
+          </TooltipProvider>
         </Web3ModalProvider>
       </body>
     </html>

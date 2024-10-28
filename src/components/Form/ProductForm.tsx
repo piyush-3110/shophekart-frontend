@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import UploadImage from "./UploadImage";
-import RichTextEditor from "./RichTextArea";
+import RichTextEditor from "./RichTextEditor";
 import InputField from "./InputField";
 import TextArea from "./TextArea";
 import Button from "./Button";

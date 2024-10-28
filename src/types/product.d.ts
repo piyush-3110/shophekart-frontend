@@ -8,7 +8,7 @@
 
 export type TCurrencyType = "USDT" | "USDC" | "CSHOP" | "BNB";
 
-type IProduct = {
+export type IProduct = {
   _id: string;
   productIdOnChain: number;
   sellerId: string;

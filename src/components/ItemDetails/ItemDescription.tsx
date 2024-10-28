@@ -27,6 +27,8 @@ interface ItemDescriptionProps {
   shippingType: string;
   productIdOnChain: number;
   shippingCharges: number;
+  stars: number;
+  reviewCount: number;
 }
 
 export const ItemDescription: React.FC<ItemDescriptionProps> = ({
@@ -42,6 +44,8 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
   currencyType,
   stock,
   shippingType,
+  stars,
+  reviewCount,
 }) => {
   const { toast } = useToast();
   const { user } = useUserStore();
@@ -117,7 +121,12 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
 
   return (
     <div className="flex flex-col gap-3 pl-4 md:pl-0 w-[95vw] md:w-[50vw] lg:w-[40vw]">
-      <ItemInfoHeader name={name} stock={stock} />
+      <ItemInfoHeader
+        name={name}
+        stock={stock}
+        reviewCount={reviewCount}
+        stars={stars}
+      />
       <ItemDescriptionText description={description} details={details} />
 
       <div className="flex flex-col md:flex-row md:gap-6 md:items-center">

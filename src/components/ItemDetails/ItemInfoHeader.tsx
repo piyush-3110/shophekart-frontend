@@ -7,19 +7,25 @@ import Link from "next/link";
 interface ItemInfoHeaderProps {
   name: string;
   stock: number;
+  stars: number;
+  reviewCount: number;
 }
 
-const ItemInfoHeader: React.FC<ItemInfoHeaderProps> = ({ name, stock }) => {
+const ItemInfoHeader: React.FC<ItemInfoHeaderProps> = ({
+  name,
+  stock,
+  stars,
+  reviewCount,
+}) => {
   return (
     <>
-     
       <h1 className="text-[#160041] font-[700] text-xl">{name}</h1>
       <div className="flex gap-2 items-center">
-        <h1 className="text-[#160041] font-[700] text-md">3.5</h1>
-        <Rating ratingValue={3.5} />
-        <h1 className="text-[#6B6F93] font-[700] text-sm">1980</h1>
+        {/* <h1 className="text-[#160041] font-[700] text-md">{stars}</h1> */}
+        <Rating ratingValue={stars} />
+        <h1 className="text-[#6B6F93] font-[700] text-sm">{reviewCount}</h1>
         <div className="w-[1px] bg-[#6B6F93] h-4"></div>
-        {/* <h1 className="text-[#160041] font-[700] text-md">Stock: {stock}</h1>  */}
+        <h1 className="text-[#160041] font-[700] text-md">Stock: {stock}</h1>
         {/* <div className="w-[1px] bg-[#160041] h-4"></div> */}
         <div className="flex gap-1 items-center">
           <Image

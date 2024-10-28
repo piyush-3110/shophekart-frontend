@@ -9,7 +9,7 @@ export const Footer = () => {
         {/* First Column */}
         <div className='flex flex-col gap-2'>
           <div className=''>
-            <img src='/images/shared/footerlogo.png' alt='LOGO' className='h-[3rem] w-auto  -translate-x-4'></img>
+            <img src='/images/shared/footLogo.png' alt='LOGO' className='h-[2.5rem] w-auto  -translate-x-4'></img>
           </div>
           {/* <p className='text-sm font-[400]'>+1 891 989-11-91</p> */}
           <p className='text-sm font-[400]'>shophekart.com</p>

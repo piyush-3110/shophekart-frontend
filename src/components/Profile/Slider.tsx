@@ -32,7 +32,7 @@ export const Slider = () => {
       case 'itemsForSale':
         return <ItemsForSale />;
       case 'comments':
-        return <ReviewSection />;
+        return <ReviewSection targetId={''} />;
       default:
         return null;
     }

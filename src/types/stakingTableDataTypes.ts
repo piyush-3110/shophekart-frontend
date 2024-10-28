@@ -23,25 +23,40 @@ interface StakingTableDataItem {
    */
   apr: number;
   /**
-   * The staking period.
+   * The staking period (e.g., '60 days').
    * @type {string}
    */
   stakePeriod: string;
   /**
-   * The total staked amount.
-   * @type {number}
+   * The total staked amount (for Stake Options).
+   * @type {number | null}
    */
-  totalStaked: number;
+  totalStaked?: number | null;
   /**
-   * The total value locked in USD.
-   * @type {string}
+   * The total value locked in USD (for Stake Options).
+   * @type {string | null}
    */
-  tvlUsd: string;
+  tvlUsd?: string | null;
   /**
-   * The mining pool data.
-   * @type {MiningPoolData}
+   * The mining pool data (for Stake Options).
+   * @type {MiningPoolData | null}
    */
-  miningPool: MiningPoolData;
+  miningPool?: MiningPoolData | null;
+  /**
+   * The user's personal stake amount (for My Stake).
+   * @type {number | null}
+   */
+  myStake?: number | null;
+  /**
+   * The rewards earned by the user (for My Stake).
+   * @type {string | null}
+   */
+  rewardEarned?: string | null;
+  /**
+   * The token unlock period (for My Stake).
+   * @type {string | null}
+   */
+  tokenUnlockPeriod?: string | null;
 }
 
 export type { MiningPoolData, StakingTableDataItem };

@@ -19,8 +19,8 @@ const ItemInfoHeader: React.FC<ItemInfoHeaderProps> = ({ name, stock }) => {
         <Rating ratingValue={3.5} />
         <h1 className="text-[#6B6F93] font-[700] text-sm">1980</h1>
         <div className="w-[1px] bg-[#6B6F93] h-4"></div>
-        {/* <h1 className="text-[#160041] font-[700] text-md">Stock: {stock}</h1>  */}
-        {/* <div className="w-[1px] bg-[#160041] h-4"></div> */}
+        <h1 className="text-[#160041] font-[700] text-md">Stock: {stock}</h1> 
+        <div className="w-[1px] bg-[#160041] h-4"></div>
         <div className="flex gap-1 items-center">
           <Image
             src="/images/itemDetails/contact.png"

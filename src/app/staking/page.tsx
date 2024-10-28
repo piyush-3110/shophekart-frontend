@@ -82,10 +82,14 @@ const Page: React.FC<PageProps> = (): JSX.Element => {
                 <TableCell className="text-left">{data.totalStaked}</TableCell>
                 <TableCell className="text-left">{data.tvlUsd}</TableCell>
                 <TableCell>
-                  <MiningPoolProgress
-                    totalTokens={data.miningPool.totalTokens}
-                    currentTokens={data.miningPool.currentTokens}
-                  />
+                {data.miningPool ? (
+          <MiningPoolProgress
+            totalTokens={data.miningPool.totalTokens}
+            currentTokens={data.miningPool.currentTokens}
+          />
+        ) : (
+          <span></span> // You can customize this fallback
+        )}
                 </TableCell>
                 <TableCell className="flex justify-center">
                   <Dialog>

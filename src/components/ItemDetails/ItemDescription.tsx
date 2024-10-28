@@ -1,9 +1,8 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ItemInfoHeader from "./ItemInfoHeader";
 import ItemDescriptionText from "./ItemDescriptionText";
-import Loader from "../Form/Loader";
-import ToastNotification from "../Form/ToastNotification";
+
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { HttpRequestService } from "@/services";
@@ -13,6 +12,7 @@ import { TCreateOrder } from "@/types/order";
 import { TCurrencyType } from "@/types/product";
 import { useCreateOrderOnChain } from "@/hooks";
 import { useUserStore } from "@/store";
+import ShippingModal from "./ShippingModal";
 
 interface ItemDescriptionProps {
   name: string;
@@ -53,13 +53,22 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
     isSuccess,
     nftIds,
   } = useCreateOrderOnChain(user?.walletAddress as `0x${string}`);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   const {
     mutateAsync,
     isPending: isLoading,
     data,
   } = useMutation({
-    mutationFn: async () => {
+    mutationFn: async (shippingAddressId: string) => {
       const response = await HttpRequestService.postApi<TOrder, TCreateOrder>(
         "/order/create",
         {
@@ -68,6 +77,7 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
           productId: id,
           productIdOnChain,
           shippingPrice: shippingCharges,
+          shippingAddress: shippingAddressId,  // Add the shipping address ID to the payload
         }
       );
 
@@ -92,6 +102,14 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
       });
     },
   });
+
+  const handleOrderCreate = async (shippingAddressId: string) => {
+    try {
+      await mutateAsync(shippingAddressId);  // Pass the shippingAddressId to the mutation
+    } catch (error) {
+      console.error("Error creating order:", error);
+    }
+  };
 
   useEffect(() => {
     if (isSuccess && nftIds?.length && nftIds.length > 0 && data) {
@@ -133,13 +151,18 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
 
       <button
         className="gradient-button mt-3 !text-sm !w-fit"
-        onClick={() => {
-          mutateAsync();
-        }}
+        onClick={handleOpenModal}
         disabled={isLoading || isPending}
       >
-        {isLoading || isPending ? <Loader /> : "Buy Now"} <ToastNotification />
+       Buy now
       </button>
+      {isModalOpen && (
+        <ShippingModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          onOrderCreate={handleOrderCreate} // Pass the order creation handler
+        />
+      )}
     </div>
   );
 };

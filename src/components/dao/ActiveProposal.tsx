@@ -39,24 +39,17 @@ export const ActiveProposal = () => {
 
           {/* Right side: Approve and Reject buttons */}
           <div className='flex items-center'>
-            <button
+            <p
               className="text-green-500 hidden md:block px-4 py-2 mr-2"
-              onClick={(e) => {
-                e.stopPropagation(); // Prevent the div click from firing when clicking this button
-                openModal(proposal); // Optional: If you want to open the modal for button clicks too
-              }}
+           
             >
-              Approve
-            </button>
-            <button
+              In Favor:<span>0%</span>
+            </p>
+            <p
               className="text-red-500 hidden md:block px-4 py-2"
-              onClick={(e) => {
-                e.stopPropagation(); // Prevent the div click from firing when clicking this button
-                openModal(proposal); // Optional: If you want to open the modal for button clicks too
-              }}
-            >
-              Reject
-            </button>
+              >
+             Against: <span>0%</span>
+            </p>
           </div>
         </div>
       ))}
@@ -68,6 +61,8 @@ export const ActiveProposal = () => {
         proposalText={currentProposal} // Pass the current proposal text
         showApproveButton={true} // Show the Approve button
         showRejectButton={true}  // Show the Reject button
+        voteInFavor={0}
+        voteAgainst={0}
       />
     </div>
   );

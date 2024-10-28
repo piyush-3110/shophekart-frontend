@@ -31,7 +31,7 @@ const ProductForm = () => {
     shippingType: "LOCAL",
     shippingDuration: "",
     images: [],
-    sellerId: user?._id ?? "0x0000000000000000000000000000000000000000",
+    sellerId: user?._id ?? "",
   });
 
   const [selectedImages, setSelectedImages] = useState<File[]>([]);

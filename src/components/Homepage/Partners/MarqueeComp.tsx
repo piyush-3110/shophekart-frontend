@@ -7,8 +7,12 @@ const logos = [
   '/images/homepage/Partners/logo3.png',
   '/images/homepage/Partners/logo4.png',
   '/images/homepage/Partners/logo5.png',
-  '/images/homepage/Partners/logo6.png',
+  // '/images/homepage/Partners/logo6.png',
   '/images/homepage/Partners/logo7.jpg',
+  '/images/homepage/Partners/logo8.png',
+  '/images/homepage/Partners/logo9.png',
+
+
 
 ];
 

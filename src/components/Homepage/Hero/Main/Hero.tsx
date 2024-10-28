@@ -60,8 +60,8 @@ export function Hero() {
         </p>
 
         <div className="flex gap-4 items-center mt-4">
-          <button className="gradient-button text-white">Join Now</button>
-          <a href="#" className="flex items-center font-semibold">
+          <a className="gradient-button text-white" href="/products/buy-now" >Join Now</a>
+          <a href="https://youtu.be/7qc_qVEyT8c?si=A0v5nzqhSAt5pYKo" target="_blank" className="flex items-center font-semibold">
             {/* SVG for play icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import Rating from './Rating';
 import axios from 'axios';
-import  useUserStore  from '@/store/userStore';
+import useUserStore  from '@/store/userStore';
 import { useToast } from '@/hooks/use-toast';
 import { envConfig } from '@/config/envConfig'; // Importing envConfig
 

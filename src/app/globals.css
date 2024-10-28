@@ -139,7 +139,7 @@ input[type="number"] {
     --popover-foreground: 0 0% 3.9%;
     --primary: 230 100% 50%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
+    --secondary: 160, 98%, 37%;
     --secondary-foreground: 0 0% 9%;
     --muted: 0 0% 96.1%;
     --muted-foreground: 0 0% 45.1%;

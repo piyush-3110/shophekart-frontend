@@ -137,10 +137,16 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = "hidden"; // Prevent background scroll when modal is open
+      document.body.style.overflowX = 'hidden'; // Prevent horizontal overflow
+      document.body.style.overflowY = 'hidden';   // Allow vertical scrolling
     } else {
-      document.body.style.overflow = "auto"; // Restore scrolling when closed
+      document.body.style.overflowX = 'hidden';   // Restore horizontal scrolling
+      document.body.style.overflowY = 'auto';   // Restore vertical scrolling
     }
+    return () => {
+      document.body.style.overflowX = 'hidden';   // Clean up to restore horizontal scrolling
+      document.body.style.overflowY = 'auto';    // Clean up to restore vertical scrolling
+    };
   }, [isOpen]);
 
   if (!isOpen) return null;

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import BuyCard from "@/components/products/BuyCard";
 import ProductPagination from "@/components/products/shared/productPagination";
@@ -10,7 +11,7 @@ import { useUserStore } from "@/store";
 
 const PAGINATION_CONSTANT = 6;
 
-const Page = () => {
+const page = () => {
   const searchParams = useSearchParams();
   const searchTerm = useUserStore((state) => state.searchTerm); // Access search term from Zustand
   const pageParam = searchParams.get("page");
@@ -72,4 +73,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default page;

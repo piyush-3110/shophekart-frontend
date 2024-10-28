@@ -50,7 +50,9 @@ export const CompletedProposal = () => {
         onClose={closeModal}
         proposalText={currentProposal} // Pass the current proposal text
         showApproveButton={false} // Show the Approve button
-        showRejectButton={false}  // Show the Reject button
+        showRejectButton={false} 
+        voteInFavor={0} // Show the Reject button
+         voteAgainst={0}
       />
     </div>
   );

@@ -25,7 +25,7 @@ import { useState } from "react";
  * Utilizes internal state to manage cart items and provides interactive user interface elements.
  */
 
-const Page = () => {
+const page = () => {
   const CART_ITEMS: ICartItem[] = [
     {
       productName: "Camera Sling Bag",
@@ -77,6 +77,7 @@ const Page = () => {
     },
   ];
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [items, setItems] = useState(CART_ITEMS);
 
   const handleQuantityChange = (index: number, newQuantity: number) => {
@@ -181,4 +182,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default page;

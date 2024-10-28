@@ -20,6 +20,7 @@ export type TCreateOrder = {
   buyerId: string;
   productId: string;
   shippingPrice: number;
+  shippingAddress:string;
 };
 
 export type TSellerOrderHistory = {

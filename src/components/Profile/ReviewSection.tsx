@@ -1,29 +1,34 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from 'react';
-import { ReviewCard } from '../ItemDetails/ReviewCard';
-import httpRequestService from '@/services/httpRequest.service'; 
+import React, { useEffect, useState } from "react";
+import { ReviewCard } from "../ItemDetails/ReviewCard";
+import httpRequestService from "@/services/httpRequest.service";
 
-export const ReviewSection: React.FC = () => {
+type TProps = {
+  targetId: string;
+};
+
+export const ReviewSection: React.FC<TProps> = ({ targetId }) => {
   const [reviews, setReviews] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const targetId = '67192457d7dc8fc2f77376f7'; 
 
   useEffect(() => {
     const fetchReviews = async () => {
       try {
         setLoading(true);
-        const response = await httpRequestService.fetchApi<any[]>(`/review/target/${targetId}`);
+        const response = await httpRequestService.fetchApi<any[]>(
+          `/review/target/${targetId}`
+        );
 
-        const mappedReviews = response.data.map(review => ({
+        const mappedReviews = response.data.map((review) => ({
           reviewId: review._id,
           avatarUrl: "/images/itemDetails/avatar.png",
           reviewerName: review.reviewerId,
           reviewDate: new Date(review.createdAt).toLocaleDateString(),
-          title: review.comment.substring(0, 20), 
+          title: review.comment.substring(0, 20),
           content: review.comment,
           ratingValue: review.rating,
-          initialHelpfulCount: review.likes, 
-          initialUnhelpfulCount: review.dislikes, 
+          initialHelpfulCount: review.likes,
+          initialUnhelpfulCount: review.dislikes,
         }));
         console.log(mappedReviews);
         setReviews(mappedReviews);
@@ -49,8 +54,8 @@ export const ReviewSection: React.FC = () => {
     <div className="flex flex-col space-y-4">
       {reviews.map((review) => (
         <ReviewCard
-          key={review.reviewId} 
-          reviewId={review.reviewId} 
+          key={review.reviewId}
+          reviewId={review.reviewId}
           avatarUrl={review.avatarUrl}
           reviewerName={review.reviewerName}
           reviewDate={review.reviewDate}

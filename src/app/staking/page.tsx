@@ -22,13 +22,10 @@ import { twMerge } from "tailwind-merge";
 import { motion } from "framer-motion";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import StakeModal from "@/components/StakingPage/Table/stakeModal/StakeModal";
+import { StakingTableDataItem } from "@/types/stakingTableDataTypes";
 
-// Define the type for the component's props (empty since no props are used)
-type PageProps = object;
-
-// Define the Page component as a functional component
-const Page: React.FC<PageProps> = (): JSX.Element => {
-  const [activeTab, setActiveTab] = useState<StakingTab>(STAKING_TABS[0].title);
+const Page: React.FC = (): JSX.Element => {
+  const [activeTab, setActiveTab] = useState<StakingTab>(StakingTab.StakeOptions);
 
   return (
     <main className="bg-white">
@@ -61,44 +58,62 @@ const Page: React.FC<PageProps> = (): JSX.Element => {
       {/* Table container */}
       <div className="px-4 lg:px-28 mt-8">
         <Table>
-          <TableCaption>Your Staking Positions</TableCaption>
+          <TableCaption>
+            {activeTab === StakingTab.StakeOptions ? "Your Staking Positions" : "Your Stakes"}
+          </TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead className="w-[100px]">Token</TableHead>
               <TableHead>APR (fix rate)</TableHead>
               <TableHead>Stake Period</TableHead>
-              <TableHead className="text-left">Total Staked</TableHead>
-              <TableHead className="text-left">TVL USD</TableHead>
-              <TableHead className="text-left">Mining Pool (CSHOP)</TableHead>
+              <TableHead className="text-left">
+                {activeTab === StakingTab.StakeOptions ? "Total Staked" : "Your Stake Amount"}
+              </TableHead>
+              <TableHead className="text-left">
+                {activeTab === StakingTab.StakeOptions ? "TVL USD" : "Reward"}
+              </TableHead>
+              <TableHead className="text-left">
+                {activeTab === StakingTab.StakeOptions
+                  ? "Mining Pool (CSHOP)"
+                  : "Token Unlock Period"}
+              </TableHead>
               <TableHead className="text-center">Operate</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {STAKING_TABLE_DATA.map((data, index) => (
+            {STAKING_TABLE_DATA.map((data: StakingTableDataItem, index) => (
               <TableRow key={index}>
                 <TableCell className="font-medium">{data.token}</TableCell>
                 <TableCell>{data.apr}%</TableCell>
                 <TableCell>{data.stakePeriod}</TableCell>
-                <TableCell className="text-left">{data.totalStaked}</TableCell>
-                <TableCell className="text-left">{data.tvlUsd}</TableCell>
+                <TableCell className="text-left">
+                  {activeTab === StakingTab.StakeOptions ? data.totalStaked : data.myStake}
+                </TableCell>
+                <TableCell className="text-left">
+                  {activeTab === StakingTab.StakeOptions ? data.tvlUsd : data.rewardEarned}
+                </TableCell>
                 <TableCell>
-                {data.miningPool ? (
-          <MiningPoolProgress
-            totalTokens={data.miningPool.totalTokens}
-            currentTokens={data.miningPool.currentTokens}
-          />
-        ) : (
-          <span></span> // You can customize this fallback
-        )}
+                  {activeTab === StakingTab.StakeOptions ? (
+                    data.miningPool ? (
+                      <MiningPoolProgress
+                        totalTokens={data.miningPool.totalTokens}
+                        currentTokens={data.miningPool.currentTokens}
+                      />
+                    ) : (
+                      <span>No Pool</span> // Fallback text
+                    )
+                  ) : (
+                    data.tokenUnlockPeriod
+                  )}
                 </TableCell>
                 <TableCell className="flex justify-center">
                   <Dialog>
                     <DialogTrigger asChild>
                       <Button size={ButtonSize.SMALL} shape={ButtonShape.ROUND}>
-                        Stake
+                        {activeTab === StakingTab.StakeOptions ? "Stake" : "Claim"}
                       </Button>
                     </DialogTrigger>
-                    <StakeModal />
+                    {activeTab === StakingTab.StakeOptions && <StakeModal />}
                   </Dialog>
                 </TableCell>
               </TableRow>
@@ -106,7 +121,7 @@ const Page: React.FC<PageProps> = (): JSX.Element => {
           </TableBody>
         </Table>
       </div>
-      <Footer/>
+      <Footer />
     </main>
   );
 };

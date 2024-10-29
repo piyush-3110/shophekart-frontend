@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import UploadImage from "./UploadImage";
-import RichTextEditor from "./RichTextArea";
+import RichTextEditor from "./RichTextEditor";
 import InputField from "./InputField";
 import TextArea from "./TextArea";
 import Button from "./Button";
@@ -13,9 +13,11 @@ import { useUserStore } from "@/store";
 import { useCreateProduct } from "@/hooks";
 import { TCreateProductData } from "@/types";
 import TOKEN_ADDRESS from "@/constants/tokenAddress";
+import { HypeModal } from "./HypeModal";
 
 const ProductForm = () => {
   const [loading, setLoading] = useState(false);
+  const [isHypeModalOpen, setIsHypeModalOpen] = useState(false); // State for hype modal
 
   const { user } = useUserStore();
 
@@ -114,6 +116,14 @@ const ProductForm = () => {
     }
   };
 
+  const openHypeModal = () => {
+    setIsHypeModalOpen(true); // Open the hype modal
+  };
+
+  const closeHypeModal = () => {
+    setIsHypeModalOpen(false); // Close the hype modal
+  };
+
   return (
     <div className="p-8 w-[95vw] md:w-[80vw] my-10 mx-auto bg-white shadow-lg rounded-lg">
       <h2 className="text-2xl font-bold mb-6">Add product</h2>
@@ -146,6 +156,13 @@ const ProductForm = () => {
           value={formData.details}
           onChange={handleRichTextChange}
         />
+        <button
+          type="button"
+          className="gradient-button my-2"
+          onClick={openHypeModal} // Open hype modal on click
+        >
+          AIShophee
+        </button>
         <CategorySelect
           category={formData.category}
           onChange={handleCategoryChange}
@@ -219,6 +236,11 @@ const ProductForm = () => {
         />
         <ToastNotification />
       </form>
+
+      {/* Hype Modal */}
+      {isHypeModalOpen && (
+        <HypeModal isOpen={isHypeModalOpen} onClose={closeHypeModal} />
+      )}
     </div>
   );
 };

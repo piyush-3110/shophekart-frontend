@@ -8,10 +8,11 @@ import { HttpRequestService } from "@/services";
 import { IProduct } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { useUserStore } from "@/store";
+import { Suspense } from "react";
 
 const PAGINATION_CONSTANT = 6;
 
-const page = () => {
+const Productpage = () => {
   const searchParams = useSearchParams();
   const searchTerm = useUserStore((state) => state.searchTerm); // Access search term from Zustand
   const pageParam = searchParams.get("page");
@@ -54,6 +55,7 @@ const page = () => {
   const paginatedProducts = products.slice(startIndex, endIndex);
 
   return (
+    
     <section className="space-y-8 py-8">
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-4">
         {paginatedProducts.map((product) => (
@@ -72,5 +74,10 @@ const page = () => {
     </section>
   );
 };
+const page = () => (
+  <Suspense fallback={<div>Loading page...</div>}>
+    <Productpage />
+  </Suspense>
+);
 
 export default page;

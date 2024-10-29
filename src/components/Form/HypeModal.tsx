@@ -85,15 +85,14 @@ export const HypeModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
           {/* Buttons */}
           <div className="flex justify-between mt-6">
             <button
-              className="bg-blue-500 text-white px-6 py-3 rounded-lg disabled:bg-gray-400"
-              disabled
+              className="gradient-button text-white"
+          
               onClick={handleComingSoon}
             >
               Generate Description
             </button>
-            <button
-              className="bg-green-500 text-white px-6 py-3 rounded-lg disabled:bg-gray-400"
-              disabled
+            <button className="gradient-border !rounded-sm text-[#3f5af7] font-[500] py-2 px-6  hover:text-[#445de9]"
+             
               onClick={handleComingSoon}
             >
               Save & Use AIShophee

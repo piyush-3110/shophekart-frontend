@@ -1,0 +1,107 @@
+"use client";
+import React, { useEffect } from "react";
+import { IoClose } from "react-icons/io5"; // Close icon
+import { toast } from "react-toastify"; // Import toast for notification (install react-toastify if not installed)
+
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export const HypeModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+  // Close the modal when clicking outside of it
+  const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  // Disable background scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflowX = "hidden"; // Prevent horizontal overflow
+      document.body.style.overflowY = "hidden"; // Disable vertical scrolling
+    } else {
+      document.body.style.overflowX = "hidden"; // Restore horizontal scrolling
+      document.body.style.overflowY = "auto"; // Restore vertical scrolling
+    }
+    return () => {
+      document.body.style.overflowX = "hidden"; // Clean up horizontal scrolling
+      document.body.style.overflowY = "auto"; // Clean up vertical scrolling
+    };
+  }, [isOpen]);
+
+  // Show "Coming soon" message
+  const handleComingSoon = () => {
+    toast.info("AIShophee Coming soon", {
+      position: "top-right",
+      autoClose: 2000,
+    });
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div
+      className="fixed inset-0 w-full z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm"
+      onClick={handleOutsideClick}
+    >
+      <div className="relative w-[90vw] h-[80vh] bg-white shadow-lg rounded-lg p-6">
+        {/* Close Icon */}
+        <button
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+          onClick={onClose}
+        >
+          <IoClose size={24} />
+        </button>
+
+        {/* Modal Content */}
+        <div className="overflow-y-auto flex flex-col py-4 h-full">
+          <h1 className="text-[#160041] font-[700] text-center text-xl mb-6">
+            Create AI-Powered Product Descriptions
+          </h1>
+
+          {/* First Text Area */}
+          <label className="text-gray-700 font-medium mb-2">
+            Enter a short description of your product, include the most important advantages of the item
+          </label>
+          <textarea
+            className="w-full h-28 p-4 border border-gray-300 rounded-lg mb-6"
+            placeholder="Write a short description here."
+            disabled
+            onClick={handleComingSoon}
+          ></textarea>
+
+          {/* Second Text Area */}
+          <label className="text-gray-700 font-medium mb-2">
+            Here AIShophee will prepare a complete and advanced description for you
+          </label>
+          <textarea
+            className="w-full h-28 p-4 border border-gray-300 rounded-lg mb-6"
+            placeholder="AIShophee is preparing your description..."
+            disabled
+            onClick={handleComingSoon}
+          ></textarea>
+
+          {/* Buttons */}
+          <div className="flex justify-between mt-6">
+            <button
+              className="bg-blue-500 text-white px-6 py-3 rounded-lg disabled:bg-gray-400"
+              disabled
+              onClick={handleComingSoon}
+            >
+              Generate Description
+            </button>
+            <button
+              className="bg-green-500 text-white px-6 py-3 rounded-lg disabled:bg-gray-400"
+              disabled
+              onClick={handleComingSoon}
+            >
+              Save & Use AIShophee
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};

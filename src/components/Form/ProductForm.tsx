@@ -233,7 +233,7 @@ const ProductForm = () => {
             onChange={handleChange}
           />
         </div>
-
+    <button className="gradient-button my-2">AIShophe</button>
         <Button
           text={loading ? <Loader /> : "Save and publish product"}
           disabled={loading}

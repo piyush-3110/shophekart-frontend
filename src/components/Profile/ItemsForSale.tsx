@@ -1,9 +1,9 @@
 import React from "react";
-// Assuming the new Table component is in the same folder
 import TableForSale from "./TableForSale";
 import { useQuery } from "@tanstack/react-query";
 import { HttpRequestService } from "@/services";
 import { IProduct } from "@/types";
+import FetchError from "../shared/FetchError";
 
 const ItemsForSale: React.FC = () => {
   const headers = [
@@ -25,13 +25,14 @@ const ItemsForSale: React.FC = () => {
     data: products,
     isLoading,
     error,
+    refetch,
   } = useQuery({
     queryKey: ["itemsForSale"],
     queryFn: fetchItemsForSale,
   });
 
   if (isLoading) return <div>Loading...</div>;
-  if (error || !products) return <div>Error...</div>;
+  if (error || !products) return <FetchError refetch={refetch} />;
 
   if (products.length < 1) return <div>No items for sale...</div>;
 
@@ -43,7 +44,7 @@ const ItemsForSale: React.FC = () => {
     description: product.description,
     ratingValue: 4.5,
     ratingNumber: 120,
-    type: "Auction",
+    type: (product.type as string) === "FixedProduct" ? "Buy Now" : "Auction",
     price: `${product.price} ${product.currencyType}`,
     shipping: `${product.shippingType}`,
   }));

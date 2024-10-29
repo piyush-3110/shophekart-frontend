@@ -63,7 +63,8 @@ const BuyerHistory: React.FC = () => {
       title: order.product.name,
       description: order.product.description,
       type: order.product.type === "FixedProduct" ? "Buy Now" : "Auction",
-      soldPrice: `${order.soldAtPrice} ${order.product.currencyType}`,
+      soldPrice: order.soldAtPrice + order.shippingPrice,
+      currencyType: order.product.currencyType,
       orderId: order._id,
     };
   });

@@ -1,5 +1,5 @@
 import { HttpRequestService } from "@/services";
-import { IProduct, TCreateProductData } from "@/types";
+import { IProduct } from "@/types";
 import { useMutation } from "@tanstack/react-query";
 import useCreateProductOnChain from "../web3/useCreateProductOnChain";
 import { toast } from "../use-toast";
@@ -10,10 +10,10 @@ import { parseEther } from "viem";
 import { PRODUCT_CREATION_FEE } from "@/constants/application";
 
 const currencyTypeAddresses = {
-  USDT: TOKEN_ADDRESS.usdt,
-  BNB: TOKEN_ADDRESS.bnb,
-  CSHOP: TOKEN_ADDRESS.cshop,
-  USDC: TOKEN_ADDRESS.usdc,
+  USDT: TOKEN_ADDRESS.USDT,
+  BNB: TOKEN_ADDRESS.BNB,
+  CSHOP: TOKEN_ADDRESS.CSHOP,
+  USDC: TOKEN_ADDRESS.USDC,
 };
 
 export default function useCreateProduct(userWalletAddress: `0x${string}`) {
@@ -21,15 +21,16 @@ export default function useCreateProduct(userWalletAddress: `0x${string}`) {
     useCreateProductOnChain(userWalletAddress);
 
   const { mutateAsync } = useMutation({
-    async mutationFn(data: TCreateProductData) {
-      const response = await HttpRequestService.postApi<
-        IProduct,
-        TCreateProductData
-      >("/fixedProduct/create", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+    async mutationFn(data: FormData) {
+      const response = await HttpRequestService.postApi<IProduct, FormData>(
+        "/fixedProduct/create",
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       return response;
     },

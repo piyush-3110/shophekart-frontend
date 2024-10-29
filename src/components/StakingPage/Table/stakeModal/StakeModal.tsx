@@ -67,7 +67,7 @@ const StakeModal = ({ isOpen, onClose }: StakeModalProps) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
           onClose(); // Close modal if clicked outside content

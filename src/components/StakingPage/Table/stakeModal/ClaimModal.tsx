@@ -34,7 +34,7 @@ export const ClaimModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
 
   return (
     <div
-      className="fixed inset-0 w-full z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm"
+      className="fixed inset-0 w-full z-50 flex items-center justify-center bg-black bg-opacity-30 "
       onClick={handleOutsideClick}
     >
       <div className="relative w-[90vw] max-w-sm bg-white shadow-lg rounded-lg p-6">

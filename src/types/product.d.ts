@@ -27,6 +27,7 @@ export type IProduct = {
   category: string;
   price: number;
   stock: number;
+  type: string;
 };
 
 export default IProduct;

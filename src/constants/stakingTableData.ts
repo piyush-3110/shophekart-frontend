@@ -41,7 +41,7 @@ const STAKING_TABLE_DATA: StakingTableDataItem[] = [
     },
     myStake: 0,
     rewardEarned: "0",
-    tokenUnlockPeriod: "2024-10-15",
+    tokenUnlockPeriod: "0",
   },
   {
     token: "CSHOP",

@@ -12,7 +12,7 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 import Image from "next/image";
 import logo from "../../../../../public/images/shared/favicon.png";
 import { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast} from "react-toastify";
 import ToastNotification from "@/components/Form/ToastNotification";
 
 // Define the metadata props
@@ -24,7 +24,7 @@ interface ModalMetadataProps {
 // Define the metadata component
 const ModalMetadata = ({ title, value }: ModalMetadataProps): JSX.Element => {
   return (
-    <div className="flex justify-between items-center gap-2">
+    <div className="flex justify-between items-center gap-2 ">
       <span className="text-[#6B6F93]">{title}</span>
       <span className="text-[#160041]">{value}</span>
     </div>
@@ -44,14 +44,14 @@ const StakeModal = () => {
     }
   }
   const handleComingSoon = () => {
-    toast.info("AIShophee Coming soon", {
-      position: "top-right",
+    toast.info("Coming soon", {
+      position: "bottom-left",
       autoClose: 2000,
     });
   };
 
   return (
-    <DialogContent className="sm:max-w-[425px]">
+    <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-y-scroll">
       <DialogHeader className="items-center">
         <DialogTitle className="text-xl font-semibold flex gap-2 items-center">
           <Image src={logo} alt="logo" className="size-8 object-contain" />

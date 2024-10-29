@@ -106,7 +106,7 @@ const Page: React.FC = (): JSX.Element => {
                     data.tokenUnlockPeriod
                   )}
                 </TableCell>
-                <TableCell className="flex justify-center">
+                <TableCell className="flex justify-center ">
                   <Dialog>
                     <DialogTrigger asChild>
                       <Button size={ButtonSize.SMALL} shape={ButtonShape.ROUND}>

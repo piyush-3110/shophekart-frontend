@@ -12,6 +12,8 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 import Image from "next/image";
 import logo from "../../../../../public/images/shared/favicon.png";
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import ToastNotification from "@/components/Form/ToastNotification";
 
 // Define the metadata props
 interface ModalMetadataProps {
@@ -41,6 +43,13 @@ const StakeModal = () => {
       setAmount(value);
     }
   }
+  const handleComingSoon = () => {
+    toast.info("AIShophee Coming soon", {
+      position: "top-right",
+      autoClose: 2000,
+    });
+  };
+
   return (
     <DialogContent className="sm:max-w-[425px]">
       <DialogHeader className="items-center">
@@ -55,7 +64,7 @@ const StakeModal = () => {
           <ModalMetadata title="Stake period" value="60 Days" />
           <ModalMetadata
             title="Remaining mining pool rewards"
-            value="2682.60"
+            value="0"
           />
         </div>
         <div className="flex flex-col gap-4">
@@ -82,22 +91,23 @@ const StakeModal = () => {
           <DialogTitle className="font-semibold">Preview</DialogTitle>
           <ModalMetadata
             title="Stake time"
-            value="2024-09-14 at 15:35:00 UTC"
+            value="0"
           />
-          <ModalMetadata title="Estimated earnings" value="128 CSHOP" />
+          <ModalMetadata title="Estimated earnings" value="0 CSHOP" />
           <ModalMetadata
             title="Maturity time"
-            value="2024-11-14 at 15:35:00 UTC"
+            value="0"
           />
         </div>
       </div>
       <DialogFooter>
         <Button
           className="w-full"
-          onClick={() => console.log("Stake button clicked")}
+          onClick={handleComingSoon}
         >
           Stake
         </Button>
+        <ToastNotification/>
       </DialogFooter>
     </DialogContent>
   );

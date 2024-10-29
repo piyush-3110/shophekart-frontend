@@ -20,7 +20,7 @@ const Generate: React.FC = () => {
         className="gradient-button !py-2 !px-2"
         onClick={openModal}
       >
-        Generate Referral
+        Generate 
       </button>
 
       {/* SimpleModal component */}

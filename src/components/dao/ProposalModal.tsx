@@ -66,14 +66,14 @@ export const ProposalModal: React.FC<ModalProps> = ({
   <p className="text-red-500 font-semibold hover:underline">Vote Against: <span>{voteAgainst}%</span></p>
 </div>
           {/* Approve and Reject buttons (conditionally rendered) */}
-          <div className="flex  gap-10">
+          <div className="flex  gap-6">
             {showApproveButton && (
-              <button className="text-green-500 font-semibold hover:underline">
+              <button className="gradient-button !py-2 !px-6">
                 Approve
               </button>
             )}
             {showRejectButton && (
-              <button className="text-red-500 font-semibold hover:underline">
+              <button className="gradient-border !rounded-sm text-[#3f9bf7f8] font-[500] py-2 px-6  hover:text-[#4483e9]">
                 Reject
               </button>
             )}

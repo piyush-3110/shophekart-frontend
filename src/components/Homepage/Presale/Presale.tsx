@@ -66,12 +66,11 @@ export const Presale = () => {
         <div className='h-[12rem] hidden lg:block border border-[#f1eeee] '></div>
         <div>
           <div className='flex gap-2 items-center'>
-          <h1 className="text-lg text-black font-semibold ">Buy tokens now: </h1>
+          <h1 className="text-lg text-black font-semibold ">Generate referral text: </h1>
 <Generate/>
           </div>
         <h1 className='gradient-text py-3 !text-sm'>Balance: <span className="">0 CSHOP</span></h1>
-        <h1 className='gradient-text py-2 !text-sm'>Referral: <span className=""></span>
-        </h1>
+  
 <BuyToken/>
           {/* Placeholder for the buy token form */}
         </div>

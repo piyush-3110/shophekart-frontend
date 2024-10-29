@@ -58,7 +58,7 @@ export const HypeModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
 
         {/* Modal Content */}
         <div className="overflow-y-auto flex flex-col py-4 h-full">
-       <Image src="/images/shared/aiShopee.png" alt="logo" height={120} width={120} className="h-[2rem] w-auto mx-auto"/>
+       <Image src="/images/shared/aiShopee.png" alt="logo" height={540} width={540} className="h-[8rem] w-auto mx-auto mb-6"/>
 
           {/* First Text Area */}
           <label className="text-gray-700 font-medium mb-2">

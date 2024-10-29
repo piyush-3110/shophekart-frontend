@@ -153,6 +153,13 @@ const ProductForm = () => {
           value={formData.details}
           onChange={handleRichTextChange}
         />
+         <button
+          type="button"
+          className="gradient-button my-2"
+          onClick={openHypeModal} // Open hype modal on click
+        >
+          AIShophee
+        </button>
         <CategorySelect
           category={formData.category}
           onChange={handleCategoryChange}
@@ -220,13 +227,7 @@ const ProductForm = () => {
           />
         </div>
 
-        <button
-          type="button"
-          className="gradient-button my-2"
-          onClick={openHypeModal} // Open hype modal on click
-        >
-          AIShophee
-        </button>
+       
 
         <Button
           text={loading ? <Loader /> : "Save and publish product"}

@@ -61,9 +61,8 @@ export const SellerHistory: React.FC = () => {
       title: order.product[0].name,
       description: order.product[0].description,
       type: order.product[0].type === "FixedProduct" ? "Buy Now" : "Auction",
-      soldPrice: `${order.soldAtPrice + order.shippingPrice} ${
-        order.product[0].currencyType
-      }`,
+      soldPrice: order.soldAtPrice + order.shippingPrice,
+      currencyType: order.product[0].currencyType,
       nftId: order.nftId,
       orderId: order._id,
     };

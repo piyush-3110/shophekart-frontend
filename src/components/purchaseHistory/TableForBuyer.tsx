@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaCommentDots } from "react-icons/fa";
 import { RatingCommentModal } from "./RatingCommentModal"; // Import the new modal
 import { ProductCard } from "../Profile/ProductCard";
+import OrderHistoryPrice from "./OrderHistoryPrice";
 
 interface ItemData {
   imageUrl: string;
@@ -10,7 +11,8 @@ interface ItemData {
   title: string;
   description: string;
   type: string;
-  soldPrice: string;
+  soldPrice: number;
+  currencyType: string;
   orderId: string;
 }
 
@@ -60,7 +62,10 @@ const TableForBuyer: React.FC<TableProps> = ({ headers, data }) => {
               />
             </div>
             <p className="text-[#160041] text-sm">{item.type}</p>
-            <p className="text-[#160041] text-sm">{item.soldPrice}</p>
+            <OrderHistoryPrice
+              soldPrice={item.soldPrice}
+              currencyType={item.currencyType}
+            />
             <p className="text-[#160041] text-sm">{item.status}</p>
             <div className="flex items-center col-span-2">
               <FaCommentDots className="text-[#022BFF] " />

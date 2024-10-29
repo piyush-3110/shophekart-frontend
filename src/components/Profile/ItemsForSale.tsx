@@ -1,54 +1,53 @@
-import React from 'react';
-// Assuming the new Table component is in the same folder
-import TableForSale from './TableForSale';
+import React from "react";
+import TableForSale from "./TableForSale";
+import { useQuery } from "@tanstack/react-query";
+import { HttpRequestService } from "@/services";
+import { IProduct } from "@/types";
+import FetchError from "../shared/FetchError";
 
 const ItemsForSale: React.FC = () => {
   const headers = [
     { title: "Items", span: 2 },
-    { title: "Type"},
+    { title: "Type" },
     { title: "Price" },
     { title: "Shipping" },
     { title: "Action" },
   ];
 
-  const data = [
-    {
-      imageUrl: "/images/itemDetails/bag.png",
-      category: "Bags",
-      status: "Available",
-      title: "Camera Sling Bag",
-      description: "This is an amazing product that will change your life.",
-      ratingValue: 4.5,
-      ratingNumber: 120,
-      type: "Auction",
-      price: "12 CSHOP",  // Changed from soldPrice to price
-      shipping: "Global Shipping"
-    },
-    {
-      imageUrl: "/images/itemDetails/bag.png",
-      category: "Shoes",
-      status: "Available",
-      title: "Running Shoes",
-      description: "High quality running shoes designed for comfort.",
-      ratingValue: 4.8,
-      ratingNumber: 80,
-      type: "Auction",
-      price: "17 CSHOP",  // Changed from soldPrice to price
-      shipping: "Local Shipping"
-    },
-    {
-      imageUrl: "/images/itemDetails/bag.png",
-      category: "Watches",
-      status: "Available",
-      title: "Smart Watch",
-      description: "A sleek and modern smartwatch with various health features.",
-      ratingValue: 4.3,
-      ratingNumber: 60,
-      type: "Auction",
-      price: "15 CSHOP",  // Changed from soldPrice to price
-      shipping: "Global Shipping"
-    },
-  ];
+  async function fetchItemsForSale() {
+    const data = await HttpRequestService.fetchApi<IProduct[]>(
+      "/product/my/seller"
+    );
+    return data.data;
+  }
+
+  const {
+    data: products,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["itemsForSale"],
+    queryFn: fetchItemsForSale,
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error || !products) return <FetchError refetch={refetch} />;
+
+  if (products.length < 1) return <div>No items for sale...</div>;
+
+  const data = products.map((product) => ({
+    imageUrl: product.images[0],
+    category: "Bags",
+    status: product.status,
+    title: product.name,
+    description: product.description,
+    ratingValue: 4.5,
+    ratingNumber: 120,
+    type: (product.type as string) === "FixedProduct" ? "Buy Now" : "Auction",
+    price: `${product.price} ${product.currencyType}`,
+    shipping: `${product.shippingType}`,
+  }));
 
   return <TableForSale headers={headers} data={data} />;
 };

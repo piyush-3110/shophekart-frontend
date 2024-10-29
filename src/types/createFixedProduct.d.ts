@@ -7,7 +7,7 @@ interface TCreateProductData {
   details: string;
   images: File[];
   shippingType: "LOCAL" | "GLOBAL";
-  shippingCharge: string;
+  shippingCharges: string;
   shippingDuration: string;
   category: string;
   productAddress: string;

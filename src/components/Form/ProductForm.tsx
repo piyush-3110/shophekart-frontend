@@ -12,6 +12,7 @@ import SelectField from "./SelectField";
 import { useUserStore } from "@/store";
 import { useCreateProduct } from "@/hooks";
 import { TCreateProductData } from "@/types";
+import TOKEN_ADDRESS from "@/constants/tokenAddress";
 import { HypeModal } from "./HypeModal";
 
 const ProductForm = () => {
@@ -25,11 +26,11 @@ const ProductForm = () => {
     description: "",
     productAddress: "",
     details: "",
-    category: "", // Will hold category ID
+    category: "",
     currencyType: "CSHOP",
     stock: "",
     price: "",
-    shippingCharge: "",
+    shippingCharges: "",
     shippingType: "LOCAL",
     shippingDuration: "",
     images: [],
@@ -37,7 +38,6 @@ const ProductForm = () => {
   });
 
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
-
 
   const { mutateAsync } = useCreateProduct(
     user?.walletAddress ?? "0x0000000000000000000000000000000000000000"
@@ -61,7 +61,7 @@ const ProductForm = () => {
   };
 
   const handleCategoryChange = (categoryId: string) => {
-    setFormData((prev) => ({ ...prev, category: categoryId })); // Set the selected category ID
+    setFormData((prev) => ({ ...prev, category: categoryId }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -73,39 +73,42 @@ const ProductForm = () => {
       formDataToSubmit.append("description", formData.description);
       formDataToSubmit.append("productAddress", formData.productAddress);
       formDataToSubmit.append("details", formData.details);
-      formDataToSubmit.append("category", formData.category); // Send category ID to backend
+      formDataToSubmit.append("category", formData.category);
       formDataToSubmit.append("currencyType", formData.currencyType);
       formDataToSubmit.append("stock", formData.stock);
       formDataToSubmit.append("price", formData.price);
-      formDataToSubmit.append("shippingCharge", formData.shippingCharge);
+      formDataToSubmit.append("shippingCharges", formData.shippingCharges);
       formDataToSubmit.append("shippingDuration", formData.shippingDuration);
       formDataToSubmit.append("shippingType", formData.shippingType);
-      formDataToSubmit.append("sellerId", formData.sellerId); // Example seller ID
-      formDataToSubmit.append("currencyAddress", formData.currencyType);
+      formDataToSubmit.append("sellerId", formData.sellerId);
+      formDataToSubmit.append(
+        "currencyAddress",
+        TOKEN_ADDRESS[formData.currencyType]
+      );
 
       selectedImages.forEach((file) => {
         formDataToSubmit.append("images", file);
       });
 
-      await mutateAsync(formData);
+      await mutateAsync(formDataToSubmit);
 
       setFormData({
         name: "",
         description: "",
         productAddress: "",
         details: "",
-        category: "", // Will hold category ID
+        category: "",
         currencyType: "CSHOP",
         stock: "",
         price: "",
-        shippingCharge: "",
+        shippingCharges: "",
         shippingType: "LOCAL",
         shippingDuration: "",
         images: [],
         sellerId: "",
       });
 
-      setSelectedImages([]); // Reset selected images
+      setSelectedImages([]);
     } catch (error) {
       console.log(error);
     } finally {
@@ -153,7 +156,7 @@ const ProductForm = () => {
           value={formData.details}
           onChange={handleRichTextChange}
         />
-         <button
+        <button
           type="button"
           className="gradient-button my-2"
           onClick={openHypeModal} // Open hype modal on click
@@ -203,9 +206,9 @@ const ProductForm = () => {
           <InputField
             label="Shipping charge"
             placeholder="Enter Shipping price"
-            name="shippingCharge"
+            name="shippingCharges"
             type="number"
-            value={formData.shippingCharge}
+            value={formData.shippingCharges}
             onChange={handleChange}
           />
           <SelectField
@@ -226,8 +229,6 @@ const ProductForm = () => {
             onChange={handleChange}
           />
         </div>
-
-       
 
         <Button
           text={loading ? <Loader /> : "Save and publish product"}

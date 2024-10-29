@@ -12,9 +12,11 @@ import SelectField from "./SelectField";
 import { useUserStore } from "@/store";
 import { useCreateProduct } from "@/hooks";
 import { TCreateProductData } from "@/types";
+import { HypeModal } from "./HypeModal";
 
 const ProductForm = () => {
   const [loading, setLoading] = useState(false);
+  const [isHypeModalOpen, setIsHypeModalOpen] = useState(false); // State for hype modal
 
   const { user } = useUserStore();
 
@@ -35,6 +37,7 @@ const ProductForm = () => {
   });
 
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
+
 
   const { mutateAsync } = useCreateProduct(
     user?.walletAddress ?? "0x0000000000000000000000000000000000000000"
@@ -86,31 +89,6 @@ const ProductForm = () => {
 
       await mutateAsync(formData);
 
-      // const formDataToSubmit = new FormData();
-      // Object.entries(formData).forEach(([key, value]) => {
-      //   formDataToSubmit.append(key, value);
-      // });
-      // formDataToSubmit.append("sellerId", user?._id ?? "");
-
-      // const data: TCreateProductData = {
-      //   sellerId: user?._id ?? "",
-      //   currencyType: formData.currencyType,
-      //   name: formData.name,
-      //   description: formData.description,
-      //   details: formData.details,
-      //   images: selectedImages,
-      //   shippingType: formData.shippingType,
-      //   shippingCharge: formData.shippingCharge,
-      //   shippingDuration: formData.shippingDuration,
-      //   category: formData.category,
-      //   productAddress: formData.productAddress,
-      //   price: formData.price,
-      //   stock: formData.stock,
-      // };
-
-      // await mutateAsync(data);
-
-      // Clear the form and selected images
       setFormData({
         name: "",
         description: "",
@@ -133,6 +111,14 @@ const ProductForm = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const openHypeModal = () => {
+    setIsHypeModalOpen(true); // Open the hype modal
+  };
+
+  const closeHypeModal = () => {
+    setIsHypeModalOpen(false); // Close the hype modal
   };
 
   return (
@@ -233,13 +219,26 @@ const ProductForm = () => {
             onChange={handleChange}
           />
         </div>
-    <button className="gradient-button my-2">AIShophe</button>
+
+        <button
+          type="button"
+          className="gradient-button my-2"
+          onClick={openHypeModal} // Open hype modal on click
+        >
+          AIShophee
+        </button>
+
         <Button
           text={loading ? <Loader /> : "Save and publish product"}
           disabled={loading}
         />
         <ToastNotification />
       </form>
+
+      {/* Hype Modal */}
+      {isHypeModalOpen && (
+        <HypeModal isOpen={isHypeModalOpen} onClose={closeHypeModal} />
+      )}
     </div>
   );
 };

@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React, { useEffect } from "react";
 import { IoClose } from "react-icons/io5"; // Close icon
 import { toast } from "react-toastify"; // Import toast for notification (install react-toastify if not installed)
@@ -57,9 +58,7 @@ export const HypeModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
 
         {/* Modal Content */}
         <div className="overflow-y-auto flex flex-col py-4 h-full">
-          <h1 className="text-[#160041] font-[700] text-center text-xl mb-6">
-            Create AI-Powered Product Descriptions
-          </h1>
+       <Image src="/images/shared/aiShopee.png" alt="logo" height={120} width={120} className="h-[2rem] w-auto mx-auto"/>
 
           {/* First Text Area */}
           <label className="text-gray-700 font-medium mb-2">
@@ -68,7 +67,7 @@ export const HypeModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
           <textarea
             className="w-full h-28 p-4 border border-gray-300 rounded-lg mb-6"
             placeholder="Write a short description here."
-            disabled
+            
             onClick={handleComingSoon}
           ></textarea>
 
@@ -79,7 +78,7 @@ export const HypeModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
           <textarea
             className="w-full h-28 p-4 border border-gray-300 rounded-lg mb-6"
             placeholder="AIShophee is preparing your description..."
-            disabled
+          
             onClick={handleComingSoon}
           ></textarea>
 

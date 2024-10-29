@@ -22,7 +22,6 @@ export default function useCreateProduct(userWalletAddress: `0x${string}`) {
 
   const { mutateAsync } = useMutation({
     async mutationFn(data: TCreateProductData) {
-      console.log(data);
       const response = await HttpRequestService.postApi<
         IProduct,
         TCreateProductData

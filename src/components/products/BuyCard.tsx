@@ -35,7 +35,7 @@ const BuyCard: FC<BuyCardProp> = ({
   return (
     <div>
       <div className="w-full relative rounded-sm overflow-hidden max-w-md mx-auto bg-[#F4F6FA] p-4">
-        <Badge className="bg-[#022BFF] hover:bg-[#022BFF]/90 font-normal py-2 px-4 absolute top-8 right-8 z-10 rounded-full">
+        <Badge className="bg-[#022BFF] hover:bg-[#022BFF]/90 font-normal py-2 px-4 absolute top-8 right-8 z-[3] rounded-full">
           Buy Now
         </Badge>
         <div className="relative w-full">

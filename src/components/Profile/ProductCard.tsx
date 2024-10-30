@@ -3,12 +3,13 @@ import Link from "next/link";
 import React from "react";
 
 interface ProductCardProps {
-  // To pass the product id for redirection
-  imageUrl: string; // Image URL for the product
-  category: string; // Category of the product
-  status: string; // Status (e.g., "Sold", "Available", etc.)
-  title: string; // Product title
-  description: string; // Product description
+  imageUrl: string;
+  category: string;
+  status: string;
+  title: string;
+  description: string;
+  orderId?: string;
+  basePath?: string; // New optional basePath prop
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({
@@ -17,8 +18,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   status,
   title,
   description,
+  orderId,
+  basePath = "/itemDetail", 
 }) => {
-  // Function to truncate the description to 9 words
   const truncateDescription = (desc: string) => {
     const words = desc.split(" ");
     if (words.length > 9) {
@@ -28,9 +30,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   return (
-    <Link href={`/itemDetails`} className="block">
+    <Link href={orderId ? `${basePath}/${orderId}` : `${basePath}`} className="block">
       <div className="flex gap-2 items-center cursor-pointer">
-        {/* Image Section */}
         <div className="h-[10rem] bg-[#F4F6FA] rounded-md w-[8rem]">
           <Image
             src={imageUrl}
@@ -40,10 +41,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             className="h-[90%] object-contain"
           />
         </div>
-
-        {/* Details Section */}
         <div className="gap-2 flex flex-col w-[16rem]">
-          {/* Category and Status */}
           <div className="flex gap-2 items-center">
             <div className="rounded-xl bg-[#022BFF] w-fit px-3 py-1 text-white text-sm">
               {category}
@@ -51,11 +49,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             <div className="rounded-full h-2 ml-2 w-2 bg-red-600"></div>
             <p className="text-sm font-[400] text-[#6B6F93]">{status}</p>
           </div>
-
-          {/* Product Title */}
           <h1 className="text-[#160041] font-[700] text-[16px]">{title}</h1>
-
-          {/* Truncated Description */}
           <p className="text-sm font-[400] text-[#6B6F93]">
             {truncateDescription(description)}
           </p>

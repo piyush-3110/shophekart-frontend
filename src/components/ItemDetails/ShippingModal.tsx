@@ -234,6 +234,7 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
           <ComboboxDemo
             data={countries}
             notFoundText="No country found"
+            
             placeholder={field.placeholder}
             value={formData.country}  // <-- Pass the current country value
             onValueChange={(value) =>
@@ -247,6 +248,7 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
             placeholder={field.placeholder}
             value={formData[field.id as keyof typeof formData]}
             onChange={handleInputChange}
+            required
             className="border placeholder:text-[#6F8294] bg-[#F9FBFC]"
           />
         )}

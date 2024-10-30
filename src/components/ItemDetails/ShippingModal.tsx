@@ -134,7 +134,11 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
     }
   };
 
-
+  const capitalizeFirstLetter = (str: string) => {
+    if (!str) return "";
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  };
+  
   useEffect(() => {
     const fetchShippingAddress = async () => {
       try {
@@ -148,7 +152,7 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
             lastName: addressData.lastName || "",
             userEmail: "", // Assuming email is not part of the response, leave it empty
             phoneNumber: addressData.phoneNumber || "",
-            country: addressData.country || "",
+            country: capitalizeFirstLetter(addressData.country || ""),
             postalCode: addressData.postalCode || "",
             address: addressData.address || "",
             state: addressData.state || "",
@@ -219,43 +223,45 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
         </button>
 
         <form onSubmit={handleSubmit}>
-          <div className="space-y-10 grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-y-8 lg:gap-y-14 gap-x-12">
-            {ShippingFields.map((field) => (
-              <div key={field.id} className="flex flex-col gap-2">
-                <Label htmlFor={field.id} className="text-[#6F8294]">
-                  {field.label}
-                </Label>
-                {field.id === "country" ? (
-                  <ComboboxDemo
-                    data={countries}
-                    notFoundText="No country found"
-                    placeholder={field.placeholder}
-                    onValueChange={(value) =>
-                      setFormData((prevData) => ({ ...prevData, country: value }))
-                    }
-                  />
-                ) : (
-                  <Input
-                    id={field.id}
-                    type={field.type || "text"}
-                    placeholder={field.placeholder}
-                    value={formData[field.id as keyof typeof formData]}
-                    onChange={handleInputChange}
-                    className="border placeholder:text-[#6F8294] bg-[#F9FBFC]"
-                  />
-                )}
-              </div>
-            ))}
-          </div>
+  <div className="space-y-10 grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-y-8 lg:gap-y-14 gap-x-12">
+    {ShippingFields.map((field) => (
+      <div key={field.id} className="flex flex-col gap-2">
+        <Label htmlFor={field.id} className="text-[#6F8294]">
+          {field.label}
+        </Label>
+        {field.id === "country" ? (
+          <ComboboxDemo
+            data={countries}
+            notFoundText="No country found"
+            placeholder={field.placeholder}
+            value={formData.country}  // <-- Pass the current country value
+            onValueChange={(value) =>
+              setFormData((prevData) => ({ ...prevData, country: value }))
+            }
+          />
+        ) : (
+          <Input
+            id={field.id}
+            type={field.type || "text"}
+            placeholder={field.placeholder}
+            value={formData[field.id as keyof typeof formData]}
+            onChange={handleInputChange}
+            className="border placeholder:text-[#6F8294] bg-[#F9FBFC]"
+          />
+        )}
+      </div>
+    ))}
+  </div>
 
-          <Button
-            type={ButtonType.SUBMIT}
-            shape={ButtonShape.ROUND}
-            className="mt-8"
-          >
-            Confirm Shipping & Buy Now
-          </Button>
-        </form>
+  <Button
+    type={ButtonType.SUBMIT}
+    shape={ButtonShape.ROUND}
+    className="mt-8"
+  >
+    Confirm Shipping & Buy Now
+  </Button>
+</form>
+
       </div>
     </div>
   );

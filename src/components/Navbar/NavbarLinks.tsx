@@ -47,7 +47,7 @@ const NavbarLinks = () => {
           className="flex items-center focus:outline-none"
           onClick={() => setIsStakingOpen(!isStakingOpen)}
         >
-          Staking
+          Token Side
           <span
             className={`ml-2 transition-transform duration-300 ease-in-out ${
               isStakingOpen ? "rotate-180" : "rotate-0"
@@ -70,6 +70,12 @@ const NavbarLinks = () => {
             className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
           >
             Staking
+          </NavLink>
+          <NavLink
+            href="/staking"
+            className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
+          >
+            Vesting
           </NavLink>
           <NavLink
             href="/dao"

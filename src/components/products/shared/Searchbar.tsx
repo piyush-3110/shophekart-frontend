@@ -10,7 +10,9 @@ const Searchbar = () => {
 
   // Handle search button click
   const handleSearch = () => {
-    setSearchTerm(localSearch); // Set the search term only when the search button is clicked
+    if (localSearch.trim()) { // Ensure there's a search term before proceeding
+      setSearchTerm(localSearch); // Set the search term only when the search is triggered
+    }
   };
 
   return (
@@ -26,11 +28,13 @@ const Searchbar = () => {
         height={18}
         src={"/icons/productNavbar/searchIcon.svg"}
         alt="search icon"
-        className="absolute top-1/2 -translate-y-1/2 left-4"
+        className="absolute top-1/2 -translate-y-1/2 left-4 cursor-pointer" // Added cursor pointer
+        onClick={handleSearch} // Trigger search on clicking the search icon
       />
+      {/* Remove the button for small screens */}
       <button
-        onClick={handleSearch} // Trigger search when the button is clicked
-        className="gradient-button text-white"
+        onClick={handleSearch} // Trigger search when the button is clicked (for larger screens)
+        className="hidden gradient-button text-white md:inline" // Only show on medium screens and up
       >
         Search
       </button>

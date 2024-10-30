@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useState } from 'react';
+import Image from "next/image";
+import React, { useState } from "react";
 
 interface ItemCardProps {
   images: string[]; // Array of image URLs passed as a prop
@@ -14,8 +15,10 @@ const ItemCard: React.FC<ItemCardProps> = ({ images }) => {
     <div className="bg-[#F4F6FA] shadow-sm p-4 rounded-lg h-[28rem] w-[90vw] md:w-[20rem] lg:w-[22rem]">
       {/* Main Image */}
       <div className="flex items-center justify-center h-[80%]">
-        <img
-          className="max-h-full max-w-full object-contain rounded-md"
+        <Image
+          width={480}
+          height={480}
+          className="aspect-square max-h-full max-w-full object-cover rounded-md"
           src={selectedImage}
           alt="Main Item"
         />
@@ -24,17 +27,21 @@ const ItemCard: React.FC<ItemCardProps> = ({ images }) => {
       {/* Thumbnails */}
       <div className="flex justify-center mt-4">
         <div className="grid grid-cols-5 gap-1 w-fit">
-          {images.map((thumbnail, index) => (
-            <img
-              key={index}
-              className={`w-full h-16 bg-white object-contain rounded-md cursor-pointer ${
-                selectedImage === thumbnail ? 'border-1 border-blue-300' : ''
-              }`}
-              src={thumbnail}
-              alt={`Thumbnail ${index + 1}`}
-              onClick={() => setSelectedImage(thumbnail)}
-            />
-          ))}
+          {images.map((thumbnail, index) => {
+            return (
+              <Image
+                width={480}
+                height={480}
+                key={index}
+                className={`aspect-square w-full h-16 bg-white object-cover rounded-md cursor-pointer ${
+                  selectedImage === thumbnail ? "border-1 border-blue-300" : ""
+                }`}
+                src={thumbnail}
+                alt={`Thumbnail ${index + 1}`}
+                onClick={() => setSelectedImage(thumbnail)}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

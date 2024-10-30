@@ -1,5 +1,5 @@
 import React from "react";
-import TableForSeller from "./TableForSeller"; // Import the updated TableForSeller component
+import TableForSeller from "./TableForSeller";
 import { useQuery } from "@tanstack/react-query";
 import { HttpRequestService } from "@/services";
 import { TSellerOrderHistory } from "@/types/order";
@@ -18,12 +18,7 @@ export const SellerHistory: React.FC = () => {
     { title: "Status" },
   ];
 
-  const {
-    data: orders,
-    error,
-    isLoading,
-    refetch,
-  } = useQuery({
+  const { data: orders, error, isLoading, refetch } = useQuery({
     queryKey: ["sellerHistory"],
     enabled: authStatus === "authenticated",
     queryFn: async () => {
@@ -53,21 +48,18 @@ export const SellerHistory: React.FC = () => {
     );
   }
 
-  const data = orders.map((order) => {
-    const data = {
-      imageUrl: order.product[0].imageUrl[0],
-      category: order.categoryLabel,
-      status: order.orderStatus,
-      title: order.product[0].name,
-      description: order.product[0].description,
-      type: order.product[0].type === "FixedProduct" ? "Buy Now" : "Auction",
-      soldPrice: order.soldAtPrice + order.shippingPrice,
-      currencyType: order.product[0].currencyType,
-      nftId: order.nftId,
-      orderId: order._id,
-    };
-    return data;
-  });
+  const data = orders.map((order) => ({
+    imageUrl: order.product[0].imageUrl[0],
+    category: order.categoryLabel,
+    status: order.orderStatus,
+    title: order.product[0].name,
+    description: order.product[0].description,
+    type: order.product[0].type === "FixedProduct" ? "Buy Now" : "Auction",
+    soldPrice: order.soldAtPrice + order.shippingPrice,
+    currencyType: order.product[0].currencyType,
+    nftId: order.nftId,
+    orderId: order._id,
+  }));
 
   return <TableForSeller headers={headers} data={data} />;
 };

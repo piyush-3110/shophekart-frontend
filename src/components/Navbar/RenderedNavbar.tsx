@@ -7,10 +7,10 @@ import Navbar from "../products/shared/navbar";
 const RenderedNavbar = () => {
   const pathname = usePathname();
 
-  if (pathname == "/" || pathname == "/cshopCard" || pathname == "/staking"||pathname=="/tokenization"||pathname=="/dao") {
-    return <FloatingNavbar />;
+  if (pathname == "/products/buy-now") {
+    return <Navbar className="mb-10" />;
   }
-  return <Navbar className="mb-10" />;
+  return <FloatingNavbar />;
 };
 
 export default RenderedNavbar;

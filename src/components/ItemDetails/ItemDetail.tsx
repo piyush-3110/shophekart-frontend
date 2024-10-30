@@ -11,7 +11,7 @@ import FetchError from "../shared/FetchError";
 import { TSingleProduct } from "@/types/product";
 
 interface ItemDetailProps {
-  id: string; // Accept id as a prop
+  id: string; 
 }
 
 export const ItemDetail: React.FC<ItemDetailProps> = ({ id }) => {

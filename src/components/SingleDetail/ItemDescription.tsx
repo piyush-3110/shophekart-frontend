@@ -8,6 +8,8 @@ interface ItemDescriptionProps {
   shipping: string;
   type: string;
   details: string;
+  currencyType: string; 
+  walletAddress: string; 
   initialStatus: 'pending' | 'delivering';
 }
 
@@ -18,7 +20,8 @@ const ItemDescription: React.FC<ItemDescriptionProps> = ({
   price,
   shipping,
   type,
-  details,
+  currencyType, 
+  walletAddress, 
   initialStatus,
 }) => {
   const [status, setStatus] = useState<'pending' | 'delivering'>(initialStatus);
@@ -33,25 +36,29 @@ const ItemDescription: React.FC<ItemDescriptionProps> = ({
       <p className="text-sm text-gray-600 mb-2">{description}</p>
 
       <div className="space-y-1">
+          
+        <div className="flex justify-between text-gray-700 text-sm">
+          <span className="font-bold">Type:</span>
+          <span>{type}</span>
+        </div>
         <div className="flex justify-between text-gray-700 text-sm">
           <span className="font-bold">Price:</span>
-          <span>${price.toFixed(2)}</span>
+          <span>
+            {price.toFixed(4)} {currencyType}
+          </span>
         </div>
         <div className="flex justify-between text-gray-700 text-sm">
           <span className="font-bold">Shipping:</span>
           <span>{shipping}</span>
         </div>
         <div className="flex justify-between text-gray-700 text-sm">
-          <span className="font-bold">Type:</span>
-          <span>{type}</span>
-        </div>
-        <div className="flex justify-between text-gray-700 text-sm">
           <span className="font-bold">Product ID:</span>
           <span>{id}</span>
         </div>
+       
         <div className="flex justify-between text-gray-700 text-sm">
-          <span className="font-bold">Details:</span>
-          <span>{details}</span>
+          <span className="font-bold">Wallet Address:</span>
+          <span>{walletAddress}</span>
         </div>
         <div className="flex justify-between text-gray-700 text-sm">
           <span className="font-bold">Status:</span>

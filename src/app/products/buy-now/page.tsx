@@ -14,11 +14,11 @@ const PAGINATION_CONSTANT = 6;
 
 const Productpage = () => {
   const searchParams = useSearchParams();
-  const searchTerm = useUserStore((state) => state.searchTerm); // Access search term from Zustand
+  const searchTerm = useUserStore((state) => state.searchTerm); 
   const pageParam = searchParams.get("page");
   const currentPage = pageParam ? parseInt(pageParam) : 1;
 
-  // Fetch products based on searchTerm or get all on page load
+
   const { data, error, isLoading } = useQuery({
     queryKey: ["products", searchTerm],
     queryFn: async () => {
@@ -28,8 +28,8 @@ const Productpage = () => {
       const response = await HttpRequestService.fetchApi<IProduct[]>(endpoint);
       return response;
     },
-    enabled: searchTerm !== undefined, // Only fetch when page is loaded or searchTerm changes
-    staleTime: Infinity, // Keep data fresh until page is reloaded
+    enabled: searchTerm !== undefined, 
+    staleTime: Infinity, 
   });
 
   if (isLoading) {

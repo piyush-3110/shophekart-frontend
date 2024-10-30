@@ -43,12 +43,12 @@ export const ActiveProposal = () => {
               className="text-green-500 hidden md:block px-4 py-2 mr-2"
            
             >
-              In Favor:<span>0%</span>
+         0%
             </p>
             <p
               className="text-red-500 hidden md:block px-4 py-2"
               >
-             Against: <span>0%</span>
+             0%
             </p>
           </div>
         </div>

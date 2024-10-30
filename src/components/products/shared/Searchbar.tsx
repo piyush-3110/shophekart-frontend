@@ -1,23 +1,31 @@
 "use client";
 import { Input } from "@/components/ui/input";
-import { useUserStore } from "@/store"; // Import Zustand store
+import { useUserStore } from "@/store";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, KeyboardEvent } from "react";
 
 const Searchbar = () => {
-  const setSearchTerm = useUserStore((state) => state.setSearchTerm); // Set search term in Zustand store
-  const [localSearch, setLocalSearch] = useState(""); // Local state for input value
+  const setSearchTerm = useUserStore((state) => state.setSearchTerm);
+  const [localSearch, setLocalSearch] = useState<string>("");
 
-  // Handle search button click
   const handleSearch = () => {
-    setSearchTerm(localSearch); // Set the search term only when the search button is clicked
+    if (localSearch.trim()) {
+      setSearchTerm(localSearch);
+    }
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
   };
 
   return (
     <div className="flex items-center relative h-12 w-full max-w-lg md:max-w-4xl">
       <Input
         value={localSearch}
-        onChange={(e) => setLocalSearch(e.target.value)} // Update local state with input value
+        onChange={(e) => setLocalSearch(e.target.value)}
+        onKeyDown={handleKeyDown} 
         placeholder="Search products"
         className="py-4 pl-12 rounded-r-none rounded-l size-full peer"
       />
@@ -26,11 +34,13 @@ const Searchbar = () => {
         height={18}
         src={"/icons/productNavbar/searchIcon.svg"}
         alt="search icon"
-        className="absolute top-1/2 -translate-y-1/2 left-4"
+        className="absolute top-1/2 -translate-y-1/2 left-4 cursor-pointer"
+        onClick={handleSearch}
       />
+
       <button
-        onClick={handleSearch} // Trigger search when the button is clicked
-        className="gradient-button text-white"
+        onClick={handleSearch}
+        className="hidden gradient-button text-white md:inline"
       >
         Search
       </button>

@@ -11,8 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Button, {
-  ButtonShape,
-  ButtonSize,
+
   ButtonVariant,
 } from "@/components/shared/Button";
 import MiningPoolProgress from "@/components/StakingPage/Table/MiningPoolProgress";
@@ -20,15 +19,32 @@ import { StakingTab } from "@/constants/stakingTabs";
 import { STAKING_TABLE_DATA, STAKING_TABS } from "@/constants";
 import { twMerge } from "tailwind-merge";
 import { motion } from "framer-motion";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog } from "@/components/ui/dialog";
 import StakeModal from "@/components/StakingPage/Table/stakeModal/StakeModal";
 import { StakingTableDataItem } from "@/types/stakingTableDataTypes";
+import "react-toastify/dist/ReactToastify.css"; // Import the CSS
+import ToastNotification from "@/components/Form/ToastNotification";
+import { ClaimModal } from "@/components/StakingPage/Table/stakeModal/ClaimModal";
 
 const Page: React.FC = (): JSX.Element => {
   const [activeTab, setActiveTab] = useState<StakingTab>(StakingTab.StakeOptions);
+  const [isStakeModalOpen, setStakeModalOpen] = useState(false);
+  const [isClaimModalOpen, setIsClaimModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsClaimModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsClaimModalOpen(false);
+  };
+
+  // Function to handle the Claim button click and trigger toast
 
   return (
     <main className="bg-white">
+      {/* ToastContainer must be placed in the JSX tree */}
+   <ToastNotification/>
       {/* Tab container */}
       <div className="bg-[#F1F4FF] w-full">
         <div className="px-4 lg:px-28 flex gap-2">
@@ -107,14 +123,27 @@ const Page: React.FC = (): JSX.Element => {
                   )}
                 </TableCell>
                 <TableCell className="flex justify-center">
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button size={ButtonSize.SMALL} shape={ButtonShape.ROUND}>
-                        {activeTab === StakingTab.StakeOptions ? "Stake" : "Claim"}
-                      </Button>
-                    </DialogTrigger>
-                    {activeTab === StakingTab.StakeOptions && <StakeModal />}
-                  </Dialog>
+                  {activeTab === StakingTab.StakeOptions ? (
+                    <Dialog>
+                    
+                      <button onClick={() => setStakeModalOpen(true)} className="gradient-button !py-2 !px-4">Stake</button>
+      <StakeModal
+        isOpen={isStakeModalOpen}
+        onClose={() => setStakeModalOpen(false)}
+      />
+                    
+                    </Dialog>
+                  ) : (
+                    <button
+                    onClick={handleOpenModal}
+                    className="gradient-button !py-2 !px-4 text-white"
+                  >
+                    Claim
+                  </button>
+        
+                  )}
+                  <ClaimModal isOpen={isClaimModalOpen} onClose={handleCloseModal} />
+
                 </TableCell>
               </TableRow>
             ))}

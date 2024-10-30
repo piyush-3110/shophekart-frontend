@@ -4,7 +4,7 @@ import Rating from "./Rating";
 import axios from "axios";
 import { useUserStore } from "@/store";
 import { useToast } from "@/hooks/use-toast";
-import { envConfig } from "@/config/envConfig"; // Importing envConfig
+import { envConfig } from "@/config/envConfig"; 
 
 interface ReviewCardProps {
   reviewId: string;

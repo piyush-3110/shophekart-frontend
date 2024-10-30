@@ -32,7 +32,7 @@ const ShippingFields: ShippingField[] = [
     type: "text",
   },
   {
-    id: "userEmail",
+    id: "email",
     label: "Email address",
     placeholder: "E.g. jordan@mail.com",
     type: "email",
@@ -86,7 +86,7 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    userEmail: "",
+    email: "",
     phoneNumber: "",
     country: "",
     postalCode: "",
@@ -146,11 +146,12 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
         console.log("Shipping Address Response:", response);
   
         if (response.success && response.data.length > 0) {
-          const addressData = response.data[0];
+          const addressData = response.data[response.data.length - 1];
+
           setFormData({
             firstName: addressData.firstName || "",
             lastName: addressData.lastName || "",
-            userEmail: "", // Assuming email is not part of the response, leave it empty
+            email: addressData.email||"", // Assuming email is not part of the response, leave it empty
             phoneNumber: addressData.phoneNumber || "",
             country: capitalizeFirstLetter(addressData.country || ""),
             postalCode: addressData.postalCode || "",
@@ -163,7 +164,7 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
           setFormData({
             firstName: "",
             lastName: "",
-            userEmail: "",
+            email: "",
             phoneNumber: "",
             country: "",
             postalCode: "",
@@ -178,7 +179,7 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
         setFormData({
           firstName: "",
           lastName: "",
-          userEmail: "",
+          email: "",
           phoneNumber: "",
           country: "",
           postalCode: "",

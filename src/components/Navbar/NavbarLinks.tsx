@@ -120,7 +120,9 @@ const NavbarLinks = () => {
       </div>
 
       <NavLink href="/cshopCard">CSHOP Card</NavLink>
-      <NavLink href="https://shophekart.gitbook.io/shophekart">Whitepaper</NavLink>
+      <NavLink target="_blank" href="https://shophekart.gitbook.io/shophekart">
+        Whitepaper
+      </NavLink>
     </div>
   );
 };

@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 
 import { ProductCard } from "../Profile/ProductCard";
-import { OrderService } from "@/services";
 import { toast } from "@/hooks/use-toast";
 import { useChangeOrderStatus } from "@/hooks";
+import { TCurrencyType } from "@/types/product";
+import OrderHistoryPrice from "./OrderHistoryPrice";
 
 interface ItemData {
   imageUrl: string;
@@ -13,9 +13,10 @@ interface ItemData {
   title: string;
   description: string;
   type: string;
-  soldPrice: string;
+  soldPrice: number;
   nftId: number;
   orderId: string;
+  currencyType: TCurrencyType;
 }
 
 interface TableProps {
@@ -94,7 +95,10 @@ const TableForSeller: React.FC<TableProps> = ({ headers, data }) => {
               />
             </div>
             <p className="text-[#160041] text-sm">{item.type}</p>
-            <p className="text-[#160041] text-sm">{item.soldPrice}</p>
+            <OrderHistoryPrice
+              currencyType={item.currencyType}
+              soldPrice={item.soldPrice}
+            />
 
             {/* Dropdown to select status */}
             <div className="text-[#160041] text-sm">

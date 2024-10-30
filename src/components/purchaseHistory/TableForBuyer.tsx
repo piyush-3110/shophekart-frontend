@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { FaCommentDots } from 'react-icons/fa';
-import { RatingCommentModal } from './RatingCommentModal'; // Import the new modal
-import { ProductCard } from '../Profile/ProductCard';
+import React, { useState } from "react";
+import { FaCommentDots } from "react-icons/fa";
+import { RatingCommentModal } from "./RatingCommentModal"; // Import the new modal
+import { ProductCard } from "../Profile/ProductCard";
+import OrderHistoryPrice from "./OrderHistoryPrice";
 
 interface ItemData {
   imageUrl: string;
@@ -10,7 +11,9 @@ interface ItemData {
   title: string;
   description: string;
   type: string;
-  soldPrice: string;
+  soldPrice: number;
+  currencyType: string;
+  orderId: string;
 }
 
 interface TableProps {
@@ -20,8 +23,10 @@ interface TableProps {
 
 const TableForBuyer: React.FC<TableProps> = ({ headers, data }) => {
   const [isModalOpen, setModalOpen] = useState(false); // State to manage modal visibility
+  const [targetOrderId, setTargetOrderId] = useState<string>("");
 
-  const handleCommentClick = () => {
+  const handleCommentClick = (orderId: string) => {
+    setTargetOrderId(orderId);
     setModalOpen(true); // Open the modal
   };
 
@@ -43,9 +48,12 @@ const TableForBuyer: React.FC<TableProps> = ({ headers, data }) => {
 
         {/* Table Entries */}
         {data.map((item, index) => (
-          <div key={index} className="grid grid-cols-7 gap-4 min-w-[800px] items-center py-4">
+          <div
+            key={index}
+            className="grid grid-cols-7 gap-4 min-w-[800px] items-center py-4"
+          >
             <div className="col-span-2">
-            <ProductCard
+              <ProductCard
                 imageUrl={item.imageUrl}
                 category={item.category}
                 status={item.status}
@@ -54,11 +62,19 @@ const TableForBuyer: React.FC<TableProps> = ({ headers, data }) => {
               />
             </div>
             <p className="text-[#160041] text-sm">{item.type}</p>
-            <p className="text-[#160041] text-sm">{item.soldPrice}</p>
+            <OrderHistoryPrice
+              soldPrice={item.soldPrice}
+              currencyType={item.currencyType}
+            />
             <p className="text-[#160041] text-sm">{item.status}</p>
             <div className="flex items-center col-span-2">
               <FaCommentDots className="text-[#022BFF] " />
-              <button className="text-[#022BFF] font-semibold" onClick={handleCommentClick}>
+              <button
+                className="text-[#022BFF] font-semibold"
+                onClick={() => {
+                  handleCommentClick(item.orderId);
+                }}
+              >
                 Add a Rating & Comment
               </button>
             </div>
@@ -67,7 +83,11 @@ const TableForBuyer: React.FC<TableProps> = ({ headers, data }) => {
       </div>
 
       {/* Rating Comment Modal */}
-      <RatingCommentModal isOpen={isModalOpen} onClose={handleModalClose} />
+      <RatingCommentModal
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        targetId={targetOrderId}
+      />
     </div>
   );
 };

@@ -51,6 +51,8 @@ export const RejectedProposal = () => {
         proposalText={currentProposal} // Pass the current proposal text
         showApproveButton={false} // Show the Approve button
         showRejectButton={false}  // Show the Reject button
+        voteAgainst={0}
+        voteInFavor={0}
       />
     </div>
   );

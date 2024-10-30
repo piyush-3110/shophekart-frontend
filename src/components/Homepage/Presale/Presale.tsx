@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { CountdownDiv } from './CountdownDiv';
 import { BuyToken } from './BuyToken';
 
+import PresaleProgress from './PresaleProgress';
+import Generate from './Generate';
+
 export const Presale = () => {
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -42,8 +45,12 @@ export const Presale = () => {
   return (
     <>
       <div className="h-fit lg:h-[16rem] lg:w-auto w-[95vw] bg-white border py-6  rounded-md shadow-lg px-20 flex lg:items-center lg:flex-row flex-col lg:justify-end gap-20">
-        <div>
+        <div className=''>
+        
+         
           <h1 className="text-lg text-black font-semibold pb-6 ">Presale Ends in:</h1>
+
+       
           {/* Countdown display */}
           <div className="flex gap-4">
             <CountdownDiv value={timeLeft.days} label="Days" />
@@ -51,10 +58,19 @@ export const Presale = () => {
             <CountdownDiv value={timeLeft.minutes} label="Minutes" />
             <CountdownDiv value={timeLeft.seconds} label="Seconds" />
           </div>
+          <div className="mt-2">
+<PresaleProgress totalTokens={100} currentTokens={0}/>
+
+</div>
         </div>
         <div className='h-[12rem] hidden lg:block border border-[#f1eeee] '></div>
         <div>
-        <h1 className="text-lg text-black font-semibold pb-6">Buy tokens now:</h1>
+          <div className='flex gap-2 items-center'>
+          <h1 className="text-lg text-black font-semibold ">Generate referral text: </h1>
+<Generate/>
+          </div>
+        <h1 className='gradient-text py-3 !text-sm'>Balance: <span className="">0 CSHOP</span></h1>
+  
 <BuyToken/>
           {/* Placeholder for the buy token form */}
         </div>

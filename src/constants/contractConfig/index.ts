@@ -14,15 +14,15 @@ const CONTRACT_CONFIG: TContractConfig = {
     abi: ESCROW_ABI,
   },
   usdt: {
-    address: TOKEN_ADDRESS.usdt,
+    address: TOKEN_ADDRESS.USDT,
     abi: ERC20_ABI,
   },
   usdc: {
-    address: TOKEN_ADDRESS.usdc,
+    address: TOKEN_ADDRESS.USDC,
     abi: ERC20_ABI,
   },
   cshop: {
-    address: TOKEN_ADDRESS.cshop,
+    address: TOKEN_ADDRESS.CSHOP,
     abi: ERC20_ABI,
   },
 };

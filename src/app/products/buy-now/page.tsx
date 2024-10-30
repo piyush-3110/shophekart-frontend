@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import BuyCard from "@/components/products/BuyCard";
 import ProductPagination from "@/components/products/shared/productPagination";
@@ -7,10 +8,11 @@ import { HttpRequestService } from "@/services";
 import { IProduct } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { useUserStore } from "@/store";
+import { Suspense } from "react";
 
 const PAGINATION_CONSTANT = 6;
 
-const Page = () => {
+const Productpage = () => {
   const searchParams = useSearchParams();
   const searchTerm = useUserStore((state) => state.searchTerm); // Access search term from Zustand
   const pageParam = searchParams.get("page");
@@ -53,6 +55,7 @@ const Page = () => {
   const paginatedProducts = products.slice(startIndex, endIndex);
 
   return (
+    
     <section className="space-y-8 py-8">
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-4">
         {paginatedProducts.map((product) => (
@@ -71,5 +74,10 @@ const Page = () => {
     </section>
   );
 };
+const page = () => (
+  <Suspense fallback={<div>Loading page...</div>}>
+    <Productpage />
+  </Suspense>
+);
 
-export default Page;
+export default page;

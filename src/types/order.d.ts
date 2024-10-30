@@ -20,9 +20,10 @@ export type TCreateOrder = {
   buyerId: string;
   productId: string;
   shippingPrice: number;
+  shippingAddress:string;
 };
 
-export type TSellerOrder = {
+export type TSellerOrderHistory = {
   orderStatus: "pending" | "delivering" | "delivered" | "cancelled" | "dispute";
   deliveryBy: string;
   buyerId: string;
@@ -39,4 +40,24 @@ export type TSellerOrder = {
     type: "FixedProduct";
     currencyType: "USDT" | "USDC" | "CSHOP" | "BNB";
   }[];
+};
+
+export type TBuyerOrderHistory = {
+  _id: string;
+  nftId: number;
+  soldAtPrice: number;
+  buyerId: Types.ObjectId;
+  productIdOnChain: number;
+  shippingPrice: number;
+  orderStatus: string;
+  deliveryBy: Date;
+  category: string;
+  product: {
+    description: string;
+    type: string;
+    currencyType: string;
+    productAddress: string;
+    imageUrl: string;
+    name: string;
+  };
 };

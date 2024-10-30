@@ -7,18 +7,20 @@ import { useUserStore } from "@/store";
 interface RatingCommentModalProps {
   isOpen: boolean;
   onClose: () => void;
+  targetId: string;
 }
 
 export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({
   isOpen,
   onClose,
+  targetId,
 }) => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const [reviewType, setReviewType] = useState("");
   const { user } = useUserStore();
 
-  const targetId = "67192457d7dc8fc2f77376f7";
+  console.log(targetId);
 
   const handleOutsideClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>

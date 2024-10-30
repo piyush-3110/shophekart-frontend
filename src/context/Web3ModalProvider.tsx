@@ -16,7 +16,9 @@ import { createSiweMessage, parseSiweMessage } from "viem/siwe";
 import { useUserStore } from "@/store";
 
 // Setup queryClient
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { refetchOnWindowFocus: false } },
+});
 
 export default function Web3ModalProvider({
   children,

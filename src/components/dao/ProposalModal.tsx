@@ -7,7 +7,9 @@ interface ModalProps {
   onClose: () => void;
   proposalText: string;  // Text for the proposal
   showApproveButton: boolean; // Control visibility of the Approve button
-  showRejectButton: boolean;  // Control visibility of the Reject button
+  showRejectButton: boolean; 
+  voteInFavor:number;
+  voteAgainst:number; // Control visibility of the Reject button
 }
 
 export const ProposalModal: React.FC<ModalProps> = ({
@@ -15,7 +17,9 @@ export const ProposalModal: React.FC<ModalProps> = ({
   onClose,
   proposalText,
   showApproveButton,
-  showRejectButton
+  showRejectButton,
+  voteInFavor,
+  voteAgainst
 }) => {
   // Close the modal when clicking outside of it
   const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -57,16 +61,19 @@ export const ProposalModal: React.FC<ModalProps> = ({
           {/* Proposal Text */}
           <h1 className="text-[#160041] font-[700] text-center text-xl mb-4">Proposal</h1>
           <p className="text-black  mb-6">{proposalText}</p>
-
+<div className='mb-3 flex items-center gap-10'>
+  <p className="text-green-500 font-semibold hover:underline">Vote in favor: <span>{voteInFavor}%</span></p>
+  <p className="text-red-500 font-semibold hover:underline">Vote Against: <span>{voteAgainst}%</span></p>
+</div>
           {/* Approve and Reject buttons (conditionally rendered) */}
-          <div className="flex  gap-10">
+          <div className="flex  gap-6">
             {showApproveButton && (
-              <button className="text-green-500 font-semibold hover:underline">
+              <button className="gradient-button !py-2 !px-6">
                 Approve
               </button>
             )}
             {showRejectButton && (
-              <button className="text-red-500 font-semibold hover:underline">
+              <button className="gradient-border !rounded-sm text-[#3f9bf7f8] font-[500] py-2 px-6  hover:text-[#4483e9]">
                 Reject
               </button>
             )}

@@ -1,77 +1,75 @@
 import { StakingTableDataItem } from "@/types/stakingTableDataTypes";
 
-/**
- * The staking table data.
- * @type {StakingTableDataItem[]}
- */
 const STAKING_TABLE_DATA: StakingTableDataItem[] = [
   {
-    /**
-     * The token symbol.
-     */
     token: "CSHOP",
-    /**
-     * The annual percentage rate.
-     */
     apr: 25,
-    /**
-     * The staking period.
-     */
-    stakePeriod: "60 days",
-    /**
-     * The total staked amount.
-     */
-    totalStaked: 200562.8,
-    /**
-     * The total value locked in USD.
-     */
-    tvlUsd: "68.78k",
-    /**
-     * The mining pool data.
-     */
+    stakePeriod: "0 days",
+    totalStaked: 0,
+    tvlUsd: "0",
     miningPool: {
-      /**
-       * The total tokens available in the mining pool.
-       */
-      totalTokens: 20000.0,
-      /**
-       * The current tokens available in the mining pool.
-       */
-      currentTokens: 18612.63,
+      totalTokens: 0,
+      currentTokens: 0,
     },
+    myStake: 0,
+    rewardEarned: "0",
+    tokenUnlockPeriod: "0",
   },
   {
     token: "CSHOP",
     apr: 20,
-    stakePeriod: "50 days",
-    totalStaked: 195250.66,
-    tvlUsd: "60.35k",
+    stakePeriod: "0 days",
+    totalStaked: 0,
+    tvlUsd: "0",
     miningPool: {
-      totalTokens: 20000.0,
-      currentTokens: 6585.22,
+      totalTokens: 0,
+      currentTokens: 0,
     },
+    myStake: 0,
+    rewardEarned: "0",
+    tokenUnlockPeriod: "0",
   },
   {
     token: "CSHOP",
     apr: 15,
-    stakePeriod: "30 days",
-    totalStaked: 155807.25,
-    tvlUsd: "50.28k",
+    stakePeriod: "0 days",
+    totalStaked: 0,
+    tvlUsd: "0",
     miningPool: {
-      totalTokens: 20000.0,
-      currentTokens: 2150.75,
+      totalTokens: 0,
+      currentTokens: 0,
     },
+    myStake: 0,
+    rewardEarned: "0",
+    tokenUnlockPeriod: "0",
   },
   {
     token: "CSHOP",
     apr: 12,
-    stakePeriod: "10 days",
-    totalStaked: 65620.14,
-    tvlUsd: "12.6k",
+    stakePeriod: "0 days",
+    totalStaked: 0,
+    tvlUsd: "0",
     miningPool: {
-      totalTokens: 20000.0,
-      currentTokens: 1058.45,
+      totalTokens: 0,
+      currentTokens: 0,
     },
+    myStake: 0,
+    rewardEarned: "0",
+    tokenUnlockPeriod: "0",
+  },
+  {
+    token: "CSHOP",
+    apr: 10,
+    stakePeriod: "0 days",
+    totalStaked: 0,
+    tvlUsd: "0",
+    miningPool: {
+      totalTokens: 0,
+      currentTokens: 0,
+    },
+    myStake: 0,
+    rewardEarned: "0",
+    tokenUnlockPeriod: "0",
   },
 ];
 

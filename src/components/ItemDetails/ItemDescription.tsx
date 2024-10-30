@@ -1,9 +1,8 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ItemInfoHeader from "./ItemInfoHeader";
 import ItemDescriptionText from "./ItemDescriptionText";
-import Loader from "../Form/Loader";
-import ToastNotification from "../Form/ToastNotification";
+
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { HttpRequestService } from "@/services";
@@ -13,6 +12,7 @@ import { TCreateOrder } from "@/types/order";
 import { TCurrencyType } from "@/types/product";
 import { useCreateOrderOnChain } from "@/hooks";
 import { useUserStore } from "@/store";
+import ShippingModal from "./ShippingModal";
 
 interface ItemDescriptionProps {
   name: string;
@@ -27,6 +27,8 @@ interface ItemDescriptionProps {
   shippingType: string;
   productIdOnChain: number;
   shippingCharges: number;
+  stars: number;
+  reviewCount: number;
 }
 
 export const ItemDescription: React.FC<ItemDescriptionProps> = ({
@@ -42,6 +44,8 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
   currencyType,
   stock,
   shippingType,
+  stars,
+  reviewCount,
 }) => {
   const { toast } = useToast();
   const { user } = useUserStore();
@@ -53,13 +57,22 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
     isSuccess,
     nftIds,
   } = useCreateOrderOnChain(user?.walletAddress as `0x${string}`);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   const {
     mutateAsync,
     isPending: isLoading,
     data,
   } = useMutation({
-    mutationFn: async () => {
+    mutationFn: async (shippingAddressId: string) => {
       const response = await HttpRequestService.postApi<TOrder, TCreateOrder>(
         "/order/create",
         {
@@ -68,6 +81,7 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
           productId: id,
           productIdOnChain,
           shippingPrice: shippingCharges,
+          shippingAddress: shippingAddressId,  // Add the shipping address ID to the payload
         }
       );
 
@@ -93,6 +107,14 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
     },
   });
 
+  const handleOrderCreate = async (shippingAddressId: string) => {
+    try {
+      await mutateAsync(shippingAddressId);  // Pass the shippingAddressId to the mutation
+    } catch (error) {
+      console.error("Error creating order:", error);
+    }
+  };
+
   useEffect(() => {
     if (isSuccess && nftIds?.length && nftIds.length > 0 && data) {
       (async () => {
@@ -117,7 +139,12 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
 
   return (
     <div className="flex flex-col gap-3 pl-4 md:pl-0 w-[95vw] md:w-[50vw] lg:w-[40vw]">
-      <ItemInfoHeader name={name} stock={stock} />
+      <ItemInfoHeader
+        name={name}
+        stock={stock}
+        reviewCount={reviewCount}
+        stars={stars}
+      />
       <ItemDescriptionText description={description} details={details} />
 
       <div className="flex flex-col md:flex-row md:gap-6 md:items-center">
@@ -133,13 +160,18 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
 
       <button
         className="gradient-button mt-3 !text-sm !w-fit"
-        onClick={() => {
-          mutateAsync();
-        }}
+        onClick={handleOpenModal}
         disabled={isLoading || isPending}
       >
-        {isLoading || isPending ? <Loader /> : "Buy Now"} <ToastNotification />
+       Buy now
       </button>
+      {isModalOpen && (
+        <ShippingModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          onOrderCreate={handleOrderCreate} // Pass the order creation handler
+        />
+      )}
     </div>
   );
 };

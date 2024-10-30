@@ -11,8 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Button, {
-  ButtonShape,
-  ButtonSize,
+
   ButtonVariant,
 } from "@/components/shared/Button";
 import MiningPoolProgress from "@/components/StakingPage/Table/MiningPoolProgress";
@@ -20,18 +19,32 @@ import { StakingTab } from "@/constants/stakingTabs";
 import { STAKING_TABLE_DATA, STAKING_TABS } from "@/constants";
 import { twMerge } from "tailwind-merge";
 import { motion } from "framer-motion";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog } from "@/components/ui/dialog";
 import StakeModal from "@/components/StakingPage/Table/stakeModal/StakeModal";
+import { StakingTableDataItem } from "@/types/stakingTableDataTypes";
+import "react-toastify/dist/ReactToastify.css"; // Import the CSS
+import ToastNotification from "@/components/Form/ToastNotification";
+import { ClaimModal } from "@/components/StakingPage/Table/stakeModal/ClaimModal";
 
-// Define the type for the component's props (empty since no props are used)
-type PageProps = object;
+const Page: React.FC = (): JSX.Element => {
+  const [activeTab, setActiveTab] = useState<StakingTab>(StakingTab.StakeOptions);
+  const [isStakeModalOpen, setStakeModalOpen] = useState(false);
+  const [isClaimModalOpen, setIsClaimModalOpen] = useState(false);
 
-// Define the Page component as a functional component
-const Page: React.FC<PageProps> = (): JSX.Element => {
-  const [activeTab, setActiveTab] = useState<StakingTab>(STAKING_TABS[0].title);
+  const handleOpenModal = () => {
+    setIsClaimModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsClaimModalOpen(false);
+  };
+
+  // Function to handle the Claim button click and trigger toast
 
   return (
     <main className="bg-white">
+      {/* ToastContainer must be placed in the JSX tree */}
+   <ToastNotification/>
       {/* Tab container */}
       <div className="bg-[#F1F4FF] w-full">
         <div className="px-4 lg:px-28 flex gap-2">
@@ -61,48 +74,83 @@ const Page: React.FC<PageProps> = (): JSX.Element => {
       {/* Table container */}
       <div className="px-4 lg:px-28 mt-8">
         <Table>
-          <TableCaption>Your Staking Positions</TableCaption>
+          <TableCaption>
+            {activeTab === StakingTab.StakeOptions ? "Your Staking Positions" : "Your Stakes"}
+          </TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead className="w-[100px]">Token</TableHead>
               <TableHead>APR (fix rate)</TableHead>
               <TableHead>Stake Period</TableHead>
-              <TableHead className="text-left">Total Staked</TableHead>
-              <TableHead className="text-left">TVL USD</TableHead>
-              <TableHead className="text-left">Mining Pool (CSHOP)</TableHead>
+              <TableHead className="text-left">
+                {activeTab === StakingTab.StakeOptions ? "Total Staked" : "Your Stake Amount"}
+              </TableHead>
+              <TableHead className="text-left">
+                {activeTab === StakingTab.StakeOptions ? "TVL USD" : "Reward"}
+              </TableHead>
+              <TableHead className="text-left">
+                {activeTab === StakingTab.StakeOptions
+                  ? "Mining Pool (CSHOP)"
+                  : "Token Unlock Period"}
+              </TableHead>
               <TableHead className="text-center">Operate</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {STAKING_TABLE_DATA.map((data, index) => (
+            {STAKING_TABLE_DATA.map((data: StakingTableDataItem, index) => (
               <TableRow key={index}>
                 <TableCell className="font-medium">{data.token}</TableCell>
                 <TableCell>{data.apr}%</TableCell>
                 <TableCell>{data.stakePeriod}</TableCell>
-                <TableCell className="text-left">{data.totalStaked}</TableCell>
-                <TableCell className="text-left">{data.tvlUsd}</TableCell>
+                <TableCell className="text-left">
+                  {activeTab === StakingTab.StakeOptions ? data.totalStaked : data.myStake}
+                </TableCell>
+                <TableCell className="text-left">
+                  {activeTab === StakingTab.StakeOptions ? data.tvlUsd : data.rewardEarned}
+                </TableCell>
                 <TableCell>
-                  <MiningPoolProgress
-                    totalTokens={data.miningPool.totalTokens}
-                    currentTokens={data.miningPool.currentTokens}
-                  />
+                  {activeTab === StakingTab.StakeOptions ? (
+                    data.miningPool ? (
+                      <MiningPoolProgress
+                        totalTokens={data.miningPool.totalTokens}
+                        currentTokens={data.miningPool.currentTokens}
+                      />
+                    ) : (
+                      <span>No Pool</span> // Fallback text
+                    )
+                  ) : (
+                    data.tokenUnlockPeriod
+                  )}
                 </TableCell>
                 <TableCell className="flex justify-center">
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button size={ButtonSize.SMALL} shape={ButtonShape.ROUND}>
-                        Stake
-                      </Button>
-                    </DialogTrigger>
-                    <StakeModal />
-                  </Dialog>
+                  {activeTab === StakingTab.StakeOptions ? (
+                    <Dialog>
+                    
+                      <button onClick={() => setStakeModalOpen(true)} className="gradient-button !py-2 !px-4">Stake</button>
+      <StakeModal
+        isOpen={isStakeModalOpen}
+        onClose={() => setStakeModalOpen(false)}
+      />
+                    
+                    </Dialog>
+                  ) : (
+                    <button
+                    onClick={handleOpenModal}
+                    className="gradient-button !py-2 !px-4 text-white"
+                  >
+                    Claim
+                  </button>
+        
+                  )}
+                  <ClaimModal isOpen={isClaimModalOpen} onClose={handleCloseModal} />
+
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </div>
-      <Footer/>
+      <Footer />
     </main>
   );
 };

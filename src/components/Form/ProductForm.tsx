@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import UploadImage from "./UploadImage";
-import RichTextEditor from "./RichTextArea";
+import RichTextEditor from "./RichTextEditor";
 import InputField from "./InputField";
 import TextArea from "./TextArea";
 import Button from "./Button";
@@ -12,9 +12,12 @@ import SelectField from "./SelectField";
 import { useUserStore } from "@/store";
 import { useCreateProduct } from "@/hooks";
 import { TCreateProductData } from "@/types";
+import TOKEN_ADDRESS from "@/constants/tokenAddress";
+import { HypeModal } from "./HypeModal";
 
 const ProductForm = () => {
   const [loading, setLoading] = useState(false);
+  const [isHypeModalOpen, setIsHypeModalOpen] = useState(false); // State for hype modal
 
   const { user } = useUserStore();
 
@@ -23,15 +26,15 @@ const ProductForm = () => {
     description: "",
     productAddress: "",
     details: "",
-    category: "", // Will hold category ID
+    category: "",
     currencyType: "CSHOP",
     stock: "",
     price: "",
-    shippingCharge: "",
+    shippingCharges: "",
     shippingType: "LOCAL",
     shippingDuration: "",
     images: [],
-    sellerId: user?._id ?? "0x0000000000000000000000000000000000000000",
+    sellerId: user?._id ?? "",
   });
 
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
@@ -58,7 +61,7 @@ const ProductForm = () => {
   };
 
   const handleCategoryChange = (categoryId: string) => {
-    setFormData((prev) => ({ ...prev, category: categoryId })); // Set the selected category ID
+    setFormData((prev) => ({ ...prev, category: categoryId }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -70,69 +73,55 @@ const ProductForm = () => {
       formDataToSubmit.append("description", formData.description);
       formDataToSubmit.append("productAddress", formData.productAddress);
       formDataToSubmit.append("details", formData.details);
-      formDataToSubmit.append("category", formData.category); // Send category ID to backend
+      formDataToSubmit.append("category", formData.category);
       formDataToSubmit.append("currencyType", formData.currencyType);
       formDataToSubmit.append("stock", formData.stock);
       formDataToSubmit.append("price", formData.price);
-      formDataToSubmit.append("shippingCharge", formData.shippingCharge);
+      formDataToSubmit.append("shippingCharges", formData.shippingCharges);
       formDataToSubmit.append("shippingDuration", formData.shippingDuration);
       formDataToSubmit.append("shippingType", formData.shippingType);
-      formDataToSubmit.append("sellerId", formData.sellerId); // Example seller ID
-      formDataToSubmit.append("currencyAddress", formData.currencyType);
+      formDataToSubmit.append("sellerId", formData.sellerId);
+      formDataToSubmit.append(
+        "currencyAddress",
+        TOKEN_ADDRESS[formData.currencyType]
+      );
 
       selectedImages.forEach((file) => {
         formDataToSubmit.append("images", file);
       });
 
-      await mutateAsync(formData);
+      await mutateAsync(formDataToSubmit);
 
-      // const formDataToSubmit = new FormData();
-      // Object.entries(formData).forEach(([key, value]) => {
-      //   formDataToSubmit.append(key, value);
-      // });
-      // formDataToSubmit.append("sellerId", user?._id ?? "");
-
-      // const data: TCreateProductData = {
-      //   sellerId: user?._id ?? "",
-      //   currencyType: formData.currencyType,
-      //   name: formData.name,
-      //   description: formData.description,
-      //   details: formData.details,
-      //   images: selectedImages,
-      //   shippingType: formData.shippingType,
-      //   shippingCharge: formData.shippingCharge,
-      //   shippingDuration: formData.shippingDuration,
-      //   category: formData.category,
-      //   productAddress: formData.productAddress,
-      //   price: formData.price,
-      //   stock: formData.stock,
-      // };
-
-      // await mutateAsync(data);
-
-      // Clear the form and selected images
       setFormData({
         name: "",
         description: "",
         productAddress: "",
         details: "",
-        category: "", // Will hold category ID
+        category: "",
         currencyType: "CSHOP",
         stock: "",
         price: "",
-        shippingCharge: "",
+        shippingCharges: "",
         shippingType: "LOCAL",
         shippingDuration: "",
         images: [],
         sellerId: "",
       });
 
-      setSelectedImages([]); // Reset selected images
+      setSelectedImages([]);
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
+  };
+
+  const openHypeModal = () => {
+    setIsHypeModalOpen(true); // Open the hype modal
+  };
+
+  const closeHypeModal = () => {
+    setIsHypeModalOpen(false); // Close the hype modal
   };
 
   return (
@@ -167,6 +156,13 @@ const ProductForm = () => {
           value={formData.details}
           onChange={handleRichTextChange}
         />
+        <button
+          type="button"
+          className="gradient-button my-2"
+          onClick={openHypeModal} // Open hype modal on click
+        >
+          AIShophee
+        </button>
         <CategorySelect
           category={formData.category}
           onChange={handleCategoryChange}
@@ -210,9 +206,9 @@ const ProductForm = () => {
           <InputField
             label="Shipping charge"
             placeholder="Enter Shipping price"
-            name="shippingCharge"
+            name="shippingCharges"
             type="number"
-            value={formData.shippingCharge}
+            value={formData.shippingCharges}
             onChange={handleChange}
           />
           <SelectField
@@ -240,6 +236,11 @@ const ProductForm = () => {
         />
         <ToastNotification />
       </form>
+
+      {/* Hype Modal */}
+      {isHypeModalOpen && (
+        <HypeModal isOpen={isHypeModalOpen} onClose={closeHypeModal} />
+      )}
     </div>
   );
 };

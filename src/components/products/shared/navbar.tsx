@@ -55,8 +55,8 @@ const Navbar: React.FC<INavbarProps> = ({ className, ...props }) => {
         </div>
       </div>
 
-      <div className="flex w-full items-center justify-around mt-4">
-        <div className="w-[50vw] lg:w-[600px]">
+      <div className="flex w-full items-center justify-between px-4 lg:px-32 mt-4">
+        <div className="w-[45vw] lg:w-[600px]">
           <Searchbar />
         </div>
         <Link href="/form" className="">

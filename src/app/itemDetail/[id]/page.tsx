@@ -1,13 +1,14 @@
-import  ItemDetail  from '@/components/itemDetail/ItemDetail';
+"use client";
+import  ItemDetail  from '@/components/SingleDetail/SingleDetail';
 import React from 'react';
+import { useParams } from 'next/navigation';
 
 const ItemDetailPage = () => {
-    const id = '5423423423432423'
-
+  const { id } = useParams<{ id: string }>(); 
 
   return (
     <div>
-      <ItemDetail  id={id}/>
+      <ItemDetail orderId={id} /> 
     </div>
   );
 };

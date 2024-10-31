@@ -18,28 +18,26 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
 interface ComboboxDemoProps {
   data: { label: string; value: string }[];
   notFoundText: string;
   placeholder: string;
   onValueChange?: (value: string) => void;
+  value?: string;  // <-- Accept a value prop to show the current selection
 }
 
 export function ComboboxDemo({
   data,
   notFoundText,
   placeholder,
-  onValueChange, 
+  onValueChange,
+  value = "",  // Default value to an empty string
 }: ComboboxDemoProps) {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
 
   const handleSelect = (currentValue: string) => {
     const selectedValue = currentValue === value ? "" : currentValue;
-    setValue(selectedValue);
     setOpen(false);
-
     if (onValueChange) {
       onValueChange(selectedValue); 
     }
@@ -54,11 +52,11 @@ export function ComboboxDemo({
           aria-expanded={open}
           className={cn(
             "w-full justify-between",
-            `${value ? "text-black" : "text-[#6F8294]"}`
+            `${value ? "text-black" : "text-[#6F8294]"}` 
           )}
         >
           {value
-            ? data.find((data) => data.value === value)?.label
+            ? data.find((data) => data.value === value)?.label // Show current value
             : placeholder}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -69,19 +67,19 @@ export function ComboboxDemo({
           <CommandList>
             <CommandEmpty>{notFoundText}</CommandEmpty>
             <CommandGroup>
-              {data.map((data) => (
+              {data.map((item) => (
                 <CommandItem
-                  key={data.value}
-                  value={data.value}
-                  onSelect={handleSelect} 
+                  key={item.value}
+                  value={item.value}
+                  onSelect={handleSelect}
                 >
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      value === data.value ? "opacity-100" : "opacity-0"
+                      value === item.value ? "opacity-100" : "opacity-0"
                     )}
                   />
-                  {data.label}
+                  {item.label}
                 </CommandItem>
               ))}
             </CommandGroup>

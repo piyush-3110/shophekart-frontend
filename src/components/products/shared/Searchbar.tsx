@@ -2,16 +2,21 @@
 import { Input } from "@/components/ui/input";
 import { useUserStore } from "@/store";
 import Image from "next/image";
-import { useState, KeyboardEvent } from "react";
+import { useState, useEffect, KeyboardEvent } from "react";
 
 const Searchbar = () => {
   const setSearchTerm = useUserStore((state) => state.setSearchTerm);
   const [localSearch, setLocalSearch] = useState<string>("");
 
+  useEffect(() => {
+    // Clear search term and input field when the component loads
+    setSearchTerm("");
+    setLocalSearch("");
+  }, [setSearchTerm]);
+
   const handleSearch = () => {
-    if (localSearch.trim()) {
-      setSearchTerm(localSearch);
-    }
+    // Set search term from input or empty to fetch all products
+    setSearchTerm(localSearch.trim() ? localSearch : "");
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {

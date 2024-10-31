@@ -115,7 +115,7 @@ export default function FloatingNavbar() {
                 onClick={() => setIsStakingOpen(!isStakingOpen)}
               >
                 <FaAnchor />
-                <span>Staking</span>
+                <span>Token Side</span>
                 <FaChevronDown
                   className={`transition-transform duration-300 ease-in-out ${
                     isStakingOpen ? "rotate-180" : "rotate-0"
@@ -129,6 +129,12 @@ export default function FloatingNavbar() {
                     className="text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
                   >
                     Staking
+                  </Link>
+                  <Link
+                    href="/staking"
+                    className="text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
+                  >
+                    Vesting
                   </Link>
                   <Link
                     href="/dao"

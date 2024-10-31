@@ -11,7 +11,7 @@ import FetchError from "../shared/FetchError";
 import { TSingleProduct } from "@/types/product";
 
 interface ItemDetailProps {
-  id: string; // Accept id as a prop
+  id: string; 
 }
 
 export const ItemDetail: React.FC<ItemDetailProps> = ({ id }) => {
@@ -59,7 +59,7 @@ export const ItemDetail: React.FC<ItemDetailProps> = ({ id }) => {
         <div className="flex flex-col md:flex-row gap-4 lg:gap-12 items-center justify-center">
           {" "}
           {/* {Item Details Section} */}
-          <div>
+          <div className="sticky top-0 self-start">
             <ItemCard images={product.images} /> {/* Display fetched images */}
           </div>
           <div>
@@ -89,7 +89,7 @@ export const ItemDetail: React.FC<ItemDetailProps> = ({ id }) => {
               Write a comment
             </button> */}
           </div>
-          <div className="pl-3 md:pl-16 flex flex-col items-center gap-3">
+          <div className="pl-3 md:pl-16 flex flex-col gap-3">
             <ReviewSection targetId={product._id} />
             {product.reviewCount > 0 && (
               <button className="text-[#022AFF] font-[700] mx-auto text-sm underline text-center">

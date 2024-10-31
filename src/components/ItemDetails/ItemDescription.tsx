@@ -13,6 +13,7 @@ import { TCurrencyType } from "@/types/product";
 import { useCreateOrderOnChain } from "@/hooks";
 import { useUserStore } from "@/store";
 import ShippingModal from "./ShippingModal";
+import ConnectWalletButton from "../shared/ConnectWalletButton";
 
 interface ItemDescriptionProps {
   name: string;
@@ -48,7 +49,7 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
   reviewCount,
 }) => {
   const { toast } = useToast();
-  const { user } = useUserStore();
+  const { user, authStatus } = useUserStore();
 
   const {
     createOrderBNB,
@@ -81,7 +82,7 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
           productId: id,
           productIdOnChain,
           shippingPrice: shippingCharges,
-          shippingAddress: shippingAddressId,  // Add the shipping address ID to the payload
+          shippingAddress: shippingAddressId, // Add the shipping address ID to the payload
         }
       );
 
@@ -109,7 +110,7 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
 
   const handleOrderCreate = async (shippingAddressId: string) => {
     try {
-      await mutateAsync(shippingAddressId);  // Pass the shippingAddressId to the mutation
+      await mutateAsync(shippingAddressId); // Pass the shippingAddressId to the mutation
     } catch (error) {
       console.error("Error creating order:", error);
     }
@@ -158,13 +159,17 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
         </div>
       </div>
 
-      <button
-        className="gradient-button mt-3 !text-sm !w-fit"
-        onClick={handleOpenModal}
-        disabled={isLoading || isPending}
-      >
-       Buy now
-      </button>
+      {authStatus === "authenticated" ? (
+        <button
+          className="gradient-button mt-3 !text-sm !w-fit"
+          onClick={handleOpenModal}
+          disabled={isLoading || isPending}
+        >
+          Buy now
+        </button>
+      ) : (
+        <ConnectWalletButton />
+      )}
       {isModalOpen && (
         <ShippingModal
           isOpen={isModalOpen}

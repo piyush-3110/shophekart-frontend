@@ -10,15 +10,14 @@ import { useQuery } from "@tanstack/react-query";
 import { useUserStore } from "@/store";
 import { Suspense } from "react";
 
-const PAGINATION_CONSTANT = 6;
+const PAGINATION_CONSTANT = 12;
 
 const Productpage = () => {
   const searchParams = useSearchParams();
-  const searchTerm = useUserStore((state) => state.searchTerm); // Access search term from Zustand
+  const searchTerm = useUserStore((state) => state.searchTerm);
   const pageParam = searchParams.get("page");
   const currentPage = pageParam ? parseInt(pageParam) : 1;
 
-  // Fetch products based on searchTerm or get all on page load
   const { data, error, isLoading } = useQuery({
     queryKey: ["products", searchTerm],
     queryFn: async () => {
@@ -28,8 +27,8 @@ const Productpage = () => {
       const response = await HttpRequestService.fetchApi<IProduct[]>(endpoint);
       return response;
     },
-    enabled: searchTerm !== undefined, // Only fetch when page is loaded or searchTerm changes
-    staleTime: Infinity, // Keep data fresh until page is reloaded
+    enabled: searchTerm !== undefined,
+    staleTime: Infinity,
   });
 
   if (isLoading) {
@@ -55,7 +54,6 @@ const Productpage = () => {
   const paginatedProducts = products.slice(startIndex, endIndex);
 
   return (
-    
     <section className="space-y-8 py-8">
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-4">
         {paginatedProducts.map((product) => (

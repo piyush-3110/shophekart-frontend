@@ -17,7 +17,7 @@ import { HypeModal } from "./HypeModal";
 
 const ProductForm = () => {
   const [loading, setLoading] = useState(false);
-  const [isHypeModalOpen, setIsHypeModalOpen] = useState(false); // State for hype modal
+  const [isHypeModalOpen, setIsHypeModalOpen] = useState(false); 
 
   const { user } = useUserStore();
 
@@ -117,11 +117,11 @@ const ProductForm = () => {
   };
 
   const openHypeModal = () => {
-    setIsHypeModalOpen(true); // Open the hype modal
+    setIsHypeModalOpen(true); 
   };
 
   const closeHypeModal = () => {
-    setIsHypeModalOpen(false); // Close the hype modal
+    setIsHypeModalOpen(false); 
   };
 
   return (

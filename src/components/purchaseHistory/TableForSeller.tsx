@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { ProductCard } from "../Profile/ProductCard";
 import { toast } from "@/hooks/use-toast";
 import { useChangeOrderStatus } from "@/hooks";
@@ -70,7 +69,6 @@ const TableForSeller: React.FC<TableProps> = ({ headers, data }) => {
   return (
     <div className="relative w-full py-4">
       <div className="w-full py-4 overflow-x-auto scrollbar-hide">
-        {/* Table Header */}
         <div className="grid grid-cols-7 min-w-[800px] text-left font-bold text-[#6B6F93] text-[18px] py-4">
           {headers.map((header, index) => (
             <p key={index} className={`col-span-${header.span || 1}`}>
@@ -86,21 +84,21 @@ const TableForSeller: React.FC<TableProps> = ({ headers, data }) => {
             className="grid grid-cols-7 gap-4 min-w-[800px] items-center py-4"
           >
             <div className="col-span-2">
-              <ProductCard
-                imageUrl={item.imageUrl}
-                category={item.category}
-                status={statuses[index]} // Use local status
-                title={item.title}
-                description={item.description}
-              />
+            <ProductCard
+              imageUrl={item.imageUrl}
+              category={item.category}
+              status={statuses[index]}
+              title={item.title}
+              description={item.description}
+              orderId={item.orderId}
+              basePath="/itemDetail" 
+            />
             </div>
             <p className="text-[#160041] text-sm">{item.type}</p>
             <OrderHistoryPrice
               currencyType={item.currencyType}
               soldPrice={item.soldPrice}
             />
-
-            {/* Dropdown to select status */}
             <div className="text-[#160041] text-sm">
               <select
                 value={statuses[index]}
@@ -113,8 +111,6 @@ const TableForSeller: React.FC<TableProps> = ({ headers, data }) => {
                 <option value="delivering">Delivering</option>
               </select>
             </div>
-
-            {/* Submit button to update status */}
             <div className="flex items-center col-span-2">
               <button
                 onClick={() => handleSubmitStatus(index)}

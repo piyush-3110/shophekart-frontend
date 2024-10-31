@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import {AiShopheLogo} from "@/icons";
 import React, { useEffect } from "react";
 import { IoClose } from "react-icons/io5"; // Close icon
 import { toast } from "react-toastify"; // Import toast for notification (install react-toastify if not installed)
@@ -58,41 +58,39 @@ export const HypeModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
 
         {/* Modal Content */}
         <div className="overflow-y-auto flex flex-col py-4 h-full">
-       <Image src="/images/shared/aiShopee.png" alt="logo" height={540} width={540} className="h-[8rem] w-auto mx-auto mb-6"/>
-
+        {/* Logo */}
+       <AiShopheLogo className="h-12 min-h-12 w-auto mx-auto mb-6"/>
           {/* First Text Area */}
           <label className="text-gray-700 font-medium mb-2">
             Enter a short description of your product, include the most important advantages of the item
           </label>
           <textarea
             className="w-full h-28 p-4 border border-gray-300 rounded-lg mb-6"
-            placeholder="Write a short description here."
-            
-            onClick={handleComingSoon}
+            placeholder="Coming soon..."
+disabled
           ></textarea>
 
           {/* Second Text Area */}
           <label className="text-gray-700 font-medium mb-2">
             Here AIShophee will prepare a complete and advanced description for you
           </label>
-          <textarea
+          <div
             className="w-full h-28 p-4 border border-gray-300 rounded-lg mb-6"
-            placeholder="AIShophee is preparing your description..."
-          
-            onClick={handleComingSoon}
-          ></textarea>
+          >
+            <p className="select-none text-neutral-400">AIShophee is preparing your description...</p>
+          </div>
 
           {/* Buttons */}
           <div className="flex justify-between mt-6">
             <button
               className="gradient-button text-white"
-          
+
               onClick={handleComingSoon}
             >
               Generate Description
             </button>
             <button className="gradient-border !rounded-sm text-[#3f5af7] font-[500] py-2 px-6  hover:text-[#445de9]"
-             
+
               onClick={handleComingSoon}
             >
               Save & Use AIShophee

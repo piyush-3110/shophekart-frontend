@@ -7,3 +7,4 @@ export { default as HelpIcon } from "./HelpIcon";
 export { default as HistoryIcon } from "./HistoryIcon";
 export { default as LogoutIcon } from "./LogoutIcon";
 export { default as UserProfileIcon } from "./UserProfileIcon";
+export { default as AiShopheLogo } from "./AiShopheLogo";

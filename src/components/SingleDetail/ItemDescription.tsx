@@ -1,88 +1,65 @@
-import React, { useState } from 'react';
+import WalletAddressWithCopy from '../shared/WalletAddressWithCopy';
+import { OrderStatus } from './SingleDetail';
+import OrderHistoryPrice from '../purchaseHistory/OrderHistoryPrice';
+import { FC } from 'react';
 
 interface ItemDescriptionProps {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  shipping: string;
-  type: string;
-  details: string;
-  currencyType: string; 
-  walletAddress: string; 
-  initialStatus: 'pending' | 'delivering';
+    title: string;
+    description: string;
+    price: number;
+    shipping: Date;
+    type: string;
+    currencyType: string;
+    walletAddress: `0x${string}`;
+    status: OrderStatus;
+    category: string
 }
 
-const ItemDescription: React.FC<ItemDescriptionProps> = ({
-  id,
-  title,
-  description,
-  price,
-  shipping,
-  type,
-  currencyType, 
-  walletAddress, 
-  initialStatus,
+const ItemDescription: FC<ItemDescriptionProps> = ({
+    title,
+    description,
+    price,
+    shipping,
+    type,
+    currencyType,
+    walletAddress,
+    status,
+    category
 }) => {
-  const [status, setStatus] = useState<'pending' | 'delivering'>(initialStatus);
 
-  const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setStatus(event.target.value as 'pending' | 'delivering');
-  };
+    return (
+        <div className="bg-white p-4 shadow-lg rounded-lg w-full pb-4 lg:w-[50vw]">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">{title}</h2>
+            <p className="text-md text-neutral-600 mb-8">{description}</p>
 
-  return (
-    <div className="bg-white p-4 shadow-lg rounded-lg w-full pb-4 lg:w-[50vw]">
-      <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
-      <p className="text-sm text-gray-600 mb-2">{description}</p>
-
-      <div className="space-y-1">
-          
-        <div className="flex justify-between text-gray-700 text-sm">
-          <span className="font-bold">Type:</span>
-          <span>{type}</span>
+            <div className="space-y-2">
+                <div className="flex justify-between text-gray-700 text-sm">
+                    <span className="font-bold">Type:</span>
+                    <span className="capitalize">{type === 'FixedProduct' ? 'Buy Now' : 'Auction'}</span>
+                </div>
+                <div className="flex justify-between text-gray-700 text-sm">
+                    <span className="font-bold">Category:</span>
+                    <span className="capitalize">{category}</span>
+                </div>
+                <div className="flex justify-between text-gray-700 text-sm">
+                    <span className="font-bold">Price:</span>
+                    <OrderHistoryPrice currencyType={currencyType} soldPrice={price} className="text-sm" />
+                </div>
+                <div className="flex justify-between text-gray-700 text-sm">
+                    <span className="font-bold">Delivery by:</span>
+                    <span>{new Date(shipping).toLocaleDateString()}</span>
+                </div>
+                <div className="flex justify-between text-gray-700 text-sm">
+                    <span className="font-bold">Wallet Address:</span>
+                    <WalletAddressWithCopy walletAddress={walletAddress} className="text-sm font-normal" />
+                </div>
+                <div className="flex justify-between text-gray-700 text-sm">
+                    <span className="font-bold">Status:</span>
+                    <span className="capitalize">{status}</span>
+                </div>
+            </div>
         </div>
-        <div className="flex justify-between text-gray-700 text-sm">
-          <span className="font-bold">Price:</span>
-          <span>
-            {price.toFixed(4)} {currencyType}
-          </span>
-        </div>
-        <div className="flex justify-between text-gray-700 text-sm">
-          <span className="font-bold">Shipping:</span>
-          <span>{shipping}</span>
-        </div>
-        <div className="flex justify-between text-gray-700 text-sm">
-          <span className="font-bold">Product ID:</span>
-          <span>{id}</span>
-        </div>
-       
-        <div className="flex justify-between text-gray-700 text-sm">
-          <span className="font-bold">Wallet Address:</span>
-          <span>{walletAddress}</span>
-        </div>
-        <div className="flex justify-between text-gray-700 text-sm">
-          <span className="font-bold">Status:</span>
-          <span>{status.charAt(0).toUpperCase() + status.slice(1)}</span>
-        </div>
-      </div>
-
-      <div className="mt-4">
-        <label className="text-sm font-medium" htmlFor="order-status">
-          Order Status:
-        </label>
-        <select
-          id="order-status"
-          value={status}
-          onChange={handleStatusChange}
-          className="w-full mt-1 border border-gray-300 rounded-md p-1 text-sm focus:ring-indigo-500"
-          aria-label="Order Status"
-        >
-          <option value="pending">Pending</option>
-          <option value="delivering">Delivering</option>
-        </select>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default ItemDescription;

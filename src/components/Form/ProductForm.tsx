@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import UploadImage from "./UploadImage";
 import RichTextEditor from "./RichTextEditor";
 import InputField from "./InputField";
@@ -17,7 +17,7 @@ import { HypeModal } from "./HypeModal";
 
 const ProductForm = () => {
   const [loading, setLoading] = useState(false);
-  const [isHypeModalOpen, setIsHypeModalOpen] = useState(false); 
+  const [isHypeModalOpen, setIsHypeModalOpen] = useState(false);
 
   const { user } = useUserStore();
 
@@ -56,9 +56,9 @@ const ProductForm = () => {
     setFormData((prev) => ({ ...prev, details: value }));
   };
 
-  const handleFileSelect = (files: File[]) => {
+  const handleFileSelect = useCallback((files: File[]) => {
     setSelectedImages(files);
-  };
+  },[])
 
   const handleCategoryChange = (categoryId: string) => {
     setFormData((prev) => ({ ...prev, category: categoryId }));
@@ -117,11 +117,11 @@ const ProductForm = () => {
   };
 
   const openHypeModal = () => {
-    setIsHypeModalOpen(true); 
+    setIsHypeModalOpen(true);
   };
 
   const closeHypeModal = () => {
-    setIsHypeModalOpen(false); 
+    setIsHypeModalOpen(false);
   };
 
   return (

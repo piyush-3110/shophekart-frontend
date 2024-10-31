@@ -8,6 +8,7 @@ import { HttpRequestService } from "@/services";
 import { IProduct } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { useUserStore } from "@/store";
+import { useEffect } from "react";
 import { Suspense } from "react";
 
 const PAGINATION_CONSTANT = 12;
@@ -18,7 +19,7 @@ const Productpage = () => {
   const pageParam = searchParams.get("page");
   const currentPage = pageParam ? parseInt(pageParam) : 1;
 
-  const { data, error, isLoading } = useQuery({
+  const { data, error, isLoading, refetch } = useQuery({
     queryKey: ["products", searchTerm],
     queryFn: async () => {
       const endpoint = searchTerm
@@ -27,9 +28,21 @@ const Productpage = () => {
       const response = await HttpRequestService.fetchApi<IProduct[]>(endpoint);
       return response;
     },
-    enabled: searchTerm !== undefined,
+    enabled: true,
     staleTime: Infinity,
   });
+
+  useEffect(() => {
+    // Refetch whenever the component mounts (initial load)
+    refetch();
+  }, [refetch]);
+
+  useEffect(() => {
+    if (!searchTerm) {
+      // Refetch to get all products if search term is empty
+      refetch();
+    }
+  }, [searchTerm, refetch]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -72,6 +85,7 @@ const Productpage = () => {
     </section>
   );
 };
+
 const page = () => (
   <Suspense fallback={<div>Loading page...</div>}>
     <Productpage />

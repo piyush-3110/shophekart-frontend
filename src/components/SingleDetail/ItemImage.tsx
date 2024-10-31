@@ -1,4 +1,5 @@
 // import Image from 'next/image';
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 interface ItemImageProps {
@@ -18,7 +19,7 @@ const ItemImage: React.FC<ItemImageProps> = ({ mainImage, images, altText }) => 
     <div className="bg-[#F4F6FA] shadow-sm p-2 rounded-lg w-full lg:w-[30vw]">
 
       <div className="flex items-center justify-center h-60">
-        <img
+        <Image
           className="h-full w-full object-cover rounded-md"
           src={activeImage}
           height={524}
@@ -30,7 +31,7 @@ const ItemImage: React.FC<ItemImageProps> = ({ mainImage, images, altText }) => 
       <div className="flex justify-center mt-2">
         <div className="grid grid-cols-4 gap-1">
           {images.map((thumbnail, index) => (
-            <img
+            <Image
               key={index}
               height={70}
               width={70}

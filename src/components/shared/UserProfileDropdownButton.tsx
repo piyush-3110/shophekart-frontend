@@ -19,6 +19,7 @@ import {
 } from "@/icons";
 import { useUserStore } from "@/store";
 import { PurchaseHistoryModal } from "../purchaseHistory/PurchaseHistoryModal";
+
 const DROPDOWN_MENU_ITEMS: {
   label: string;
   icon: React.ReactNode;
@@ -31,7 +32,11 @@ const DROPDOWN_MENU_ITEMS: {
     link: "/profile",
   },
   { label: "Chat", icon: <ChatIcon />, link: "/chat" },
-  { label: "Support & helps", icon: <HelpIcon />, link: "/support" },
+  {
+    label: "Support & helps",
+    icon: <HelpIcon />,
+    action: () => window.open("mailto:support@shophekart.com"), // Mailto action
+  },
   {
     label: "Purchase history",
     icon: <HistoryIcon />,

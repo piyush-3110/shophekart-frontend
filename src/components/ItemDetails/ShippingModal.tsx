@@ -8,6 +8,9 @@ import { ComboboxDemo } from "@/components/ui/combobox";
 import { Label } from "@/components/ui/label";
 import { useUserStore } from "@/store";
 import { Country } from "country-state-city";
+import Loader from "../Form/Loader";
+import { toast } from "react-toastify";
+
 
 interface ShippingField {
   id: string;
@@ -74,6 +77,8 @@ const ShippingFields: ShippingField[] = [
 interface ShippingModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onClose1: () => void;
+
   onOrderCreate: (shippingAddressId: string) => void; // Callback to trigger order creation
 }
 
@@ -81,7 +86,10 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
   isOpen,
   onClose,
   onOrderCreate,
+  onClose1
 }) => {
+  const [loading, setLoading] = useState(false); // Loading state
+
   const { user } = useUserStore();
   const [formData, setFormData] = useState({
     firstName: "",
@@ -104,15 +112,19 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
     const { id, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [id]: value }));
   };
-
+const handleClose=()=>{
+  onClose1();
+  onClose();
+}
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!user || !user._id) {
-      alert("No user found. Please log in.");
+      toast.error("No user found. Please log in."); // Show error toast
+
       return;
     }
-
+setLoading(true)
     try {
       const response = await httpRequestService.postApi("/shipping-address/create", {
         ...formData,
@@ -123,14 +135,19 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
       if (response.success) {
         const parentId = (response.data as any)._id;
         onOrderCreate(parentId);
-        alert("Shipping address created successfully!");
-        onClose(); // Close the modal after submission
+       toast.success("Shipping address updated successfully");
+        onClose1(); 
+        onClose();
+      
       } else {
-        alert(response.message || "Failed to create shipping address.");
+       
       }
     } catch (error) {
       console.error("Error creating shipping address:", error);
-      alert("An error occurred while creating the shipping address.");
+      toast.error("Error creating shipping address");
+    }
+    finally {
+      setLoading(false); // Reset loading to false after the request completes
     }
   };
 
@@ -143,7 +160,7 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
     const fetchShippingAddress = async () => {
       try {
         const response = await httpRequestService.fetchApi<any>("/shipping-address/me");
-        console.log("Shipping Address Response:", response);
+     
   
         if (response.success && response.data.length > 0) {
           const addressData = response.data[response.data.length - 1];
@@ -210,21 +227,22 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
   return (
     <div
       className="fixed inset-0 w-full z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm"
-      onClick={onClose}
+      onClick={handleClose}
     >
+    
       <div
-        className="relative w-[90vw] h-[80vh] bg-white shadow-lg rounded-lg p-6"
+        className="relative w-[90vw] bg-white shadow-lg rounded-lg p-6"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
-          onClick={onClose}
+          onClick={handleClose}
         >
           <IoClose size={24} />
         </button>
 
         <form onSubmit={handleSubmit}>
-  <div className="space-y-10 grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-y-8 lg:gap-y-14 gap-x-12">
+  <div className=" grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-y-8  lg:gap-y-14 gap-x-12">
     {ShippingFields.map((field) => (
       <div key={field.id} className="flex flex-col gap-2">
         <Label htmlFor={field.id} className="text-[#6F8294]">
@@ -261,7 +279,8 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
     shape={ButtonShape.ROUND}
     className="mt-8"
   >
-    Confirm Shipping & Buy Now
+                {loading ? <Loader /> : "Confirm Shipping & Buy Now"} {/* Show loader or button text */}
+
   </Button>
 </form>
 

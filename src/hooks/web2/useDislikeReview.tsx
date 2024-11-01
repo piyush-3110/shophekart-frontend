@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { envConfig } from "@/config/envConfig";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";

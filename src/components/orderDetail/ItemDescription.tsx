@@ -13,6 +13,7 @@ interface ItemDescriptionProps {
     walletAddress: `0x${string}`;
     status: OrderStatus;
     category: string
+    nftId: number
 }
 
 const ItemDescription: FC<ItemDescriptionProps> = ({
@@ -24,7 +25,8 @@ const ItemDescription: FC<ItemDescriptionProps> = ({
     currencyType,
     walletAddress,
     status,
-    category
+    category,
+    nftId
 }) => {
 
     return (
@@ -36,6 +38,10 @@ const ItemDescription: FC<ItemDescriptionProps> = ({
                 <div className="flex justify-between text-gray-700 text-sm">
                     <span className="font-bold">Type:</span>
                     <span className="capitalize">{type === 'FixedProduct' ? 'Buy Now' : 'Auction'}</span>
+                </div>
+                <div className="flex justify-between text-gray-700 text-sm">
+                    <span className="font-bold">NFT Id:</span>
+                    <span className="capitalize">{nftId}</span>
                 </div>
                 <div className="flex justify-between text-gray-700 text-sm">
                     <span className="font-bold">Category:</span>

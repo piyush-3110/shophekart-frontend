@@ -9,6 +9,8 @@ import { Label } from "@/components/ui/label";
 import { useUserStore } from "@/store";
 import { Country } from "country-state-city";
 import Loader from "../Form/Loader";
+import { toast } from "react-toastify";
+
 
 interface ShippingField {
   id: string;
@@ -118,7 +120,8 @@ const handleClose=()=>{
     e.preventDefault();
 
     if (!user || !user._id) {
-      alert("No user found. Please log in.");
+      toast.error("No user found. Please log in."); // Show error toast
+
       return;
     }
 setLoading(true)
@@ -132,7 +135,7 @@ setLoading(true)
       if (response.success) {
         const parentId = (response.data as any)._id;
         onOrderCreate(parentId);
-       
+       toast.success("Shipping address updated successfully");
         onClose1(); 
         onClose();
       
@@ -141,7 +144,7 @@ setLoading(true)
       }
     } catch (error) {
       console.error("Error creating shipping address:", error);
-      alert("An error occurred while creating the shipping address.");
+      toast.error("Error creating shipping address");
     }
     finally {
       setLoading(false); // Reset loading to false after the request completes
@@ -226,6 +229,7 @@ setLoading(true)
       className="fixed inset-0 w-full z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm"
       onClick={handleClose}
     >
+    
       <div
         className="relative w-[90vw] h-[80vh] bg-white shadow-lg rounded-lg p-6"
         onClick={(e) => e.stopPropagation()}

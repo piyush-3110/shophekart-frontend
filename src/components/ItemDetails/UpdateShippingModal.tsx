@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { IoClose } from 'react-icons/io5';
 import Loader from '../Form/Loader';
 import ShippingModal from './ShippingModal';
+import { toast } from 'react-toastify';
 
 interface ModalProps {
   isOpen: boolean;
@@ -45,7 +46,7 @@ export const UpdateShippingModal: React.FC<ModalProps> = ({ isOpen, onClose, onO
     e.preventDefault();
 
     if (!user || !user._id) {
-      alert("No user found. Please log in.");
+ toast.error("No user found");
       return;
     }
 setLoading(true)
@@ -59,14 +60,13 @@ setLoading(true)
       if (response.success) {
         const parentId = (response.data as any)._id;
         onOrderCreate(parentId);
-        alert("Shipping address created successfully!");
+     
         onClose(); // Close the modal after submission
       } else {
         alert(response.message || "Failed to create shipping address.");
       }
     } catch (error) {
       console.error("Error creating shipping address:", error);
-      alert("An error occurred while creating the shipping address.");
     }
     finally {
       setLoading(false); // Reset loading to false after the request completes

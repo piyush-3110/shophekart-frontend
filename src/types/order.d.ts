@@ -53,6 +53,7 @@ export type TBuyerOrderHistory = {
   deliveryBy: Date;
   category: string;
   product: {
+    _id:string
     description: string;
     type: string;
     currencyType: string;

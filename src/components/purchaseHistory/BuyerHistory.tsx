@@ -66,6 +66,7 @@ const BuyerHistory: React.FC = () => {
       soldPrice: order.soldAtPrice + order.shippingPrice,
       currencyType: order.product.currencyType,
       orderId: order._id,
+      productId: order.product._id,
     };
   });
 

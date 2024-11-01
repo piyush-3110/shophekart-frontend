@@ -8,6 +8,7 @@ import { ComboboxDemo } from "@/components/ui/combobox";
 import { Label } from "@/components/ui/label";
 import { useUserStore } from "@/store";
 import { Country } from "country-state-city";
+import Loader from "../Form/Loader";
 
 interface ShippingField {
   id: string;
@@ -82,6 +83,8 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
   onClose,
   onOrderCreate,
 }) => {
+  const [loading, setLoading] = useState(false); // Loading state
+
   const { user } = useUserStore();
   const [formData, setFormData] = useState({
     firstName: "",
@@ -112,7 +115,7 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
       alert("No user found. Please log in.");
       return;
     }
-
+setLoading(true)
     try {
       const response = await httpRequestService.postApi("/shipping-address/create", {
         ...formData,
@@ -131,6 +134,9 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
     } catch (error) {
       console.error("Error creating shipping address:", error);
       alert("An error occurred while creating the shipping address.");
+    }
+    finally {
+      setLoading(false); // Reset loading to false after the request completes
     }
   };
 
@@ -261,7 +267,8 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
     shape={ButtonShape.ROUND}
     className="mt-8"
   >
-    Confirm Shipping & Buy Now
+                {loading ? <Loader /> : "Confirm Shipping & Buy Now"} {/* Show loader or button text */}
+
   </Button>
 </form>
 

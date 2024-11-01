@@ -14,6 +14,7 @@ import { useCreateProduct } from "@/hooks";
 import { TCreateProductData } from "@/types";
 import TOKEN_ADDRESS from "@/constants/tokenAddress";
 import { HypeModal } from "./HypeModal";
+// import { productValidationSchema } from "@/validations/productValidation";
 
 const ProductForm = () => {
   const [loading, setLoading] = useState(false);
@@ -68,6 +69,7 @@ const ProductForm = () => {
     e.preventDefault();
     setLoading(true);
     try {
+    
       const formDataToSubmit = new FormData();
       formDataToSubmit.append("name", formData.name);
       formDataToSubmit.append("description", formData.description);

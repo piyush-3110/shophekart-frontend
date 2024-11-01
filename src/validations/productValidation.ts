@@ -12,7 +12,7 @@ export const productValidationSchema = z.object({
   category: z.string().uuid({ message: "Category ID must be valid" }),
   currencyType: z.enum(["USDT", "USDC", "CSHOP", "BNB"],{
     required_error: "Currency type is required.",
-    invalid_type_error: "Scope must be either LOCAL or GLOBAL."
+    invalid_type_error: "Currency type is invalid."
   }),
   stock: z
     .number({ invalid_type_error: "Stock must be a number" })

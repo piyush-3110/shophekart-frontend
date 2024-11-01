@@ -12,6 +12,7 @@ interface SelectFieldProps {
   value: string;
   name: string;
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  error?:string;
 }
 
 const SelectField: React.FC<SelectFieldProps> = ({
@@ -19,6 +20,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
   options,
   value,
   name,
+  error,
   onChange,
 }) => {
   return (
@@ -37,6 +39,8 @@ const SelectField: React.FC<SelectFieldProps> = ({
           </option>
         ))}
       </select>
+      {error && <p className="text-red-600 text-sm mt-1">{error}</p>} {/* Display error message if it exists */}
+
     </div>
   );
 };

@@ -11,6 +11,7 @@ interface CategoryOption {
 interface CategorySelectProps {
   category: string;
   onChange: (categoryId: string) => void;
+  error?:string;
 }
 
 interface ICategory {
@@ -24,6 +25,7 @@ interface ICategory {
 const CategorySelect: React.FC<CategorySelectProps> = ({
   category,
   onChange,
+  error
 }) => {
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [loading, setLoading] = useState(true);
@@ -60,6 +62,8 @@ const CategorySelect: React.FC<CategorySelectProps> = ({
         value={category}
         onChange={(e) => onChange(e.target.value)}
       />
+            {error && <p className="text-red-600 text-sm mt-1">{error}</p>} {/* Display error message if it exists */}
+
     </div>
   );
 };

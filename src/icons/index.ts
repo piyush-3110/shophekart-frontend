@@ -9,3 +9,4 @@ export { default as LogoutIcon } from "./LogoutIcon";
 export { default as UserProfileIcon } from "./UserProfileIcon";
 export { default as AiShopheLogo } from "./AiShopheLogo";
 export { default as LikeIcon } from "./LikeIcon";
+export { default as DislikeIcon } from "./DislikeIcon";

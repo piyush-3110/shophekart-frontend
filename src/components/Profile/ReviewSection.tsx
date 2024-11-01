@@ -54,6 +54,9 @@ export const ReviewSection: FC<TProps> = ({ targetId }) => {
                     ratingValue={review.rating}
                     initialHelpfulCount={review.likes}
                     initialUnhelpfulCount={review.dislikes}
+                    isLikedByUser={review.isLikedByUser}
+                    isDislikedByUser={review.isDislikedByUser}
+                    trustScore={review.reviewer.trustScore}
                 />
             ))}
         </div>
@@ -72,4 +75,6 @@ type TReviewDocument = {
     rating: number;
     comment: string;
     likes: number;
+    isLikedByUser: boolean
+    isDislikedByUser: boolean
 }

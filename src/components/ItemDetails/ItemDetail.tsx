@@ -59,7 +59,7 @@ export const ItemDetail: React.FC<ItemDetailProps> = ({ id }) => {
                 <div className="flex flex-col md:flex-row gap-4 lg:gap-12 items-center justify-center">
                     {" "}
                     {/* {Item Details Section} */}
-                    <div className="sticky top-0 self-start">
+                    <div className="md:sticky top-0 self-start">
                         <ItemCard images={product.images} /> {/* Display fetched images */}
                     </div>
                     <div>

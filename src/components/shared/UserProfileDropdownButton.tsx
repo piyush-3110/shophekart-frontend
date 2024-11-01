@@ -15,35 +15,40 @@ import {
   ChatIcon,
   HelpIcon,
   HistoryIcon,
-  ShippingIcon,
   UserProfileIcon,
 } from "@/icons";
 import { useUserStore } from "@/store";
-
+import { PurchaseHistoryModal } from "../purchaseHistory/PurchaseHistoryModal";
 const DROPDOWN_MENU_ITEMS: {
   label: string;
   icon: React.ReactNode;
-  link?: string;
+  link?: string; // Keep link for navigation options
+  action?: () => void; // For modal or other actions
 }[] = [
   {
     label: "Profile",
     icon: <UserProfileIcon />,
     link: "/profile",
   },
-  { label: "Chat", icon: <ChatIcon /> },
-  { label: "Support & helps", icon: <HelpIcon /> },
-  { label: "Purchase history", icon: <HistoryIcon /> },
+  { label: "Chat", icon: <ChatIcon />, link: "/chat" },
+  { label: "Support & helps", icon: <HelpIcon />, link: "/support" },
   {
-    label: "Shipping details",
-    icon: <ShippingIcon />,
-    link: "/shipping-details",
+    label: "Purchase history",
+    icon: <HistoryIcon />,
+    action: () => {}, // Placeholder for modal action
   },
 ];
 
 const UserProfileDropdownButton = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for the modal
 
   const { user, authStatus } = useUserStore();
+
+  const handlePurchaseHistoryClick = () => {
+    setIsModalOpen(true);
+    setIsOpen(false); // Close dropdown when modal opens
+  };
 
   return (
     <div className="flex items-center w-fit">
@@ -66,24 +71,33 @@ const UserProfileDropdownButton = () => {
               />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="-translate-x-1/4 mt-4">
-              {DROPDOWN_MENU_ITEMS.map(({ label, icon, link }, index) => {
-                if (link) {
-                  return (
-                    <Link href={link} key={index}>
-                      <DropdownMenuItem className="flex items-center gap-2 cursor-pointer">
-                        {icon}
-                        <span>{label}</span>
-                      </DropdownMenuItem>
-                    </Link>
-                  );
+              {DROPDOWN_MENU_ITEMS.map(({ label, icon, link, action }, index) => {
+                // Set the action for Purchase History
+                if (label === "Purchase history") {
+                  action = handlePurchaseHistoryClick;
                 }
+
                 return (
                   <DropdownMenuItem
                     key={index}
                     className="flex items-center gap-2 cursor-pointer"
+                    onClick={() => {
+                      if (action) {
+                        action(); // Trigger action if defined
+                      }
+                      if (link) {
+                        setIsOpen(false); // Close dropdown if link is clicked
+                      }
+                    }}
                   >
                     {icon}
-                    <span>{label}</span>
+                    {link ? (
+                      <Link href={link}>
+                        <span>{label}</span>
+                      </Link>
+                    ) : (
+                      <span>{label}</span>
+                    )}
                   </DropdownMenuItem>
                 );
               })}
@@ -91,6 +105,7 @@ const UserProfileDropdownButton = () => {
           </DropdownMenu>
         </div>
       )}
+      <PurchaseHistoryModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} /> {/* Render the modal */}
     </div>
   );
 };

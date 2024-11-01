@@ -5,7 +5,7 @@ import React from 'react';
 const page: React.FC = () => {
   return (
     <div className="px-6 md:px-12 py-8 w-full ">
-      <h1 className="!text-4xl font-bold gradient-text mb-6">Terms of Use</h1>
+      <h1 className="!text-4xl font-bold gradient-text mb-6 text-center">Terms of Use</h1>
       
       <section className="mb-6">
         <h2 className="text-2xl font-semibold text-gray-700 mb-4">Introduction</h2>
@@ -58,7 +58,7 @@ Please review our Privacy Policy, available on the Site, to understand our pract
       </section>
       <section className="mb-6">
         <h2 className="text-2xl font-semibold text-gray-700 mb-4">Prohibited Activities</h2>
-        <p className="text-gray-600 mb-4">
+        <div className="text-gray-600 mb-4">
           When using shophekart.com, you agree not to:
           <ul className="list-disc list-inside text-gray-600 mb-4">
             <li>Use any automated means (e.g., robots, spiders) to access the Site.</li>
@@ -67,7 +67,7 @@ Please review our Privacy Policy, available on the Site, to understand our pract
             <li>Post content that may harm our reputation or goodwill.</li>
           </ul>
           Shophekart reserves the right to terminate your access for any unauthorized or disruptive actions.
-        </p>
+        </div>
       </section>
 
       <section className="mb-6">

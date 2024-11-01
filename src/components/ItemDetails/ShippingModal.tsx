@@ -231,7 +231,7 @@ setLoading(true)
     >
     
       <div
-        className="relative w-[90vw] h-[80vh] bg-white shadow-lg rounded-lg p-6"
+        className="relative w-[90vw] bg-white shadow-lg rounded-lg p-6"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -242,7 +242,7 @@ setLoading(true)
         </button>
 
         <form onSubmit={handleSubmit}>
-  <div className="space-y-10 grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-y-8 lg:gap-y-14 gap-x-12">
+  <div className=" grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-y-8  lg:gap-y-14 gap-x-12">
     {ShippingFields.map((field) => (
       <div key={field.id} className="flex flex-col gap-2">
         <Label htmlFor={field.id} className="text-[#6F8294]">

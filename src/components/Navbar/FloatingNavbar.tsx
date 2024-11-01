@@ -53,6 +53,7 @@ export default function FloatingNavbar() {
             {/* Logo */}
             <div className="flex justify-between items-center space-x-36">
                 <div>
+                    <a href="/" className="hover:cursor-pointer">
                     <Image
                         src="/images/shared/logo.png"
                         alt="Logo"
@@ -60,6 +61,8 @@ export default function FloatingNavbar() {
                         width={160}
                         height={160}
                     />
+                    </a>
+               
                 </div>
 
                 {/* Nav Links for Large Screens */}

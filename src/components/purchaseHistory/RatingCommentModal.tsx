@@ -3,6 +3,10 @@ import React, { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import httpRequestService from "@/services/httpRequest.service";
 import { useUserStore } from "@/store";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "@/hooks/use-toast";
+import { AxiosError } from "axios";
+import { Button } from "../ui/button";
 
 interface RatingCommentModalProps {
     isOpen: boolean;
@@ -42,6 +46,22 @@ export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({
         };
     }, [isOpen]);
 
+    const { mutateAsync, isPending } = useMutation({
+        mutationFn: async (reviewData: TCreateReview) => {
+            return await httpRequestService.postApi<null, TCreateReview>(
+                "/review/create",
+                reviewData
+            )
+        },
+
+        onSuccess: () => {
+            toast({
+                title: "Review submitted successfully!!"
+            });
+            onClose();
+        },
+    })
+
     if (!isOpen) return null;
 
     const handleMouseEnter = (index: number) => {
@@ -52,38 +72,38 @@ export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({
         setRating(index);
     };
 
+
+
     const handleSubmit = async () => {
 
+        const reviewData: TCreateReview = {
+            targetId,
+            reviewerId: user?._id,
+            targetType: "product",
+            reviewType,
+            rating,
+            comment,
+        };
         try {
-            if (!user) throw new Error("Please login")
-
-            if (!reviewType) {
-                throw new Error("Please provide review type")
-            }
-
-            const reviewData: TCreateReview = {
-                targetId,
-                reviewerId: user._id,
-                targetType: "product",
-                reviewType,
-                rating,
-                comment,
-            };
-            const response = await httpRequestService.postApi<null, TCreateReview>(
-                "/review/create",
-                reviewData
-            );
-
-            if (response.success) {
-                console.log("Review submitted successfully:", response.data);
-            } else {
-                console.error("Failed to submit review:", response.message);
-            }
+            await mutateAsync(reviewData)
         } catch (error) {
-            console.error("Error submitting review:", error);
-        }
+            if (error instanceof AxiosError) {
+                if (error.response?.data.statusCode === 400) {
+                    toast({
+                        title: "There was a problem submitting the review",
+                        description: error.response?.data.message,
+                        variant: "destructive"
+                    })
+                }
+            }
+            else {
+                toast({
+                    title: "There was a problem submitting the review",
+                    variant: "destructive"
+                })
+            }
 
-        onClose();
+        }
     };
 
     return (
@@ -144,9 +164,9 @@ export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({
                     />
 
                     {/* Submit Button */}
-                    <button className="gradient-button" onClick={handleSubmit}>
-                        Submit
-                    </button>
+                    <Button className="gradient-button" disabled={isPending} onClick={handleSubmit}>
+                        {isPending ? "Submitting..." : "Submit Review"}
+                    </Button>
                 </div>
             </div>
         </div>
@@ -156,9 +176,9 @@ export const RatingCommentModal: React.FC<RatingCommentModalProps> = ({
 
 type TCreateReview = {
     targetId: string;
-    reviewerId: string;
+    reviewerId: string | undefined;
     targetType: "product" | "user";
-    reviewType: "positive" | "negative" | "neutral";
+    reviewType: "positive" | "negative" | "neutral" | "";
     rating: number;
     comment: string;
 }

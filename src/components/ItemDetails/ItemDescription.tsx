@@ -12,8 +12,8 @@ import { TCreateOrder } from "@/types/order";
 import { TCurrencyType } from "@/types/product";
 import { useCreateOrderOnChain } from "@/hooks";
 import { useUserStore } from "@/store";
-import ShippingModal from "./ShippingModal";
 import ConnectWalletButton from "../shared/ConnectWalletButton";
+import { UpdateShippingModal } from "./UpdateShippingModal";
 
 interface ItemDescriptionProps {
   name: string;
@@ -171,7 +171,7 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
         <ConnectWalletButton />
       )}
       {isModalOpen && (
-        <ShippingModal
+        <UpdateShippingModal
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           onOrderCreate={handleOrderCreate} // Pass the order creation handler

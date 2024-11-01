@@ -5,6 +5,7 @@ import { useUserStore } from '@/store';
 import React, { useEffect, useState } from 'react';
 import { IoClose } from 'react-icons/io5';
 import Loader from '../Form/Loader';
+import ShippingModal from './ShippingModal';
 
 interface ModalProps {
   isOpen: boolean;
@@ -31,6 +32,15 @@ export const UpdateShippingModal: React.FC<ModalProps> = ({ isOpen, onClose, onO
     city: "",
   });
   const { user } = useUserStore();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -152,9 +162,18 @@ setLoading(true)
           
           {/* Buttons */}
           <div className="flex justify-center gap-4">
-            <button className="gradient-button !py-2 !px-6 ">
+            <button className="gradient-button !py-2 !px-6 "           onClick={handleOpenModal}
+ >
               Update
             </button>
+            {isModalOpen && (
+        <ShippingModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          onOrderCreate= {onOrderCreate} 
+          onClose1= {onClose}
+        />
+      )}
             <button className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-6 py-2 rounded-md font-semibold" onClick={handleSubmit}>
             {loading ? <Loader /> : "Buy Now"} 
             </button>

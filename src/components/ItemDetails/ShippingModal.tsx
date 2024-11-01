@@ -75,6 +75,8 @@ const ShippingFields: ShippingField[] = [
 interface ShippingModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onClose1: () => void;
+
   onOrderCreate: (shippingAddressId: string) => void; // Callback to trigger order creation
 }
 
@@ -82,6 +84,7 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
   isOpen,
   onClose,
   onOrderCreate,
+  onClose1
 }) => {
   const [loading, setLoading] = useState(false); // Loading state
 
@@ -107,7 +110,10 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
     const { id, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [id]: value }));
   };
-
+const handleClose=()=>{
+  onClose1();
+  onClose();
+}
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -127,7 +133,9 @@ setLoading(true)
         const parentId = (response.data as any)._id;
         onOrderCreate(parentId);
         alert("Shipping address created successfully!");
-        onClose(); // Close the modal after submission
+        onClose1(); 
+        onClose();
+      
       } else {
         alert(response.message || "Failed to create shipping address.");
       }
@@ -216,7 +224,7 @@ setLoading(true)
   return (
     <div
       className="fixed inset-0 w-full z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm"
-      onClick={onClose}
+      onClick={handleClose}
     >
       <div
         className="relative w-[90vw] h-[80vh] bg-white shadow-lg rounded-lg p-6"
@@ -224,7 +232,7 @@ setLoading(true)
       >
         <button
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
-          onClick={onClose}
+          onClick={handleClose}
         >
           <IoClose size={24} />
         </button>

@@ -162,7 +162,7 @@ setLoading(true)
           
           {/* Buttons */}
           <div className="flex justify-center gap-4">
-            <button className="gradient-button !py-2 !px-6 "           onClick={handleOpenModal}
+            <button className="gradient-button  !py-2 !px-6 "           onClick={handleOpenModal}
  >
               Update
             </button>
@@ -174,7 +174,7 @@ setLoading(true)
           onClose1= {onClose}
         />
       )}
-            <button className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-6 py-2 rounded-md font-semibold" onClick={handleSubmit}>
+            <button className="bg-gradient-to-r from-green-500 to-[#1d4f08] text-white px-6 py-2 rounded-md font-semibold text-sm" onClick={handleSubmit}>
             {loading ? <Loader /> : "Buy Now"} 
             </button>
           </div>

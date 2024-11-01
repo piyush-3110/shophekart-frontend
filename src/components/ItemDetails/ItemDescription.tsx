@@ -14,6 +14,7 @@ import { useCreateOrderOnChain } from "@/hooks";
 import { useUserStore } from "@/store";
 import ConnectWalletButton from "../shared/ConnectWalletButton";
 import { UpdateShippingModal } from "./UpdateShippingModal";
+import Loader from "../Form/Loader";
 
 interface ItemDescriptionProps {
   name: string;
@@ -165,7 +166,7 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
           onClick={handleOpenModal}
           disabled={isLoading || isPending}
         >
-          Buy now
+          {isLoading ?<Loader/> : "Buy Now"}
         </button>
       ) : (
         <ConnectWalletButton />

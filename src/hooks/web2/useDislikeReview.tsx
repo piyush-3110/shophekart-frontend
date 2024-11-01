@@ -5,19 +5,20 @@ import { toast } from "../use-toast";
 
 export default function useDislikeReview() {
     const { mutateAsync: dislikeReview } = useMutation({
-        mutationFn: async ({ userId, reviewId }: { userId?: string, reviewId?: string }) => {
+        mutationFn: async ({ userId, reviewId , alreadyDisliked}: { userId?: string, reviewId?: string, alreadyDisliked:boolean }) => {
             const response = await axios.patch(
                 `${envConfig.BACKEND_URL}/review/increase-dislike/${reviewId}`,
                 {
                     userId
-                }
+                },
+                { withCredentials: true }
             );
             return response
         },
 
-        onSuccess() {
+        onSuccess(_, {alreadyDisliked}) {
             toast({
-                title: "Disliked!",
+                title: alreadyDisliked ? "Undisliked!" : "Disliked!",
             });
         },
 
@@ -30,13 +31,22 @@ export default function useDislikeReview() {
                         variant: "destructive"
                     })
                 }
+                else if (error.response?.status === 401) {
+                    toast({
+                        title: "Please login before disliking.",
+                        description: "Please login before disliking.",
+                        variant: "destructive"
+                    })
+                }
                 else {
                     toast({
                         title: "Error disliking",
                         variant: "destructive"
                     })
                 }
-            } toast({
+                return
+            }
+            toast({
                 title: 'Error disliking',
                 description: 'An unexpected error occurred.',
                 variant: 'destructive'

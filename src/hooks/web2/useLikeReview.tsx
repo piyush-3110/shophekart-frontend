@@ -5,19 +5,22 @@ import { useMutation } from "@tanstack/react-query";
 
 export default function useLikeReview() {
     const { mutateAsync: likeReview } = useMutation({
-        mutationFn: async ({ userId, reviewId }: { userId?: string, reviewId?: string }) => {
+        mutationFn: async ({ userId, reviewId, alreadyLiked }: { userId?: string, reviewId?: string, alreadyLiked: boolean }) => {
             const response = await axios.patch(
                 `${envConfig.BACKEND_URL}/review/increase-like/${reviewId}`,
                 {
                     userId
+                },
+                {
+                    withCredentials: true
                 }
             );
             return response
         },
 
-        onSuccess() {
+        onSuccess(_, { alreadyLiked }) {
             toast({
-                title: "Liked!",
+                title: alreadyLiked ? "Unliked" : "Liked",
             });
         },
 
@@ -27,6 +30,13 @@ export default function useLikeReview() {
                     toast({
                         title: "Error liking",
                         description: error.response.data.message,
+                        variant: "destructive"
+                    })
+                }
+                else if (error.response?.status === 401) {
+                    toast({
+                        title: "Error liking",
+                        description: "please login before liking.",
                         variant: "destructive"
                     })
                 }

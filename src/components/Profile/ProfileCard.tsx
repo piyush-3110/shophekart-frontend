@@ -1,8 +1,7 @@
 import Image from "next/image";
 import { FC } from "react";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
-import { InfoCircledIcon } from "@radix-ui/react-icons";
 import WalletAddressWithCopy from "../shared/WalletAddressWithCopy";
+import TrustScoreWithTooltip from "../shared/TrustScoreWithTooltip";
 
 type TProps = { walletAddress: `0x${string}`; trustScore: number };
 
@@ -28,20 +27,7 @@ export const ProfileCard: FC<TProps> = ({ walletAddress, trustScore }) => {
             <div>
                 <div className="mx-8 mt-12 flex flex-col gap-2">
                     <WalletAddressWithCopy walletAddress={walletAddress} />
-                    <div className="flex gap-3 items-center">
-                        <h1 className="text-[#160041] font-[700] text-md">
-                            Trust score:{" "}
-                            <span className="text-gray-500 text-sm">{trustScore}</span>
-                        </h1>
-                        <Tooltip delayDuration={100}>
-                            <TooltipTrigger>
-                                <InfoCircledIcon />
-                            </TooltipTrigger>
-                            <TooltipContent>
-                                Trust score is a measure of the reliability
-                            </TooltipContent>
-                        </Tooltip>
-                    </div>
+                    <TrustScoreWithTooltip trustScore={trustScore} />
                     <div className="border-t my-2 w-full bg-[#6B6F93]"></div>
                     <p className="text-sm font-[400] text-[#6B6F93]">
                         Explore my top picks from the world of e-commerce, featuring

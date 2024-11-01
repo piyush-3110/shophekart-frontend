@@ -2,53 +2,11 @@
 import React from 'react';
 import httpRequestService from "@/services/httpRequest.service";
 import ItemDescription from './ItemDescription';
-import ItemImage from './ItemImage';
 import BuyerDetails from './BuyerDetails';
 import { useQuery } from '@tanstack/react-query';
+import ItemCard from '../ItemDetails/ItemCard';
 
-type Address = {
-    state: string
-    address: string
-    lastName: string
-    email: string
-    country: string
-    postalCode: string
-    city: string
-    firstName: string
-    phoneNumber: string
-}
-
-type Buyer = {
-    walletAddress: `0x${string}`
-}
-
-type Product = {
-    description: string
-    images: string[]
-    type: "FixedProduct" | "Auction"
-    category: string
-    name: string
-}
-
-export type OrderStatus = "pending" | "delivering" | "delivered" | "cancelled" | "dispute";
-
-type TOrder = {
-    _id: string
-    deliveryBy: Date
-    soldAtPrice: number
-    product: Product
-    currencyType: string
-    orderStatus: OrderStatus
-    shippingAddress: Address
-    shippingPrice: number
-    buyer: Buyer
-}
-
-interface ItemDetailProps {
-    orderId: string;
-}
-
-const ItemDetail: React.FC<ItemDetailProps> = ({ orderId }) => {
+const OrderDetail: React.FC<ItemDetailProps> = ({ orderId }) => {
     const { data: order, isLoading, error } = useQuery({
         queryKey: ['order', orderId],
         queryFn: async () => {
@@ -66,12 +24,9 @@ const ItemDetail: React.FC<ItemDetailProps> = ({ orderId }) => {
     return (
         <div className="max-w-screen-xl mx-auto p-4">
             <div className="flex flex-col lg:flex-row gap-6 items-start justify-center">
-                <ItemImage
-                    mainImage={order.product.images[0]}
-                    images={order.product.images}
-                    altText={order.product.name}
-                />
+                <ItemCard images={order.product.images} />
                 <ItemDescription
+                    nftId={order.product.nftId}
                     title={order.product.name}
                     description={order.product.description}
                     price={order.soldAtPrice}
@@ -98,4 +53,47 @@ const ItemDetail: React.FC<ItemDetailProps> = ({ orderId }) => {
     );
 };
 
-export default ItemDetail;
+export default OrderDetail;
+
+type Address = {
+    state: string
+    address: string
+    lastName: string
+    email: string
+    country: string
+    postalCode: string
+    city: string
+    firstName: string
+    phoneNumber: string
+}
+
+type Buyer = {
+    walletAddress: `0x${string}`
+}
+
+type Product = {
+    description: string
+    images: string[]
+    type: "FixedProduct" | "Auction"
+    category: string
+    name: string
+    nftId: number
+}
+
+export type OrderStatus = "pending" | "delivering" | "delivered" | "cancelled" | "dispute";
+
+type TOrder = {
+    _id: string
+    deliveryBy: Date
+    soldAtPrice: number
+    product: Product
+    currencyType: string
+    orderStatus: OrderStatus
+    shippingAddress: Address
+    shippingPrice: number
+    buyer: Buyer
+}
+
+interface ItemDetailProps {
+    orderId: string;
+}

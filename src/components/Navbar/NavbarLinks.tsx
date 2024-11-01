@@ -71,12 +71,12 @@ const NavbarLinks = () => {
           >
             Staking
           </NavLink>
-          <NavLink
+          {/* <NavLink
             href="/staking"
             className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
           >
             Vesting
-          </NavLink>
+          </NavLink> */}
           <NavLink
             href="/dao"
             className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"

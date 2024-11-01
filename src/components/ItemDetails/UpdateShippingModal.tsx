@@ -81,7 +81,7 @@ setLoading(true)
     const fetchShippingAddress = async () => {
       try {
         const response = await httpRequestService.fetchApi<any>("/shipping-address/me");
-        console.log("Shipping Address Response:", response);
+
   
         if (response.success && response.data.length > 0) {
           const addressData = response.data[response.data.length - 1];

@@ -19,6 +19,8 @@ import {
 } from "@/icons";
 import { useUserStore } from "@/store";
 import { PurchaseHistoryModal } from "../purchaseHistory/PurchaseHistoryModal";
+import { toast } from "react-toastify"; // Import toast
+import ToastNotification from "../Form/ToastNotification";
 
 const DROPDOWN_MENU_ITEMS: {
   label: string;
@@ -31,7 +33,7 @@ const DROPDOWN_MENU_ITEMS: {
     icon: <UserProfileIcon />,
     link: "/profile",
   },
-  { label: "Chat", icon: <ChatIcon />, link: "/chat" },
+  { label: "Chat", icon: <ChatIcon /> }, // Link is still included for consistency
   {
     label: "Support & helps",
     icon: <HelpIcon />,
@@ -55,8 +57,21 @@ const UserProfileDropdownButton = () => {
     setIsOpen(false); // Close dropdown when modal opens
   };
 
+  const handleChatClick = () => {
+    toast.info("Feature Coming Soon!!", {
+      position: "top-right", // Position of the toast
+      autoClose: 3000, // Duration for which the toast will be visible
+      hideProgressBar: true, // Option to hide the progress bar
+      closeOnClick: true, // Option to close the toast on click
+      pauseOnHover: true, // Option to pause on hover
+      draggable: true, // Allow dragging of the toast
+      progress: undefined, // No progress bar
+    });
+  };
+
   return (
     <div className="flex items-center w-fit">
+      <ToastNotification/>
       <ConnectWalletButton />
       {authStatus === "authenticated" && user && (
         <div className="flex items-center gap-4">
@@ -77,6 +92,11 @@ const UserProfileDropdownButton = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="-translate-x-1/4 mt-4">
               {DROPDOWN_MENU_ITEMS.map(({ label, icon, link, action }, index) => {
+                // Set the action for Chat
+                if (label === "Chat") {
+                  action = handleChatClick;
+                }
+
                 // Set the action for Purchase History
                 if (label === "Purchase history") {
                   action = handlePurchaseHistoryClick;

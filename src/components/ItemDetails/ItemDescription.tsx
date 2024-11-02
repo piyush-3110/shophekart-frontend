@@ -118,7 +118,10 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
   const handleOrderCreate = async (shippingAddressId: string) => {
     try {
       await mutateAsync(shippingAddressId);
-    } catch (error) {
+    } catch (error:any) {
+
+      toast({ title: "Stock not found", variant: "destructive" });
+      
       console.error("Error creating order:", error);
     }
   };
@@ -127,11 +130,13 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
     const fetchShippingAddress = async () => {
       try {
         const response = await httpRequestService.fetchApi<any>("/shipping-address/me");
-        if (response?.data) {
+        console.log(response)
+        if (response?.data.length!=0) {
           setHasShippingAddress(true);
         }
       } catch (error) {
         console.error("Error fetching shipping address:", error);
+        
         setHasShippingAddress(false);
       }
     };
@@ -157,7 +162,7 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
         }
       })();
     }
-  }, [isSuccess, toast, data, nftIds]);
+  }, [isSuccess, toast, data, nftIds,user]);
 
   return (
     <div className="flex flex-col gap-3 pl-4 md:pl-0 w-[95vw] md:w-[50vw] lg:w-[40vw]">

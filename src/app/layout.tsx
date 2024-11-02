@@ -9,6 +9,7 @@ import RenderedNavbar from "@/components/Navbar/RenderedNavbar";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
+
 const dm = DM_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
@@ -36,6 +37,7 @@ export default function RootLayout({
             <NextTopLoader color="#0163ff" />
             {children}
             <Toaster />
+          
           </TooltipProvider>
         </Web3ModalProvider>
       </body>

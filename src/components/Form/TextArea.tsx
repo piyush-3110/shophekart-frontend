@@ -4,12 +4,13 @@ import React from 'react';
 interface TextAreaProps {
   label: string;
   placeholder: string;
+  error?:string;
   value: string;
   name: string;  // Add name property to interface
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-const TextArea: React.FC<TextAreaProps> = ({ label, placeholder, value, name, onChange }) => {
+const TextArea: React.FC<TextAreaProps> = ({ label, placeholder, value, name, error,onChange }) => {
   return (
     <div>
       <label className="block text-sm font-medium mb-1">{label}</label>
@@ -22,6 +23,8 @@ const TextArea: React.FC<TextAreaProps> = ({ label, placeholder, value, name, on
         rows={4}
         required
       />
+            {error && <p className="text-red-600 text-sm mt-1">{error}</p>} {/* Display error message if it exists */}
+
     </div>
   );
 };

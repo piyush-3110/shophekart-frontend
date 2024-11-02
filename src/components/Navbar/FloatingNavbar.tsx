@@ -15,14 +15,11 @@ import {
 import NavbarLinks from "./NavbarLinks";
 import Link from "next/link";
 import UserProfileDropdownButton from "../shared/UserProfileDropdownButton";
-// import AuthButton from "../shared/AuthButton";
-// import { useUserStore } from "@/store/";
 
 export default function FloatingNavbar() {
     const [isVisible, setIsVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
     const [menuOpen, setMenuOpen] = useState(false);
-
     const [isPlatformOpen, setIsPlatformOpen] = useState(false);
     const [isStakingOpen, setIsStakingOpen] = useState(false);
 
@@ -43,34 +40,33 @@ export default function FloatingNavbar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [handleScroll]);
 
-    // const { user } = useUserStore();
+    const handleLinkClick = () => {
+        setMenuOpen(false); // Close the menu when a link is clicked
+    };
 
     return (
         <nav
-            className={`sticky lg:flex lg:items-center w-full  lg:justify-around top-0 z-[4] left-0 transition-transform duration-300 ease-in-out bg-white py-2 px-6 ${isVisible ? "translate-y-0" : "-translate-y-full"
+            className={`sticky lg:flex lg:items-center w-full lg:justify-around top-0 z-[4] left-0 transition-transform duration-300 ease-in-out bg-white py-2 px-6 ${isVisible ? "translate-y-0" : "-translate-y-full"
                 }`}
         >
             {/* Logo */}
             <div className="flex justify-between items-center space-x-36">
                 <div>
-                    <Image
-                        src="/images/shared/logo.png"
-                        alt="Logo"
-                        className="h-[4rem]  "
-                        width={160}
-                        height={160}
-                    />
+                    <a href="/" className="hover:cursor-pointer">
+                        <Image
+                            src="/images/shared/logo.png"
+                            alt="Logo"
+                            className="h-[4rem]"
+                            width={160}
+                            height={160}
+                        />
+                    </a>
                 </div>
 
                 {/* Nav Links for Large Screens */}
                 <div className="hidden lg:flex space-x-28">
                     <NavbarLinks />
-                    {/* {!user && <AuthButton />} */}
-
-                    {/* Connect Wallet Button */}
                     <UserProfileDropdownButton />
-
-                    {/* Login & Logout Button */}
                 </div>
 
                 {/* Hamburger/Close Icon for Small and Medium Screens */}
@@ -100,6 +96,7 @@ export default function FloatingNavbar() {
                     <>
                         <Link
                             href="/"
+                            onClick={handleLinkClick}
                             className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
                         >
                             <FaShoppingCart />
@@ -123,18 +120,14 @@ export default function FloatingNavbar() {
                                 <div className="flex flex-col space-y-2 mt-2">
                                     <Link
                                         href="/staking"
+                                        onClick={handleLinkClick}
                                         className="text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
                                     >
                                         Staking
                                     </Link>
-                                    {/* <Link
-                    href="/staking"
-                    className="text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
-                  >
-                    Vesting
-                  </Link> */}
                                     <Link
                                         href="/dao"
+                                        onClick={handleLinkClick}
                                         className="text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
                                     >
                                         DAO
@@ -150,9 +143,7 @@ export default function FloatingNavbar() {
                                 onClick={() => setIsPlatformOpen(!isPlatformOpen)}
                             >
                                 <FaProductHunt />
-
                                 <span>Platform</span>
-
                                 <FaChevronDown
                                     className={`transition-transform duration-300 ease-in-out ${isPlatformOpen ? "rotate-180" : "rotate-0"
                                         }`}
@@ -162,12 +153,14 @@ export default function FloatingNavbar() {
                                 <div className="flex flex-col gap-2 space-y-2 mt-2">
                                     <Link
                                         href="/products/buy-now"
+                                        onClick={handleLinkClick}
                                         className="text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
                                     >
                                         Crypto Shop
                                     </Link>
                                     <Link
                                         href="/tokenization"
+                                        onClick={handleLinkClick}
                                         className="text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
                                     >
                                         Tokenization
@@ -178,6 +171,7 @@ export default function FloatingNavbar() {
 
                         <Link
                             href="#"
+                            onClick={handleLinkClick}
                             className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
                         >
                             <FaFileAlt />
@@ -186,6 +180,7 @@ export default function FloatingNavbar() {
                         <Link
                             href="https://shophekart.gitbook.io/shophekart"
                             target="_blank"
+                            onClick={handleLinkClick}
                             className="flex items-center space-x-2 text-black hover:bg-blue-500 hover:text-white py-2 px-4 rounded"
                         >
                             <FaBookOpen />
@@ -194,7 +189,6 @@ export default function FloatingNavbar() {
 
                         {/* Connect Wallet button inside the dropdown */}
                         <UserProfileDropdownButton />
-                        {/* {!user && <AuthButton />} */}
                     </>
                 )}
             </div>

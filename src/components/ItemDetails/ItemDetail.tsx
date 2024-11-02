@@ -27,6 +27,7 @@ export const ItemDetail: React.FC<ItemDetailProps> = ({ id }) => {
             const response = await HttpRequestService.fetchApi<TSingleProduct>(
                 `/fixedProduct/${id}`
             );
+            console.log(response.data);
             return response.data;
         },
     });
@@ -59,7 +60,7 @@ export const ItemDetail: React.FC<ItemDetailProps> = ({ id }) => {
                 <div className="flex flex-col md:flex-row gap-4 lg:gap-12 items-center justify-center">
                     {" "}
                     {/* {Item Details Section} */}
-                    <div className="sticky top-0 self-start">
+                    <div className="md:sticky top-0 self-start">
                         <ItemCard images={product.images} /> {/* Display fetched images */}
                     </div>
                     <div>
@@ -72,6 +73,7 @@ export const ItemDetail: React.FC<ItemDetailProps> = ({ id }) => {
                             shippingDuration={product.shippingDuration}
                             productIdOnChain={product.productIdOnChain}
                             details={product.details}
+                            address={product.productAddress}
                             price={product.price}
                             currencyType={product.currencyType}
                             stock={product.stock}

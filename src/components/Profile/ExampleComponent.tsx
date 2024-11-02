@@ -16,7 +16,7 @@ export const EditPriceModal: React.FC<EditPriceModalProps> = ({
   previousCurrencyType,
 }) => {
   const [newPrice, setNewPrice] = useState("");
-  const [currencyType, setCurrencyType] = useState("Select Currency Type");
+  const [currencyType, setCurrencyType] = useState("CSHOP");
 
   const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (e.target === e.currentTarget) {
@@ -26,20 +26,19 @@ export const EditPriceModal: React.FC<EditPriceModalProps> = ({
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflowX = 'hidden'; // Prevent horizontal overflow
-      document.body.style.overflowY = 'hidden';   // Allow vertical scrolling
+      document.body.style.overflowX = "hidden";
+      document.body.style.overflowY = "hidden";
+      setNewPrice("");  // Reset newPrice when the modal opens
     } else {
-      document.body.style.overflowX = 'hidden';   // Restore horizontal scrolling
-      document.body.style.overflowY = 'auto';   // Restore vertical scrolling
+      document.body.style.overflowX = "hidden";
+      document.body.style.overflowY = "auto";
     }
     return () => {
-      document.body.style.overflowX = 'hidden';   // Clean up to restore horizontal scrolling
-      document.body.style.overflowY = 'auto';    // Clean up to restore vertical scrolling
+      document.body.style.overflowX = "hidden";
+      document.body.style.overflowY = "auto";
     };
   }, [isOpen]);
-  
 
-  if (!isOpen) return null;
   const handleCurrencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCurrencyType(e.target.value);
   };
@@ -49,12 +48,15 @@ export const EditPriceModal: React.FC<EditPriceModalProps> = ({
   };
 
   const handleSubmit = () => {
-    // Handle form submission logic here
     console.log("Submitted with New Price:", newPrice, "Currency Type:", currencyType);
+    setNewPrice("");  // Clear the input field after submitting
     onClose();
   };
 
-  
+  // Check if the new price is a positive number
+  const isNewPriceValid = Number(newPrice) > 0;
+
+  if (!isOpen) return null;
 
   return (
     <div
@@ -122,15 +124,20 @@ export const EditPriceModal: React.FC<EditPriceModalProps> = ({
 
         {/* Submit Button */}
         <div className="mt-6 flex justify-start">
-          <button onClick={handleSubmit} className="gradient-button px-4 py-2 rounded-md text-white">
-           Update
+          <button
+            onClick={handleSubmit}
+            disabled={!isNewPriceValid}
+            className={`px-4 py-2 rounded-md text-white ${
+              isNewPriceValid ? "gradient-button" : "bg-gray-300 cursor-not-allowed"
+            }`}
+          >
+            Update
           </button>
         </div>
       </div>
     </div>
   );
 };
-
 // Main component to demonstrate the modal with a button to open it
 const ExampleComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

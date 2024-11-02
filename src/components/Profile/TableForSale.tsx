@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ProductCard } from './ProductCard';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'; // Import arrow icons
+import { EditPriceModal } from './ExampleComponent';
 
 // Define types for the item data
 interface ItemData {
@@ -27,7 +28,15 @@ const TableForSale: React.FC<TableProps> = ({ headers, data }) => {
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   // Check if content overflows and update arrow visibility
   const checkScrollPosition = () => {
     if (scrollRef.current) {
@@ -112,7 +121,16 @@ const TableForSale: React.FC<TableProps> = ({ headers, data }) => {
             <p className="text-[#160041] text-sm">{item.price}</p>
             <p className="text-[#160041] text-sm">{item.shipping}</p>
             <div className="flex space-x-2">
-              <button className="text-blue-500 text-sm font-[700]">Update</button>
+            <button onClick={openModal} className="px-4 py-2 bg-blue-500 text-white rounded-md">
+       Update
+      </button>
+
+      <EditPriceModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        previousPrice={100}
+        previousCurrencyType="USDT"
+      />
               <button className="text-red-500 text-sm font-[700]">Delete</button>
             </div>
           </div>

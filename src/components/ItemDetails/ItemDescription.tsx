@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useEffect, useState } from "react";
 import ItemInfoHeader from "./ItemInfoHeader";
@@ -14,7 +15,9 @@ import { useCreateOrderOnChain } from "@/hooks";
 import { useUserStore } from "@/store";
 import ConnectWalletButton from "../shared/ConnectWalletButton";
 import { UpdateShippingModal } from "./UpdateShippingModal";
+import ShippingModal from "./ShippingModal";
 import Loader from "../Form/Loader";
+import httpRequestService from "@/services/httpRequest.service";
 
 interface ItemDescriptionProps {
   name: string;
@@ -60,6 +63,7 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
     nftIds,
   } = useCreateOrderOnChain(user?.walletAddress as `0x${string}`);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hasShippingAddress, setHasShippingAddress] = useState(false);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -83,7 +87,7 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
           productId: id,
           productIdOnChain,
           shippingPrice: shippingCharges,
-          shippingAddress: shippingAddressId, // Add the shipping address ID to the payload
+          shippingAddress: shippingAddressId,
         }
       );
 
@@ -111,13 +115,27 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
 
   const handleOrderCreate = async (shippingAddressId: string) => {
     try {
-      await mutateAsync(shippingAddressId); // Pass the shippingAddressId to the mutation
+      await mutateAsync(shippingAddressId);
     } catch (error) {
       console.error("Error creating order:", error);
     }
   };
 
   useEffect(() => {
+    const fetchShippingAddress = async () => {
+      try {
+        const response = await httpRequestService.fetchApi<any>("/shipping-address/me");
+        if (response?.data) {
+          setHasShippingAddress(true);
+        }
+      } catch (error) {
+        console.error("Error fetching shipping address:", error);
+        setHasShippingAddress(false);
+      }
+    };
+
+    fetchShippingAddress();
+
     if (isSuccess && nftIds?.length && nftIds.length > 0 && data) {
       (async () => {
         const stringNftId = nftIds[nftIds.length - 1].toString();
@@ -166,17 +184,21 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
           onClick={handleOpenModal}
           disabled={isLoading || isPending}
         >
-          {isLoading ?<Loader/> : "Buy Now"}
+          {isLoading ? <Loader /> : "Buy Now"}
         </button>
       ) : (
         <ConnectWalletButton />
       )}
       {isModalOpen && (
-        <UpdateShippingModal
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
-          onOrderCreate={handleOrderCreate} // Pass the order creation handler
-        />
+        hasShippingAddress ? (
+          <UpdateShippingModal
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
+            onOrderCreate={handleOrderCreate}
+          />
+        ) : (
+          <ShippingModal isOpen={isModalOpen} onClose={handleCloseModal} onClose1={handleCloseModal} onOrderCreate={handleOrderCreate}/>
+        )
       )}
     </div>
   );

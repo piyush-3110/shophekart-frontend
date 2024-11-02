@@ -33,7 +33,7 @@ export default function RaiseDispute({ orderId, currentOrderStatus }: TProps) {
                                     </a>{" "}
                                     with the following details:
                                     <ul>
-                                        <li>A detailed description of the issue you're experiencing</li>
+                                        <li>A detailed description of the issue you&apos;re experiencing</li>
                                         <li>Any relevant proofs or documentation (if needed)</li>
                                         <li>Your NFT ID for this order</li>
                                     </ul>
@@ -41,11 +41,11 @@ export default function RaiseDispute({ orderId, currentOrderStatus }: TProps) {
                                     This will allow our customer support team to review and assist with resolving the issue efficiently.
                                 </div>
                                 : currentOrderStatus === "dispute" ? <div className="prose">
-                                    A dispute has already been raised for this order. You can't raise another dispute until the current one is resolved. We hope you that you have mailed us at{" "}  <a href="mailto:support@shophekart.com" target="_blank" rel="noopener noreferrer">
+                                    A dispute has already been raised for this order. You can&apos;t raise another dispute until the current one is resolved. We hope you that you have mailed us at{" "}  <a href="mailto:support@shophekart.com" target="_blank" rel="noopener noreferrer">
                                         support@shophekart.com
                                     </a>{" "}with the required details, which are:
                                     <ul>
-                                        <li>A detailed description of the issue you're experiencing</li>
+                                        <li>A detailed description of the issue you&apos;re experiencing</li>
                                         <li>Any relevant proofs or documentation (if needed)</li>
                                         <li>Your NFT ID for this order</li>
                                     </ul>

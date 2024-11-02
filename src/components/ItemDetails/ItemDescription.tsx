@@ -9,7 +9,6 @@ import useCreateOrder from "@/hooks/web2/useCreateOrder";
 import { Button } from "../ui/button";
 import { UpdateShippingModal } from "./UpdateShippingModal";
 import ShippingModal from "./ShippingModal";
-import Loader from "../Form/Loader";
 import httpRequestService from "@/services/httpRequest.service";
 
 interface ItemDescriptionProps {
@@ -49,7 +48,7 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
     useEffect(() => {
         const fetchShippingAddress = async () => {
           try {
-            const response = await httpRequestService.fetchApi<any>("/shipping-address/me");
+            const response = await httpRequestService.fetchApi<TShippingAddress[]>("/shipping-address/me");
             if (response?.data) {
               setHasShippingAddress(true);
             }
@@ -129,4 +128,20 @@ interface ItemDescriptionProps {
     shippingCharges: number;
     stars: number;
     reviewCount: number;
+}
+
+type TShippingAddress = {
+    _id: string
+    address: string
+    city: string
+    state: string
+    postalCode: string
+    country: string
+    buyerId: string
+    firstName: string
+    lastName: string
+    email: string
+    phoneNumber: string
+    createdAt: Date
+    updatedAt: Date
 }

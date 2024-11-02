@@ -13,7 +13,7 @@ import {
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog"
 
-const ConfirmDelivery:FC<{orderId:string, currentStatus:OrderStatus, className?:string}> = ({orderId, currentStatus, className}) => {
+const ConfirmDelivery:FC<{orderId:string, currentStatus:OrderStatus}> = ({orderId, currentStatus}) => {
     const {confirmDelivery, isPending} = useConfirmDelivery()
   return (
     <AlertDialog>

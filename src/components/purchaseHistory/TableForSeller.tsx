@@ -1,13 +1,14 @@
-import { FC} from "react";
+import { FC } from "react";
 import { ProductCard } from "../Profile/ProductCard";
 import { TCurrencyType } from "@/types/product";
 import OrderHistoryPrice from "./OrderHistoryPrice";
 import UpdateOrderStatus from "../orderDetail/UpdateOrderStatus";
+import { OrderStatus } from "../orderDetail/SingleDetail";
 
 interface ItemData {
     imageUrl: string;
     category: string;
-    status: string;
+    status: OrderStatus;
     title: string;
     description: string;
     type: string;
@@ -56,7 +57,7 @@ const TableForSeller: FC<TableProps> = ({ headers, data }) => {
                             currencyType={item.currencyType}
                             soldPrice={item.soldPrice}
                         />
-                        <UpdateOrderStatus orderId={item.orderId} className="flex-row gap-5 items-center" />
+                        {item.status==="pending" && <UpdateOrderStatus currentOrderStatus={item.status} orderId={item.orderId} className="flex-row gap-5 items-center" />}
                     </div>
                 ))}
             </div>

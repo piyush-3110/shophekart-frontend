@@ -1,24 +1,28 @@
+"use client";
 import NavigationTabs from "@/components/products/shared/navigationTabs";
 import { Separator } from "@/components/ui/separator";
 import Footer from "@/components/Footer/Footer";
 import React, { useEffect, useState } from "react";
-import { HttpRequestService } from "@/services"; // Import the service
- // Import category type if available
- interface ICategory {
+import { HttpRequestService } from "@/services";
+
+interface ICategory {
   _id: string;
   label: string;
   parentCategory: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
+
 const Layout = ({ children }: { children: React.ReactElement }) => {
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await HttpRequestService.fetchApi<ICategory[]>("/category/all");
+        console.log(response);
         if (response.success) {
           setCategories(response.data);
         }
@@ -39,10 +43,14 @@ const Layout = ({ children }: { children: React.ReactElement }) => {
         {loading ? (
           <span>Loading categories...</span>
         ) : (
-          categories.map((category, index) => (
-            <span key={index} className="text-gray-600">
+          categories.map((category) => (
+            <button
+              key={category._id}
+              onClick={() => setSelectedCategory(category.label)}  // Update selectedCategory on click
+              className={`text-gray-600 ${selectedCategory === category.label ? 'font-bold' : ''}`}
+            >
               {category.label}
-            </span>
+            </button>
           ))
         )}
       </div>

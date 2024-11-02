@@ -16,15 +16,25 @@ const PAGINATION_CONSTANT = 12;
 const Productpage = () => {
   const searchParams = useSearchParams();
   const searchTerm = useUserStore((state) => state.searchTerm);
+  const selectedCategory = useUserStore((state) => state.selectedCategory); // Get selected category from store
+
   const pageParam = searchParams.get("page");
   const currentPage = pageParam ? parseInt(pageParam) : 1;
 
   const { data, error, isLoading, refetch } = useQuery({
-    queryKey: ["products", searchTerm],
+    queryKey: ["products", searchTerm, selectedCategory],
     queryFn: async () => {
-      const endpoint = searchTerm
-        ? `/fixedProduct/search?query=${searchTerm}`
-        : "/fixedProduct/getAll";
+      let endpoint = "";
+
+      // Determine the API endpoint based on search term or category
+      if (searchTerm) {
+        endpoint = `/fixedProduct/search?query=${searchTerm}`;
+      } else if (selectedCategory) {
+        endpoint = `/product/by-category/${selectedCategory}`;
+      } else {
+        endpoint = "/fixedProduct/getAll";
+      }
+
       const response = await HttpRequestService.fetchApi<IProduct[]>(endpoint);
       return response;
     },
@@ -34,15 +44,16 @@ const Productpage = () => {
 
   useEffect(() => {
     // Refetch whenever the component mounts (initial load)
+   
     refetch();
   }, [refetch]);
 
   useEffect(() => {
-    if (!searchTerm) {
-      // Refetch to get all products if search term is empty
+    if (!searchTerm && !selectedCategory) {
+      // Refetch to get all products if both search term and category are empty
       refetch();
     }
-  }, [searchTerm, refetch]);
+  }, [searchTerm, selectedCategory, refetch]);
 
   if (isLoading) {
     return <div>Loading...</div>;

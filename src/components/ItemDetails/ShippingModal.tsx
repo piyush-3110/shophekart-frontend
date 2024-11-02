@@ -113,6 +113,7 @@ const ShippingModal: React.FC<ShippingModalProps> = ({
     setFormData((prevData) => ({ ...prevData, [id]: value }));
   };
 const handleClose=()=>{
+
   onClose1();
   onClose();
 }

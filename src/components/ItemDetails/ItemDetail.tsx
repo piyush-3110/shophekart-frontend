@@ -27,6 +27,7 @@ export const ItemDetail: React.FC<ItemDetailProps> = ({ id }) => {
             const response = await HttpRequestService.fetchApi<TSingleProduct>(
                 `/fixedProduct/${id}`
             );
+            console.log(response.data);
             return response.data;
         },
     });
@@ -72,6 +73,7 @@ export const ItemDetail: React.FC<ItemDetailProps> = ({ id }) => {
                             shippingDuration={product.shippingDuration}
                             productIdOnChain={product.productIdOnChain}
                             details={product.details}
+                            address={product.productAddress}
                             price={product.price}
                             currencyType={product.currencyType}
                             stock={product.stock}

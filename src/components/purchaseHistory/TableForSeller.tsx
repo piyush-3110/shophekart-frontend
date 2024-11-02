@@ -1,130 +1,68 @@
-import React, { useEffect, useState } from "react";
+import { FC } from "react";
 import { ProductCard } from "../Profile/ProductCard";
-import { toast } from "@/hooks/use-toast";
-import { useChangeOrderStatus } from "@/hooks";
 import { TCurrencyType } from "@/types/product";
 import OrderHistoryPrice from "./OrderHistoryPrice";
+import UpdateOrderStatus from "../orderDetail/UpdateOrderStatus";
+import { OrderStatus } from "../orderDetail/SingleDetail";
 
 interface ItemData {
-  imageUrl: string;
-  category: string;
-  status: string;
-  title: string;
-  description: string;
-  type: string;
-  soldPrice: number;
-  nftId: number;
-  orderId: string;
-  currencyType: TCurrencyType;
+    imageUrl: string;
+    category: string;
+    status: OrderStatus;
+    title: string;
+    description: string;
+    type: string;
+    soldPrice: number;
+    nftId: number;
+    orderId: string;
+    currencyType: TCurrencyType;
 }
 
 interface TableProps {
-  headers: { title: string; span?: number }[];
-  data: ItemData[];
+    headers: { title: string; span?: number }[];
+    data: ItemData[];
 }
 
-const TableForSeller: React.FC<TableProps> = ({ headers, data }) => {
-  const [statuses, setStatuses] = useState<string[]>(
-    data.map((item) => item.status)
-  );
+const TableForSeller: FC<TableProps> = ({ headers, data }) => {
 
-  const [orderId, setOrderId] = useState<string>("");
+    return (
+        <div className="relative w-full py-4">
+            <div className="w-full py-4 overflow-x-auto scrollbar-hide">
+                <div className="grid grid-cols-7 min-w-[800px] text-left font-bold text-[#6B6F93] text-[18px] py-4">
+                    {headers.map((header, index) => (
+                        <p key={index} className={`col-span-${header.span || 1}`}>
+                            {header.title}
+                        </p>
+                    ))}
+                </div>
 
-  const { isLoading, isSuccess, mutateAsync } = useChangeOrderStatus(orderId);
-
-  // Handle dropdown change for the order status
-  const handleStatusChange = (index: number, newStatus: string) => {
-    const updatedStatuses = [...statuses];
-    updatedStatuses[index] = newStatus;
-    setStatuses(updatedStatuses);
-  };
-
-  // Handle submit action to update status
-  const handleSubmitStatus = async (index: number) => {
-    const updatedStatus = statuses[index];
-    const item = data[index];
-
-    setOrderId(item.orderId);
-
-    if (updatedStatus === "delivering") {
-      try {
-        await mutateAsync(item.orderId);
-      } catch (error) {
-        console.log(error);
-        toast({
-          title: "Error while updating order status",
-        });
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (isSuccess) {
-      toast({
-        title: "Order status updated successfully",
-      });
-    }
-  }, [isSuccess]);
-
-  return (
-    <div className="relative w-full py-4">
-      <div className="w-full py-4 overflow-x-auto scrollbar-hide">
-        <div className="grid grid-cols-7 min-w-[800px] text-left font-bold text-[#6B6F93] text-[18px] py-4">
-          {headers.map((header, index) => (
-            <p key={index} className={`col-span-${header.span || 1}`}>
-              {header.title}
-            </p>
-          ))}
+                {/* Table Entries */}
+                {data.map((item, index) => (
+                    <div
+                        key={index}
+                        className="grid grid-cols-7 gap-4 min-w-[800px] items-center py-4"
+                    >
+                        <div className="col-span-2">
+                            <ProductCard
+                                imageUrl={item.imageUrl}
+                                category={item.category}
+                                status={item.status}
+                                title={item.title}
+                                description={item.description}
+                                orderId={item.orderId}
+                            />
+                        </div>
+                        <p className="text-[#160041] text-sm">{item.type}</p>
+                        <OrderHistoryPrice
+                            currencyType={item.currencyType}
+                            soldPrice={item.soldPrice}
+                        />
+                        {item.status==="pending" && <UpdateOrderStatus currentOrderStatus={item.status} orderId={item.orderId} className="flex-row gap-5 items-center" />}
+                    </div>
+                ))}
+            </div>
         </div>
-
-        {/* Table Entries */}
-        {data.map((item, index) => (
-          <div
-            key={index}
-            className="grid grid-cols-7 gap-4 min-w-[800px] items-center py-4"
-          >
-            <div className="col-span-2">
-            <ProductCard
-              imageUrl={item.imageUrl}
-              category={item.category}
-              status={statuses[index]}
-              title={item.title}
-              description={item.description}
-              orderId={item.orderId}
-              basePath="/itemDetail" 
-            />
-            </div>
-            <p className="text-[#160041] text-sm">{item.type}</p>
-            <OrderHistoryPrice
-              currencyType={item.currencyType}
-              soldPrice={item.soldPrice}
-            />
-            <div className="text-[#160041] text-sm">
-              <select
-                value={statuses[index]}
-                onChange={(e) => handleStatusChange(index, e.target.value)}
-                className="border border-gray-300 rounded-md p-1 text-sm"
-              >
-                <option value="pending" disabled>
-                  Pending
-                </option>
-                <option value="delivering">Delivering</option>
-              </select>
-            </div>
-            <div className="flex items-center col-span-2">
-              <button
-                onClick={() => handleSubmitStatus(index)}
-                className="text-green-600 font-semibold"
-                disabled={isLoading}
-              >
-                {isLoading ? "Updating..." : "Submit"}
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+    );
 };
 
 export default TableForSeller;

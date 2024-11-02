@@ -3,7 +3,7 @@ import { useWriteContract } from "wagmi";
 import { toast } from "../use-toast";
 import { OrderService } from "@/services";
 
-export default function useChangeOrderStatusOnChain(orderId: string) {
+export default function useChangeOrderStatusOnChain(orderId: string,) {
   const { writeContractAsync, isSuccess, isPending } = useWriteContract({
     config,
     mutation: {

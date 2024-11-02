@@ -21,7 +21,7 @@ const ClaimFunds: FC<{ nftId: number, currentOrderStatus:OrderStatus , deliveryB
         <AlertDialogTrigger disabled={isPending} className="gradient-button !py-2 !px-4 disabled:cursor-not-allowed">{isPending ? "Claiming..." : "Claim Funds"}</AlertDialogTrigger>
         <AlertDialogContent>
             <AlertDialogHeader>
-                <AlertDialogTitle>Raise Dispute Confirmation</AlertDialogTitle>
+                <AlertDialogTitle>Claim Funds</AlertDialogTitle>
                 <AlertDialogDescription>
                     {
                        getWarningText(currentOrderStatus, deliveryBy)

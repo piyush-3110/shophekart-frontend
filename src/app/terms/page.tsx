@@ -1,12 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 // pages/terms.tsx
+import ExampleComponent from '@/components/Profile/ExampleComponent';
 import React from 'react';
 
 const page: React.FC = () => {
   return (
     <div className="px-6 md:px-12 py-8 w-full ">
       <h1 className="!text-4xl font-bold gradient-text mb-6 text-center">Terms of Use</h1>
-      
+      <ExampleComponent/>
       <section className="mb-6">
         <h2 className="text-2xl font-semibold text-gray-700 mb-4">Introduction</h2>
         <p className="text-gray-600 mb-4">

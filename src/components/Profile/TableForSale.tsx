@@ -112,7 +112,7 @@ const TableForSale: React.FC<TableProps> = ({ headers, data }) => {
             <p className="text-[#160041] text-sm">{item.price}</p>
             <p className="text-[#160041] text-sm">{item.shipping}</p>
             <div className="flex space-x-2">
-              <button className="text-blue-500 text-sm font-[700]">Edit</button>
+              <button className="text-blue-500 text-sm font-[700]">Update</button>
               <button className="text-red-500 text-sm font-[700]">Delete</button>
             </div>
           </div>

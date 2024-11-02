@@ -147,8 +147,8 @@ const ProductForm = () => {
           onChange={handleChange}
         />
         <InputField
-          label="Product Address"
-          placeholder="Street, City, State, Country, Postal Code"
+          label="Country"
+          placeholder="Australia"
           name="productAddress"
           value={formData.productAddress}
           onChange={handleChange}

@@ -10,7 +10,7 @@ const CONTRACT_CONFIG: TContractConfig = {
     abi: MARKETPLACE_ABI,
   },
   escrow: {
-    address: "0x3F5291bfd9cD585F1f02b116f6Eea7c9F6bC83cC",
+    address: "0x5540e5cf498B4D7278ad6D6C58E7800f2450204c",
     abi: ESCROW_ABI,
   },
   usdt: {

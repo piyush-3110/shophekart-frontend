@@ -34,11 +34,13 @@ interface ItemDescriptionProps {
   shippingCharges: number;
   stars: number;
   reviewCount: number;
+  address:string;
 }
 
 export const ItemDescription: React.FC<ItemDescriptionProps> = ({
   name,
   description,
+  address,
   details,
   price,
   shippingCharges,
@@ -172,9 +174,12 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
           {price} {currencyType}
         </h1>
         <div className="flex gap-2 items-center">
-          <p className="text-sm font-[400] text-[#6B6F93]">
-            {shippingType === "LOCAL" ? "Local Shipping" : "Global Shipping"}
-          </p>
+        <p className="text-sm font-[400] text-[#6B6F93]">
+  {shippingType === "LOCAL" 
+    ? `Local Shipping (${address})` 
+    : "Global Shipping"}
+</p>
+
         </div>
       </div>
 

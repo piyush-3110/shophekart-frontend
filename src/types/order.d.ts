@@ -1,3 +1,5 @@
+import { OrderStatus } from "@/components/orderDetail/SingleDetail";
+
 type TOrder = {
   _id: string;
   orderStatus: "pending" | "delivering" | "delivered" | "cancelled" | "dispute";
@@ -24,7 +26,7 @@ export type TCreateOrder = {
 };
 
 export type TSellerOrderHistory = {
-  orderStatus: "pending" | "delivering" | "delivered" | "cancelled" | "dispute";
+  orderStatus: OrderStatus;
   deliveryBy: string;
   buyerId: string;
   productIdOnChain: number;

@@ -1,15 +1,8 @@
 import Image from "next/image";
-import React, {
-	ChangeEvent,
-	FC,
-	ForwardRefExoticComponent,
-	RefAttributes,
-	useEffect,
-	useMemo,
-	useState,
-} from "react";
-import { Input, InputProps } from "../ui/input";
+import React, { FC, useEffect, useState } from "react";
+import { Input } from "../ui/input";
 import { CloseIcon } from "@/icons";
+import { Label } from "../ui/label";
 
 interface UploadImageProps {
 	onFileSelect?: (files: File[]) => void; // Callback to pass selected files to the parent component
@@ -51,7 +44,7 @@ const UploadImage: FC<UploadImageProps> = ({ onFileSelect, ...props }) => {
 					key={index}
 					className="relative aspect-square w-28 md:w-44"
 				>
-					<img
+					<Image
 						width={480}
 						height={480}
 						src={image}
@@ -70,13 +63,13 @@ const UploadImage: FC<UploadImageProps> = ({ onFileSelect, ...props }) => {
 			))}
 			{imagePreviews.length <= 4 && (
 				<>
-					<label
+					<Label
 						htmlFor="file-input"
 						className="flex items-center justify-center w-28 md:w-44 aspect-square border border-dashed border-gray-300 rounded-lg cursor-pointer"
 					>
 						Upload image
-					</label>
-					<input
+					</Label>
+					<Input
 						id="file-input"
 						name="file-input"
 						type="file"

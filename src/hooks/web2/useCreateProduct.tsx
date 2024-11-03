@@ -5,7 +5,7 @@ import useCreateProductOnChain from "../web3/useCreateProductOnChain";
 import { createTokenUri } from "@/utils";
 import customToast from "@/utils/toasts";
 import useUpdateProductNftId from "./useUpdateProductOnChainId";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function useAddProduct(userWalletAddress: `0x${string}`) {
@@ -32,6 +32,19 @@ export default function useAddProduct(userWalletAddress: `0x${string}`) {
 		useCreateProductOnChain(userWalletAddress);
 	const { updateProductOnChainId } = useUpdateProductNftId();
 
+	const updateProductOnChainIdCallback = useCallback(
+		async ({
+			onChainId,
+			productId,
+		}: {
+			onChainId: string;
+			productId: string;
+		}) => {
+			await updateProductOnChainId({ onChainId, productId });
+		},
+		[]
+	);
+
 	useEffect(() => {
 		if (productId) {
 			prefetch(`/itemDetails/${productId}`);
@@ -44,7 +57,7 @@ export default function useAddProduct(userWalletAddress: `0x${string}`) {
 				].toString();
 
 				try {
-					await updateProductOnChainId({
+					await updateProductOnChainIdCallback({
 						onChainId,
 						productId,
 					});
@@ -63,7 +76,7 @@ export default function useAddProduct(userWalletAddress: `0x${string}`) {
 		productId,
 		prefetch,
 		push,
-		updateProductOnChainId,
+		updateProductOnChainIdCallback,
 	]);
 
 	async function addProduct(params: FormData) {

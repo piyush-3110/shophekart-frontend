@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "../use-toast";
 import { OrderService } from "@/services";
-import OrderService, { TCreateOrderParams } from "@/services/order.service";
+import { TCreateOrderParams } from "@/services/order.service";
 import { TCurrencyType } from "@/types/product";
 import { useEffect, useState } from "react";
 import useCreateOrderOnChain from "../web3/useCreateOrderOnChain";

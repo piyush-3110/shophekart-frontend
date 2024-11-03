@@ -24,10 +24,10 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import TOKEN_ADDRESS, { TCurrencyType } from "@/constants/tokenAddress";
 import useAddProductForm from "@/hooks/web2/useAddProductForm";
-import { HttpRequestService, UserService } from "@/services";
+import { HttpRequestService } from "@/services";
 import { useQuery } from "@tanstack/react-query";
 import { Country } from "country-state-city";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 const Page = () => {
 	const [productDetails, setProductDetails] = useState<string>("");
@@ -61,6 +61,11 @@ const Page = () => {
 
 	const { form, onSubmit, isLoading } = useAddProductForm();
 
+	const handleFileSelect = useCallback(
+		(files: File[]) => form.setValue("images", files),
+		[form.setValue]
+	);
+
 	return (
 		<div className="min-h-screen bg-gray-100 flex items-center justify-center">
 			<div className="p-8 w-[95vw] md:w-[80vw] my-10 mx-auto bg-white shadow-lg rounded-lg prose-sm">
@@ -83,6 +88,7 @@ const Page = () => {
 										<Input
 											placeholder="E.g. Smart Watch"
 											{...field}
+											disabled={isLoading}
 										/>
 									</FormControl>
 									<FormDescription>This is your product name.</FormDescription>
@@ -102,6 +108,7 @@ const Page = () => {
 											rows={5}
 											placeholder="Write your description here"
 											{...field}
+											disabled={isLoading}
 										/>
 									</FormControl>
 									<FormDescription>
@@ -121,6 +128,7 @@ const Page = () => {
 									<Select
 										onValueChange={field.onChange}
 										defaultValue={field.value}
+										disabled={isLoading}
 									>
 										<FormControl>
 											<SelectTrigger>
@@ -128,8 +136,11 @@ const Page = () => {
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
-											{countries?.map((country) => (
-												<SelectItem value={country.value}>
+											{countries?.map((country, index) => (
+												<SelectItem
+													key={index}
+													value={country.value}
+												>
 													{country.label}
 												</SelectItem>
 											))}
@@ -158,6 +169,7 @@ const Page = () => {
 								onClick={() => {
 									setIsHypeModalOpen(true);
 								}}
+								disabled={isLoading}
 							>
 								AIShophee
 							</Button>
@@ -173,9 +185,10 @@ const Page = () => {
 									<Select
 										onValueChange={field.onChange}
 										defaultValue={field.value}
+										disabled={isLoading || categoryLoading}
 									>
 										<FormControl>
-											<SelectTrigger disabled={categoryLoading}>
+											<SelectTrigger>
 												<SelectValue
 													placeholder={
 														categoryLoading
@@ -187,7 +200,10 @@ const Page = () => {
 										</FormControl>
 										<SelectContent>
 											{categories?.map((category) => (
-												<SelectItem value={category._id}>
+												<SelectItem
+													key={category._id}
+													value={category._id}
+												>
 													{category.label}
 												</SelectItem>
 											))}
@@ -204,16 +220,14 @@ const Page = () => {
 						<FormField
 							control={form.control}
 							name="images"
-							render={({ field: { onChange, value, ...fieldProps } }) => (
+							render={() => (
 								<FormItem>
 									<FormLabel>Product Images</FormLabel>
 									<FormControl>
-										<UploadImage
-											onFileSelect={(files: File[]) => onChange(files)}
-										/>
+										<UploadImage onFileSelect={handleFileSelect} />
 									</FormControl>
 									<FormDescription>
-										Please enter the stock of the product.
+										Please upload the images of the product.
 									</FormDescription>
 									<FormMessage />
 								</FormItem>
@@ -230,15 +244,19 @@ const Page = () => {
 										<Select
 											onValueChange={field.onChange}
 											defaultValue={field.value}
+											disabled={isLoading}
 										>
 											<FormControl>
-												<SelectTrigger disabled={isLoading}>
+												<SelectTrigger>
 													<SelectValue placeholder="Please Select Token" />
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
 												{currencyType?.map((currency) => (
-													<SelectItem value={currency.label}>
+													<SelectItem
+														key={currency.label}
+														value={currency.label}
+													>
 														{currency.label}
 													</SelectItem>
 												))}
@@ -263,6 +281,7 @@ const Page = () => {
 												type="number"
 												placeholder="50"
 												{...field}
+												disabled={isLoading}
 											/>
 										</FormControl>
 										<FormDescription>
@@ -284,6 +303,7 @@ const Page = () => {
 												type="number"
 												placeholder="50"
 												{...field}
+												disabled={isLoading}
 											/>
 										</FormControl>
 										<FormDescription>
@@ -305,6 +325,7 @@ const Page = () => {
 												type="number"
 												placeholder="50"
 												{...field}
+												disabled={isLoading}
 											/>
 										</FormControl>
 										<FormDescription>
@@ -324,6 +345,7 @@ const Page = () => {
 										<Select
 											onValueChange={field.onChange}
 											defaultValue={field.value}
+											disabled={isLoading}
 										>
 											<FormControl>
 												<SelectTrigger>
@@ -336,7 +358,7 @@ const Page = () => {
 											</SelectContent>
 										</Select>
 										<FormDescription>
-											Select the whether you do Global shipping or local{" "}
+											Select the whether you do Global shipping or local
 											{"(your country)"} shipping only.
 										</FormDescription>
 										<FormMessage />
@@ -355,6 +377,7 @@ const Page = () => {
 												type="number"
 												placeholder="50"
 												{...field}
+												disabled={isLoading}
 											/>
 										</FormControl>
 										<FormDescription>

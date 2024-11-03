@@ -1,10 +1,10 @@
 import Image from "next/image";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, HtmlHTMLAttributes, useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { CloseIcon } from "@/icons";
 import { Label } from "../ui/label";
 
-interface UploadImageProps {
+interface UploadImageProps extends HtmlHTMLAttributes<HTMLDivElement> {
 	onFileSelect?: (files: File[]) => void; // Callback to pass selected files to the parent component
 }
 
@@ -13,7 +13,9 @@ const UploadImage: FC<UploadImageProps> = ({ onFileSelect, ...props }) => {
 	const [uploadedFiles, setUploadedFiles] = useState<File[]>([]); // Keep track of all uploaded files
 
 	useEffect(() => {
-		onFileSelect && onFileSelect(uploadedFiles);
+		if (onFileSelect) {
+			onFileSelect(uploadedFiles);
+		}
 	}, [uploadedFiles]);
 
 	const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +40,10 @@ const UploadImage: FC<UploadImageProps> = ({ onFileSelect, ...props }) => {
 	};
 
 	return (
-		<div className="flex flex-wrap gap-5 space-x-2 items-center">
+		<div
+			{...props}
+			className="flex flex-wrap gap-5 space-x-2 items-center"
+		>
 			{imagePreviews.map((image, index) => (
 				<div
 					key={index}

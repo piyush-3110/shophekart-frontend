@@ -1,6 +1,5 @@
 import { HttpRequestService } from "@/services";
 import { IProduct } from "@/types";
-import customToast from "@/utils/toasts";
 import { useMutation } from "@tanstack/react-query";
 
 export default function useUpdateProductOnChainId() {

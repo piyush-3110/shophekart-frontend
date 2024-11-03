@@ -46,25 +46,29 @@ export default function useAddProductForm() {
 		// Convert values to FormData
 		const formData = new FormData();
 		Object.keys(values).forEach((key) => {
-			if (key === "images") {
-				(values.images as File[]).forEach((image) => {
-					formData.append(key, image);
-				});
-			} else {
-				const value = values[key as keyof typeof values];
-				if (value instanceof File || value instanceof FileList) {
-					// If value is a File or a FileList, append it directly
-					formData.append(key, value);
+			const value = values[key as keyof typeof values];
+			if (
+				value instanceof File ||
+				(Array.isArray(value) && value.length > 0 && value[0] instanceof File)
+			) {
+				// If value is a File or a non-empty array of Files, append it directly
+				if (Array.isArray(value)) {
+					value.forEach((file) => formData.append(key, file as Blob));
 				} else {
-					// Otherwise, append it as a string
-					formData.append(key, String(value));
+					formData.append(key, value as Blob);
 				}
+			} else if (value instanceof FileList) {
+				// If value is a FileList, append its files to the form data
+				Array.from(value).forEach((file) => formData.append(key, file));
+			} else {
+				// Otherwise, append it as a string
+				formData.append(key, String(value));
 			}
 		});
 
 		formData.append("details", productDetails);
 		formData.append("currencyAddress", TOKEN_ADDRESS[values.currencyType]);
-
+		console.log(formData.getAll("images"));
 		try {
 			await addProduct(formData);
 		} catch {

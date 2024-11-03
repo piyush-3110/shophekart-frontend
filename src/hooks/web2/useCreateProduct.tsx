@@ -57,7 +57,14 @@ export default function useAddProduct(userWalletAddress: `0x${string}`) {
 				}
 			})();
 		}
-	}, [isSuccess, onChainIds, productId]);
+	}, [
+		isSuccess,
+		onChainIds,
+		productId,
+		prefetch,
+		push,
+		updateProductOnChainId,
+	]);
 
 	async function addProduct(params: FormData) {
 		setIsLoading(true);

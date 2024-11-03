@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useEffect, useState } from "react";
 import ItemInfoHeader from "./ItemInfoHeader";
@@ -9,6 +10,7 @@ import useCreateOrder from "@/hooks/web2/useCreateOrder";
 import { Button } from "../ui/button";
 import { UpdateShippingModal } from "./UpdateShippingModal";
 import ShippingModal from "./ShippingModal";
+
 import httpRequestService from "@/services/httpRequest.service";
 
 interface ItemDescriptionProps {
@@ -48,8 +50,8 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
     useEffect(() => {
         const fetchShippingAddress = async () => {
           try {
-            const response = await httpRequestService.fetchApi<TShippingAddress[]>("/shipping-address/me");
-            if (response?.data) {
+            const response = await httpRequestService.fetchApi<any>("/shipping-address/me");
+            if (response?.data.length!=0) {
               setHasShippingAddress(true);
             }
           } catch (error) {
@@ -58,7 +60,7 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
           }
         };
 
-        fetchShippingAddress();},[])
+        fetchShippingAddress();},[user])
 
     const { createOrder, isLoading } = useCreateOrder(user?.walletAddress ?? "0x0000000000000000000000000000000000000000")
 
@@ -91,9 +93,9 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
                 <Button
                     className="gradient-button mt-3 !text-sm !w-fit"
                     onClick={handleOpenModal}
-                    disabled={isLoading}
+                    disabled={isLoading||params.stock==0}
                 >
-                  {isLoading? "Buying...":"Buy Now"}
+                   {params.stock === 0 ? "Out of Stock" : isLoading ? "Buying..." : "Buy Now"}
                 </Button>
             ) : (
                 <ConnectWalletButton />
@@ -128,20 +130,4 @@ interface ItemDescriptionProps {
     shippingCharges: number;
     stars: number;
     reviewCount: number;
-}
-
-type TShippingAddress = {
-    _id: string
-    address: string
-    city: string
-    state: string
-    postalCode: string
-    country: string
-    buyerId: string
-    firstName: string
-    lastName: string
-    email: string
-    phoneNumber: string
-    createdAt: Date
-    updatedAt: Date
 }

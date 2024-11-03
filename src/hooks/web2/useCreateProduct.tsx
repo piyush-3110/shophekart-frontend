@@ -2,81 +2,96 @@ import { HttpRequestService } from "@/services";
 import { IProduct } from "@/types";
 import { useMutation } from "@tanstack/react-query";
 import useCreateProductOnChain from "../web3/useCreateProductOnChain";
-import { toast } from "../use-toast";
-import CONTRACT_CONFIG from "@/constants/contractConfig";
-import TOKEN_ADDRESS from "@/constants/tokenAddress";
 import { createTokenUri } from "@/utils";
-import { parseEther } from "viem";
-import { PRODUCT_CREATION_FEE } from "@/constants/application";
+import customToast from "@/utils/toasts";
+import useUpdateProductNftId from "./useUpdateProductOnChainId";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
-const currencyTypeAddresses = {
-    USDT: TOKEN_ADDRESS.USDT,
-    BNB: TOKEN_ADDRESS.BNB,
-    CSHOP: TOKEN_ADDRESS.CSHOP,
-    USDC: TOKEN_ADDRESS.USDC,
-};
+export default function useAddProduct(userWalletAddress: `0x${string}`) {
+	const [productId, setProductId] = useState<string>("");
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const { push, prefetch } = useRouter();
 
-export default function useCreateProduct(userWalletAddress: `0x${string}`) {
-    const { writeContractAsync, setProductId } =
-        useCreateProductOnChain(userWalletAddress);
+	const { mutateAsync, ...props } = useMutation({
+		async mutationFn(params: FormData) {
+			const { data } = await HttpRequestService.postApi<IProduct, FormData>(
+				"/fixedProduct/create",
+				params,
+				{
+					headers: {
+						"Content-Type": "multipart/form-data",
+					},
+				}
+			);
+			return data;
+		},
+	});
 
-    const { mutateAsync } = useMutation({
-        async mutationFn(data: FormData) {
-            const response = await HttpRequestService.postApi<IProduct, FormData>(
-                "/fixedProduct/create",
-                data,
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                }
-            );
+	const { createProductOnChain, isSuccess, onChainIds } =
+		useCreateProductOnChain(userWalletAddress);
+	const { updateProductOnChainId } = useUpdateProductNftId();
 
-            return response;
-        },
-        async onSuccess({ data: product }) {
-            const tokenUri = await createTokenUri({
-                name: product.name,
-                category: product.category,
-                currencyType: product.currencyType,
-                description: product.description,
-                image: product.images[0],
-                price: product.price.toString(),
-            });
+	useEffect(() => {
+		if (productId) {
+			prefetch(`/itemDetails/${productId}`);
+		}
 
-            try {
-                await writeContractAsync({
-                    ...CONTRACT_CONFIG.marketplace,
-                    functionName: "createMarketItem",
-                    args: [
-                        product.stock,
-                        currencyTypeAddresses[product.currencyType],
-                        parseEther(product.price.toString()),
-                        parseEther(product.shippingCharges.toString()),
-                        tokenUri,
-                    ],
-                    value: parseEther(PRODUCT_CREATION_FEE),
-                });
-            } catch {
-                if (product._id) {
-                    await HttpRequestService.deleteApi<IProduct>(
-                        `/product/${product._id}/delete`
-                    );
-                }
-            }
+		if (isSuccess && onChainIds) {
+			(async () => {
+				const onChainId = (onChainIds as bigint[])[
+					(onChainIds as number[]).length - 1
+				].toString();
 
-            setProductId(product._id);
-        },
-        onError(error) {
-            console.log(error);
-            toast({
-                title: "Error creating product",
-                description:
-                    "There was an error while creating the product. Please try again later.",
-                variant: "destructive",
-            });
-        },
-    });
+				try {
+					await updateProductOnChainId({
+						onChainId,
+						productId,
+					});
+					push(`/itemDetails/${productId}`);
+					customToast.success("Product created successfully");
+				} catch {
+					customToast.error("There was an error while creating product");
+				} finally {
+					setIsLoading(false);
+				}
+			})();
+		}
+	}, [isSuccess, onChainIds, productId]);
 
-    return { mutateAsync };
+	async function addProduct(params: FormData) {
+		setIsLoading(true);
+		try {
+			const product = await mutateAsync(params);
+			setProductId(product._id);
+			try {
+				const tokenUri = await createTokenUri({
+					name: product.name,
+					category: product.category,
+					currencyType: product.currencyType,
+					description: product.description,
+					image: product.images[0],
+					price: product.price.toString(),
+				});
+				await createProductOnChain({
+					currencyAddress: product.currencyAddress as `0x${string}`,
+					price: product.price,
+					shippingCharges: product.shippingCharges,
+					tokenUri,
+					stock: product.stock,
+				});
+			} catch {
+				customToast.error("Error while creating product");
+				await HttpRequestService.deleteApi<IProduct>(
+					`/product/${product._id}/delete`
+				);
+				setIsLoading(false);
+			}
+		} catch {
+			setIsLoading(false);
+			customToast.error("Error while creating product");
+		}
+	}
+
+	return { addProduct, ...props, isLoading };
 }

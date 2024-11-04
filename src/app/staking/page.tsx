@@ -27,7 +27,7 @@ const Page: React.FC = (): JSX.Element => {
   const [activeTab, setActiveTab] = useState<StakingTab>(StakingTab.StakeOptions);
   const [isStakeModalOpen, setStakeModalOpen] = useState(false);
   const [isClaimModalOpen, setIsClaimModalOpen] = useState(false);
-  const [selectedAPR, setSelectedAPR] = useState<number | null>(null);
+  const [selectedAPR, setSelectedAPR] = useState<string>("");
 
   const handleOpenModal = () => {
     setIsClaimModalOpen(true);

@@ -80,7 +80,7 @@ export const EditDescriptionModal: React.FC<EditDescriptionModalProps> = ({
       className="fixed inset-0 w-full min-h-[100vh] translate-y-[-25%] z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm"
       onClick={handleOutsideClick}
     >
-      <div className="relative w-[90vw] max-w-md bg-white shadow-lg rounded-lg p-6">
+      <div className="relative w-[90vw] h-[80vh] max-w-md bg-white shadow-lg rounded-lg p-6">
         {/* Close Icon */}
         <button className="absolute top-4 right-4 text-gray-500 hover:text-gray-700" onClick={onClose}>
           <IoClose size={24} />

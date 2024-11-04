@@ -2,10 +2,10 @@ import { useWriteContract } from "wagmi";
 import { waitForTransactionReceipt } from "@wagmi/core";
 import { config } from "@/config";
 import CONTRACT_CONFIG from "@/constants/contractConfig";
-import { parseEther } from "viem";
+import { ContractFunctionExecutionError, parseEther } from "viem";
 import useApproveTokenTransaction from "./useApproveTokenTransaction";
 import customToast from "@/utils/toasts";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 const DEFAULT_REFERRAL_CODE = "SHOPHEKART";
 
@@ -21,41 +21,67 @@ export default function useBuyCshopToken() {
 
 	const { approveTokenTransaction } = useApproveTokenTransaction();
 
-	async function buyCshopToken({ ...props }: TBuyCshopTokenProps) {
-		setIsLoading(true);
-		setIsSuccess(false);
+	const buyCshopToken = useCallback(
+		async ({ token, amount, referralCode }: TBuyCshopTokenProps) => {
+			setIsLoading(true);
+			setIsSuccess(false);
 
-		const tokenId: 1 | 2 = props.token === "BNB" ? 1 : 2;
-		const amountArgs: bigint | 0 =
-			props.token === "BNB" ? 0 : parseEther(props.amount.toString());
-		const amountValue: bigint | undefined =
-			props.token === "BNB" ? parseEther(props.amount.toString()) : undefined;
-		const referralCode: string = props.referralCode ?? DEFAULT_REFERRAL_CODE;
+			const tokenId: 1 | 2 = token === "BNB" ? 1 : 2;
+			const amountArgs: bigint | 0 =
+				token === "BNB" ? 0 : parseEther(amount.toString());
+			const amountValue: bigint | undefined =
+				token === "BNB" ? parseEther(amount.toString()) : undefined;
+			const referralCodeString: string = referralCode ?? DEFAULT_REFERRAL_CODE;
 
-		try {
-			if (props.token === "USDT")
-				await approveTokenTransaction(
-					props.token.toLowerCase(),
-					props.amount,
-					CONTRACT_CONFIG.cshopTokenSale.address
-				);
+			try {
+				if (token === "USDT")
+					await approveTokenTransaction(
+						token.toLowerCase(),
+						amount,
+						CONTRACT_CONFIG.cshopTokenSale.address
+					);
 
-			const txHash = await writeContractAsync({
-				...CONTRACT_CONFIG.cshopTokenSale,
-				functionName: "buyToken",
-				args: [referralCode, tokenId, amountArgs],
-				value: amountValue,
-			});
+				const txHash = await writeContractAsync({
+					...CONTRACT_CONFIG.cshopTokenSale,
+					functionName: "buyToken",
+					args: [referralCodeString, tokenId, amountArgs],
+					value: amountValue,
+				});
 
-			await waitForTransactionReceipt(config, { hash: txHash });
-			setIsSuccess(true);
-			customToast.success("Transaction successful!");
-		} catch {
-			customToast.error("Transaction failed. Please try again.");
-		} finally {
-			setIsLoading(false);
-		}
-	}
+				await waitForTransactionReceipt(config, { hash: txHash });
+				setIsSuccess(true);
+				customToast.success("Transaction successful!");
+			} catch (error) {
+				if (error instanceof ContractFunctionExecutionError) {
+					if (
+						error.message.includes("insufficient funds for gas * price + value")
+					) {
+						customToast.error("You do not have enough funds.");
+					} else if (error.message.includes("User rejected the request")) {
+						customToast.success(
+							"Changed your mind??",
+							"Don't worry you can buy it later, but don't be too late because you may regret..."
+						);
+					}
+				} else {
+					customToast.error("Transaction failed. Please try again.");
+				}
+			} finally {
+				setIsLoading(false);
+			}
+		},
+		[
+			writeContractAsync,
+			approveTokenTransaction,
+			setIsLoading,
+			setIsSuccess,
+			config,
+			CONTRACT_CONFIG,
+			customToast,
+			parseEther,
+			DEFAULT_REFERRAL_CODE,
+		]
+	);
 
 	return { buyCshopToken, ...props, isPending: isLoading, isSuccess };
 }

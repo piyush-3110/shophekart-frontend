@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
+import { useUserStore } from "@/store"; // Make sure to import your user store
+import { envConfig } from "@/config/envConfig";
 
 interface EditDescriptionModalProps {
   isOpen: boolean;
@@ -14,6 +16,7 @@ export const EditDescriptionModal: React.FC<EditDescriptionModalProps> = ({
   onUpdate,
 }) => {
   const [description, setDescription] = useState("");
+  const { user } = useUserStore(); // Assuming you have a user context/store
 
   const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (e.target === e.currentTarget) {
@@ -21,9 +24,38 @@ export const EditDescriptionModal: React.FC<EditDescriptionModalProps> = ({
     }
   };
 
-  const handleUpdateClick = () => {
-    onUpdate(description); // Call the update function with the new description
-    onClose();
+  const handleUpdateClick = async () => {
+    if (!user || !user.walletAddress) {
+      // Handle case where user is not found or wallet address is not available
+      console.error("User wallet address is not available");
+      return;
+    }
+
+    try {
+      const response = await fetch( `${envConfig.BACKEND_URL}/user/update-description`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          walletAddress: user.walletAddress, // Use the user's wallet address
+          description,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update description");
+      }
+
+      const data = await response.json();
+     
+      onUpdate(data.data.description); // Call the onUpdate callback with new description
+      console.log(data.data.description);
+      onClose();
+    } catch (error) {
+      console.error("Error updating description:", error);
+      // Handle error (e.g., show a toast notification or an error message)
+    }
   };
 
   // Disable background scroll when modal is open
@@ -45,7 +77,7 @@ export const EditDescriptionModal: React.FC<EditDescriptionModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 w-full min-h-[100vh] z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm"
+      className="fixed inset-0 w-full min-h-[100vh] translate-y-[-25%] z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm"
       onClick={handleOutsideClick}
     >
       <div className="relative w-[90vw] max-w-md bg-white shadow-lg rounded-lg p-6">

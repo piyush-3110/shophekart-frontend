@@ -46,7 +46,7 @@ export default function FloatingNavbar() {
 
     return (
         <nav
-            className={`sticky lg:flex lg:items-center w-full lg:justify-around top-0 z-[4] left-0 transition-transform duration-300 ease-in-out bg-white py-2 px-6 ${isVisible ? "translate-y-0" : "-translate-y-full"
+            className={`sticky lg:flex lg:items-center w-full lg:justify-around top-0 z-[40] left-0 transition-transform duration-300 ease-in-out bg-white py-2 px-6 ${isVisible ? "translate-y-0" : "-translate-y-full"
                 }`}
         >
             {/* Logo */}

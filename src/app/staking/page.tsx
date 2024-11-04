@@ -93,7 +93,7 @@ const Page: React.FC = (): JSX.Element => {
             {STAKING_TABLE_DATA.map((data: StakingTableDataItem, index) => (
               <TableRow key={index}>
                 <TableCell className="font-medium">{data.token}</TableCell>
-                <TableCell>{data.apr}%</TableCell>
+                <TableCell>{data.apr}</TableCell>
                 <TableCell>{data.stakePeriod}</TableCell>
                 <TableCell className="text-left">
                   {activeTab === StakingTab.StakeOptions ? data.totalStaked : data.myStake}

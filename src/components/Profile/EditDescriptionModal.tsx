@@ -18,12 +18,7 @@ export const EditDescriptionModal: React.FC<EditDescriptionModalProps> = ({
   const [description, setDescription] = useState("");
   const { user } = useUserStore(); // Assuming you have a user context/store
 
-  const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
-
+  
   const handleUpdateClick = async () => {
     if (!user || !user.walletAddress) {
       // Handle case where user is not found or wallet address is not available
@@ -77,10 +72,14 @@ export const EditDescriptionModal: React.FC<EditDescriptionModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 w-full min-h-[100vh] translate-y-[-25%] z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm"
-      onClick={handleOutsideClick}
-    >
-      <div className="relative w-[90vw] h-[80vh] max-w-md bg-white shadow-lg rounded-lg p-6">
+    className="fixed inset-0 z-50 backdrop-blur-lg min-h-[100vh] translate-y-[-20%] flex items-center justify-center bg-black bg-opacity-40"
+    onClick={(e) => {
+      if (e.target === e.currentTarget) {
+        onClose(); // Close modal if clicked outside content
+      }
+    }}
+  >
+      <div className="relative  bg-white shadow-lg rounded-lg p-6">
         {/* Close Icon */}
         <button className="absolute top-4 right-4 text-gray-500 hover:text-gray-700" onClick={onClose}>
           <IoClose size={24} />
@@ -100,7 +99,7 @@ export const EditDescriptionModal: React.FC<EditDescriptionModalProps> = ({
         />
         <button
           onClick={handleUpdateClick}
-          className="gradient-button mt-4 w-full py-2 text-white rounded transition duration-150"
+          className="gradient-button hover:cursor-pointer mt-4 w-full py-2 text-white rounded transition duration-150"
         >
           Update
         </button>

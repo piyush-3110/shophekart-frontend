@@ -62,24 +62,24 @@ export const BuyToken: React.FC = () => {
 	}, [isSuccess, form, refetchBnb, refetchCshop, refetchUsdt]);
 
 	return (
-		<div className="flex flex-col gap-4 bg-white w-full max-w-md">
+		<div className="flex flex-col gap-4 bg-white w-full max-w-md mt-4">
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
 					className="space-y-2"
 				>
-					<div className="flex flex-row gap-4">
+					<div className="flex gap-4">
 						<FormField
 							control={form.control}
 							name="amount"
 							render={({ field }) => (
-								<FormItem>
+								<FormItem className="w-full">
 									<FormControl>
-										<div className="flex w-[80%] relative">
+										<div className="flex relative">
 											<Input
 												type="number"
-												placeholder="E.g. 10"
-												className="px-4 py-2 border w-full text-sm border-gray-300 rounded-md text-black placeholder-[#c7bfbf] focus:outline-none focus:ring-1 focus:ring-blue-500"
+												placeholder="Enter the amount"
+												className="px-4 py-2 border  text-sm border-gray-300 rounded-md text-black placeholder-[#c7bfbf] focus:outline-none focus:ring-1 focus:ring-blue-500"
 												{...field}
 												disabled={isPending}
 											/>
@@ -92,9 +92,9 @@ export const BuyToken: React.FC = () => {
 											</button>
 										</div>
 									</FormControl>
-									<FormDescription>
+									{/* <FormDescription>
 										Please enter the amount of tokens you want to buy with.
-									</FormDescription>
+									</FormDescription> */}
 									<FormMessage />
 								</FormItem>
 							)}
@@ -103,14 +103,14 @@ export const BuyToken: React.FC = () => {
 							control={form.control}
 							name="currencyType"
 							render={({ field }) => (
-								<FormItem>
+								<FormItem className="min-w-fit w-40 ">
 									<Select
 										onValueChange={field.onChange}
 										defaultValue={field.value}
 										disabled={isPending}
 									>
 										<FormControl>
-											<SelectTrigger className="w-min">
+											<SelectTrigger className="">
 												<SelectValue placeholder="Please Select Token" />
 											</SelectTrigger>
 										</FormControl>
@@ -119,18 +119,18 @@ export const BuyToken: React.FC = () => {
 											<SelectItem value={"USDT"}>{"USDT"}</SelectItem>
 										</SelectContent>
 									</Select>
-									<FormDescription>
+									{/* <FormDescription>
 										Select the token you want to buy with
-									</FormDescription>
+									</FormDescription> */}
 									<FormMessage />
 								</FormItem>
 							)}
 						/>
 					</div>
 					<Button
-						className="gradient-button"
+						className="gradient-button w-full"
 						type="submit"
-						disabled={isPending}
+						disabled={isPending || !user?.walletAddress}
 					>
 						{isPending ? "Buying..." : "Buy"}
 					</Button>

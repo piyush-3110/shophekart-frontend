@@ -63,7 +63,7 @@ const Page = () => {
 
 	const handleFileSelect = useCallback(
 		(files: File[]) => form.setValue("images", files),
-		[form.setValue]
+		[form]
 	);
 
 	return (

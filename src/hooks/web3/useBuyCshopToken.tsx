@@ -13,11 +13,7 @@ export default function useBuyCshopToken() {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
-	const {
-		writeContractAsync,
-		data: hash,
-		...props
-	} = useWriteContract({ config });
+	const { writeContractAsync, ...props } = useWriteContract({ config });
 
 	const { approveTokenTransaction } = useApproveTokenTransaction();
 
@@ -70,17 +66,7 @@ export default function useBuyCshopToken() {
 				setIsLoading(false);
 			}
 		},
-		[
-			writeContractAsync,
-			approveTokenTransaction,
-			setIsLoading,
-			setIsSuccess,
-			config,
-			CONTRACT_CONFIG,
-			customToast,
-			parseEther,
-			DEFAULT_REFERRAL_CODE,
-		]
+		[writeContractAsync, approveTokenTransaction, setIsLoading, setIsSuccess]
 	);
 
 	return { buyCshopToken, ...props, isPending: isLoading, isSuccess };

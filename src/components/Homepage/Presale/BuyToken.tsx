@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import ConnectButton from "../Hero/Navbar/ConnectButton";
+import React, { useEffect } from "react";
 import {
 	Select,
 	SelectContent,
@@ -45,22 +44,22 @@ export const BuyToken: React.FC = () => {
 			!!bnbBalance &&
 			!!usdtBalance
 		) {
-			form.getValues("currencyType") === "BNB" &&
+			if (form.getValues("currencyType") === "BNB")
 				form.setValue("amount", bnbBalance);
 
-			form.getValues("currencyType") === "USDT" &&
+			if (form.getValues("currencyType") === "USDT")
 				form.setValue("amount", usdtBalance);
 		}
 	};
 
 	useEffect(() => {
 		if (isSuccess) {
-			form.reset;
+			form.setValue("amount", "0");
 			refetchBnb();
 			refetchCshop();
 			refetchUsdt();
 		}
-	}, [isSuccess]);
+	}, [isSuccess, form, refetchBnb, refetchCshop, refetchUsdt]);
 
 	return (
 		<div className="flex flex-col gap-4 bg-white w-full max-w-md">

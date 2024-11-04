@@ -3,7 +3,6 @@ import buyCshopTokenSchema, {
 } from "@/validations/buyCshopTokenValidation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import useBuyCshopToken from "../web3/useBuyCshopToken";
 import { useSearchParams } from "next/navigation";
 import { useCallback } from "react";

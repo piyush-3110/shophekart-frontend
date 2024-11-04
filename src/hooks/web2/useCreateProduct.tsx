@@ -42,7 +42,7 @@ export default function useAddProduct(userWalletAddress: `0x${string}`) {
 		}) => {
 			await updateProductOnChainId({ onChainId, productId });
 		},
-		[]
+		[updateProductOnChainId]
 	);
 
 	useEffect(() => {

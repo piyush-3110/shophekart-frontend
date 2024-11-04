@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { CountdownDiv } from "./CountdownDiv";
 import { BuyToken } from "./BuyToken";
 
@@ -88,7 +88,9 @@ export const Presale = () => {
 						<Generate />
 					</div>
 					<ShowUserBalancePresenter />
-					<BuyToken />
+					<Suspense fallback={<div>Loading...</div>}>
+						<BuyToken />
+					</Suspense>
 				</div>
 			</div>
 		</>

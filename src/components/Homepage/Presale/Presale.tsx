@@ -5,6 +5,9 @@ import { BuyToken } from "./BuyToken";
 import PresaleProgress from "./PresaleProgress";
 import ShowUserBalancePresenter from "./ShowUserBalancePresenter";
 import ReferralModal from "./ReferralModal";
+import { Tooltip, TooltipContent } from "@/components/ui/tooltip";
+import { TooltipTrigger } from "@radix-ui/react-tooltip";
+import { InfoCircledIcon } from "@radix-ui/react-icons";
 
 export const Presale = () => {
 	const [timeLeft, setTimeLeft] = useState({
@@ -48,10 +51,18 @@ export const Presale = () => {
 	return (
 		<>
 			<div className="h-fit lg:h-[16rem] lg:w-auto w-[95vw] bg-white border py-6  rounded-md shadow-lg px-20 flex lg:items-center lg:flex-row flex-col lg:justify-end gap-20">
-				<div className="">
-					<h1 className="text-lg text-black font-semibold pb-6 ">
-						Presale Ends in:
-					</h1>
+				<div>
+					<div className="flex gap-4 mb-6">
+						<h1 className="text-lg text-black font-semibold">
+							Seed round ends in:
+						</h1>
+						<Tooltip delayDuration={100}>
+							<TooltipTrigger>
+								<InfoCircledIcon />{" "}
+							</TooltipTrigger>
+							<TooltipContent>Price: $0.003</TooltipContent>
+						</Tooltip>
+					</div>
 
 					{/* Countdown display */}
 					<div className="flex gap-4">

@@ -3,8 +3,8 @@ import { CountdownDiv } from "./CountdownDiv";
 import { BuyToken } from "./BuyToken";
 
 import PresaleProgress from "./PresaleProgress";
-import Generate from "./Generate";
 import ShowUserBalancePresenter from "./ShowUserBalancePresenter";
+import ReferralModal from "./ReferralModal";
 
 export const Presale = () => {
 	const [timeLeft, setTimeLeft] = useState({
@@ -81,11 +81,12 @@ export const Presale = () => {
 				</div>
 				<div className="h-[12rem] hidden lg:block border border-[#f1eeee] "></div>
 				<div>
-					<div className="flex gap-2 items-center">
+					<div className="flex gap-2 items-center mb-4">
 						<h1 className="text-lg text-black font-semibold ">
-							Generate referral text:{" "}
+							Referral Code:{" "}
 						</h1>
-						<Generate />
+						{/* <Generate /> */}
+						<ReferralModal />
 					</div>
 					<ShowUserBalancePresenter />
 					<Suspense fallback={<div>Loading...</div>}>

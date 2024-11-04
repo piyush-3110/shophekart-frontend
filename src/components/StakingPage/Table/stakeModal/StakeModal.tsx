@@ -19,6 +19,7 @@ interface ModalMetadataProps {
 interface StakeModalProps {
   isOpen: boolean;
   onClose: () => void;
+  apr:string;
 }
 
 // Metadata component
@@ -30,7 +31,7 @@ const ModalMetadata = ({ title, value }: ModalMetadataProps): JSX.Element => (
 );
 
 // Main StakeModal component
-const StakeModal = ({ isOpen, onClose }: StakeModalProps) => {
+const StakeModal = ({ isOpen, onClose, apr }: StakeModalProps) => {
   const [amount, setAmount] = useState<string>("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,7 +89,7 @@ const StakeModal = ({ isOpen, onClose }: StakeModalProps) => {
 
         {/* Modal Content */}
         <div className="grid gap-4">
-          <ModalMetadata title="APR (fix rate)" value="25%" />
+          <ModalMetadata title="APR (fix rate)" value={apr} />
           <ModalMetadata title="Stake period" value="60 Days" />
           <ModalMetadata title="Remaining mining pool rewards" value="0" />
 

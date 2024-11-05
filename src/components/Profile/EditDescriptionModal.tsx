@@ -1,8 +1,8 @@
 "use client"
 
 import React, { useState, useEffect } from "react"
-import { IoPencil } from "react-icons/io5"
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog"
+
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle,  DialogClose } from "@/components/ui/dialog"
 import { toast } from "@/hooks/use-toast"
 import { useUserStore } from "@/store"
 import { envConfig } from "@/config/envConfig"
@@ -77,9 +77,7 @@ export const EditDescriptionModal: React.FC<EditDescriptionModalProps> = ({
           <DialogTitle className="text-[#160041] font-semibold text-center text-xl mb-4">Edit Description</DialogTitle>
           <DialogClose />
         </DialogHeader>
-        <DialogDescription className="block text-gray-700 text-sm font-medium mb-2">
-          Description
-        </DialogDescription>
+       
         <textarea
           id="description"
           value={description}

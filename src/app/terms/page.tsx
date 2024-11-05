@@ -85,16 +85,7 @@ const page: React.FC = () => {
 					information.
 				</p>
 			</section>
-			<section className="mb-6">
-				<h2 className="text-2xl font-semibold text-gray-700 mb-4">
-					Privacy Policy
-				</h2>
-				<p className="text-gray-600 mb-4">
-					Please review our Privacy Policy, available on the Site, to understand
-					our practices regarding the collection, use, and disclosure of your
-					information.
-				</p>
-			</section>
+			
 			<section className="mb-6">
 				<h2 className="text-2xl font-semibold text-gray-700 mb-4">
 					Prohibited Activities

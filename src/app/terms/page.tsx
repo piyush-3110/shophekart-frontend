@@ -188,6 +188,14 @@ const page: React.FC = () => {
 					informed about current fees and charges.
 				</p>
 			</section>
+      <section className="mb-6">
+				<h2 className="text-2xl font-semibold text-gray-700 mb-4">
+        Investment risk
+				</h2>
+				<p className="text-gray-600 mb-4">
+        The sale of CSHOP tokens has no guarantee of profit. It is pure speculation, and the tokens themselves have no value; they are purely collectible. We are not responsible for any decrease in the value of the token, as well as for any investment losses.
+				</p>
+			</section>
 			<section className="mb-6">
 				<h2 className="text-2xl font-semibold text-gray-700 mb-4">Feedback</h2>
 				<p className="text-gray-600 mb-4">

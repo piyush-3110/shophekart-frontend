@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 import { useUserStore } from "@/store"; // Make sure to import your user store
 import { envConfig } from "@/config/envConfig";
+import { toast } from "@/hooks/use-toast";
 
 interface EditDescriptionModalProps {
   isOpen: boolean;
@@ -45,10 +46,12 @@ export const EditDescriptionModal: React.FC<EditDescriptionModalProps> = ({
       const data = await response.json();
      
       onUpdate(data.data.description); // Call the onUpdate callback with new description
+      toast({title: "Updated description successfully"});
       console.log(data.data.description);
       onClose();
     } catch (error) {
       console.error("Error updating description:", error);
+      toast({title:"Error updating description", variant:"destructive"})
       // Handle error (e.g., show a toast notification or an error message)
     }
   };

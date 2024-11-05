@@ -1,14 +1,16 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import { IoClose } from "react-icons/io5";
-import { useUserStore } from "@/store"; // Make sure to import your user store
-import { envConfig } from "@/config/envConfig";
-import { toast } from "@/hooks/use-toast";
+"use client"
+
+import React, { useState, useEffect } from "react"
+import { IoPencil } from "react-icons/io5"
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog"
+import { toast } from "@/hooks/use-toast"
+import { useUserStore } from "@/store"
+import { envConfig } from "@/config/envConfig"
 
 interface EditDescriptionModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onUpdate: (newDescription: string) => void; // Callback to handle description update
+  isOpen: boolean
+  onClose: () => void
+  onUpdate: (newDescription: string) => void
 }
 
 export const EditDescriptionModal: React.FC<EditDescriptionModalProps> = ({
@@ -16,51 +18,45 @@ export const EditDescriptionModal: React.FC<EditDescriptionModalProps> = ({
   onClose,
   onUpdate,
 }) => {
-  const [description, setDescription] = useState("");
-  const { user } = useUserStore(); // Assuming you have a user context/store
+  const [description, setDescription] = useState("")
+  const { user } = useUserStore()
 
-  
   const handleUpdateClick = async () => {
     if (!user || !user.walletAddress) {
-      // Handle case where user is not found or wallet address is not available
-      console.error("User wallet address is not available");
-      return;
+      console.error("User wallet address is not available")
+      return
     }
 
     try {
-      const response = await fetch( `${envConfig.BACKEND_URL}/user/update-description`, {
+      const response = await fetch(`${envConfig.BACKEND_URL}/user/update-description`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          walletAddress: user.walletAddress, // Use the user's wallet address
+          walletAddress: user.walletAddress,
           description,
         }),
-      });
+      })
 
       if (!response.ok) {
-        throw new Error("Failed to update description");
+        throw new Error("Failed to update description")
       }
 
-      const data = await response.json();
-     
-      onUpdate(data.data.description); // Call the onUpdate callback with new description
-      toast({title: "Updated description successfully"});
-      console.log(data.data.description);
-      onClose();
+      const data = await response.json()
+      onUpdate(data.data.description)
+      toast({ title: "Updated description successfully" })
+      onClose()
     } catch (error) {
-      console.error("Error updating description:", error);
-      toast({title:"Error updating description", variant:"destructive"})
-      // Handle error (e.g., show a toast notification or an error message)
+      console.error("Error updating description:", error)
+      toast({ title: "Error updating description", variant: "destructive" })
     }
-  };
-
-  // Disable background scroll when modal is open
+  }
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflowX = "hidden";
       document.body.style.overflowY = "hidden";
+      setDescription("");  // Reset newPrice when the modal opens
     } else {
       document.body.style.overflowX = "hidden";
       document.body.style.overflowY = "auto";
@@ -71,28 +67,19 @@ export const EditDescriptionModal: React.FC<EditDescriptionModalProps> = ({
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
   return (
-    <div
-    className="fixed inset-0 z-50 backdrop-blur-lg min-h-[100vh] translate-y-[-20%] flex items-center justify-center bg-black bg-opacity-40"
-    onClick={(e) => {
-      if (e.target === e.currentTarget) {
-        onClose(); // Close modal if clicked outside content
-      }
-    }}
-  >
-      <div className="relative  bg-white shadow-lg rounded-lg p-6">
-        {/* Close Icon */}
-        <button className="absolute top-4 right-4 text-gray-500 hover:text-gray-700" onClick={onClose}>
-          <IoClose size={24} />
-        </button>
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogTrigger asChild>
 
-        {/* Modal Content */}
-        <h2 className="text-[#160041] font-semibold text-center text-xl mb-4">Edit Description</h2>
-        <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="description">
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle className="text-[#160041] font-semibold text-center text-xl mb-4">Edit Description</DialogTitle>
+          <DialogClose />
+        </DialogHeader>
+        <DialogDescription className="block text-gray-700 text-sm font-medium mb-2">
           Description
-        </label>
+        </DialogDescription>
         <textarea
           id="description"
           value={description}
@@ -106,7 +93,7 @@ export const EditDescriptionModal: React.FC<EditDescriptionModalProps> = ({
         >
           Update
         </button>
-      </div>
-    </div>
-  );
-};
+      </DialogContent>
+    </Dialog>
+  )
+}

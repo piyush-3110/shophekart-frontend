@@ -63,7 +63,7 @@ const Page = () => {
 
 	const handleFileSelect = useCallback(
 		(files: File[]) => form.setValue("images", files),
-		[form.setValue]
+		[form]
 	);
 
 	return (
@@ -256,8 +256,11 @@ const Page = () => {
 													<SelectItem
 														key={currency.label}
 														value={currency.label}
+														disabled={currency.label === "CSHOP"}
 													>
-														{currency.label}
+														{currency.label === "CSHOP"
+															? "CSHOP (coming soon)"
+															: currency.label}
 													</SelectItem>
 												))}
 											</SelectContent>

@@ -1,6 +1,7 @@
 import { HttpRequestService } from "@/services";
 import { IProduct } from "@/types";
 import { useMutation } from "@tanstack/react-query";
+import { useCallback } from "react";
 
 export default function useUpdateProductOnChainId() {
 	const { mutateAsync, ...props } = useMutation({
@@ -23,15 +24,18 @@ export default function useUpdateProductOnChainId() {
 		},
 	});
 
-	async function updateProductOnChainId({
-		onChainId,
-		productId,
-	}: {
-		onChainId: string;
-		productId: string;
-	}) {
-		await mutateAsync({ onChainId, productId });
-	}
+	const updateProductOnChainId = useCallback(
+		async ({
+			onChainId,
+			productId,
+		}: {
+			onChainId: string;
+			productId: string;
+		}) => {
+			await mutateAsync({ onChainId, productId });
+		},
+		[mutateAsync]
+	);
 
 	return { updateProductOnChainId, ...props };
 }

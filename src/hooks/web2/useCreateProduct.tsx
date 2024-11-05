@@ -7,6 +7,7 @@ import customToast from "@/utils/toasts";
 import useUpdateProductNftId from "./useUpdateProductOnChainId";
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { ContractFunctionExecutionError } from "viem";
 
 export default function useAddProduct(userWalletAddress: `0x${string}`) {
 	const [productId, setProductId] = useState<string>("");
@@ -42,7 +43,7 @@ export default function useAddProduct(userWalletAddress: `0x${string}`) {
 		}) => {
 			await updateProductOnChainId({ onChainId, productId });
 		},
-		[]
+		[updateProductOnChainId]
 	);
 
 	useEffect(() => {
@@ -100,8 +101,18 @@ export default function useAddProduct(userWalletAddress: `0x${string}`) {
 					tokenUri,
 					stock: product.stock,
 				});
-			} catch {
-				customToast.error("Error while creating product");
+			} catch (error) {
+				if (error instanceof ContractFunctionExecutionError) {
+					if (
+						error.message.includes(
+							"executing this transaction exceeds the balance of the account."
+						)
+					) {
+						customToast.error("You don't have enough funds");
+					}
+				} else {
+					customToast.error("Error while creating product");
+				}
 				await HttpRequestService.deleteApi<IProduct>(
 					`/product/${product._id}/delete`
 				);

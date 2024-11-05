@@ -16,7 +16,7 @@ const UploadImage: FC<UploadImageProps> = ({ onFileSelect, ...props }) => {
 		if (onFileSelect) {
 			onFileSelect(uploadedFiles);
 		}
-	}, [uploadedFiles]);
+	}, [uploadedFiles, onFileSelect]);
 
 	const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const files = event.target.files;

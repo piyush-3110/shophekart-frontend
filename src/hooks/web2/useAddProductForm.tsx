@@ -21,7 +21,7 @@ export default function useAddProductForm() {
 		resolver: zodResolver(productValidationSchema),
 		defaultValues: {
 			sellerId: user?._id,
-			currencyType: currencyType[0].label,
+			currencyType: currencyType[1].label,
 			shippingType: "GLOBAL",
 			stock: "0",
 			shippingDuration: "0",

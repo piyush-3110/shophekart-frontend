@@ -5,14 +5,20 @@ import WalletAddressWithCopy from "../shared/WalletAddressWithCopy";
 import TrustScoreWithTooltip from "../shared/TrustScoreWithTooltip";
 import { IoPencil } from "react-icons/io5";
 import { EditDescriptionModal } from "./EditDescriptionModal";
+import { useUserStore } from "@/store"; // Import useUserStore hook
 
-type TProps = { walletAddress: `0x${string}`; trustScore: number; description: string; };
+type TProps = { walletAddress: `0x${string}`; trustScore: number; description: string };
 
 export const ProfileCard: FC<TProps> = ({ walletAddress, trustScore, description }) => {
     const [isEditModalOpen, setEditModalOpen] = useState(false);
+    const { user, setUser } = useUserStore(); // Destructure user and setUser from the store
 
     const handleUpdateDescription = (newDescription: string) => {
-        console.log(newDescription);
+        if (user) {
+            // Update the user's description in the store
+            setUser({ ...user, description: newDescription });
+        }
+        setEditModalOpen(false); // Close modal after update
     };
 
     return (
@@ -38,15 +44,14 @@ export const ProfileCard: FC<TProps> = ({ walletAddress, trustScore, description
                     <WalletAddressWithCopy walletAddress={walletAddress} />
                     <TrustScoreWithTooltip trustScore={trustScore} />
                     <button
-                            className="text-gray-500 flex justify-end hover:text-gray-700 cursor-pointer ml-2"
-                            onClick={() => setEditModalOpen(true)}
-                        >
-                            <IoPencil size={18} />
-                        </button>
+                        className="text-gray-500 flex justify-end hover:text-gray-700 cursor-pointer ml-2"
+                        onClick={() => setEditModalOpen(true)}
+                    >
+                        <IoPencil size={18} />
+                    </button>
                     <div className="border-t my-2 w-full bg-[#6B6F93]"></div>
                     <div className="flex items-center justify-between">
-                        <p className="text-sm font-[400] text-[#6B6F93]">{description}</p>
-                       
+                        <p className="text-sm font-[400] text-[#6B6F93]">{user?.description}</p>
                     </div>
                 </div>
             </div>

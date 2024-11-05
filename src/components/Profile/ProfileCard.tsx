@@ -5,20 +5,28 @@ import WalletAddressWithCopy from "../shared/WalletAddressWithCopy";
 import TrustScoreWithTooltip from "../shared/TrustScoreWithTooltip";
 import { IoPencil } from "react-icons/io5";
 import { EditDescriptionModal } from "./EditDescriptionModal";
+import { EditNameModal } from "./EditNameModal";
 import { useUserStore } from "@/store"; // Import useUserStore hook
 
-type TProps = { walletAddress: `0x${string}`; trustScore: number; description: string };
+type TProps = { walletAddress: `0x${string}`; trustScore: number; description: string; name: string };
 
-export const ProfileCard: FC<TProps> = ({ walletAddress, trustScore, description }) => {
-    const [isEditModalOpen, setEditModalOpen] = useState(false);
+export const ProfileCard: FC<TProps> = ({ walletAddress, trustScore, description, name }) => {
+    const [isEditDescriptionModalOpen, setEditDescriptionModalOpen] = useState(false);
+    const [isEditNameModalOpen, setEditNameModalOpen] = useState(false);
     const { user, setUser } = useUserStore(); // Destructure user and setUser from the store
 
     const handleUpdateDescription = (newDescription: string) => {
         if (user) {
-            // Update the user's description in the store
             setUser({ ...user, description: newDescription });
         }
-        setEditModalOpen(false); // Close modal after update
+        setEditDescriptionModalOpen(false); // Close modal after update
+    };
+
+    const handleUpdateName = (newName: string) => {
+        if (user) {
+            setUser({ ...user, name: newName });
+        }
+        setEditNameModalOpen(false); // Close modal after update
     };
 
     return (
@@ -43,15 +51,21 @@ export const ProfileCard: FC<TProps> = ({ walletAddress, trustScore, description
                 <div className="mx-8 mt-12 flex flex-col gap-2">
                     <WalletAddressWithCopy walletAddress={walletAddress} />
                     <div className="flex justify-between items-center">
-                    <TrustScoreWithTooltip trustScore={trustScore} />
+                        <TrustScoreWithTooltip trustScore={trustScore} />
+                        <button
+                            className="text-gray-500 hover:text-gray-700 cursor-pointer ml-2"
+                            onClick={() => setEditNameModalOpen(true)}
+                        >
+                            <IoPencil size={18} />
+                        </button>
+                    </div>
+                    <p className="text-lg font-semibold mt-2">{user?.name}</p>
                     <button
-                        className="text-gray-500  hover:text-gray-700 cursor-pointer ml-2"
-                        onClick={() => setEditModalOpen(true)}
+                        className="text-gray-500 hover:text-gray-700 cursor-pointer ml-2"
+                        onClick={() => setEditDescriptionModalOpen(true)}
                     >
                         <IoPencil size={18} />
                     </button>
-                    </div>
-                  
                     <div className="border-t my-2 w-full bg-[#6B6F93]"></div>
                     <div className="flex items-center justify-between">
                         <p className="text-sm font-[400] text-[#6B6F93]">{user?.description}</p>
@@ -60,9 +74,16 @@ export const ProfileCard: FC<TProps> = ({ walletAddress, trustScore, description
             </div>
             {/* Description Edit Modal */}
             <EditDescriptionModal
-                isOpen={isEditModalOpen}
-                onClose={() => setEditModalOpen(false)}
+                isOpen={isEditDescriptionModalOpen}
+                onClose={() => setEditDescriptionModalOpen(false)}
                 onUpdate={handleUpdateDescription}
+            />
+            {/* Name Edit Modal */}
+            <EditNameModal
+                isOpen={isEditNameModalOpen}
+                onClose={() => setEditNameModalOpen(false)}
+                onUpdate={handleUpdateName}
+             
             />
         </div>
     );

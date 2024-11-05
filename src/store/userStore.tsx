@@ -6,6 +6,7 @@ export interface IUser {
   walletAddress: `0x${string}`;
   trustScore: number;
   description:string;
+  name:string;
 }
 
 type Store = {

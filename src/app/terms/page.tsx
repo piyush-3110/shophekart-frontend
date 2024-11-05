@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 // pages/terms.tsx
-import ExampleComponent from "@/components/Profile/ExampleComponent";
+
 import React from "react";
 
 const page: React.FC = () => {
@@ -9,7 +9,7 @@ const page: React.FC = () => {
 			<h1 className="!text-4xl font-bold gradient-text mb-6 text-center">
 				Terms of Use
 			</h1>
-			<ExampleComponent />
+	
 			<section className="mb-6">
 				<h2 className="text-2xl font-semibold text-gray-700 mb-4">
 					Introduction

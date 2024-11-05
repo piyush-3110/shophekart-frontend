@@ -30,6 +30,7 @@ const OrderDetail: React.FC<ItemDetailProps> = ({ orderId }) => {
         <div className="max-w-screen-xl mx-auto p-4">
             <div className="flex flex-col lg:flex-row gap-6 items-start justify-center">
                 <ItemCard images={order.product.images} />
+                <div className='flex flex-col gap-4'>
                 <ItemDescription
                     nftId={order.nftId}
                     title={order.product.name}
@@ -42,6 +43,19 @@ const OrderDetail: React.FC<ItemDetailProps> = ({ orderId }) => {
                     type={order.product.type}
                     status={order.orderStatus}
                 />
+                  <div className="p-4  border border-gray-300 bg-gray-50 rounded-md text-sm text-gray-700">
+            <p><strong>Note:</strong></p>
+            <ul className="list-disc list-inside space-y-2">
+                <li>
+                    You have purchased an item. If you don&apos;t see any change in status from <strong>Pending</strong> to <strong>Delivering</strong>, you can cancel the order and get back your funds.
+                </li>
+                <li>
+                    If you didn&apos;t receive the product by the delivery time, raise a dispute within the next 24 hours, and follow the instructions provided while raising the dispute.
+                </li>
+            </ul>
+        </div>
+                </div>
+               
             </div>
             {order.isCallerBuyer ? <BuyerActions orderId={order._id} currentOrderStatus={order.orderStatus} /> : order.isCallerSeller ? <SellerActions deliveryBy={order.deliveryBy} nftId={order.nftId} orderId={order._id} currentOrderStatus={order.orderStatus} /> : null}
             <BuyerDetails

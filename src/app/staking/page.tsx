@@ -10,10 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import Button, {
-
-  ButtonVariant,
-} from "@/components/shared/Button";
+import Button, { ButtonVariant } from "@/components/shared/Button";
 import MiningPoolProgress from "@/components/StakingPage/Table/MiningPoolProgress";
 import { StakingTab } from "@/constants/stakingTabs";
 import { STAKING_TABLE_DATA, STAKING_TABS } from "@/constants";
@@ -22,7 +19,7 @@ import { motion } from "framer-motion";
 import { Dialog } from "@/components/ui/dialog";
 import StakeModal from "@/components/StakingPage/Table/stakeModal/StakeModal";
 import { StakingTableDataItem } from "@/types/stakingTableDataTypes";
-import "react-toastify/dist/ReactToastify.css"; // Import the CSS
+import "react-toastify/dist/ReactToastify.css";
 import ToastNotification from "@/components/Form/ToastNotification";
 import { ClaimModal } from "@/components/StakingPage/Table/stakeModal/ClaimModal";
 
@@ -30,6 +27,7 @@ const Page: React.FC = (): JSX.Element => {
   const [activeTab, setActiveTab] = useState<StakingTab>(StakingTab.StakeOptions);
   const [isStakeModalOpen, setStakeModalOpen] = useState(false);
   const [isClaimModalOpen, setIsClaimModalOpen] = useState(false);
+  const [selectedAPR, setSelectedAPR] = useState<string>("");
 
   const handleOpenModal = () => {
     setIsClaimModalOpen(true);
@@ -39,13 +37,9 @@ const Page: React.FC = (): JSX.Element => {
     setIsClaimModalOpen(false);
   };
 
-  // Function to handle the Claim button click and trigger toast
-
   return (
     <main className="bg-white">
-      {/* ToastContainer must be placed in the JSX tree */}
-   <ToastNotification/>
-      {/* Tab container */}
+      <ToastNotification />
       <div className="bg-[#F1F4FF] w-full">
         <div className="px-4 lg:px-28 flex gap-2">
           {STAKING_TABS.map(({ title }, index) => {
@@ -71,7 +65,6 @@ const Page: React.FC = (): JSX.Element => {
         </div>
       </div>
 
-      {/* Table container */}
       <div className="px-4 lg:px-28 mt-8">
         <Table>
           <TableCaption>
@@ -100,7 +93,7 @@ const Page: React.FC = (): JSX.Element => {
             {STAKING_TABLE_DATA.map((data: StakingTableDataItem, index) => (
               <TableRow key={index}>
                 <TableCell className="font-medium">{data.token}</TableCell>
-                <TableCell>{data.apr}%</TableCell>
+                <TableCell>{data.apr}</TableCell>
                 <TableCell>{data.stakePeriod}</TableCell>
                 <TableCell className="text-left">
                   {activeTab === StakingTab.StakeOptions ? data.totalStaked : data.myStake}
@@ -116,7 +109,7 @@ const Page: React.FC = (): JSX.Element => {
                         currentTokens={data.miningPool.currentTokens}
                       />
                     ) : (
-                      <span>No Pool</span> // Fallback text
+                      <span>No Pool</span>
                     )
                   ) : (
                     data.tokenUnlockPeriod
@@ -125,25 +118,30 @@ const Page: React.FC = (): JSX.Element => {
                 <TableCell className="flex justify-center">
                   {activeTab === StakingTab.StakeOptions ? (
                     <Dialog>
-                    
-                      <button onClick={() => setStakeModalOpen(true)} className="gradient-button !py-2 !px-4">Stake</button>
-      <StakeModal
-        isOpen={isStakeModalOpen}
-        onClose={() => setStakeModalOpen(false)}
-      />
-                    
+                      <button
+                        onClick={() => {
+                          setStakeModalOpen(true);
+                          setSelectedAPR(data.apr); // Pass APR to modal
+                        }}
+                        className="gradient-button !py-2 !px-4"
+                      >
+                        Stake
+                      </button>
+                      <StakeModal
+                        isOpen={isStakeModalOpen}
+                        apr={selectedAPR} // Pass APR to modal as prop
+                        onClose={() => setStakeModalOpen(false)}
+                      />
                     </Dialog>
                   ) : (
                     <button
-                    onClick={handleOpenModal}
-                    className="gradient-button !py-2 !px-4 text-white"
-                  >
-                    Claim
-                  </button>
-        
+                      onClick={handleOpenModal}
+                      className="gradient-button !py-2 !px-4 text-white"
+                    >
+                      Claim
+                    </button>
                   )}
                   <ClaimModal isOpen={isClaimModalOpen} onClose={handleCloseModal} />
-
                 </TableCell>
               </TableRow>
             ))}

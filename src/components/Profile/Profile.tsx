@@ -23,6 +23,8 @@ export const Profile = () => {
           <ProfileCard
             walletAddress={user.walletAddress}
             trustScore={user.trustScore}
+            name = {user.name}
+            description={user.description}
           />
         </div>
         <Slider />

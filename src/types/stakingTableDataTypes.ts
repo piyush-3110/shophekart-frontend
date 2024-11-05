@@ -21,7 +21,7 @@ interface StakingTableDataItem {
    * The annual percentage rate.
    * @type {number}
    */
-  apr: number;
+  apr: string;
   /**
    * The staking period (e.g., '60 days').
    * @type {string}

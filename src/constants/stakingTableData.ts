@@ -3,7 +3,7 @@ import { StakingTableDataItem } from "@/types/stakingTableDataTypes";
 const STAKING_TABLE_DATA: StakingTableDataItem[] = [
   {
     token: "CSHOP",
-    apr: 25,
+    apr: "25%",
     stakePeriod: "0 days",
     totalStaked: 0,
     tvlUsd: "0",
@@ -17,7 +17,7 @@ const STAKING_TABLE_DATA: StakingTableDataItem[] = [
   },
   {
     token: "CSHOP",
-    apr: 20,
+    apr: "20%",
     stakePeriod: "0 days",
     totalStaked: 0,
     tvlUsd: "0",
@@ -31,7 +31,7 @@ const STAKING_TABLE_DATA: StakingTableDataItem[] = [
   },
   {
     token: "CSHOP",
-    apr: 15,
+    apr: "15%",
     stakePeriod: "0 days",
     totalStaked: 0,
     tvlUsd: "0",
@@ -45,7 +45,7 @@ const STAKING_TABLE_DATA: StakingTableDataItem[] = [
   },
   {
     token: "CSHOP",
-    apr: 12,
+    apr: "12%",
     stakePeriod: "0 days",
     totalStaked: 0,
     tvlUsd: "0",
@@ -59,7 +59,7 @@ const STAKING_TABLE_DATA: StakingTableDataItem[] = [
   },
   {
     token: "CSHOP",
-    apr: 10,
+    apr: "10%",
     stakePeriod: "0 days",
     totalStaked: 0,
     tvlUsd: "0",

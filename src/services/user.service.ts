@@ -6,7 +6,7 @@ const userservice = {
     const {
       data: { user },
     } = await HttpRequestService.fetchApi<{ user: IUser }>("/user/profile");
-
+console.log(user);
     return user;
   },
 };

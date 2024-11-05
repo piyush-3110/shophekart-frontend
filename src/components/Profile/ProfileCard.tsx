@@ -11,7 +11,7 @@ import { useUserStore } from "@/store"; // Import useUserStore hook
 
 type TProps = { walletAddress: `0x${string}`; trustScore: number; description: string; name: string };
 
-export const ProfileCard: FC<TProps> = ({ walletAddress, trustScore, description, name }) => {
+export const ProfileCard: FC<TProps> = ({ walletAddress, trustScore }) => {
     const [isEditDescriptionModalOpen, setEditDescriptionModalOpen] = useState(false);
     const [isEditNameModalOpen, setEditNameModalOpen] = useState(false);
     const { user, setUser } = useUserStore(); // Destructure user and setUser from the store

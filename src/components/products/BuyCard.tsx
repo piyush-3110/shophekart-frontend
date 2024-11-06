@@ -58,7 +58,7 @@ const BuyCard: FC<BuyCardProp> = ({
 					</Show>
 					<Show when={OUT_OF_STOCK}>
 						<div className="relative w-full rounded-md overflow-hidden">
-							<div className="absolute top-0 left-0 w-full h-full bg-destructive/20 z-[2] flex items-center justify-center">
+							<div className="absolute top-0 left-0 w-full h-full bg-destructive/20 z-[2] flex items-center justify-center backdrop-blur-sm">
 								<span className="px-4 py-2 bg-destructive text-white rounded-md font-medium text-sm">
 									Out of Stock
 								</span>

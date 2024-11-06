@@ -96,7 +96,6 @@ export const Presale = () => {
 						<h1 className="text-lg text-black font-semibold ">
 							Referral Code:{" "}
 						</h1>
-						{/* <Generate /> */}
 						<ReferralModal />
 					</div>
 					<ShowUserBalancePresenter />

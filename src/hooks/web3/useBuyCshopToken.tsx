@@ -11,7 +11,6 @@ const DEFAULT_REFERRAL_CODE = "SHOPHEKART";
 
 export default function useBuyCshopToken() {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
 	const { writeContractAsync, ...props } = useWriteContract({ config });
 
@@ -20,7 +19,6 @@ export default function useBuyCshopToken() {
 	const buyCshopToken = useCallback(
 		async ({ token, amount, referralCode }: TBuyCshopTokenProps) => {
 			setIsLoading(true);
-			setIsSuccess(false);
 
 			const tokenId: 1 | 2 = token === "BNB" ? 1 : 2;
 			const amountArgs: bigint | 0 =
@@ -45,7 +43,6 @@ export default function useBuyCshopToken() {
 				});
 
 				await waitForTransactionReceipt(config, { hash: txHash });
-				setIsSuccess(true);
 				customToast.success("Transaction successful!");
 			} catch (error) {
 				if (error instanceof ContractFunctionExecutionError) {
@@ -66,10 +63,14 @@ export default function useBuyCshopToken() {
 				setIsLoading(false);
 			}
 		},
-		[writeContractAsync, approveTokenTransaction, setIsLoading, setIsSuccess]
+		[writeContractAsync, approveTokenTransaction, setIsLoading]
 	);
 
-	return { buyCshopToken, ...props, isPending: isLoading, isSuccess };
+	return {
+		buyCshopToken,
+		...props,
+		isPending: isLoading,
+	};
 }
 
 type TBuyCshopTokenProps = {

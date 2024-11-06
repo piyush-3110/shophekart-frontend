@@ -12,7 +12,7 @@ export default function ShowUserBalanceContainer({
 			<Show when={!userWalletAddress}>
 				<Text text="Please connect wallet" />
 			</Show>
-			<Show when={!!userWalletAddress && isLoading}>
+			<Show when={!!userWalletAddress && isLoading && !balance}>
 				<Text text="loading balance..." />
 			</Show>
 			<Show when={!!balance}>
@@ -25,7 +25,7 @@ export default function ShowUserBalanceContainer({
 					/>
 				</div>
 			</Show>
-			<Show when={isError && !!userWalletAddress && !isLoading}>
+			<Show when={isError && !!userWalletAddress && !isLoading && !balance}>
 				<Text text="Balance: 0 CSHOP" />
 			</Show>
 		</div>

@@ -16,9 +16,9 @@ import {
 	FormItem,
 	FormMessage,
 } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
 import useGetUserTokenBalance from "@/hooks/web3/useGetUserBalance";
 import { useUserStore } from "@/store";
+import BuyTokenConfirmationModal from "./BuyTokenConfirmationModal";
 
 export const BuyToken: React.FC = () => {
 	const { isPending, isSuccess, onSubmit, form } = useBuyCshopTokenForm();
@@ -92,9 +92,6 @@ export const BuyToken: React.FC = () => {
 											</button>
 										</div>
 									</FormControl>
-									{/* <FormDescription>
-										Please enter the amount of tokens you want to buy with.
-									</FormDescription> */}
 									<FormMessage />
 								</FormItem>
 							)}
@@ -119,21 +116,21 @@ export const BuyToken: React.FC = () => {
 											<SelectItem value={"USDT"}>{"USDT"}</SelectItem>
 										</SelectContent>
 									</Select>
-									{/* <FormDescription>
-										Select the token you want to buy with
-									</FormDescription> */}
 									<FormMessage />
 								</FormItem>
 							)}
 						/>
 					</div>
-					<Button
-						className="gradient-button w-full"
-						type="submit"
-						disabled={isPending || !user?.walletAddress}
-					>
-						{isPending ? "Buying..." : "Buy"}
-					</Button>
+					<BuyTokenConfirmationModal
+						amount={form.getValues("amount")}
+						token={form.getValues("currencyType")}
+						disabled={
+							!form.formState.isValid || isPending || !user?.walletAddress
+						}
+						refetchBnb={refetchBnb}
+						refetchCshop={refetchCshop}
+						refetchUsdt={refetchUsdt}
+					/>
 				</form>
 			</Form>
 		</div>

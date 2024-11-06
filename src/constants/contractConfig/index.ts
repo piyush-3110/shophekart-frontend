@@ -58,7 +58,7 @@ const testnetConfig: TContractConfig = {
 		abi: ERC20_ABI,
 	},
 	cshopTokenSale: {
-		address: "0xE11CC106ba82D28Ff07733d6cfb65AEbaf3F6C5d",
+		address: "0xB005004337f440753A2eAd1a2eB7e0046b79Abec",
 		abi: CSHOP_TOKEN_SALE_ABI,
 	},
 };

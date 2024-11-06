@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 // pages/terms.tsx
-import ExampleComponent from "@/components/Profile/ExampleComponent";
+
 import React from "react";
 
 const page: React.FC = () => {
@@ -9,7 +9,7 @@ const page: React.FC = () => {
 			<h1 className="!text-4xl font-bold gradient-text mb-6 text-center">
 				Terms of Use
 			</h1>
-			<ExampleComponent />
+	
 			<section className="mb-6">
 				<h2 className="text-2xl font-semibold text-gray-700 mb-4">
 					Introduction
@@ -85,16 +85,7 @@ const page: React.FC = () => {
 					information.
 				</p>
 			</section>
-			<section className="mb-6">
-				<h2 className="text-2xl font-semibold text-gray-700 mb-4">
-					Privacy Policy
-				</h2>
-				<p className="text-gray-600 mb-4">
-					Please review our Privacy Policy, available on the Site, to understand
-					our practices regarding the collection, use, and disclosure of your
-					information.
-				</p>
-			</section>
+			
 			<section className="mb-6">
 				<h2 className="text-2xl font-semibold text-gray-700 mb-4">
 					Prohibited Activities
@@ -186,6 +177,14 @@ const page: React.FC = () => {
 					be posted on the Site, and users will be notified by email prior to
 					implementation. Users are responsible for reviewing the Site to stay
 					informed about current fees and charges.
+				</p>
+			</section>
+      <section className="mb-6">
+				<h2 className="text-2xl font-semibold text-gray-700 mb-4">
+        Investment risk
+				</h2>
+				<p className="text-gray-600 mb-4">
+        The sale of CSHOP tokens has no guarantee of profit. It is pure speculation, and the tokens themselves have no value; they are purely collectible. We are not responsible for any decrease in the value of the token, as well as for any investment losses.
 				</p>
 			</section>
 			<section className="mb-6">

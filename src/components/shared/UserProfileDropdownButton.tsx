@@ -43,7 +43,7 @@ const DROPDOWN_MENU_ITEMS: {
     label: "Purchase history",
     icon: <HistoryIcon />,
     action: () => {}, // Placeholder for modal action
-  },
+  }
 ];
 
 const UserProfileDropdownButton = () => {

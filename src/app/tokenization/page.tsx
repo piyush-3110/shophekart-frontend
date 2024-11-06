@@ -2,7 +2,7 @@
 import React from 'react'
 
 import Footer from '@/components/Footer/Footer'
-import Tokenized from '../../components/tokenization/Tokenize';
+import Tokenize from '@/components/tokenization/Tokenize';
 import Hero1 from '@/components/tokenization/Hero1';
 
 
@@ -13,7 +13,7 @@ const page = () => {
     <div>
      
     <Hero1/>
-    <Tokenized/>
+    <Tokenize/>
     <Footer/>
     </div>
   )

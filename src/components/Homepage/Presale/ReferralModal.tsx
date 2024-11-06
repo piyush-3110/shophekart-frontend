@@ -38,7 +38,6 @@ const ReferralModal = () => {
 
 	React.useEffect(() => {
 		setUrl(window.location.origin);
-		console.log(window.location.origin);
 	}, []);
 
 	return (
@@ -83,7 +82,6 @@ export default ReferralModal;
 
 function GenerateReferralForm({
 	referralCodeRefetch,
-	// referralCountRefetch,
 	referralEarningInBnbRefetch,
 	referralEarningInUsdtRefetch,
 }: {

@@ -142,18 +142,6 @@
 				"internalType": "uint256",
 				"name": "maxTokenInRound",
 				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "startTime",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "endTime",
-				"type": "uint256"
 			}
 		],
 		"name": "intializeSale",
@@ -191,15 +179,22 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "cshopPrice",
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "payementMethod",
+				"type": "uint256"
+			},
+			{ "internalType": "uint256", "name": "amount", "type": "uint256" }
+		],
+		"name": "claclulateAmount",
 		"outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [],
-		"name": "endTime",
+		"name": "cshopPrice",
 		"outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
 		"stateMutability": "view",
 		"type": "function"
@@ -231,15 +226,6 @@
 		],
 		"name": "getReferralCode",
 		"outputs": [{ "internalType": "string", "name": "", "type": "string" }],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{ "internalType": "address", "name": "refferedBy", "type": "address" }
-		],
-		"name": "getRefferalCount",
-		"outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
 		"stateMutability": "view",
 		"type": "function"
 	},
@@ -287,9 +273,7 @@
 				"name": "_maxTokenInround",
 				"type": "uint256"
 			},
-			{ "internalType": "uint256", "name": "_referralRate", "type": "uint256" },
-			{ "internalType": "uint256", "name": "_startTime", "type": "uint256" },
-			{ "internalType": "uint256", "name": "_endTime", "type": "uint256" }
+			{ "internalType": "uint256", "name": "_referralRate", "type": "uint256" }
 		],
 		"name": "intializer",
 		"outputs": [],
@@ -369,13 +353,6 @@
 	{
 		"inputs": [],
 		"name": "round",
-		"outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "startTime",
 		"outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
 		"stateMutability": "view",
 		"type": "function"

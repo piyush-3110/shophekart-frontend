@@ -85,13 +85,13 @@ export default function BuyTokenConfirmationModal({
 								</div>
 								<div className="flex flex-col gap-2">
 									<Show when={isApproveLoading}>
-										<p className="text-yellow-400">
+										<p className="text-gray-500">
 											Please approve the transaction for usdt transfer in
 											metamask
 										</p>
 									</Show>
 									<Show when={isBuyTokenLoading}>
-										<p className="text-yellow-400">
+										<p className="text-gray-500">
 											Please confirm the transaction for buying cshop token in
 											metamask
 										</p>
@@ -104,7 +104,7 @@ export default function BuyTokenConfirmationModal({
 											isPending
 										}
 									>
-										<p className="text-yellow-400">
+										<p className="text-gray-500">
 											Waiting for transaction to be confirmed on blockchain
 										</p>
 									</Show>
@@ -115,7 +115,7 @@ export default function BuyTokenConfirmationModal({
 								</div>
 							</Show>
 							<Show when={!isPending && !isSuccess}>
-								<p className="text-sm text-yellow-300">
+								<p className="text-sm text-gray-500">
 									Please confirm to complete your purchase. Your tokens will be
 									added to your wallet shortly after the transaction is
 									finalized!

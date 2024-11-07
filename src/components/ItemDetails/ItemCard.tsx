@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React, { useState } from "react";
 import Show from "../shared/Show";
+import { SoldIcon } from "@/icons";
 
 interface ItemCardProps {
 	images: string[]; // Array of image URLs passed as a prop
@@ -19,10 +20,10 @@ const ItemCard: React.FC<ItemCardProps> = ({ images, outOfStock }) => {
 			{/* Main Image */}
 			<div className="relative flex items-center justify-center h-[80%]">
 				<Show when={!!outOfStock}>
-					<div className="absolute top-0 left-0 w-full h-full bg-destructive/20 z-[2] flex items-center justify-center backdrop-blur-sm">
-						<span className="px-4 py-2 bg-destructive text-white rounded-md font-medium text-sm">
-							Out of Stock
-						</span>
+					<div className="absolute top-0 left-0 w-full h-full  z-[2] flex items-center justify-center backdrop-blur-sm ">
+						<div className="size-20">
+							<SoldIcon />
+						</div>
 					</div>
 				</Show>
 				<Image
@@ -45,7 +46,8 @@ const ItemCard: React.FC<ItemCardProps> = ({ images, outOfStock }) => {
 								key={index}
 								className={cn(
 									`aspect-square w-full  bg-white object-contain rounded-md cursor-pointer`,
-									selectedImage === thumbnail && "border-2 border-blue-300"
+									selectedImage === thumbnail && "border-2",
+									outOfStock ? "border-destructive" : "border-blue-300"
 								)}
 								src={thumbnail}
 								alt={`Thumbnail ${index + 1}`}

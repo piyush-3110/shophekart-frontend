@@ -11,6 +11,9 @@ const DEFAULT_REFERRAL_CODE = "SHOPHEKART";
 
 export default function useBuyCshopToken() {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const [isApproveLoading, setIsApproveLoading] = useState<boolean>(false);
+	const [isBuyTokenLoading, setIsBuyTokenLoading] = useState<boolean>(false);
+	const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
 	const { writeContractAsync, ...props } = useWriteContract({ config });
 
@@ -19,6 +22,7 @@ export default function useBuyCshopToken() {
 	const buyCshopToken = useCallback(
 		async ({ token, amount, referralCode }: TBuyCshopTokenProps) => {
 			setIsLoading(true);
+			setIsSuccess(false);
 
 			const tokenId: 1 | 2 = token === "BNB" ? 1 : 2;
 			const amountArgs: bigint | 0 =
@@ -28,22 +32,27 @@ export default function useBuyCshopToken() {
 			const referralCodeString: string = referralCode ?? DEFAULT_REFERRAL_CODE;
 
 			try {
-				if (token === "USDT")
+				if (token === "USDT") {
+					setIsApproveLoading(true);
 					await approveTokenTransaction(
 						token.toLowerCase(),
 						amount,
 						CONTRACT_CONFIG.cshopTokenSale.address
 					);
-
+					setIsApproveLoading(false);
+				}
+				setIsBuyTokenLoading(true);
 				const txHash = await writeContractAsync({
 					...CONTRACT_CONFIG.cshopTokenSale,
 					functionName: "buyToken",
 					args: [referralCodeString, tokenId, amountArgs],
 					value: amountValue,
 				});
+				setIsBuyTokenLoading(false);
 
 				await waitForTransactionReceipt(config, { hash: txHash });
 				customToast.success("Transaction successful!");
+				setIsSuccess(true);
 			} catch (error) {
 				if (error instanceof ContractFunctionExecutionError) {
 					if (
@@ -63,13 +72,17 @@ export default function useBuyCshopToken() {
 				setIsLoading(false);
 			}
 		},
-		[writeContractAsync, approveTokenTransaction, setIsLoading]
+		[writeContractAsync, approveTokenTransaction, setIsLoading, setIsSuccess]
 	);
 
 	return {
 		buyCshopToken,
 		...props,
 		isPending: isLoading,
+		isSuccess,
+		setIsSuccess,
+		isApproveLoading,
+		isBuyTokenLoading,
 	};
 }
 

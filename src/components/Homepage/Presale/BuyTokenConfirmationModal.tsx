@@ -1,18 +1,17 @@
-import { Button, ButtonProps } from "@/components/ui/button";
+import Loader from "@/app/loading";
+import Show from "@/components/shared/Show";
+import { Button } from "@/components/ui/button";
 import {
 	Dialog,
 	DialogClose,
 	DialogContent,
 	DialogDescription,
-	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-	DialogTrigger,
 } from "@/components/ui/dialog";
 import useBuyCshopToken from "@/hooks/web3/useBuyCshopToken";
 import useGetPaymentInfo from "@/hooks/web3/useGetPaymentInfo";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
 
 export default function BuyTokenConfirmationModal({
 	amount,
@@ -20,55 +19,45 @@ export default function BuyTokenConfirmationModal({
 	refetchBnb,
 	refetchCshop,
 	refetchUsdt,
-	...props
+	setIsModalOpen,
+	isModalOpen,
 }: IProps) {
-	const { cshopToken, isLoading, refetch } = useGetPaymentInfo({
+	const { cshopToken, isLoading } = useGetPaymentInfo({
 		amount,
 		token,
 	});
 
-	const { buyCshopToken, isPending, isSuccess } = useBuyCshopToken();
+	const {
+		buyCshopToken,
+		isPending,
+		isSuccess,
+		setIsSuccess,
+		isApproveLoading,
+		isBuyTokenLoading,
+	} = useBuyCshopToken();
 
 	const searchParams = useSearchParams();
 
 	const referralCode = searchParams.get("referral");
 
-	function handleConfirm() {
-		buyCshopToken({
+	async function handleConfirm() {
+		await buyCshopToken({
 			amount: Number(amount),
 			token,
 			referralCode: referralCode ?? undefined,
 		});
+		refetchBnb();
+		refetchCshop();
+		refetchUsdt();
 	}
-	useEffect(() => {
-		refetch();
-		if (isSuccess) {
-			refetchBnb();
-			refetchCshop();
-			refetchUsdt();
-		}
-	}, [
-		amount,
-		token,
-		refetch,
-		isSuccess,
-		refetchBnb,
-		refetchCshop,
-		refetchUsdt,
-	]);
 	return (
-		<Dialog>
-			<DialogTrigger
-				className="w-full"
-				asChild
-			>
-				<Button
-					{...props}
-					className="gradient-button"
-				>
-					Buy
-				</Button>
-			</DialogTrigger>
+		<Dialog
+			open={isModalOpen}
+			onOpenChange={(open) => {
+				setIsModalOpen(open);
+				setIsSuccess(false);
+			}}
+		>
 			{isLoading || !cshopToken ? (
 				<DialogContent className="sm:max-w-md">
 					<DialogTitle>
@@ -87,62 +76,83 @@ export default function BuyTokenConfirmationModal({
 					</DialogHeader>
 					<form className="grid gap-4 py-4">
 						<div>
-							{/* {isSuccess ? (
+							<Show when={isSuccess}>
 								<p className="text-secondary">Thanks for purchasing CSHOP!!!</p>
-							) :*/}
-							{isPending ? (
-								<p className="text-yellow-400">
-									Warning: Please do not refresh the page or close this modal
-									while the transaction is being processed.
-								</p>
-							) : (
-								<p>
+							</Show>
+							<Show when={!isSuccess && isPending}>
+								<div className="flex items-center justify-center size-20 mx-auto">
+									<Loader variant="secondary" />
+								</div>
+								<div className="flex flex-col gap-2">
+									<Show when={isApproveLoading}>
+										<p className="text-yellow-400">
+											Please approve the transaction for usdt transfer in
+											metamask
+										</p>
+									</Show>
+									<Show when={isBuyTokenLoading}>
+										<p className="text-yellow-400">
+											Please confirm the transaction for buying cshop token in
+											metamask
+										</p>
+									</Show>
+									<Show
+										when={
+											!isApproveLoading &&
+											!isBuyTokenLoading &&
+											!isSuccess &&
+											isPending
+										}
+									>
+										<p className="text-yellow-400">
+											Waiting for transaction to be confirmed on blockchain
+										</p>
+									</Show>
+									<p className="text-red-400 text-sm">
+										* Please do not refresh the page or close this modal while
+										the transaction is being processed.
+									</p>
+								</div>
+							</Show>
+							<Show when={!isPending && !isSuccess}>
+								<p className="text-sm text-yellow-300">
 									Please confirm to complete your purchase. Your tokens will be
 									added to your wallet shortly after the transaction is
 									finalized!
 								</p>
-							)}
+							</Show>
 						</div>
-						<Button
-							className="gradient-button"
-							onClick={handleConfirm}
-							disabled={isPending}
-						>
-							{isPending ? "Buying..." : "Confirm"}
-						</Button>
-						{/* <Show when={isSuccess}>
+						<Show when={!isSuccess}>
+							<Button
+								className="gradient-button"
+								onClick={handleConfirm}
+								disabled={isPending}
+							>
+								{isPending ? "Buying..." : "Confirm"}
+							</Button>
+						</Show>
+						<Show when={isSuccess}>
 							<DialogClose asChild>
 								<Button
 									type="button"
 									className="bg-secondary hover:bg-secondary"
-									// onClick={() => {
-									// 	setIsSuccess(false);
-									// }}
 								>
 									Close
 								</Button>
 							</DialogClose>
-						</Show> */}
+						</Show>
 					</form>
-					<DialogFooter className="sm:justify-start">
-						<DialogClose asChild>
-							<Button
-								type="button"
-								variant={"destructive"}
-							>
-								Close
-							</Button>
-						</DialogClose>
-					</DialogFooter>
 				</DialogContent>
 			)}
 		</Dialog>
 	);
 }
 
-interface IProps extends ButtonProps {
+interface IProps {
 	token: "USDT" | "BNB";
 	amount: string;
+	setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+	isModalOpen: boolean;
 	refetchBnb: () => void;
 	refetchCshop: () => void;
 	refetchUsdt: () => void;

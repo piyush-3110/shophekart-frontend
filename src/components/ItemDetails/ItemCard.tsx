@@ -4,7 +4,6 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React, { useState } from "react";
 import Show from "../shared/Show";
-import { SoldIcon } from "@/icons";
 
 interface ItemCardProps {
 	images: string[]; // Array of image URLs passed as a prop
@@ -21,9 +20,9 @@ const ItemCard: React.FC<ItemCardProps> = ({ images, outOfStock }) => {
 			<div className="relative flex items-center justify-center h-[80%]">
 				<Show when={!!outOfStock}>
 					<div className="absolute top-0 left-0 w-full h-full  z-[2] flex items-center justify-center backdrop-blur-sm ">
-						<div className="size-20">
-							<SoldIcon />
-						</div>
+						<span className="text-white text-4xl font-bold bg-destructive px-1 py-1 rounded-sm">
+							SOLD
+						</span>
 					</div>
 				</Show>
 				<Image

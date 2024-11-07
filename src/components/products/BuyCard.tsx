@@ -7,7 +7,6 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation"; // Import useRouter
 import Show from "../shared/Show";
-import { SoldIcon } from "@/icons";
 interface BuyCardProp {
 	productPrice: number;
 	productName: string;
@@ -38,9 +37,11 @@ const BuyCard: FC<BuyCardProp> = ({
 	return (
 		<div>
 			<div className="w-full relative rounded-sm overflow-hidden max-w-md mx-auto bg-[#F4F6FA] p-4">
-				<Badge className="bg-[#022BFF] hover:bg-[#022BFF]/90 font-normal py-2 px-4 absolute top-8 right-8 z-[3] rounded-full">
-					Buy Now
-				</Badge>
+				<Show when={!OUT_OF_STOCK}>
+					<Badge className="bg-[#022BFF] hover:bg-[#022BFF]/90 font-normal py-2 px-4 absolute top-8 right-8 z-[3] rounded-full">
+						Buy Now
+					</Badge>
+				</Show>
 				<div className="relative w-full">
 					<Show when={!OUT_OF_STOCK}>
 						<Lens
@@ -60,9 +61,9 @@ const BuyCard: FC<BuyCardProp> = ({
 					<Show when={OUT_OF_STOCK}>
 						<div className="relative w-full rounded-md overflow-hidden">
 							<div className="absolute top-0 left-0 w-full h-full  z-[2] flex items-center justify-center backdrop-blur-sm ">
-								<div className="size-20">
-									<SoldIcon />
-								</div>
+								<span className="text-white text-4xl font-bold bg-destructive px-1 py-1 rounded-sm">
+									SOLD
+								</span>
 							</div>
 							<Image
 								src={productImage}

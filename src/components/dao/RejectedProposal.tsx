@@ -1,20 +1,14 @@
 "use client";
-import React, { useState } from 'react';
-import { ProposalModal } from './ProposalModal'; // Import your modal component
+import React, { useState } from "react";
+import { ProposalModal } from "./ProposalModal"; // Import your modal component
 
 export const RejectedProposal = () => {
   // Proposals array
-  const proposals = [
-    "Proposal to reduce transaction fees for DAO members. Proposal to reduce transaction fees for DAO membersProposal to reduce transaction fees for DAO members",
-    "Proposal to integrate a new governance token system.",
-    "Proposal to launch a community rewards program.",
-    "Proposal to improve voting transparency.",
-    "Proposal to implement a decentralized identity solution."
-  ];
+  const proposals: string[] = []; // Assuming empty array here
 
   // State for modal control
   const [isModalOpen, setModalOpen] = useState(false);
-  const [currentProposal, setCurrentProposal] = useState<string>(''); // To store the current proposal text
+  const [currentProposal, setCurrentProposal] = useState<string>(""); // To store the current proposal text
 
   // Handlers to open/close modal
   const openModal = (proposal: string) => {
@@ -25,6 +19,15 @@ export const RejectedProposal = () => {
   const closeModal = () => {
     setModalOpen(false); // Close modal
   };
+
+  // If proposals array is empty, return a message
+  if (proposals.length === 0) {
+    return (
+      <div className="text-white pt-6 space-y-6">
+        <p className="text-xl text-center">Proposal not available</p>
+      </div>
+    );
+  }
 
   return (
     <div className="text-white pt-6 space-y-6">
@@ -37,10 +40,8 @@ export const RejectedProposal = () => {
           {/* Left side: Proposal text */}
           <p className="max-w-md truncate">{proposal}</p>
 
-          {/* Right side: Approve and Reject buttons */}
-         <p className='text-red-600'>
-           Rejected
-         </p>
+          {/* Right side: Rejected label */}
+          <p className="text-red-600">Rejected</p>
         </div>
       ))}
 
@@ -49,8 +50,8 @@ export const RejectedProposal = () => {
         isOpen={isModalOpen}
         onClose={closeModal}
         proposalText={currentProposal} // Pass the current proposal text
-        showApproveButton={false} // Show the Approve button
-        showRejectButton={false}  // Show the Reject button
+        showApproveButton={false} // Don't show the Approve button
+        showRejectButton={false} // Don't show the Reject button
         voteAgainst={0}
         voteInFavor={0}
       />

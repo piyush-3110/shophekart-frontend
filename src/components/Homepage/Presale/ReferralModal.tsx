@@ -1,5 +1,6 @@
-import { Copy } from "lucide-react";
+"use client";
 
+import { Copy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -25,14 +26,14 @@ import { ReadContractErrorType } from "viem";
 import ConnectWalletButton from "@/components/shared/ConnectWalletButton";
 
 const ReferralModal = () => {
+	const [isClient, setIsClient] = React.useState(false);
+
 	const { user } = useUserStore();
 	const {
 		referralCode,
 		referralEarningInBnb,
 		referralEarningInUsdt,
-		// referralCount,
 		referralCodeProps,
-		// referralCountProps,
 		referralEarningInBnbProps,
 		referralEarningInUsdtProps,
 	} = useGetUserReferralCode(user?.walletAddress);
@@ -41,14 +42,15 @@ const ReferralModal = () => {
 
 	React.useEffect(() => {
 		setUrl(window.location.origin);
-		console.log(window.location.origin);
+		setIsClient(true);
 	}, []);
 
 	return (
-		<>
+		<Show when={isClient}>
 			<Show when={!user?.walletAddress}>
 				<ConnectWalletButton />
 			</Show>
+
 			<Show when={!!user?.walletAddress}>
 				<Dialog>
 					<DialogTrigger asChild>
@@ -56,31 +58,32 @@ const ReferralModal = () => {
 							{!!referralCode ? "Check info" : "Generate"}
 						</Button>
 					</DialogTrigger>
-
-					<Show when={!!referralCode && !!user?.walletAddress}>
-						<HasReferralCodeWithDependencyFunction
-							referralCode={!!referralCode ? referralCode : "no-code"}
-							url={url}
-							// referralCount={referralCount?.toString() ?? "0"}
-							referralEarningInBnb={
-								!!referralEarningInBnb ? referralEarningInBnb : "0"
-							}
-							referralEarningInUsdt={
-								!!referralEarningInUsdt ? referralEarningInUsdt : "0"
-							}
-						/>
-					</Show>
-					<Show when={!referralCode}>
-						<GenerateReferralForm
-							referralCodeRefetch={referralCodeProps.refetch}
-							// referralCountRefetch={referralCountProps.refetch}
-							referralEarningInBnbRefetch={referralEarningInBnbProps.refetch}
-							referralEarningInUsdtRefetch={referralEarningInUsdtProps.refetch}
-						/>
-					</Show>
+					<DialogContent className="sm:max-w-md">
+						<Show when={!!referralCode && !!user?.walletAddress}>
+							<HasReferralCodeWithDependencyFunction
+								referralCode={!!referralCode ? referralCode : "no-code"}
+								url={url}
+								referralEarningInBnb={
+									!!referralEarningInBnb ? referralEarningInBnb : "0"
+								}
+								referralEarningInUsdt={
+									!!referralEarningInUsdt ? referralEarningInUsdt : "0"
+								}
+							/>
+						</Show>
+						<Show when={!referralCode}>
+							<GenerateReferralForm
+								referralCodeRefetch={referralCodeProps.refetch}
+								referralEarningInBnbRefetch={referralEarningInBnbProps.refetch}
+								referralEarningInUsdtRefetch={
+									referralEarningInUsdtProps.refetch
+								}
+							/>
+						</Show>
+					</DialogContent>
 				</Dialog>
 			</Show>
-		</>
+		</Show>
 	);
 };
 
@@ -88,16 +91,12 @@ export default ReferralModal;
 
 function GenerateReferralForm({
 	referralCodeRefetch,
-	// referralCountRefetch,
 	referralEarningInBnbRefetch,
 	referralEarningInUsdtRefetch,
 }: {
 	referralCodeRefetch: (
 		options?: RefetchOptions
 	) => Promise<QueryObserverResult<string, ReadContractErrorType>>;
-	// referralCountRefetch: (
-	// 	options?: RefetchOptions
-	// ) => Promise<QueryObserverResult<number, ReadContractErrorType>>;
 	referralEarningInBnbRefetch: (
 		options?: RefetchOptions
 	) => Promise<QueryObserverResult<bigint, ReadContractErrorType>>;
@@ -120,24 +119,23 @@ function GenerateReferralForm({
 	useEffect(() => {
 		if (isSuccess) {
 			referralCodeRefetch();
-			// referralCountRefetch();
 			referralEarningInBnbRefetch();
 			referralEarningInUsdtRefetch();
 		}
 	}, [
 		isSuccess,
 		referralCodeRefetch,
-		// referralCountRefetch,
 		referralEarningInBnbRefetch,
 		referralEarningInUsdtRefetch,
 	]);
 	return (
-		<DialogContent className="sm:max-w-md">
+		<>
 			<DialogHeader>
 				<DialogTitle>Create referral code</DialogTitle>
 				<DialogDescription>
-					📢 Create and share your unique referral link to grow your network and
-					boost your earnings!
+					📢 Make any / a certain amount of token purchases first to be able to
+					generate a referral link! You will earn 7% for each token purchase
+					from your link.
 				</DialogDescription>
 			</DialogHeader>
 			<form className="grid gap-4 py-4">
@@ -170,7 +168,7 @@ function GenerateReferralForm({
 					</Button>
 				</DialogClose>
 			</DialogFooter>
-		</DialogContent>
+		</>
 	);
 }
 
@@ -178,23 +176,22 @@ const HasReferralCodeWithDependencyFunction = React.memo(
 	function HasReferralCode({
 		referralCode,
 		url,
-		// referralCount,
 		referralEarningInBnb,
 		referralEarningInUsdt,
 	}: {
 		referralCode: string;
 		url: string;
-		// referralCount: string;
 		referralEarningInBnb: string;
 		referralEarningInUsdt: string;
 	}) {
 		return (
-			<DialogContent className="sm:max-w-md">
+			<>
 				<DialogHeader>
 					<DialogTitle>Share link</DialogTitle>
 					<DialogDescription>
 						💡 Tip: You can share this link on social media or send it to your
-						friends via email or WhatsApp to earn rewards.
+						friends via email or WhatsApp to earn 7% for each token purchase
+						from your link.
 					</DialogDescription>
 				</DialogHeader>
 				<div className="flex items-center space-x-2">
@@ -225,12 +222,6 @@ const HasReferralCodeWithDependencyFunction = React.memo(
 					</Button>
 				</div>
 				<div>
-					{/* <div className="flex gap-1 items-center">
-						<h1 className=" py-3 !text-sm">
-							Referral Count:{" "}
-							<span className="gradient-text !text-sm">{referralCount}</span>
-						</h1>
-					</div> */}
 					<div className="flex gap-1 items-center">
 						<h1 className=" py-3 !text-sm">Referral Earning {"(BNB)"}: </h1>
 						<OrderHistoryPrice
@@ -258,7 +249,7 @@ const HasReferralCodeWithDependencyFunction = React.memo(
 						</Button>
 					</DialogClose>
 				</DialogFooter>
-			</DialogContent>
+			</>
 		);
 	},
 	(prevProps, nextProps) => {

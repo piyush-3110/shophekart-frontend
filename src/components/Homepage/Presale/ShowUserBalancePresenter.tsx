@@ -1,28 +1,25 @@
-import { useUserStore } from "@/store";
-import ShowUserBalanceContainer from "./ShowUserBalanceContainer";
 import useGetUserTokenBalance from "@/hooks/web3/useGetUserBalance";
-import { useEffect, useState } from "react";
+import { useUserStore } from "@/store";
+import dynamic from "next/dynamic";
+const ShowUserBalanceContainer = dynamic(
+	() => import("./ShowUserBalanceContainer"),
+	{
+		ssr: false,
+	}
+);
 
 export default function ShowUserBalancePresenter() {
-	const [isClientReady, setIsClientReady] = useState<boolean>(false);
-
 	const { user } = useUserStore();
 	const { cshopBalance, isLoading, isError } = useGetUserTokenBalance(
 		user?.walletAddress
 	);
 
-	useEffect(() => {
-		setIsClientReady(true);
-	}, []);
-
-	return isClientReady ? (
+	return (
 		<ShowUserBalanceContainer
 			userWalletAddress={user?.walletAddress}
 			isLoading={isLoading}
 			balance={cshopBalance}
 			isError={isError}
 		/>
-	) : (
-		<span>Loading...</span>
 	);
 }

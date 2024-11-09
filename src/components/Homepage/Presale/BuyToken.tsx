@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
 	Select,
 	SelectContent,
@@ -7,7 +7,6 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import useBuyCshopTokenForm from "@/hooks/web2/useBuyCShopTokenForm";
 import {
 	Form,
 	FormControl,
@@ -16,12 +15,33 @@ import {
 	FormItem,
 	FormMessage,
 } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
 import useGetUserTokenBalance from "@/hooks/web3/useGetUserBalance";
 import { useUserStore } from "@/store";
+// import BuyTokenConfirmationModal from "./BuyTokenConfirmationModal";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import buyCshopTokenSchema, {
+	TBuyCShopTokenProps,
+} from "@/validations/buyCshopTokenValidation";
+import { Button } from "@/components/ui/button";
+import BuyTokenConfirmationModal from "./BuyTokenConfirmationModal";
+import dynamic from "next/dynamic";
+const Show = dynamic(() => import("@/components/shared/Show"), { ssr: false });
+import ConnectWalletButton from "@/components/shared/ConnectWalletButton";
 
 export const BuyToken: React.FC = () => {
-	const { isPending, isSuccess, onSubmit, form } = useBuyCshopTokenForm();
+	const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
+	const form = useForm<TBuyCShopTokenProps>({
+		resolver: zodResolver(buyCshopTokenSchema),
+		defaultValues: {
+			amount: "0",
+			currencyType: "BNB",
+		},
+	});
+
+	function onSubmit() {
+		setIsModalOpen(true);
+	}
 
 	const { user } = useUserStore();
 
@@ -52,15 +72,6 @@ export const BuyToken: React.FC = () => {
 		}
 	};
 
-	useEffect(() => {
-		if (isSuccess) {
-			form.setValue("amount", "0");
-			refetchBnb();
-			refetchCshop();
-			refetchUsdt();
-		}
-	}, [isSuccess, form, refetchBnb, refetchCshop, refetchUsdt]);
-
 	return (
 		<div className="flex flex-col gap-4 bg-white w-full max-w-md mt-4">
 			<Form {...form}>
@@ -81,7 +92,6 @@ export const BuyToken: React.FC = () => {
 												placeholder="Enter the amount"
 												className="px-4 py-2 border  text-sm border-gray-300 rounded-md text-black placeholder-[#c7bfbf] focus:outline-none focus:ring-1 focus:ring-blue-500"
 												{...field}
-												disabled={isPending}
 											/>
 											<button
 												type="button"
@@ -92,9 +102,6 @@ export const BuyToken: React.FC = () => {
 											</button>
 										</div>
 									</FormControl>
-									{/* <FormDescription>
-										Please enter the amount of tokens you want to buy with.
-									</FormDescription> */}
 									<FormMessage />
 								</FormItem>
 							)}
@@ -107,7 +114,7 @@ export const BuyToken: React.FC = () => {
 									<Select
 										onValueChange={field.onChange}
 										defaultValue={field.value}
-										disabled={isPending}
+										// disabled={isPending}
 									>
 										<FormControl>
 											<SelectTrigger className="">
@@ -119,23 +126,34 @@ export const BuyToken: React.FC = () => {
 											<SelectItem value={"USDT"}>{"USDT"}</SelectItem>
 										</SelectContent>
 									</Select>
-									{/* <FormDescription>
-										Select the token you want to buy with
-									</FormDescription> */}
 									<FormMessage />
 								</FormItem>
 							)}
 						/>
 					</div>
-					<Button
-						className="gradient-button w-full"
-						type="submit"
-						disabled={isPending || !user?.walletAddress}
-					>
-						{isPending ? "Buying..." : "Buy"}
-					</Button>
+					<Show when={!!user?.walletAddress}>
+						<Button
+							disabled={!user?.walletAddress}
+							type="submit"
+							className="gradient-button w-full"
+						>
+							Buy
+						</Button>
+					</Show>
+					<Show when={!user?.walletAddress}>
+						<ConnectWalletButton />
+					</Show>
 				</form>
 			</Form>
+			<BuyTokenConfirmationModal
+				amount={form.getValues("amount")}
+				token={form.getValues("currencyType")}
+				refetchBnb={refetchBnb}
+				refetchCshop={refetchCshop}
+				refetchUsdt={refetchUsdt}
+				isModalOpen={isModalOpen}
+				setIsModalOpen={setIsModalOpen}
+			/>
 		</div>
 	);
 };

@@ -1,11 +1,6 @@
 import "@rainbow-me/rainbowkit/styles.css";
 import { getDefaultConfig } from "@rainbow-me/rainbowkit";
-
-// TESTNET
-// import { bscTestnet } from "wagmi/chains";
-
-// MAINNET
-import { bsc } from "wagmi/chains";
+import { bsc, bscTestnet } from "wagmi/chains";
 import { http } from "wagmi";
 
 const getOrigin = () => {
@@ -15,32 +10,25 @@ const getOrigin = () => {
 	return "https://shophekart.com/"; // Fallback for SSR
 };
 
-// TESTNET
+const chains =
+	process.env.NODE_ENV === "production"
+		? ([bsc] as const)
+		: ([bscTestnet] as const);
 
-// export const config = getDefaultConfig({
-// 	appName: "Shophekart",
-// 	appDescription: "A crypto ecommerce store",
-// 	projectId: "5414a59b644946d2fd01f5710c4784ad",
-// 	chains: [bscTestnet],
-// 	appUrl: getOrigin(),
-// 	appIcon: "/images/shared/logo.png",
-// 	transports: {
-// 		[bscTestnet.id]: http("https://bsc-testnet-rpc.publicnode.com"),
-// 	},
-// 	ssr: true,
-// });
-
-// MAINNET
+const mainnetTransport = { [bsc.id]: http("https://bsc.blockrazor.xyz") };
+const testnetTransport = {
+	[bscTestnet.id]: http("https://bsc-testnet-rpc.publicnode.com"),
+};
 
 export const config = getDefaultConfig({
 	appName: "Shophekart",
-	appDescription: "A crypto ecommerce store",
+	appDescription:
+		"The World's First Platform for Buying, Selling, and Tokenizing Luxury Goods and More!",
 	projectId: "5414a59b644946d2fd01f5710c4784ad",
-	chains: [bsc],
+	chains,
 	appUrl: getOrigin(),
-	appIcon: "/images/shared/logo.png",
-	transports: {
-		[bsc.id]: http("https://bsc.blockrazor.xyz"),
-	},
+	appIcon: "/images/shared/favicon-500x500.png",
+	transports:
+		process.env.NODE_ENV === "production" ? mainnetTransport : testnetTransport,
 	ssr: true,
 });

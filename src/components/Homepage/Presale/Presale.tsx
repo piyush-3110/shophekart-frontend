@@ -91,19 +91,18 @@ export const Presale = () => {
 					</div>
 				</div>
 				<div className="h-[12rem] hidden lg:block border border-[#f1eeee] "></div>
-				<div>
-					<div className="flex gap-2 items-center mb-4">
-						<h1 className="text-lg text-black font-semibold ">
-							Referral Code:{" "}
-						</h1>
-						{/* <Generate /> */}
-						<ReferralModal />
-					</div>
-					<ShowUserBalancePresenter />
-					<Suspense fallback={<div>Loading...</div>}>
+				<Suspense fallback={<div>loading...</div>}>
+					<div>
+						<div className="flex gap-2 items-center mb-4">
+							<h1 className="text-lg text-black font-semibold ">
+								Referral Code:{" "}
+							</h1>
+							<ReferralModal />
+						</div>
+						<ShowUserBalancePresenter />
 						<BuyToken />
-					</Suspense>
-				</div>
+					</div>
+				</Suspense>
 			</div>
 		</>
 	);

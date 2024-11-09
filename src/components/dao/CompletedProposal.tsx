@@ -1,20 +1,14 @@
 "use client";
-import React, { useState } from 'react';
-import { ProposalModal } from './ProposalModal'; // Import your modal component
+import React, { useState } from "react";
+import { ProposalModal } from "./ProposalModal"; // Import your modal component
 
 export const CompletedProposal = () => {
   // Proposals array
-  const proposals = [
-    "Proposal to reduce transaction fees for DAO members. Proposal to reduce transaction fees for DAO membersProposal to reduce transaction fees for DAO members",
-    "Proposal to integrate a new governance token system.",
-    "Proposal to launch a community rewards program.",
-    "Proposal to improve voting transparency.",
-    "Proposal to implement a decentralized identity solution."
-  ];
+  const proposals = [""];
 
   // State for modal control
   const [isModalOpen, setModalOpen] = useState(false);
-  const [currentProposal, setCurrentProposal] = useState<string>(''); // To store the current proposal text
+  const [currentProposal, setCurrentProposal] = useState<string>(""); // To store the current proposal text
 
   // Handlers to open/close modal
   const openModal = (proposal: string) => {
@@ -38,9 +32,7 @@ export const CompletedProposal = () => {
           <p className="max-w-md truncate">{proposal}</p>
 
           {/* Right side: Approve and Reject buttons */}
-         <p className='text-green-600'>
-            Completed
-         </p>
+          <p className="text-green-600">Completed</p>
         </div>
       ))}
 
@@ -50,9 +42,9 @@ export const CompletedProposal = () => {
         onClose={closeModal}
         proposalText={currentProposal} // Pass the current proposal text
         showApproveButton={false} // Show the Approve button
-        showRejectButton={false} 
+        showRejectButton={false}
         voteInFavor={0} // Show the Reject button
-         voteAgainst={0}
+        voteAgainst={0}
       />
     </div>
   );

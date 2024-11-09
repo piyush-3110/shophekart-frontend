@@ -6,7 +6,11 @@ interface CardSpotlightDemoProps {
   value?: string;
 }
 
-export function CardSpotlightDemo({ heading, description,value="" }: CardSpotlightDemoProps) {
+export function CardSpotlightDemo({
+  heading,
+  description,
+  value = "",
+}: CardSpotlightDemoProps) {
   return (
     <CardSpotlight className="h-fit w-fit px-4 py-6">
       <p className="text-xl font-bold relative z-20 mt-2 text-white">

@@ -26,12 +26,22 @@ export default function useGetTokenSaleStats({ round = 1 }: IProps) {
 		functionName: "maxTokenInround",
 		args: [],
 	});
+console.log(soldTokens);
+console.log(maxTokens);
+	// Format soldTokens and maxTokens to ethers, then calculate percentage
+	const soldTokensFormatted = soldTokens ? Number(formatEther(soldTokens)) : 0;
+	const maxTokensFormatted = maxTokens ? Number(formatEther(maxTokens)) : 0;
+	const completionPercentage =
+		maxTokensFormatted > 0
+			? parseFloat(((soldTokensFormatted / maxTokensFormatted) * 100).toFixed(1))
+			: 0;
 
 	return {
-		soldTokens: !!soldTokens ? formatEther(soldTokens) : "0",
+		soldTokens: soldTokensFormatted,
 		soldTokenLoading,
-		maxTokens: !!maxTokens ? formatEther(maxTokens) : "0",
+		maxTokens: maxTokensFormatted,
 		maxTokensLoading,
+		completionPercentage, // Return calculated percentage
 	};
 }
 

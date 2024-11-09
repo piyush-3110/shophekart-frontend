@@ -187,7 +187,7 @@ const HasReferralCodeWithDependencyFunction = React.memo(
           <DialogTitle>Share link</DialogTitle>
           <DialogDescription>
             💡 Tip: You can share this link on social media or send it to your
-            friends via email or WhatsApp to earn 7% for each token purchase
+            friends via email or WhatsApp to earn 5% for each token purchase
             from your link.
           </DialogDescription>
         </DialogHeader>

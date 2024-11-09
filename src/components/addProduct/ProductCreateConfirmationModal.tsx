@@ -9,6 +9,7 @@ import { Button } from "../ui/button";
 import useProductStore from "@/store/addProductStore";
 import createFormData from "@/utils/createAddProductFormData";
 import Show from "../shared/Show";
+import Loader from "../shared/Loader";
 
 const textOptions = [
 	"Processing and publishing your listing...",
@@ -69,6 +70,9 @@ const ProductCreateConfirmationModal: React.FC<IProps> = ({
 						</p>
 					</Show>
 					<Show when={isLoading}>
+						<div className="flex items-center justify-center">
+							<Loader />
+						</div>
 						<p className="text-gray-500">{currentText}</p>
 						<p className="text-red-400 text-sm">
 							* Please do not refresh the page or close this modal while the

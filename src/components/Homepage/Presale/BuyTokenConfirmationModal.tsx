@@ -1,4 +1,4 @@
-import Loader from "@/app/loading";
+import Loader from "@/components/shared/Loader";
 import Show from "@/components/shared/Show";
 import { Button } from "@/components/ui/button";
 import {

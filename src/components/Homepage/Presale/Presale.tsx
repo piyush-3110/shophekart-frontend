@@ -8,13 +8,13 @@ import { InfoCircledIcon } from "@radix-ui/react-icons";
 import CircularProgress from "./CircularProgress"; 
 
 export const Presale: React.FC = () => {
-	const completionPercentage = 70; 
+	const completionPercentage = 11.3; 
 
 	return (
-		<div className="h-fit lg:h-[16rem] lg:w-auto w-[95vw] bg-white border py-6 rounded-md shadow-lg px-20 flex lg:items-center lg:flex-row flex-col lg:justify-end gap-20">
+		<div className="h-fit lg:h-[16rem] md:w-auto w-[95vw] bg-white border py-6 rounded-md shadow-lg lg:px-20 flex lg:items-center lg:flex-row px-4 flex-col lg:justify-end gap-6 lg:gap-20">
 			<div>
 				<div className="flex gap-4 mb-6">
-					<h1 className="text-lg text-black font-semibold">
+					<h1 className="text-lg lg:text-left text-center text-black font-semibold">
 						Seed round progress:
 					</h1>
 					<Tooltip delayDuration={100}>

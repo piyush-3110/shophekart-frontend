@@ -12,10 +12,13 @@ import { ContractFunctionExecutionError } from "viem";
 export default function useAddProduct(userWalletAddress: `0x${string}`) {
 	const [productId, setProductId] = useState<string>("");
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const [isProductCreateSuccess, setIsProductCreateSuccess] =
+		useState<boolean>(false);
 	const { push, prefetch } = useRouter();
 
 	const { mutateAsync, ...props } = useMutation({
 		async mutationFn(params: FormData) {
+			setIsProductCreateSuccess(false);
 			const { data } = await HttpRequestService.postApi<IProduct, FormData>(
 				"/fixedProduct/create",
 				params,
@@ -62,6 +65,7 @@ export default function useAddProduct(userWalletAddress: `0x${string}`) {
 						onChainId,
 						productId,
 					});
+					setIsProductCreateSuccess(true);
 					push(`/itemDetails/${productId}`);
 					customToast.success("Product created successfully");
 				} catch {
@@ -80,49 +84,52 @@ export default function useAddProduct(userWalletAddress: `0x${string}`) {
 		updateProductOnChainIdCallback,
 	]);
 
-	async function addProduct(params: FormData) {
-		setIsLoading(true);
-		try {
-			const product = await mutateAsync(params);
-			setProductId(product._id);
+	const addProduct = useCallback(
+		async (params: FormData) => {
+			setIsLoading(true);
 			try {
-				const tokenUri = await createTokenUri({
-					name: product.name,
-					category: product.category,
-					currencyType: product.currencyType,
-					description: product.description,
-					image: product.images[0],
-					price: product.price.toString(),
-				});
-				await createProductOnChain({
-					currencyAddress: product.currencyAddress as `0x${string}`,
-					price: product.price,
-					shippingCharges: product.shippingCharges,
-					tokenUri,
-					stock: product.stock,
-				});
-			} catch (error) {
-				if (error instanceof ContractFunctionExecutionError) {
-					if (
-						error.message.includes(
-							"executing this transaction exceeds the balance of the account."
-						)
-					) {
-						customToast.error("You don't have enough funds");
+				const product = await mutateAsync(params);
+				setProductId(product._id);
+				try {
+					const tokenUri = await createTokenUri({
+						name: product.name,
+						category: product.category,
+						currencyType: product.currencyType,
+						description: product.description,
+						image: product.images[0],
+						price: product.price.toString(),
+					});
+					await createProductOnChain({
+						currencyAddress: product.currencyAddress as `0x${string}`,
+						price: product.price,
+						shippingCharges: product.shippingCharges,
+						tokenUri,
+						stock: product.stock,
+					});
+				} catch (error) {
+					if (error instanceof ContractFunctionExecutionError) {
+						if (
+							error.message.includes(
+								"executing this transaction exceeds the balance of the account."
+							)
+						) {
+							customToast.error("You don't have enough funds");
+						}
+					} else {
+						customToast.error("Error while creating product");
 					}
-				} else {
-					customToast.error("Error while creating product");
+					await HttpRequestService.deleteApi<IProduct>(
+						`/product/${product._id}/delete`
+					);
+					setIsLoading(false);
 				}
-				await HttpRequestService.deleteApi<IProduct>(
-					`/product/${product._id}/delete`
-				);
+			} catch {
 				setIsLoading(false);
+				customToast.error("Error while creating product");
 			}
-		} catch {
-			setIsLoading(false);
-			customToast.error("Error while creating product");
-		}
-	}
+		},
+		[mutateAsync, createProductOnChain, setIsLoading]
+	);
 
-	return { addProduct, ...props, isLoading };
+	return { addProduct, ...props, isLoading, isProductCreateSuccess };
 }

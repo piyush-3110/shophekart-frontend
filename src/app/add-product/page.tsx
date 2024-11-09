@@ -1,5 +1,6 @@
 "use client";
 
+import ProductCreateConfirmationModal from "@/components/addProduct/ProductCreateConfirmationModal";
 import { HypeModal } from "@/components/Form/HypeModal";
 import RichTextEditor from "@/components/Form/RichTextEditor";
 import UploadImage from "@/components/Form/UploadImage";
@@ -23,8 +24,10 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import TOKEN_ADDRESS, { TCurrencyType } from "@/constants/tokenAddress";
+import { useCreateProduct } from "@/hooks";
 import useAddProductForm from "@/hooks/web2/useAddProductForm";
 import { HttpRequestService } from "@/services";
+import { useUserStore } from "@/store";
 import { useQuery } from "@tanstack/react-query";
 import { Country } from "country-state-city";
 import { useCallback, useMemo, useState } from "react";
@@ -59,11 +62,19 @@ const Page = () => {
 		},
 	});
 
-	const { form, onSubmit, isLoading } = useAddProductForm();
+	const { form, onSubmit } = useAddProductForm();
 
 	const handleFileSelect = useCallback(
 		(files: File[]) => form.setValue("images", files),
 		[form]
+	);
+
+	const { user } = useUserStore();
+
+	const [isConfirmModalOpen, setIsConfirmModalOpen] = useState<boolean>(false);
+
+	const { addProduct, isLoading, isProductCreateSuccess } = useCreateProduct(
+		user?.walletAddress ?? "0x0000000000000000000000000000000000000000"
 	);
 
 	return (
@@ -72,8 +83,10 @@ const Page = () => {
 				<h1 className="font-medium">Add Product</h1>
 				<Form {...form}>
 					<form
-						onSubmit={form.handleSubmit((values) => {
-							onSubmit(values, productDetails);
+						onSubmit={form.handleSubmit(async (values) => {
+							await onSubmit(values, productDetails);
+
+							setIsConfirmModalOpen(true);
 						})}
 						className="space-y-8"
 					>
@@ -393,7 +406,6 @@ const Page = () => {
 						</div>
 						<Button
 							className="gradient-button w-full !text-base"
-							disabled={isLoading}
 							size={"lg"}
 							type="submit"
 						>
@@ -401,6 +413,13 @@ const Page = () => {
 						</Button>
 					</form>
 				</Form>
+				<ProductCreateConfirmationModal
+					addProduct={addProduct}
+					isModalOpen={isConfirmModalOpen}
+					setIsModalOpen={setIsConfirmModalOpen}
+					isLoading={isLoading}
+					isSuccess={isProductCreateSuccess}
+				/>
 				{/* Hype Modal */}
 				{isHypeModalOpen && (
 					<HypeModal

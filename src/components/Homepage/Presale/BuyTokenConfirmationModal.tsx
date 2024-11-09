@@ -90,7 +90,7 @@ export default function BuyTokenConfirmationModal({
 											metamask
 										</p>
 									</Show>
-									<Show when={isBuyTokenLoading}>
+									<Show when={!isApproveLoading && isBuyTokenLoading}>
 										<p className="text-gray-500">
 											Please confirm the transaction for buying cshop token in
 											metamask

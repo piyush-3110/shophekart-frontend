@@ -25,11 +25,17 @@ export default function useGetTokenSaleStats({ round = 1 }: IProps) {
 			const maxTokensFormatted = Number(formatEther(maxTokens));
 
 			// Calculate completion percentage
-			const percentage = maxTokensFormatted > 0
+			let percentage = maxTokensFormatted > 0
 				? parseFloat(((soldTokensFormatted / maxTokensFormatted) * 100).toFixed(1))
 				: 0;
 
 			// Set the calculated percentage
+			if(percentage>100){
+				percentage = 100;
+			}
+			if(percentage<0){
+				percentage =0;
+			}
 			setCompletionPercentage(percentage);
 		}
 	}, [soldTokens, maxTokens]); // Only re-run when these values change

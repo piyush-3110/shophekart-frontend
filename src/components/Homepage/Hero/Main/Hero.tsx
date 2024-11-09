@@ -50,7 +50,7 @@ export function Hero() {
 	};
 
 	return (
-		<div className="flex flex-col lg:flex-row relative lg:items-center pb-12 lg:pb-16 w-full  items-center md:items-start  lg:mt-0 px-8 md:px-12 min-h-[100vh] md:min-h-[20vh] lg:min-h-[100vh] justify-center gap-6">
+		<div className="flex flex-col lg:flex-row relative lg:items-center pb-12 lg:pb-16 w-full  items-center md:items-start md:py-12  lg:mt-0 px-8 md:px-12 min-h-[100vh] md:min-h-[20vh] lg:min-h-[100vh] justify-center gap-6">
 
 	
 		<div className="flex relative lg:items-center pb-12 lg:pb-16 w-full  items-center md:items-start  lg:mt-0 px-8 md:px-12 min-h-[100vh] md:min-h-[20vh] lg:min-h-[100vh] justify-center gap-6">
@@ -107,7 +107,7 @@ export function Hero() {
 
 			
 		</div>
-		<div className=" lg:block lg:absolute lg:-bottom-[8rem] bottom-4 mx-4  lg:mx-auto">
+		<div className="mx-4 lg:block lg:absolute lg:-bottom-[8rem] bottom-4   md:mx-auto">
 				<Presale />
 			</div>
 		</div>

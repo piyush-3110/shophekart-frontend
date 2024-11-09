@@ -3,6 +3,7 @@ import {
 	Dialog,
 	DialogContent,
 	DialogDescription,
+	DialogHeader,
 	DialogTitle,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
@@ -59,10 +60,12 @@ const ProductCreateConfirmationModal: React.FC<IProps> = ({
 			onOpenChange={setIsModalOpen}
 		>
 			<DialogContent>
-				<DialogTitle>Product Listing Confirmation</DialogTitle>
-				<DialogDescription>
-					Review and Confirm Product Listing
-				</DialogDescription>
+				<DialogHeader>
+					<DialogTitle>Product Listing Confirmation</DialogTitle>
+					<DialogDescription>
+						Review and Confirm Product Listing
+					</DialogDescription>
+				</DialogHeader>
 				<div className="space-y-4">
 					<Show when={!isSuccess && !isLoading}>
 						<p className="">
@@ -70,8 +73,8 @@ const ProductCreateConfirmationModal: React.FC<IProps> = ({
 						</p>
 					</Show>
 					<Show when={isLoading}>
-						<div className="flex items-center justify-center">
-							<Loader />
+						<div className="flex items-center justify-center size-20 mx-auto">
+							<Loader variant="secondary" />
 						</div>
 						<p className="text-gray-500">{currentText}</p>
 						<p className="text-red-400 text-sm">

@@ -5,7 +5,7 @@ interface CircularProgressProps {
 	size?: number; // Optional size prop for custom sizing
 }
 
-const CircularProgress: React.FC<CircularProgressProps> = ({ percentage, size = 160 }) => {
+const CircularProgress: React.FC<CircularProgressProps> = ({ percentage, size = 120 }) => {
 	const circleRadius = (size - 20) / 2; // Adjust radius based on size with padding for stroke width
 	const circumference = 2 * Math.PI * circleRadius;
 	const offset = circumference - (percentage / 100) * circumference;

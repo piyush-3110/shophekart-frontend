@@ -5,10 +5,10 @@ import ReferralModal from "./ReferralModal";
 import { Tooltip, TooltipContent } from "@/components/ui/tooltip";
 import { TooltipTrigger } from "@radix-ui/react-tooltip";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
-import CircularProgress from "./CircularProgress"; // Import the new CircularProgress component
+import CircularProgress from "./CircularProgress"; 
 
 export const Presale: React.FC = () => {
-	const completionPercentage = 70; // Example completion percentage
+	const completionPercentage = 70; 
 
 	return (
 		<div className="h-fit lg:h-[16rem] lg:w-auto w-[95vw] bg-white border py-6 rounded-md shadow-lg px-20 flex lg:items-center lg:flex-row flex-col lg:justify-end gap-20">

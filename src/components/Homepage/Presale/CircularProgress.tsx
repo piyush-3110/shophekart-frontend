@@ -1,5 +1,3 @@
-// CircularProgress.tsx
-
 import React from "react";
 
 interface CircularProgressProps {
@@ -12,7 +10,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({ percentage }) => {
 	const offset = circumference - (percentage / 100) * circumference;
 
 	return (
-		<svg width="120" height="120" className="relative">
+		<svg width="120" height="120" className="transform rotate-[270deg]">
 			<circle
 				cx="60"
 				cy="60"
@@ -34,15 +32,19 @@ const CircularProgress: React.FC<CircularProgressProps> = ({ percentage }) => {
 				strokeLinecap="round"
 				className="transition-all duration-500"
 			/>
-			<text
-				x="50%"
-				y="50%"
-				textAnchor="middle"
-				dy=".3em"
-				className="text-xl font-bold fill-current text-blue-500"
-			>
-				{percentage}%
-			</text>
+
+			{/* Centered and rotated text */}
+			<g transform="rotate(90, 60, 60)">
+				<text
+					x="50%"
+					y="50%"
+					textAnchor="middle"
+					dy=".3em"
+					className="text-xl font-bold fill-current text-blue-500"
+				>
+					{percentage}%
+				</text>
+			</g>
 		</svg>
 	);
 };

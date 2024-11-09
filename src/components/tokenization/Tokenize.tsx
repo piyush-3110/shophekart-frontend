@@ -1,27 +1,10 @@
 "use client";
-import React, { useRef, useEffect } from 'react';
-import lottie from 'lottie-web';
+import React from 'react';
 import { CardSpotlightDemo } from './CardSpotlightDemo';
+import Image from 'next/image';
 
 const Tokenize = () => {
-    const animationContainer = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        // Check if window is defined to ensure this runs only on the client side
-        if (typeof window !== 'undefined') {
-            const animationInstance = lottie.loadAnimation({
-                container: animationContainer.current as Element, 
-                renderer: 'svg',
-                loop: true,
-                autoplay: true,
-                path: '/animation.json',
-            });
-
-            return () => {
-                animationInstance.destroy(); // Clean up on unmount
-            };
-        }
-    }, []);
+    
 
     return (
         <div className="px-8 md:px-12 py-8 min-h-[100vh] bg-[#000] bg-cover bg-center ">
@@ -29,7 +12,9 @@ const Tokenize = () => {
                 What will we tokenize?
             </p>
             <div className='flex flex-col lg:flex-row gap-6 lg:items-center'>
-                <div ref={animationContainer} className="w-[90vw] lg:h-[80vh] lg:w-[40vw] "></div>
+                <Image  className="w-[90vw] lg:h-[80vh] lg:w-[40vw] " alt="image" height={625} width={625} src="/images/tokenization/tokenization1.png">
+
+                </Image>
                 <div className='grid grid-cols-1 gap-3 md:grid-cols-2 lg:w-[50vw]'>
                     <CardSpotlightDemo 
                         heading="Luxury Cars" 

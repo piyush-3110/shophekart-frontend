@@ -29,7 +29,7 @@ export default function useAddProductForm() {
 			stock: "0",
 			shippingDuration: "0",
 			shippingCharges: "0",
-			productAddress: "India",
+			productAddress: "United Arab Emirates",
 			price: "0",
 			name: "",
 			images: [],

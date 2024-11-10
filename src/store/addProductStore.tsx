@@ -15,7 +15,7 @@ const defaultState: IProductFormData = {
 	name: "",
 	description: "",
 	productDetails: "",
-	productAddress: "",
+	productAddress: "United Arab Emirates",
 	category: "",
 	currencyType: "BNB",
 	stock: "",

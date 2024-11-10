@@ -11,12 +11,13 @@ import { TOrder } from "@/types";
 export default function useCreateOrder(walletAddress: `0x${string}`) {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [isSuccess, setIsSuccess] = useState<boolean>(false);
+	const [onChainSuccess, setOnChainSuccess] = useState<boolean>(false);
 	const [order, setOrder] = useState<null | TOrder>(null);
 
 	const { createOrderOnChain } = useCreateOrderOnChain();
-	const { nftIds } = useGetUserNftIds(walletAddress, isSuccess);
+	const { nftIds } = useGetUserNftIds(walletAddress, onChainSuccess);
 
-	const { mutateAsync, ...props } = useMutation({
+	const { mutateAsync } = useMutation({
 		mutationFn: async ({ ...params }: TCreateOrderParams) => {
 			const response = await OrderService.createOrder({ ...params });
 			return response;
@@ -30,6 +31,7 @@ export default function useCreateOrder(walletAddress: `0x${string}`) {
 	) {
 		setIsLoading(true);
 		setIsSuccess(false);
+		setOnChainSuccess(false);
 		try {
 			const order = await mutateAsync(data);
 			setOrder(order);
@@ -40,18 +42,19 @@ export default function useCreateOrder(walletAddress: `0x${string}`) {
 					productIdOnChain: data.productIdOnChain,
 					shippingPrice: data.shippingPrice,
 				});
-
-				setIsSuccess(true);
+				setOnChainSuccess(true);
 			} catch {
 				toast({
 					title: "There was an error placing order",
 					variant: "destructive",
 				});
 				setIsSuccess(false);
+				setOnChainSuccess(false);
 				setIsLoading(false);
 				await OrderService.deleteOrder(order._id);
 			}
 		} catch {
+			setOnChainSuccess(false);
 			toast({
 				title: "There was an error placing order",
 				variant: "destructive",
@@ -62,11 +65,12 @@ export default function useCreateOrder(walletAddress: `0x${string}`) {
 	}
 
 	useEffect(() => {
-		if (isSuccess && nftIds?.length && nftIds.length > 0 && order) {
+		console.log("onChainSuccess", onChainSuccess);
+		console.log("nftIds:", nftIds?.length);
+		console.log("order:", order);
+		if (onChainSuccess && nftIds?.length && nftIds.length > 0 && order) {
 			(async () => {
-				console.log(nftIds);
 				const stringNftId = nftIds[nftIds.length - 1].toString();
-				console.log(stringNftId);
 				try {
 					await OrderService.updateOrderNftId({
 						orderId: order._id,
@@ -75,6 +79,7 @@ export default function useCreateOrder(walletAddress: `0x${string}`) {
 					toast({
 						title: "Order placed successfully",
 					});
+					setIsSuccess(true);
 				} catch {
 					toast({
 						title: "There was an error placing order",
@@ -85,7 +90,7 @@ export default function useCreateOrder(walletAddress: `0x${string}`) {
 				}
 			})();
 		}
-	}, [nftIds, order, isSuccess]);
+	}, [nftIds, order, onChainSuccess]);
 
-	return { createOrder, isLoading, ...props };
+	return { createOrder, isLoading, isSuccess, orderId: order?._id };
 }

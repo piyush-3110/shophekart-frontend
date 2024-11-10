@@ -10,6 +10,7 @@ import { Button } from "../ui/button";
 import { UpdateShippingModal } from "./UpdateShippingModal";
 import ShippingModal from "./ShippingModal";
 import httpRequestService from "@/services/httpRequest.service";
+import OrderProcessingModal from "./OrderProcessingModal";
 
 export const ItemDescription: React.FC<ItemDescriptionProps> = ({
 	...params
@@ -18,6 +19,8 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [hasShippingAddress, setHasShippingAddress] = useState(false);
+	const [isOrderProcessingModalOpen, setIsOrderProcessingModalOpen] =
+		useState(false);
 
 	const handleOpenModal = () => {
 		setIsModalOpen(true);
@@ -45,11 +48,12 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
 		fetchShippingAddress();
 	}, [user]);
 
-	const { createOrder, isLoading } = useCreateOrder(
+	const { createOrder, isLoading, isSuccess, orderId } = useCreateOrder(
 		user?.walletAddress ?? "0x0000000000000000000000000000000000000000"
 	);
 
 	async function handleOrderCreate(shippingAddressId: string) {
+		setIsOrderProcessingModalOpen(true);
 		await createOrder(
 			{
 				shippingAddressId,
@@ -105,6 +109,14 @@ export const ItemDescription: React.FC<ItemDescriptionProps> = ({
 			) : (
 				<ConnectWalletButton />
 			)}
+			<OrderProcessingModal
+				setIsOpen={setIsOrderProcessingModalOpen}
+				isOpen={isOrderProcessingModalOpen}
+				isSuccess={isSuccess}
+				isLoading={isLoading}
+				orderId={orderId}
+			/>
+
 			{isModalOpen &&
 				(hasShippingAddress ? (
 					<UpdateShippingModal

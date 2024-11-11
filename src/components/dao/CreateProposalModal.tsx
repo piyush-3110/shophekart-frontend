@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import React, { useState, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
@@ -5,6 +6,7 @@ import { toast } from "@/hooks/use-toast"; // Assuming you have a toast hook
 import { envConfig } from "@/config/envConfig";
 import { useUserStore } from "@/store";
 import ConnectWalletButton from "../shared/ConnectWalletButton";
+import Loader from "../Form/Loader";
 
 interface ModalProps {
   isOpen: boolean;
@@ -16,6 +18,7 @@ export const CreateProposalModal: React.FC<ModalProps> = ({
   onClose,
 }) => {
   const [proposal, setProposal] = useState("");
+  const [loading, setLoading] = useState(false); // Manually handle loading state
   const { user } = useUserStore();
 
   // Close the modal when clicking outside of it
@@ -49,11 +52,12 @@ export const CreateProposalModal: React.FC<ModalProps> = ({
       toast({ title: "Proposal cannot be empty", variant: "destructive" });
       return;
     }
-
     if (!user || !user.walletAddress) {
       toast({ title: "Please connect your wallet", variant: "destructive" });
       return;
     }
+
+    setLoading(true); // Start loading
 
     try {
       const response = await fetch(`${envConfig.BACKEND_URL}/email/`, {
@@ -62,7 +66,7 @@ export const CreateProposalModal: React.FC<ModalProps> = ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          walletAddress: user.walletAddress,
+          walletAddress: user?.walletAddress,
           proposal,
         }),
       });
@@ -70,18 +74,18 @@ export const CreateProposalModal: React.FC<ModalProps> = ({
       if (!response.ok) {
         throw new Error("Failed to send proposal");
       }
-
       const data = await response.json();
-      if (data.success === "ok") {
-        toast({ title: "Proposal sent successfully" });
-        setProposal("");
-        onClose(); // Close modal after submission
-      } else {
+      if (data.success !== "ok") {
         throw new Error(data.error || "Failed to send proposal");
       }
+
+      toast({ title: "Proposal sent successfully" });
+      setProposal(""); // Clear proposal text
+      onClose(); // Close modal
     } catch (error) {
-      console.error("Error sending proposal:", error);
       toast({ title: "Error sending proposal", variant: "destructive" });
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -112,14 +116,18 @@ export const CreateProposalModal: React.FC<ModalProps> = ({
           />
 
           {user?.walletAddress ? (
-            <button
-              onClick={handleSubmit}
-              className="gradient-button text-white hover:cursor-pointer mt-4 w-full py-2 rounded transition duration-150"
-            >
-              Submit
-            </button>
+            loading ? ( // Check if loading
+              <Loader /> // Show Loader component while loading
+            ) : (
+              <button
+                onClick={handleSubmit}
+                className="gradient-button text-white hover:cursor-pointer mt-4 w-full py-2 rounded transition duration-150"
+              >
+                Submit
+              </button>
+            )
           ) : (
-            <ConnectWalletButton /> // Close modal after connecting wallet
+            <ConnectWalletButton />
           )}
         </div>
       </div>

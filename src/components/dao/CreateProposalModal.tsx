@@ -1,16 +1,27 @@
-"use client"
-import React, { useEffect } from 'react';
-import { IoClose } from 'react-icons/io5'; // Close icon (install react-icons if not installed)
-
+"use client";
+import React, { useState, useEffect } from "react";
+import { IoClose } from "react-icons/io5";
+import { toast } from "@/hooks/use-toast"; // Assuming you have a toast hook
+import { envConfig } from "@/config/envConfig";
+import { useUserStore } from "@/store";
+import ConnectWalletButton from "../shared/ConnectWalletButton";
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const CreateProposalModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+export const CreateProposalModal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+}) => {
+  const [proposal, setProposal] = useState("");
+  const { user } = useUserStore();
+
   // Close the modal when clicking outside of it
-  const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleOutsideClick = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
     if (e.target === e.currentTarget) {
       onClose();
     }
@@ -19,18 +30,60 @@ export const CreateProposalModal: React.FC<ModalProps> = ({ isOpen, onClose }) =
   // Disable background scroll when modal is open
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflowX = 'hidden'; // Prevent horizontal overflow
-      document.body.style.overflowY = 'hidden';   // Allow vertical scrolling
+      document.body.style.overflowX = "hidden";
+      document.body.style.overflowY = "hidden";
+      setProposal(""); // Reset proposal when modal opens
     } else {
-      document.body.style.overflowX = 'hidden';   // Restore horizontal scrolling
-      document.body.style.overflowY = 'auto';   // Restore vertical scrolling
+      document.body.style.overflowX = "hidden";
+      document.body.style.overflowY = "auto";
     }
     return () => {
-      document.body.style.overflowX = 'hidden';   // Clean up to restore horizontal scrolling
-      document.body.style.overflowY = 'auto';    // Clean up to restore vertical scrolling
+      document.body.style.overflowX = "hidden";
+      document.body.style.overflowY = "auto";
     };
   }, [isOpen]);
-  
+
+  // Handle proposal submission
+  const handleSubmit = async () => {
+    if (!proposal.trim()) {
+      toast({ title: "Proposal cannot be empty", variant: "destructive" });
+      return;
+    }
+
+    if (!user || !user.walletAddress) {
+      toast({ title: "Please connect your wallet", variant: "destructive" });
+      return;
+    }
+
+    try {
+      const response = await fetch(`${envConfig.BACKEND_URL}/email/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          walletAddress: user.walletAddress,
+          proposal,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send proposal");
+      }
+
+      const data = await response.json();
+      if (data.success === "ok") {
+        toast({ title: "Proposal sent successfully" });
+        setProposal("");
+        onClose(); // Close modal after submission
+      } else {
+        throw new Error(data.error || "Failed to send proposal");
+      }
+    } catch (error) {
+      console.error("Error sending proposal:", error);
+      toast({ title: "Error sending proposal", variant: "destructive" });
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -40,25 +93,36 @@ export const CreateProposalModal: React.FC<ModalProps> = ({ isOpen, onClose }) =
       onClick={handleOutsideClick}
     >
       <div className="relative w-[90vw] md:w-[80vw] h-fit py-5 bg-white shadow-lg rounded-lg p-6">
-       
-        <button className="absolute top-4 right-4 text-gray-500 hover:text-gray-700" onClick={onClose}>
+        <button
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+          onClick={onClose}
+        >
           <IoClose size={24} />
         </button>
 
-        
-        <div className="overflow-y-auto flex flex-col py-4  h-full">
-        <h1 className="text-[#160041] font-[700] text-center text-xl">Create Proposal</h1>
-        <textarea
+        <div className="overflow-y-auto flex flex-col py-4 h-full">
+          <h1 className="text-[#160041] font-[700] text-center text-xl">
+            Suggest Proposal
+          </h1>
+          <textarea
             className="border rounded-lg p-4 mb-4 w-full h-40 placeholder-gray-400"
-            placeholder="Create Proposal"
+            placeholder="Write Proposal"
+            value={proposal}
+            onChange={(e) => setProposal(e.target.value)}
           />
-          <button className="text-white gradient-button">
-            Submit
-          </button>
+
+          {user?.walletAddress ? (
+            <button
+              onClick={handleSubmit}
+              className="gradient-button text-white hover:cursor-pointer mt-4 w-full py-2 rounded transition duration-150"
+            >
+              Submit
+            </button>
+          ) : (
+            <ConnectWalletButton /> // Close modal after connecting wallet
+          )}
         </div>
       </div>
-</div>
-
+    </div>
   );
 };
-

@@ -8,6 +8,7 @@ import { InfoCircledIcon } from "@radix-ui/react-icons";
 import CircularProgress from "./CircularProgress";
 import useGetTokenSaleStats from "@/hooks/web3/useGetTokenSaleStats";
 import useGetProgressData from "@/hooks/web3/useGetProgressData";
+import WalletAddressWithCopy from "@/components/shared/WalletAddressWithCopy";
 
 export const Presale: React.FC = () => {
 	const { completionPercentage } = useGetTokenSaleStats({ round: 1 });
@@ -29,9 +30,14 @@ export const Presale: React.FC = () => {
 				</div>
 
 				{/* Circular Progress display */}
-				<div className="flex justify-center items-center">
+				<div className="flex flex-col gap-4 justify-center items-center">
 					<CircularProgress
-						percentage={completionPercentage + increasedPercent}
+						percentage={completionPercentage + (increasedPercent ?? 0)}
+					/>
+					<WalletAddressWithCopy
+						className="font-normal gradient-text !text-base  px-2 py-1"
+						walletAddress="0x9Ab5F58ec3D620F5d9D58d12Bf1ABF3560010A44"
+						toastMessage="Token address copied!"
 					/>
 				</div>
 			</div>

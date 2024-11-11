@@ -105,16 +105,15 @@ export const CreateProposalModal: React.FC<ModalProps> = ({
         </button>
 
         <div className="overflow-y-auto flex flex-col py-4 h-full">
-          <h1 className="text-[#160041] font-[700] text-center text-xl">
+          <h1 className="text-[#160041] mb-3 font-[700] text-center text-xl">
             Suggest Proposal
           </h1>
           <textarea
-            className="border rounded-lg p-4 mb-4 w-full h-40 placeholder-gray-400"
+            className="border rounded-lg p-4 mb-4 w-full h-40 placeholder-gray-400 focus:outline-none "
             placeholder="Write Proposal"
             value={proposal}
             onChange={(e) => setProposal(e.target.value)}
           />
-
           {user?.walletAddress ? (
             loading ? ( // Check if loading
               <Loader /> // Show Loader component while loading

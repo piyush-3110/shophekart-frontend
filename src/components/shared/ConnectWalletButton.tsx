@@ -1,12 +1,23 @@
 // "use client";
 
 import { cn } from "@/lib/utils";
+import { useUserStore } from "@/store";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function ConnectWalletButton() {
 	const router = useRouter();
+	const pathname = usePathname();
+
+	const { authStatus } = useUserStore();
+
+	useEffect(() => {
+		if (authStatus === "authenticated" && pathname === "/") {
+			router.refresh();
+		}
+	}, [authStatus, router, pathname]);
 	return (
 		<ConnectButton.Custom>
 			{({
@@ -47,10 +58,7 @@ export default function ConnectWalletButton() {
 							if (!connected) {
 								return (
 									<button
-										onClick={() => {
-											openConnectModal();
-											router.refresh();
-										}}
+										onClick={openConnectModal}
 										className={cn(
 											"hover:bg-blue-100/50 py-2 px-4 rounded-sm",
 											DISCONNECTED_BUTTON_CLASS

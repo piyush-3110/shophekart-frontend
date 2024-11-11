@@ -3,6 +3,7 @@ import {
 	ERC20_ABI,
 	ESCROW_ABI,
 	MARKETPLACE_ABI,
+	PROGRESS_DATA_ABI,
 } from "../ABI";
 import TOKEN_ADDRESS from "../tokenAddress";
 
@@ -34,6 +35,10 @@ const mainnetConfig: TContractConfig = {
 		address: "0x2491dD1A99ed07f192010a55B7e6c5A4A1065d5b",
 		abi: CSHOP_TOKEN_SALE_ABI,
 	},
+	progressData: {
+		address: "0x2E5019f4903BB824EdcEb7a8cf5337fceeb77199",
+		abi: PROGRESS_DATA_ABI,
+	},
 };
 
 const testnetConfig: TContractConfig = {
@@ -60,6 +65,10 @@ const testnetConfig: TContractConfig = {
 	cshopTokenSale: {
 		address: "0xB005004337f440753A2eAd1a2eB7e0046b79Abec",
 		abi: CSHOP_TOKEN_SALE_ABI,
+	},
+	progressData: {
+		address: "0x77Eb2E57AC6BAdff6Bbd8f085fc9b0fC124Ed1C4",
+		abi: PROGRESS_DATA_ABI,
 	},
 };
 

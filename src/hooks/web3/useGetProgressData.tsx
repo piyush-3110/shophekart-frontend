@@ -8,11 +8,6 @@ export default function useGetProgressData() {
 		functionName: "getNumber",
 		args: [],
 	});
-	console.log(props.error);
-	console.log(props.isLoading);
-	console.log(
-		props.data === BigInt(0) ? 0 : props.data ? Number(props.data) : 0
-	);
 	return {
 		...props,
 		data: props.data === BigInt(0) ? 0 : props.data ? Number(props.data) : 0,

@@ -8,6 +8,8 @@ import useUpdateProductNftId from "./useUpdateProductOnChainId";
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ContractFunctionExecutionError } from "viem";
+import { waitForTransactionReceipt } from "@wagmi/core";
+import { config } from "@/config";
 
 export default function useAddProduct(userWalletAddress: `0x${string}`) {
 	const [productId, setProductId] = useState<string>("");
@@ -99,13 +101,14 @@ export default function useAddProduct(userWalletAddress: `0x${string}`) {
 						image: product.images[0],
 						price: product.price.toString(),
 					});
-					await createProductOnChain({
+					const hash = await createProductOnChain({
 						currencyAddress: product.currencyAddress as `0x${string}`,
 						price: product.price,
 						shippingCharges: product.shippingCharges,
 						tokenUri,
 						stock: product.stock,
 					});
+					await waitForTransactionReceipt(config, { hash });
 				} catch (error) {
 					if (error instanceof ContractFunctionExecutionError) {
 						if (

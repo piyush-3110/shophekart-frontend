@@ -25,7 +25,11 @@ export function Hero() {
     return () => clearInterval(interval);
   }, [totalLength]);
 
-  const renderTextWithEffect = (text: string, startIndex: number, index: number) => {
+  const renderTextWithEffect = (
+    text: string,
+    startIndex: number,
+    index: number
+  ) => {
     return (
       <span>
         {text.split("").map((char, i) => (
@@ -44,7 +48,9 @@ export function Hero() {
   };
 
   return (
-    <div className="w-full relative"> {/* Prevent horizontal overflow */}
+    <div className="w-full relative">
+      {" "}
+      {/* Prevent horizontal overflow */}
       <div className="flex relative lg:items-center pb-12 lg:pb-16 w-full items-center md:items-start lg:mt-0 px-8 md:px-12 min-h-[100vh] md:min-h-[20vh] lg:min-h-[90vh] justify-center gap-6">
         <div className="w-[90vw] md:w-[70vw] lg:w-[40vw] flex flex-col lg:items-start gap-4">
           <div className="text-black text-wrap w-full text-[23px] md:text-[34px] font-semibold">
@@ -55,14 +61,17 @@ export function Hero() {
           </div>
 
           <p className="text-[#6B6F93] mt-4 w-full lg:w-auto lg:mt-0 font-[400] text-[16px] leading-[27.3px]">
-            Your voice matters! As a valued member of Shophekart, you can propose, vote, and actively participate in shaping the future of platform. Here, transparency and community decision-making drive everything we do.
+            Your voice matters! As a valued member of Shophekart, you can
+            propose, vote, and actively participate in shaping the future of
+            platform. Here, transparency and community decision-making drive
+            everything we do.
           </p>
 
           <button
             onClick={() => setIsModalOpen(true)}
             className="gradient-button relative text-white"
           >
-            Create Proposal
+            Suggest Proposal
           </button>
         </div>
 
@@ -76,10 +85,10 @@ export function Hero() {
 
         {/* Modal Component */}
       </div>
-      
-      <CreateProposalModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-   
-
+      <CreateProposalModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }

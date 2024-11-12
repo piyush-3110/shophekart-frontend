@@ -1,7 +1,9 @@
 import React from "react";
 
 const temp = () => {
-  return <div>temfwspas</div>;
+  return <div>Add a check for user authorization before creating a product
+
+</div>;
 };
 
 export default temp;

@@ -28,7 +28,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ images, outOfStock }) => {
 				<Image
 					width={480}
 					height={480}
-					className="aspect-square max-h-full max-w-full object-cover rounded-md"
+					className="aspect-square max-h-full max-w-full object-contain rounded-md"
 					src={selectedImage}
 					alt="Main Item"
 				/>

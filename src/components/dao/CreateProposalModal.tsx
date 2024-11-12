@@ -75,6 +75,7 @@ export const CreateProposalModal: React.FC<ModalProps> = ({
         throw new Error("Failed to send proposal");
       }
       const data = await response.json();
+      console.log(data);
       if (data.success !== "ok") {
         throw new Error(data.error || "Failed to send proposal");
       }

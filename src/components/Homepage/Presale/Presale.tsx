@@ -15,7 +15,7 @@ export const Presale: React.FC = () => {
   const { data: increasedPercent } = useGetProgressData();
 
   return (
-    <div className="h-fit lg:h-[16rem] -translate-y-[50%] translate-x-[25%] absolute  md:w-fit justify-center mx-auto w-[95vw] bg-white border py-6 rounded-md shadow-lg lg:px-20 flex lg:items-center lg:flex-row px-4 flex-col lg:justify-end gap-6 lg:gap-20">
+    <div className="h-fit lg:h-[16rem] lg:-translate-y-[50%] lg:translate-x-[25%] lg:absolute  md:w-fit justify-center mx-auto mb-12 w-[95vw] bg-white border py-6 rounded-md shadow-lg lg:px-20 flex lg:items-center lg:flex-row px-4 flex-col lg:justify-end gap-6 lg:gap-20">
       <div>
         <div className="flex gap-4 mb-6">
           <h1 className="text-lg lg:text-left text-center text-black font-semibold">

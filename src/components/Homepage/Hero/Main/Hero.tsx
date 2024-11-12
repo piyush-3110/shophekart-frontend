@@ -49,8 +49,8 @@ export function Hero() {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row relative lg:items-center pb-12  w-full  md:items-start  lg:mt-0  min-h-[80vh] md:min-h-[20vh] lg:min-h-[100vh] justify-center ">
-      <div className="flex relative py-8 lg:py-0  md:pb-12 w-full lg:items-center   md:items-start  lg:mt-0 px-8 md:px-12 lg:px-0  pb-8 min-h-[50vh] md:min-h-[20vh] lg:min-h-[60vh] lg:justify-center gap-6">
+    <div className="flex flex-col lg:flex-row relative lg:items-center pb-12  w-full  md:items-start  lg:mt-0 min-h-[30vh] md:min-h-[20vh] lg:min-h-[100vh] justify-center ">
+      <div className="flex relative  pt-12 md:pt-0 lg:py-0  md:pb-12 w-full lg:items-center   md:items-start  lg:mt-0 px-8 md:px-12 lg:px-0  pb-8 min-h-[50vh] md:min-h-[20vh] lg:min-h-[60vh] lg:justify-center gap-6">
         <div className="w-[90vw] md:w-[70vw] lg:w-[40vw]  flex flex-col  lg:items-start gap-4">
           <div className="text-black text-wrap w-full text-[23px] md:text-[44px] font-semibold whitespace-nowrap">
             <p>{renderTextWithEffect(text1, 0, textIndex)}</p>

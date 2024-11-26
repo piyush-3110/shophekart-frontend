@@ -21,7 +21,6 @@ export const HypeModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     dangerouslyAllowBrowser: true,
   });
 
-  // Close the modal when clicking outside of it
   const handleOutsideClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
@@ -30,7 +29,6 @@ export const HypeModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     }
   };
 
-  // Disable background scroll when modal is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflowX = "hidden";
@@ -45,12 +43,6 @@ export const HypeModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     };
   }, [isOpen]);
 
-  // Show "Coming soon" message
-  const handleComingSoon = () => {
-    customToast.success("AIShophee Coming soon");
-  };
-
-  // Generate description using OpenAI API
   const handleGenerateDescription = async () => {
     if (!inputText.trim()) {
       customToast.error("Please enter a product description first.");
@@ -58,7 +50,7 @@ export const HypeModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     }
 
     setLoading(true);
-    setGeneratedText(""); // Clear previous generated text
+    setGeneratedText("");
 
     try {
       const response = await openai.chat.completions.create({
@@ -75,6 +67,19 @@ export const HypeModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     setLoading(false);
   };
 
+  const handleCopyResponse = () => {
+    if (!generatedText) return;
+    navigator.clipboard
+      .writeText(generatedText)
+      .then(() => {
+        customToast.success("Response Copied!!");
+      })
+      .catch((error) => {
+        console.error("Failed to copy response:", error);
+        customToast.error("Failed to copy response. Please try again.");
+      });
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -83,7 +88,6 @@ export const HypeModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
       onClick={handleOutsideClick}
     >
       <div className="relative w-[90vw] h-[80vh] bg-white shadow-lg rounded-lg p-6">
-        {/* Close Icon */}
         <button
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
           onClick={onClose}
@@ -91,27 +95,25 @@ export const HypeModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
           <IoClose size={24} />
         </button>
 
-        {/* Modal Content */}
         <div className="overflow-y-auto flex flex-col py-4 h-full">
-          {/* Logo */}
           <AiShopheLogo className="h-12 min-h-12 w-auto mx-auto mb-6" />
-          {/* First Text Area */}
+
           <label className="text-gray-700 font-medium mb-2">
             Enter a short description of your product, include the most
             important advantages of the item
           </label>
           <textarea
-            className="w-full h-28 p-4 border border-gray-300 rounded-lg mb-6"
+            className="w-full min-h-16 max-h-40 p-4 border border-gray-300 rounded-lg mb-6 resize-none"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
+            placeholder="Enter product description here..."
           ></textarea>
 
-          {/* Second Text Area */}
           <label className="text-gray-700 font-medium mb-2">
             Here AIShophee will prepare a complete and advanced description for
             you
           </label>
-          <div className="w-full h-28 p-4 border border-gray-300 rounded-lg mb-6">
+          <div className="w-full min-h-28 p-4 border border-gray-300 rounded-lg mb-6 overflow-auto">
             {loading ? (
               <p className="text-neutral-400">Generating description...</p>
             ) : generatedText ? (
@@ -123,7 +125,6 @@ export const HypeModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
             )}
           </div>
 
-          {/* Buttons */}
           <div className="flex justify-between mt-6">
             <button
               className="gradient-button text-white"
@@ -132,11 +133,17 @@ export const HypeModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
             >
               Generate Description
             </button>
+
             <button
-              className="gradient-border !rounded-sm text-[#3f5af7] font-[500] py-2 px-6 hover:text-[#445de9]"
-              onClick={handleComingSoon}
+              className={`py-2 px-6 font-medium rounded-sm ${
+                generatedText
+                  ? "gradient-button text-white"
+                  : "bg-gray-200 text-gray-400 cursor-not-allowed"
+              }`}
+              onClick={handleCopyResponse}
+              disabled={!generatedText}
             >
-              Save & Use AIShophee
+              Copy Response
             </button>
           </div>
         </div>

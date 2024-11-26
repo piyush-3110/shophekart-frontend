@@ -46,6 +46,7 @@
     "next-auth": "^5.0.0-beta.25",
     "nextjs-toploader": "^3.7.15",
     "npm": "^10.9.0",
+    "openai": "^4.73.1",
     "pinata-web3": "^0.5.1",
     "pino-pretty": "^11.3.0",
     "punycode": "^2.3.1",

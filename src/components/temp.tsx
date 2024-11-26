@@ -1,7 +1,9 @@
 import React from "react";
 
 const temp = () => {
-  return <div>temfwspas</div>;
+  return <div>Show full image on hh single product page
+
+</div>;
 };
 
 export default temp;

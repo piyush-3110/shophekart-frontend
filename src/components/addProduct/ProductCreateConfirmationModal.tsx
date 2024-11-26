@@ -11,6 +11,8 @@ import useProductStore from "@/store/addProductStore";
 import createFormData from "@/utils/createAddProductFormData";
 import Show from "../shared/Show";
 import Loader from "../shared/Loader";
+import { useUserStore } from "@/store";
+import customToast from "@/utils/toasts";
 
 const textOptions = [
 	"Processing and publishing your listing...",
@@ -28,12 +30,17 @@ const ProductCreateConfirmationModal: React.FC<IProps> = ({
 	isSuccess,
 }) => {
 	const { productData, reset } = useProductStore();
+	const { user } = useUserStore();
 	const [textIndex, setTextIndex] = useState(0);
 	const [currentText, setCurrentText] = useState(textOptions[0]);
 
 	async function onConfirm() {
-		const data = createFormData({ ...productData });
-		await addProduct(data);
+		if (!user?._id) {
+			customToast.error("Please connect your wallet");
+		} else {
+			const data = createFormData({ ...productData });
+			await addProduct(data);
+		}
 	}
 
 	useEffect(() => {

@@ -24,7 +24,7 @@ const useCreateProductOnChain = (userWalletAddress: `0x${string}`) => {
 		shippingCharges,
 		tokenUri,
 	}: TCreateProductOnChain) {
-		await writeContractAsync({
+		const data = await writeContractAsync({
 			...CONTRACT_CONFIG.marketplace,
 			functionName: "createMarketItem",
 			args: [
@@ -36,6 +36,7 @@ const useCreateProductOnChain = (userWalletAddress: `0x${string}`) => {
 			],
 			value: parseEther(PRODUCT_CREATION_FEE),
 		});
+		return data;
 	}
 
 	const { isSuccess } = useWaitForTransactionReceipt({ hash, config });

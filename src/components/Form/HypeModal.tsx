@@ -6,6 +6,8 @@ import { IoClose } from "react-icons/io5";
 import { OpenAI } from "openai";
 import { envConfig } from "@/config/envConfig";
 import Loader from "./Loader";
+import { useUserStore } from "@/store";
+import axios from "axios";
 
 interface ModalProps {
   isOpen: boolean;
@@ -13,6 +15,8 @@ interface ModalProps {
 }
 
 export const HypeModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+  const { user } = useUserStore();
+  console.log(user?.walletAddress);
   const [inputText, setInputText] = useState("");
   const [generatedText, setGeneratedText] = useState("");
   const [loading, setLoading] = useState(false);
@@ -44,11 +48,40 @@ export const HypeModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     };
   }, [isOpen]);
 
+  // Function to check the rate limit from the backend
+  const checkRateLimit = async () => {
+    if (!user?.walletAddress) {
+      customToast.error("Wallet address is required.");
+      return false;
+    }
+
+    try {
+      const response = await axios.post(
+        `${envConfig.BACKEND_URL}/check-limit`,
+        { walletAddress: user.walletAddress }
+      );
+      console.log(response);
+      if (response.data.data.allowed) {
+        return true; // Allow to generate description
+      } else {
+        customToast.error("Limit exceeded! Please try again later.");
+        return false; // Prevent from generating description
+      }
+    } catch (error) {
+      console.error("Error checking rate limit:", error);
+      customToast.error("Unable to check limit. Please try again.");
+      return false;
+    }
+  };
+
   const handleGenerateDescription = async () => {
     if (!inputText.trim()) {
       customToast.error("Please enter a product description first.");
       return;
     }
+
+    const isAllowed = await checkRateLimit();
+    if (!isAllowed) return; // Prevent generation if limit exceeded
 
     setLoading(true);
     setGeneratedText("");

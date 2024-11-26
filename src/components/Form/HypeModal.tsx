@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { OpenAI } from "openai";
 import { envConfig } from "@/config/envConfig";
+import Loader from "./Loader";
 
 interface ModalProps {
   isOpen: boolean;
@@ -127,11 +128,11 @@ export const HypeModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
 
           <div className="flex justify-between mt-6">
             <button
-              className="gradient-button text-white"
+              className={`gradient-button text-white flex items-center justify-center`}
               onClick={handleGenerateDescription}
               disabled={loading}
             >
-              Generate Description
+              {loading ? <Loader /> : "Generate Description"}
             </button>
 
             <button

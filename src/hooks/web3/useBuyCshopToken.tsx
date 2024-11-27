@@ -7,7 +7,7 @@ import useApproveTokenTransaction from "./useApproveTokenTransaction";
 import customToast from "@/utils/toasts";
 import { useCallback, useState } from "react";
 
-const DEFAULT_REFERRAL_CODE = "SHOPHEKART";
+const DEFAULT_REFERRAL_CODE = "CSHOP";
 
 export default function useBuyCshopToken() {
 	const [isLoading, setIsLoading] = useState<boolean>(false);

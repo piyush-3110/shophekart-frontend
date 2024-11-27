@@ -6,8 +6,9 @@ import { ContractFunctionExecutionError, parseEther } from "viem";
 import useApproveTokenTransaction from "./useApproveTokenTransaction";
 import customToast from "@/utils/toasts";
 import { useCallback, useState } from "react";
+import useGetDefaultReferralCode from "./useGetDefaultReferralCode";
 
-const DEFAULT_REFERRAL_CODE = "CSHOP";
+// const DEFAULT_REFERRAL_CODE = "CSHOP";
 
 export default function useBuyCshopToken() {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -19,6 +20,8 @@ export default function useBuyCshopToken() {
 
 	const { approveTokenTransaction } = useApproveTokenTransaction();
 
+	const { defaultReferralCode } = useGetDefaultReferralCode();
+
 	const buyCshopToken = useCallback(
 		async ({ token, amount, referralCode }: TBuyCshopTokenProps) => {
 			setIsLoading(true);
@@ -29,7 +32,7 @@ export default function useBuyCshopToken() {
 				token === "BNB" ? 0 : parseEther(amount.toString());
 			const amountValue: bigint | undefined =
 				token === "BNB" ? parseEther(amount.toString()) : undefined;
-			const referralCodeString: string = referralCode ?? DEFAULT_REFERRAL_CODE;
+			const referralCodeString: string = referralCode ?? defaultReferralCode;
 
 			try {
 				if (token === "USDT") {
@@ -55,9 +58,7 @@ export default function useBuyCshopToken() {
 				setIsSuccess(true);
 			} catch (error) {
 				if (error instanceof ContractFunctionExecutionError) {
-					if (
-						error.message.includes("insufficient funds for gas * price + value")
-					) {
+					if (error.message.includes("insufficient funds for gas * price + value")) {
 						customToast.error("You do not have enough funds.");
 					} else if (error.message.includes("User rejected the request")) {
 						customToast.success(
@@ -72,7 +73,13 @@ export default function useBuyCshopToken() {
 				setIsLoading(false);
 			}
 		},
-		[writeContractAsync, approveTokenTransaction, setIsLoading, setIsSuccess]
+		[
+			writeContractAsync,
+			approveTokenTransaction,
+			setIsLoading,
+			setIsSuccess,
+			defaultReferralCode,
+		]
 	);
 
 	return {

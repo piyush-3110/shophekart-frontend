@@ -1,9 +1,7 @@
 import React from "react";
 
 const temp = () => {
-  return <div>Show full image on hh single product page
-
-</div>;
+  return <div>Use default contract code from chain</div>;
 };
 
 export default temp;

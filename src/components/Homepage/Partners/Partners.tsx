@@ -13,8 +13,8 @@ const Partners = () => {
       <div>
         <MarqueeComp />
       </div>
-      <div className="flex mt-4 justify-center gap-16">
-        <div className="flex flex-col items-center md:items-start md:pl-12 gap-6 mt-6 w-[90vw] md:w-[90vw] lg:w-[40vw]">
+      <div className="flex  justify-center gap-16">
+        <div className="flex flex-col items-center md:items-start md:pl-12 gap-6  w-[90vw] md:w-[90vw] lg:w-[40vw]">
           <h1 className="text-black font-semibold md:text-3xl text-lg">
             Introducing the Crypto Shophekart Debit Card
           </h1>

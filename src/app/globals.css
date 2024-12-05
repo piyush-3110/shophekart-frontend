@@ -4,210 +4,229 @@
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /* Firefox */
 input[type="number"] {
-	-moz-appearance: textfield;
-	appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 .gradient-text {
-	background: linear-gradient(to right, #01bfff, #017ffe, #003aff);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	font-size: 2rem; /* Adjust size as needed */
-	font-weight: bold; /* Optional: make it bold */
+  background: linear-gradient(to right, #01bfff, #017ffe, #003aff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2rem; /* Adjust size as needed */
+  font-weight: bold; /* Optional: make it bold */
 }
 /* styles/globals.css or a specific CSS module */
 .gradient-button {
-	background: linear-gradient(to right, #01bfff, #017ffe, #003aff);
-	border: none; /* Remove default border */
-	color: white; /* Text color */
-	padding: 16px 34px; /* Adjust padding (py-6 px-4) */
-	border-radius: 0.3rem; /* Rounded corners */
-	font-size: 13px; /* Adjust font size as needed */
-	cursor: pointer; /* Change cursor on hover */
-	transition: background 0.3s ease; /* Smooth transition */
-	box-shadow: 0 4px 12px rgba(0, 135, 255, 0.5);
+  background: linear-gradient(to right, #01bfff, #017ffe, #003aff);
+  border: none; /* Remove default border */
+  color: white; /* Text color */
+  padding: 16px 34px; /* Adjust padding (py-6 px-4) */
+  border-radius: 0.3rem; /* Rounded corners */
+  font-size: 13px; /* Adjust font size as needed */
+  cursor: pointer; /* Change cursor on hover */
+  transition: background 0.3s ease; /* Smooth transition */
+  box-shadow: 0 4px 12px rgba(0, 135, 255, 0.5);
 }
 .gradient-border {
-	position: relative;
+  position: relative;
 }
 .gradient-border::before {
-	content: "";
-	position: absolute;
-	inset: 0;
-	border-radius: 6px;
-	padding: 1px;
-	background: linear-gradient(to right, #01bfff, #017ffe, #003aff);
-	-webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-	mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-	-webkit-mask-composite: xor;
-	mask-composite: exclude;
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  padding: 1px;
+  background: linear-gradient(to right, #01bfff, #017ffe, #003aff);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
 }
 /* styles.css */
 .countdown-background {
-	background: linear-gradient(
-		101.35deg,
-		rgba(1, 245, 255, 0.1) 0.9%,
-		rgba(1, 165, 255, 0.1) 27.77%,
-		rgba(1, 81, 255, 0.1) 61.93%,
-		rgba(1, 40, 255, 0.1) 99.49%
-	);
+  background: linear-gradient(
+    101.35deg,
+    rgba(1, 245, 255, 0.1) 0.9%,
+    rgba(1, 165, 255, 0.1) 27.77%,
+    rgba(1, 81, 255, 0.1) 61.93%,
+    rgba(1, 40, 255, 0.1) 99.49%
+  );
 }
 
 @keyframes rotateLeft {
-	0%,
-	100% {
-		transform: rotate(0deg);
-	}
-	50% {
-		transform: rotate(-5deg);
-	}
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
 }
 
 @keyframes rotateRight {
-	0%,
-	100% {
-		transform: rotate(0deg);
-	}
-	50% {
-		transform: rotate(5deg);
-	}
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
 }
 
 .rotate-left {
-	animation: rotateLeft 4s ease-in-out infinite; /* Smooth left rotation */
+  animation: rotateLeft 4s ease-in-out infinite; /* Smooth left rotation */
 }
 
 .rotate-right {
-	animation: rotateRight 4s ease-in-out infinite; /* Smooth right rotation */
+  animation: rotateRight 4s ease-in-out infinite; /* Smooth right rotation */
 }
 /* CSS for Blob Shape */
 /* CSS for Blob Shape */
 .blob {
-	position: absolute;
-	bottom: -100px; /* Adjust as needed */
-	right: -100px; /* Adjust as needed */
-	width: 400px; /* Blob size */
-	height: 400px; /* Blob size */
-	background: linear-gradient(185deg, #95ebee, #66a1f2, #5b9df1);
-	border-radius: 80%;
-	filter: blur(20px); /* Optional: add blur for a softer look */
-	z-index: 0; /* Ensure it stays behind the content */
+  position: absolute;
+  bottom: -100px; /* Adjust as needed */
+  right: -100px; /* Adjust as needed */
+  width: 400px; /* Blob size */
+  height: 400px; /* Blob size */
+  background: linear-gradient(185deg, #95ebee, #66a1f2, #5b9df1);
+  border-radius: 80%;
+  filter: blur(20px); /* Optional: add blur for a softer look */
+  z-index: 0; /* Ensure it stays behind the content */
 }
 .blob1 {
-	position: absolute;
-	top: 0; /* Adjust as needed */
-	right: -100px; /* Adjust as needed */
-	width: 40vw; /* Blob size */
-	height: 100vh; /* Blob size */
-	background: linear-gradient(185deg, #95ebee, #66a1f2, #5b9df1);
-	border-radius: 80%;
-	filter: blur(20px); /* Optional: add blur for a softer look */
-	z-index: 0; /* Ensure it stays behind the content */
+  position: absolute;
+  top: 0; /* Adjust as needed */
+  right: -100px; /* Adjust as needed */
+  width: 40vw; /* Blob size */
+  height: 100vh; /* Blob size */
+  background: linear-gradient(185deg, #95ebee, #66a1f2, #5b9df1);
+  border-radius: 80%;
+  filter: blur(20px); /* Optional: add blur for a softer look */
+  z-index: 0; /* Ensure it stays behind the content */
 }
 
 @media (max-width: 950px) {
-	/* md breakpoint (medium screens and up) */
-	.blob {
-		display: none;
-	}
-	.blob1 {
-		display: none;
-	}
+  /* md breakpoint (medium screens and up) */
+  .blob {
+    display: none;
+  }
+  .blob1 {
+    display: none;
+  }
 }
 
 .gradient-button:hover {
-	background: linear-gradient(
-		to right,
-		#0069ff,
-		#0093ff,
-		#64ebff
-	); /* Optional hover effect */
+  background: linear-gradient(
+    to right,
+    #0069ff,
+    #0093ff,
+    #64ebff
+  ); /* Optional hover effect */
 }
 
 @layer base {
-	:root {
-		--background: 0 0% 100%;
-		--foreground: 0 0% 3.9%;
-		--card: 0 0% 100%;
-		--card-foreground: 0 0% 3.9%;
-		--popover: 0 0% 100%;
-		--popover-foreground: 0 0% 3.9%;
-		--primary: 230 100% 50%;
-		--primary-foreground: 0 0% 98%;
-		--secondary: 160, 98%, 37%;
-		--secondary-foreground: 160.12, 97.65%, 33.33%;
-		--muted: 0 0% 96.1%;
-		--muted-foreground: 0 0% 45.1%;
-		--accent: 0 0% 96.1%;
-		--accent-foreground: 0 0% 9%;
-		--destructive: 0 84.2% 60.2%;
-		--destructive-foreground: 0 0% 98%;
-		--border: 0 0% 89.8%;
-		--input: 0 0% 89.8%;
-		--ring: 0 0% 3.9%;
-		--chart-1: 12 76% 61%;
-		--chart-2: 173 58% 39%;
-		--chart-3: 197 37% 24%;
-		--chart-4: 43 74% 66%;
-		--chart-5: 27 87% 67%;
-		--radius: 0.5rem;
-	}
-	.dark {
-		--background: 0 0% 3.9%;
-		--foreground: 0 0% 98%;
-		--card: 0 0% 3.9%;
-		--card-foreground: 0 0% 98%;
-		--popover: 0 0% 3.9%;
-		--popover-foreground: 0 0% 98%;
-		--primary: 0 0% 98%;
-		--primary-foreground: 0 0% 9%;
-		--secondary: 0 0% 14.9%;
-		--secondary-foreground: 0 0% 98%;
-		--muted: 0 0% 14.9%;
-		--muted-foreground: 0 0% 63.9%;
-		--accent: 0 0% 14.9%;
-		--accent-foreground: 0 0% 98%;
-		--destructive: 0 62.8% 30.6%;
-		--destructive-foreground: 0 0% 98%;
-		--border: 0 0% 14.9%;
-		--input: 0 0% 14.9%;
-		--ring: 0 0% 83.1%;
-		--chart-1: 220 70% 50%;
-		--chart-2: 160 60% 45%;
-		--chart-3: 30 80% 55%;
-		--chart-4: 280 65% 60%;
-		--chart-5: 340 75% 55%;
-	}
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 230 100% 50%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 160, 98%, 37%;
+    --secondary-foreground: 160.12, 97.65%, 33.33%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
 }
 
 @layer base {
-	* {
-		@apply border-border;
-	}
-	body {
-		@apply bg-background text-foreground;
-	}
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+@keyframes bounce-vertical {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-bounce-vertical {
+  animation: bounce-vertical 1s ease-in-out infinite;
+}
+
+button:hover {
+  animation: none; /* Stop the animation when hovering */
 }
 
 .card-border-gradient {
-	border: 1px solid transparent;
-	background: linear-gradient(#101317, #101317) padding-box,
-		linear-gradient(
-				117.79deg,
-				rgba(2, 171, 255, 0.8) -3.21%,
-				rgba(255, 255, 255, 0) 30.3%,
-				rgba(255, 255, 255, 0) 57.52%,
-				rgba(2, 47, 208, 0.8) 101.5%
-			)
-			border-box;
-	/* background-size: 200% 100%; */
+  border: 1px solid transparent;
+  background: linear-gradient(#101317, #101317) padding-box,
+    linear-gradient(
+        117.79deg,
+        rgba(2, 171, 255, 0.8) -3.21%,
+        rgba(255, 255, 255, 0) 30.3%,
+        rgba(255, 255, 255, 0) 57.52%,
+        rgba(2, 47, 208, 0.8) 101.5%
+      )
+      border-box;
+  /* background-size: 200% 100%; */
 
-	/* border: 1.5px solid;
+  /* border: 1.5px solid;
 
 border-image-source: linear-gradient(76.42deg, #AB59FF 0.22%, rgba(133, 143, 255, 0) 10.15%, rgba(77, 154, 255, 0) 78.64%, #4D9AFF 99.49%); */
 }

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { ChatbotModal } from "./ChatbotModal";
+import { IoIosChatboxes } from "react-icons/io";
 
 const ChatbotButton: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,12 +15,12 @@ const ChatbotButton: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-4 right-4">
+    <div className="fixed bottom-4 z-50 right-4">
       <button
         onClick={handleOpen}
-        className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300"
+        className="animate-bounce-vertical transition-all transform duration-300 hover:animate-none"
       >
-        Open Chatbot
+        <IoIosChatboxes className="text-purple-600 !text-6xl" />
       </button>
       <ChatbotModal isOpen={isOpen} onClose={handleClose} />
     </div>

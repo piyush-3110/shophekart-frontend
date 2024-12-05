@@ -86,7 +86,7 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="!p-0">
+      <DialogContent className="!p-0 rounded-lg overflow-hidden">
         {/* Header */}
         <DialogHeader className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-3">
           <div className="flex gap-2 items-center">
@@ -100,7 +100,7 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({
         </DialogHeader>
 
         {/* Conversation Area */}
-        <div className="flex-grow h-[65vh] overflow-y-auto mb-4 p-4 border border-gray-300 rounded-lg bg-gray-50">
+        <div className="flex-grow h-[65vh] overflow-y-auto mb-4 p-4 rounded-lg bg-gray-50">
           {messages.map((msg, index) => (
             <div
               key={index}
@@ -137,7 +137,7 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             placeholder="Type your message here..."
-            className="flex-grow border border-gray-300 rounded-full p-3 pr-12 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex-grow border border-gray-300 rounded-full p-3 pr-12 focus:outline-none focus:none focus:none"
           />
           <button
             onClick={handleSendMessage}

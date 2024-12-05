@@ -1,18 +1,16 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-
 import {
   Dialog,
-  DialogTrigger,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogClose,
 } from "@/components/ui/dialog";
 import { envConfig } from "@/config/envConfig";
 import Loader from "../Form/Loader";
 import { OpenAI } from "openai";
+import { IoSend } from "react-icons/io5"; // Import the send icon from react-icons
 
 interface ChatbotModalProps {
   isOpen: boolean;
@@ -34,16 +32,13 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflowX = "hidden";
-      document.body.style.overflowY = "hidden";
-      setMessages([]); // Clear messages when modal opens
+      document.body.style.overflow = "hidden";
+      setMessages([]); // Reset messages when the modal opens
     } else {
-      document.body.style.overflowX = "hidden";
-      document.body.style.overflowY = "auto";
+      document.body.style.overflow = "auto";
     }
     return () => {
-      document.body.style.overflowX = "hidden";
-      document.body.style.overflowY = "auto";
+      document.body.style.overflow = "auto";
     };
   }, [isOpen]);
 
@@ -91,51 +86,65 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogTrigger asChild>{/* Optional trigger element */}</DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle className="text-[#160041] font-semibold text-center text-xl mb-4">
-            Chatbot
-          </DialogTitle>
-          <DialogClose asChild></DialogClose>
+      <DialogContent className="!p-0">
+        {/* Header */}
+        <DialogHeader className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-3">
+          <div className="flex gap-2 items-center">
+            <img
+              src="https://via.placeholder.com/40"
+              alt="Avatar"
+              className="w-10 h-10 rounded-full"
+            />
+            <DialogTitle className="text-lg">ShopheChat</DialogTitle>
+          </div>
         </DialogHeader>
-        <div className="flex-grow h-[95vh] md:h-[65vh] lg:h-[80vh] overflow-y-auto mb-4 p-4 border border-gray-300 rounded-lg bg-gray-50">
+
+        {/* Conversation Area */}
+        <div className="flex-grow h-[65vh] overflow-y-auto mb-4 p-4 border border-gray-300 rounded-lg bg-gray-50">
           {messages.map((msg, index) => (
             <div
               key={index}
-              className={`mb-2 ${
-                msg.role === "user"
-                  ? "text-right text-blue-600"
-                  : "text-left text-gray-700"
+              className={`flex items-start mb-4 ${
+                msg.role === "user" ? "flex-row-reverse" : ""
               }`}
             >
+              {/* Avatar */}
+              <img
+                src="https://via.placeholder.com/40"
+                alt="Avatar"
+                className="w-10 h-10 rounded-full mx-2"
+              />
+
+              {/* Message */}
               <p
-                className={`inline-block px-4 py-2 rounded-lg ${
+                className={`px-4 py-2 rounded-lg max-w-[75%] ${
                   msg.role === "user"
-                    ? "bg-blue-100 text-blue-600"
-                    : "bg-gray-200 text-gray-700"
+                    ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white"
+                    : "bg-gradient-to-r from-green-400 to-green-600 text-white"
                 }`}
               >
                 {msg.content}
               </p>
             </div>
           ))}
-          {loading && <p className="text-gray-500">Typing...</p>}
+          {loading && <p className="text-gray-500 text-center">Typing...</p>}
         </div>
-        <div className="flex items-center">
+
+        {/* Input Area */}
+        <div className="relative flex items-center">
           <input
             type="text"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             placeholder="Type your message here..."
-            className="flex-grow border border-gray-300 rounded-l-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex-grow border border-gray-300 rounded-full p-3 pr-12 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button
             onClick={handleSendMessage}
-            className="bg-blue-500 text-white px-4 py-2 rounded-r-lg disabled:bg-blue-300"
+            className="absolute right-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white p-2 rounded-full hover:scale-105 transition-transform disabled:opacity-50"
             disabled={loading || !inputText.trim()}
           >
-            {loading ? <Loader /> : "Send"}
+            {loading ? <Loader /> : <IoSend size={20} />}
           </button>
         </div>
       </DialogContent>

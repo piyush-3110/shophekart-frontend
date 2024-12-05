@@ -7,7 +7,7 @@ import { Roadmap } from "@/components/Homepage/Roadmap/Roadmap";
 import Partners from "@/components/Homepage/Partners/Partners";
 import Footer from "@/components/Footer/Footer";
 import { Presale } from "@/components/Homepage/Presale/Presale";
-import ChatbotButton from "@/components/chatbot/ChatbotButton";
+
 const page = () => {
   return (
     <div className="bg-[#f1f4ff] relative w-full overflow-x-hidden">
@@ -19,7 +19,6 @@ const page = () => {
       <Roadmap />
       <Partners />
       <Footer />
-      <ChatbotButton />
     </div>
   );
 };

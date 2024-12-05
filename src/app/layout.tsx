@@ -8,7 +8,7 @@ import NextTopLoader from "nextjs-toploader";
 import RenderedNavbar from "@/components/Navbar/RenderedNavbar";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-
+import ChatbotButton from "@/components/chatbot/ChatbotButton";
 
 const dm = DM_Sans({
   subsets: ["latin"],
@@ -34,10 +34,11 @@ export default function RootLayout({
         <Web3ModalProvider>
           <TooltipProvider>
             <RenderedNavbar />
+            <ChatbotButton />
+
             <NextTopLoader color="#0163ff" />
             {children}
             <Toaster />
-          
           </TooltipProvider>
         </Web3ModalProvider>
       </body>

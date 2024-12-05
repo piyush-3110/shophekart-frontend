@@ -1,12 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import { envConfig } from "@/config/envConfig";
 import Loader from "../Form/Loader";
 import { OpenAI } from "openai";
@@ -30,16 +25,18 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false);
-
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = "hidden";
-      setMessages([]); // Reset messages when the modal opens
+      document.body.style.overflowX = "hidden";
+      document.body.style.overflowY = "hidden";
+      setMessages([]); // Reset newPrice when the modal opens
     } else {
-      document.body.style.overflow = "auto";
+      document.body.style.overflowX = "hidden";
+      document.body.style.overflowY = "auto";
     }
     return () => {
-      document.body.style.overflow = "auto";
+      document.body.style.overflowX = "hidden";
+      document.body.style.overflowY = "auto";
     };
   }, [isOpen]);
 
@@ -110,7 +107,7 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({
             >
               {/* Avatar */}
               <img
-                src="https://via.placeholder.com/40"
+                src="/images/profile/profile.png"
                 alt="Avatar"
                 className="w-10 h-10 rounded-full mx-2"
               />
@@ -127,7 +124,7 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({
               </p>
             </div>
           ))}
-          {loading && <p className="text-gray-500 text-center">Typing...</p>}
+          {loading && <p className="text-gray-500 ">Generating...</p>}
         </div>
 
         {/* Input Area */}

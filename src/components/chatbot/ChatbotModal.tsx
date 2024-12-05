@@ -1,9 +1,18 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
-import { IoClose } from "react-icons/io5";
-import { OpenAI } from "openai";
+
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogClose,
+} from "@/components/ui/dialog";
 import { envConfig } from "@/config/envConfig";
 import Loader from "../Form/Loader";
+import { OpenAI } from "openai";
 
 interface ChatbotModalProps {
   isOpen: boolean;
@@ -23,34 +32,24 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const openai = new OpenAI({
-    apiKey: envConfig.CHAT_API,
-    dangerouslyAllowBrowser: true,
-  });
-
-  const handleOutsideClick = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
-
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflowX = "hidden";
+      document.body.style.overflowY = "hidden";
+      setMessages([]); // Clear messages when modal opens
     } else {
-      document.body.style.overflow = "auto";
+      document.body.style.overflowX = "hidden";
+      document.body.style.overflowY = "auto";
     }
     return () => {
-      document.body.style.overflow = "auto";
+      document.body.style.overflowX = "hidden";
+      document.body.style.overflowY = "auto";
     };
   }, [isOpen]);
 
   const handleSendMessage = async () => {
     if (!inputText.trim()) return;
 
-    // Add user message
     const userMessage: Message = { role: "user", content: inputText };
     const newMessages = [...messages, userMessage];
     setMessages(newMessages);
@@ -58,6 +57,10 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({
     setLoading(true);
 
     try {
+      const openai = new OpenAI({
+        apiKey: envConfig.CHAT_API,
+        dangerouslyAllowBrowser: true,
+      });
       const response = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
         messages: newMessages.map((msg) => ({
@@ -86,22 +89,17 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({
     }
   };
 
-  if (!isOpen) return null;
-
   return (
-    <div
-      className="fixed inset-0 w-full z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm"
-      onClick={handleOutsideClick}
-    >
-      <div className="relative w-[90vw] h-[80vh] bg-white shadow-lg rounded-lg p-6 flex flex-col">
-        <button
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
-          onClick={onClose}
-        >
-          <IoClose size={24} />
-        </button>
-
-        <div className="flex-grow overflow-y-auto mb-4 p-4 border border-gray-300 rounded-lg bg-gray-50">
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogTrigger asChild>{/* Optional trigger element */}</DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle className="text-[#160041] font-semibold text-center text-xl mb-4">
+            Chatbot
+          </DialogTitle>
+          <DialogClose asChild></DialogClose>
+        </DialogHeader>
+        <div className="flex-grow h-[95vh] md:h-[65vh] lg:h-[80vh] overflow-y-auto mb-4 p-4 border border-gray-300 rounded-lg bg-gray-50">
           {messages.map((msg, index) => (
             <div
               key={index}
@@ -124,7 +122,6 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({
           ))}
           {loading && <p className="text-gray-500">Typing...</p>}
         </div>
-
         <div className="flex items-center">
           <input
             type="text"
@@ -141,7 +138,7 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({
             {loading ? <Loader /> : "Send"}
           </button>
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 };

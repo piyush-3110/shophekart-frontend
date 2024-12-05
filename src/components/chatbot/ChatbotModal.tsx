@@ -107,7 +107,11 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({
             >
               {/* Avatar */}
               <img
-                src="/images/profile/profile.png"
+                src={
+                  msg.role === "assistant"
+                    ? "/images/profile/ai-avatar.webp" // AI Avatar for assistant
+                    : "/images/profile/profile.png" // User Avatar
+                }
                 alt="Avatar"
                 className="w-10 h-10 rounded-full mx-2"
               />

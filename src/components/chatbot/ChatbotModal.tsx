@@ -11,6 +11,7 @@ import { envConfig } from "@/config/envConfig";
 import Loader from "../Form/Loader";
 import { OpenAI } from "openai";
 import { IoSend } from "react-icons/io5"; // Import the send icon from react-icons
+import Image from "next/image";
 
 interface ChatbotModalProps {
   isOpen: boolean;
@@ -88,15 +89,14 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="!p-0 rounded-lg overflow-hidden">
         {/* Header */}
-        <DialogHeader className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-3">
-          <div className="flex gap-2 items-center">
-            <img
-              src="https://via.placeholder.com/40"
-              alt="Avatar"
-              className="w-10 h-10 rounded-full"
-            />
-            <DialogTitle className="text-lg">ShopheChat</DialogTitle>
-          </div>
+        <DialogHeader className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 ">
+          <Image
+            src="/images/shared/logo.png"
+            alt="Logo"
+            className="h-[4rem]"
+            width={160}
+            height={160}
+          />
         </DialogHeader>
 
         {/* Conversation Area */}
@@ -131,7 +131,7 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({
         </div>
 
         {/* Input Area */}
-        <div className="relative flex items-center">
+        <div className="relative flex items-center m-2">
           <input
             type="text"
             value={inputText}

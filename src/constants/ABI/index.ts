@@ -13,3 +13,4 @@ export { default as ESCROW_ABI } from "./mainnet/ESCROW_ABI.json";
 export { default as ERC20_ABI } from "./mainnet/ERC20.json";
 export { default as CSHOP_TOKEN_SALE_ABI } from "./mainnet/CSHOP_TOKEN_SALE.json";
 export { default as PROGRESS_DATA_ABI } from "./testnet/PROGRESS_DATA_ABI.json";
+export { default as DEFAULT_REFERRAL_CODE_ABI } from "./testnet/DEFAULT_REFERRAL_CODE_ABI.json";

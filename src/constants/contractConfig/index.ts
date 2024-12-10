@@ -1,5 +1,6 @@
 import {
 	CSHOP_TOKEN_SALE_ABI,
+	DEFAULT_REFERRAL_CODE_ABI,
 	ERC20_ABI,
 	ESCROW_ABI,
 	MARKETPLACE_ABI,
@@ -39,6 +40,10 @@ const mainnetConfig: TContractConfig = {
 		address: "0x2E5019f4903BB824EdcEb7a8cf5337fceeb77199",
 		abi: PROGRESS_DATA_ABI,
 	},
+	referralCodeContract: {
+		address: "0x221120dB237c9BecFB73D054EBCD084d52F8e586",
+		abi: DEFAULT_REFERRAL_CODE_ABI,
+	},
 };
 
 const testnetConfig: TContractConfig = {
@@ -69,6 +74,10 @@ const testnetConfig: TContractConfig = {
 	progressData: {
 		address: "0x77Eb2E57AC6BAdff6Bbd8f085fc9b0fC124Ed1C4",
 		abi: PROGRESS_DATA_ABI,
+	},
+	referralCodeContract: {
+		address: "0x35877af8F15EAE37B6a80288F03f90a45Bd66c8d",
+		abi: DEFAULT_REFERRAL_CODE_ABI,
 	},
 };
 

@@ -212,6 +212,9 @@ input[type="number"] {
 button:hover {
   animation: none; /* Stop the animation when hovering */
 }
+.gradient-background-cards {
+  background: linear-gradient(to right, #222322, #323332, #222322);
+}
 
 .card-border-gradient {
   border: 1px solid transparent;

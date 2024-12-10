@@ -2,16 +2,18 @@ import Image from "next/image";
 import React from "react";
 import CardContent from "./CardContent";
 
-const Cards: React.FC = () => {
-  const cardValues = {
-    totalRaise: "$5M",
-    endsIn: "7 Days",
-    salesType: "Private Sale",
-    hostedBy: "Company X",
-    backedBy: ["back1.png", "back2.png", "back3.png"],
-    comments: "No Comments Yet",
+interface CardsProps {
+  cardValues: {
+    totalRaise?: string;
+    endsIn?: string;
+    salesType?: string;
+    hostedBy?: string;
+    backedBy?: string[];
+    comments?: string;
   };
+}
 
+const Cards: React.FC<CardsProps> = ({ cardValues }) => {
   return (
     <div className="text-white h-[40rem] pb-5 lg:w-[29vw] md:w-[44vw] w-[85vw] rounded-lg card-border-gradient bg-[#0f1012]">
       <div className="mx-2 relative mt-2 rounded-lg flex justify-center h-[45%]">

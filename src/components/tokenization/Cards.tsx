@@ -10,6 +10,7 @@ interface CardsProps {
     hostedBy?: string;
     backedBy?: string[];
     comments?: string;
+    imgLink?: string;
   };
 }
 
@@ -18,7 +19,7 @@ const Cards: React.FC<CardsProps> = ({ cardValues }) => {
     <div className="text-white h-[38rem] pb-5 lg:w-[29vw] md:w-[44vw] w-[90vw] rounded-lg card-border-gradient bg-[#0f1012]">
       <div className="mx-2 relative mt-2 rounded-lg flex justify-center h-[38%]">
         <Image
-          src="/images/tokenization/comingsoon.svg"
+          src={cardValues?.imgLink || "/images/tokenization/comingsoon.svg"}
           alt="Coming soon"
           width={500}
           height={500}

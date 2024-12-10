@@ -4,6 +4,7 @@ import Cards from "./Cards";
 const Tokenization = () => {
   const cardsData = [
     {
+      imgLink: "/images/tokenization/comingsoon.svg",
       totalRaise: "$5M",
       endsIn: "7 Days",
       salesType: "Private Sale",
@@ -12,6 +13,8 @@ const Tokenization = () => {
       comments: "No Comments Yet",
     },
     {
+      imgLink: "/images/tokenization/comingsoon.svg",
+
       totalRaise: "$3M",
       endsIn: "10 Days",
       salesType: "Public Sale",
@@ -20,6 +23,8 @@ const Tokenization = () => {
       comments: "Few comments.",
     },
     {
+      imgLink: "/images/tokenization/comingsoon.svg",
+
       totalRaise: "$10M",
       endsIn: "5 Days",
       salesType: "Auction",

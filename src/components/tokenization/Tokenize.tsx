@@ -1,16 +1,12 @@
 "use client";
 import React from "react";
-import Tokenization from "./Tokenization";
-import Auction from "./Auction";
+
+import { TokenizationSlider } from "./TokenizationSlider";
 
 const Tokenize = () => {
   return (
-    <div className="px-4 md:px-12 py-8 min-h-[100vh] bg-[#000] bg-cover bg-center ">
-      <p className="text-2xl font-bold mb-6 text-center text-white">
-        What will we tokenize?
-      </p>
-      <Tokenization />
-      <Auction />
+    <div className="px-4 md:px-8 py-12 min-h-[100vh] bg-[#000] bg-cover bg-center ">
+      <TokenizationSlider />
     </div>
   );
 };

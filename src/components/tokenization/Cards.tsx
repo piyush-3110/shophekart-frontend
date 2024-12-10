@@ -15,8 +15,8 @@ interface CardsProps {
 
 const Cards: React.FC<CardsProps> = ({ cardValues }) => {
   return (
-    <div className="text-white h-[40rem] pb-5 lg:w-[29vw] md:w-[44vw] w-[90vw] rounded-lg card-border-gradient bg-[#0f1012]">
-      <div className="mx-2 relative mt-2 rounded-lg flex justify-center h-[45%]">
+    <div className="text-white h-[38rem] pb-5 lg:w-[29vw] md:w-[44vw] w-[90vw] rounded-lg card-border-gradient bg-[#0f1012]">
+      <div className="mx-2 relative mt-2 rounded-lg flex justify-center h-[38%]">
         <Image
           src="/images/tokenization/comingsoon.svg"
           alt="Coming soon"
@@ -35,7 +35,7 @@ const Cards: React.FC<CardsProps> = ({ cardValues }) => {
         </div>
         <h1 className="font-bold absolute left-6 -bottom-16 text-lg">TBA</h1>
       </div>
-      <CardContent cardValues={cardValues} />
+      <CardContent cardValues={cardValues} link="/" />
     </div>
   );
 };

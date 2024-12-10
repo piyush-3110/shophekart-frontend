@@ -12,6 +12,7 @@ interface CardValues {
 
 interface CardContentProps {
   cardValues?: CardValues;
+  link?: string;
 }
 
 const CardContent: React.FC<CardContentProps> = ({ cardValues }) => {
@@ -65,9 +66,9 @@ const CardContent: React.FC<CardContentProps> = ({ cardValues }) => {
   ];
 
   return (
-    <div className="px-8 mt-20">
+    <div className="px-8 mx-auto mt-20">
       {cardData.map((item, index) => (
-        <div key={index} className="flex justify-between items-center mb-4">
+        <div key={index} className="flex justify-between items-center mb-3">
           <div className="flex gap-2 items-center">
             <Image
               src={item.icon}
@@ -78,15 +79,14 @@ const CardContent: React.FC<CardContentProps> = ({ cardValues }) => {
             />
             <p className="text-sm text-[#6e6f71]">{item.label}</p>
           </div>
-          <p className="text-[#c7c5c5]">{item.value}</p>
+          <p className="text-[#c7c5c5] text-sm">{item.value}</p>
         </div>
       ))}
 
-      {/* Horizontal Line Separator */}
-      <hr className="my-6 border-t border-gray-600" />
+      <hr className="my-4 border-t border-gray-600" />
 
       {additionalData.map((item, index) => (
-        <div key={index} className="flex justify-between items-center mb-4">
+        <div key={index} className="flex justify-between items-center mb-3">
           <div className="flex gap-2 items-center">
             <Image
               src={item.icon}
@@ -97,9 +97,16 @@ const CardContent: React.FC<CardContentProps> = ({ cardValues }) => {
             />
             <p className="text-sm text-[#6e6f71]">{item.label}</p>
           </div>
-          <div className="text-[#c7c5c5]">{item.value}</div>
+          <div className="text-sm text-[#c7c5c5]">{item.value}</div>
         </div>
       ))}
+
+      <button
+        className="gradient-background-card w-1/2 mx-auto block text-sm text-center py-3 px-5 rounded-md opacity-50 border border-gray-500 shadow-lg cursor-not-allowed mt-5"
+        disabled
+      >
+        Participate Now
+      </button>
     </div>
   );
 };

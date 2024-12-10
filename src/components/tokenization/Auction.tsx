@@ -5,32 +5,32 @@ const Auction = () => {
   const cardsData = [
     {
       imgLink: "/images/tokenization/comingsoon.svg",
-      totalRaise: "$5M",
-      endsIn: "7 Days",
-      salesType: "Private Sale",
-      hostedBy: "Company X",
-      backedBy: ["back1.png", "back2.png", "back3.png"],
-      comments: "No Comments Yet",
-    },
-    {
-      imgLink: "/images/tokenization/comingsoon.svg",
-
-      totalRaise: "$3M",
-      endsIn: "10 Days",
-      salesType: "Public Sale",
-      hostedBy: "Company Y",
-      backedBy: ["back1.png", "back2.png"],
-      comments: "Few comments.",
-    },
-    {
-      imgLink: "/images/tokenization/comingsoon.svg",
-
-      totalRaise: "$10M",
-      endsIn: "5 Days",
+      totalRaise: "N/A",
+      endsIn: "N/A",
       salesType: "Auction",
-      hostedBy: "Company Z",
-      backedBy: ["back1.png", "back3.png", "back2.png"],
-      comments: "Highly anticipated.",
+      hostedBy: "N/A",
+      backedBy: [],
+      comments: "N/A",
+    },
+    {
+      imgLink: "/images/tokenization/comingsoon.svg",
+
+      totalRaise: "N/A",
+      endsIn: "N/A",
+      salesType: "Auction",
+      hostedBy: "N/A",
+      backedBy: [],
+      comments: "N/A",
+    },
+    {
+      imgLink: "/images/tokenization/comingsoon.svg",
+
+      totalRaise: "N/A",
+      endsIn: "N/A",
+      salesType: "Auction",
+      hostedBy: "N/A",
+      backedBy: [],
+      comments: "N/A",
     },
   ];
 

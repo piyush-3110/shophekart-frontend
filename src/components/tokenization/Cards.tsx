@@ -3,8 +3,17 @@ import React from "react";
 import CardContent from "./CardContent";
 
 const Cards: React.FC = () => {
+  const cardValues = {
+    totalRaise: "$5M",
+    endsIn: "7 Days",
+    salesType: "Private Sale",
+    hostedBy: "Company X",
+    backedBy: ["back1.png", "back2.png", "back3.png"],
+    comments: "No Comments Yet",
+  };
+
   return (
-    <div className="text-white h-[30rem] w-[30vw] rounded card-border-gradient bg-[#0f1012]">
+    <div className="text-white min-h-[30rem] max-h-fit pb-5 lg:w-[30vw] md:w-[45vw] w-[90vw] rounded card-border-gradient bg-[#0f1012]">
       <div className="mx-2 relative mt-2 rounded-lg flex justify-center h-[45%]">
         <Image
           src="/images/tokenization/comingsoon.svg"
@@ -24,7 +33,7 @@ const Cards: React.FC = () => {
         </div>
         <h1 className="font-bold absolute left-6 -bottom-16 text-lg">TBA</h1>
       </div>
-      <CardContent />
+      <CardContent cardValues={cardValues} />
     </div>
   );
 };

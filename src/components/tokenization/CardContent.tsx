@@ -6,6 +6,8 @@ interface CardValues {
   endsIn?: string;
   salesType?: string;
   hostedBy?: string;
+  backedBy?: string[]; // Array of image paths for "Backed By"
+  comments?: string; // String value for "Comments"
 }
 
 interface CardContentProps {
@@ -36,6 +38,32 @@ const CardContent: React.FC<CardContentProps> = ({ cardValues }) => {
     },
   ];
 
+  const additionalData = [
+    {
+      icon: "/images/tokenization/icon5.svg",
+      label: "Backed By",
+      value: (
+        <div className="flex gap-2">
+          {cardValues?.backedBy?.map((imgSrc, index) => (
+            <Image
+              key={index}
+              src={`/images/tokenization/${imgSrc}`}
+              alt={`Backer ${index + 1}`}
+              width={30}
+              height={30}
+              className="h-6 w-6 rounded-full"
+            />
+          )) || "N/A"}
+        </div>
+      ),
+    },
+    {
+      icon: "/images/tokenization/icon6.svg",
+      label: "Comments",
+      value: cardValues?.comments || "N/A",
+    },
+  ];
+
   return (
     <div className="px-8 mt-20">
       {cardData.map((item, index) => (
@@ -51,6 +79,25 @@ const CardContent: React.FC<CardContentProps> = ({ cardValues }) => {
             <p className="text-sm text-[#6e6f71]">{item.label}</p>
           </div>
           <p className="text-[#c7c5c5]">{item.value}</p>
+        </div>
+      ))}
+
+      {/* Horizontal Line Separator */}
+      <hr className="my-6 border-t border-gray-600" />
+
+      {additionalData.map((item, index) => (
+        <div key={index} className="flex justify-between items-center mb-4">
+          <div className="flex gap-2 items-center">
+            <Image
+              src={item.icon}
+              alt={`${item.label} icon`}
+              width={50}
+              height={50}
+              className="h-5 w-auto"
+            />
+            <p className="text-sm text-[#6e6f71]">{item.label}</p>
+          </div>
+          <div className="text-[#c7c5c5]">{item.value}</div>
         </div>
       ))}
     </div>

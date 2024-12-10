@@ -90,7 +90,7 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({
     {
       question: "Who are the partners and supporters of Shophekart?",
       answer:
-        "Shophekart has partnered with several well-known organizations and platforms, including Blue Whales Agency, UNCX Network, MasterCard, OpenSea, WOW Earn, OpenAI, Binance Smart Chain, Gecko Terminal BSC, CoinGecko, CoinMarketCap, DEX Scanner, DEX Tools, PancakeSwap, PinkSale, MetaMask, TrustWallet, and Snapshot, among others. These partnerships support the growth and development of the Shophekart ecosystem.",
+        "Shophekart has partnered with several well-known organization and platforms, including Blue Whales Agency, UNCX Network, MasterCard, OpenSea, WOW Earn, OpenAI, Binance Smart Chain, Gecko Terminal BSC, CoinGecko, CoinMarketCap, DEX Scanner, DEX Tools, PancakeSwap, PinkSale, MetaMask, TrustWallet, and Snapshot, among others. These partnerships support the growth and development of the Shophekart ecosystem.",
     },
   ];
 

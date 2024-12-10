@@ -2,9 +2,9 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-const Hero1=()=> {
+const Hero1 = () => {
   const [textIndex, setTextIndex] = useState(0);
-  const text1 = "Coming Soon: Tokenization Framework for";
+  const text1 = "Tokenization Framework for";
   const text2 = "High-Value Items";
 
   const totalLength = text1.length + text2.length;
@@ -32,7 +32,9 @@ const Hero1=()=> {
 
     return (
       <span>
-        <span className="opacity-100 transition-opacity duration-300">{visibleText}</span>
+        <span className="opacity-100 transition-opacity duration-300">
+          {visibleText}
+        </span>
         <span className="opacity-0">{hiddenText}</span>
       </span>
     );
@@ -49,7 +51,11 @@ const Hero1=()=> {
         </div>
 
         <p className="text-[#6B6F93] mt-4 w-full lg:w-auto lg:mt-0 font-[400] text-[16px] leading-[27.3px]">
-          At Shophekart, we&apos;re revolutionizing the way people invest in luxury goods by offering tokenization for high-value assets. Our upcoming tokenization framework will allow users to tokenize, fractionalize, auction and trade ownership of some of the most sought-after items in the world.
+          At Shophekart, we&apos;re revolutionizing the way people invest in
+          luxury goods by offering tokenization for high-value assets. Our
+          upcoming tokenization framework will allow users to tokenize,
+          fractionalize, auction and trade ownership of some of the most
+          sought-after items in the world.
         </p>
 
         {/* <div className="flex gap-4 items-center mt-4">
@@ -71,5 +77,5 @@ const Hero1=()=> {
       />
     </div>
   );
-}
-export default  Hero1;
+};
+export default Hero1;

@@ -43,20 +43,23 @@ const CardContent: React.FC<CardContentProps> = ({ cardValues }) => {
     {
       icon: "/images/tokenization/icon5.svg",
       label: "Backed By",
-      value: (
-        <div className="flex gap-2">
-          {cardValues?.backedBy?.map((imgSrc, index) => (
-            <Image
-              key={index}
-              src={`/images/tokenization/${imgSrc}`}
-              alt={`Backer ${index + 1}`}
-              width={30}
-              height={30}
-              className="h-6 w-6 rounded-full"
-            />
-          )) || "N/A"}
-        </div>
-      ),
+      value:
+        cardValues?.backedBy && cardValues?.backedBy.length > 0 ? (
+          <div className="flex gap-2">
+            {cardValues?.backedBy?.map((imgSrc, index) => (
+              <Image
+                key={index}
+                src={`/images/tokenization/${imgSrc}`}
+                alt={`Backer ${index + 1}`}
+                width={30}
+                height={30}
+                className="h-6 w-6 rounded-full"
+              />
+            ))}
+          </div>
+        ) : (
+          "N/A" // Show N/A if backedBy is empty or undefined
+        ),
     },
     {
       icon: "/images/tokenization/icon6.svg",

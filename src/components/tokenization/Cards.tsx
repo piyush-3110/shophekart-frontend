@@ -15,7 +15,7 @@ interface CardsProps {
 
 const Cards: React.FC<CardsProps> = ({ cardValues }) => {
   return (
-    <div className="text-white h-[40rem] pb-5 lg:w-[29vw] md:w-[44vw] w-[85vw] rounded-lg card-border-gradient bg-[#0f1012]">
+    <div className="text-white h-[40rem] pb-5 lg:w-[29vw] md:w-[44vw] w-[90vw] rounded-lg card-border-gradient bg-[#0f1012]">
       <div className="mx-2 relative mt-2 rounded-lg flex justify-center h-[45%]">
         <Image
           src="/images/tokenization/comingsoon.svg"

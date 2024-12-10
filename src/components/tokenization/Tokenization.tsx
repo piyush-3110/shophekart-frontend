@@ -24,13 +24,13 @@ const Tokenization = () => {
       endsIn: "5 Days",
       salesType: "Auction",
       hostedBy: "Company Z",
-      backedBy: ["back1.png", "back3.png", "back4.png"],
+      backedBy: ["back1.png", "back3.png", "back2.png"],
       comments: "Highly anticipated.",
     },
   ];
 
   return (
-    <div className="grid mx-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid mx-auto grid-cols-1 w-[90vw] md:w-full  gap-5 md:grid-cols-2 lg:grid-cols-3 items-center justify-center">
       {cardsData.map((cardValues, index) => (
         <Cards key={index} cardValues={cardValues} />
       ))}

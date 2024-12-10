@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Tokenization from "./Tokenization";
+import Auction from "./Auction";
 
 const Tokenize = () => {
   return (
@@ -9,6 +10,7 @@ const Tokenize = () => {
         What will we tokenize?
       </p>
       <Tokenization />
+      <Auction />
     </div>
   );
 };

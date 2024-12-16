@@ -73,7 +73,7 @@ export const BidToken: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 bg-[#0f1113]  w-full max-w-[25vw] mt-4">
+    <div className="flex flex-col gap-4 bg-[#0f1113]  w-full lg:max-w-[25vw] mt-4">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
           <div className="flex gap-4">

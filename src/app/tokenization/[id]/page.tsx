@@ -1,4 +1,4 @@
-import Countdown from "@/components/tokenization/Countdown";
+import ProjectTiming from "@/components/tokenization/ProjectTiming";
 import Image from "next/image";
 import React from "react";
 
@@ -42,12 +42,7 @@ const page = () => {
           </div>
         </div>
         <div className="flex flex-col gap-4 ">
-          <div className="bg-[#0f1113] py-3 px-3 rounded-xl">
-            <h1 className="text-[#635f5f] mb-2 ml-2">
-              Casper AI registration ends in:{" "}
-            </h1>
-            <Countdown targetDate="2025-02-15T12:30:45Z" />
-          </div>
+          <ProjectTiming />
         </div>
       </div>
     </div>

@@ -56,9 +56,7 @@ const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
       {/* Days */}
       <div className="flex flex-col items-center justify-center bg-[#0f1113] text-white rounded-md shadow-lg min-w-[60px] min-h-[74px] border-[1px] border-[rgba(255,255,255,0.09)] mx-1">
         <span className="text-2xl font-bold">{timeLeft.days}</span>
-        <span className="text-xs font-normal uppercase text-gray-300">
-          Days
-        </span>
+        <span className="text-xs font-normal  text-gray-300">Days</span>
       </div>
 
       {/* Separator */}
@@ -69,9 +67,7 @@ const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
       {/* Hours */}
       <div className="flex flex-col items-center justify-center bg-[#0f1113] text-white rounded-md shadow-lg min-w-[60px] min-h-[74px] border-[1px] border-[rgba(255,255,255,0.09)] mx-1">
         <span className="text-2xl font-bold">{timeLeft.hours}</span>
-        <span className="text-xs font-normal uppercase text-gray-300">
-          Hours
-        </span>
+        <span className="text-xs font-normal  text-gray-300">Hours</span>
       </div>
 
       {/* Separator */}
@@ -82,9 +78,7 @@ const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
       {/* Minutes */}
       <div className="flex flex-col items-center justify-center bg-[#0f1113] text-white rounded-md shadow-lg min-w-[60px] min-h-[74px] border-[1px] border-[rgba(255,255,255,0.09)] mx-1">
         <span className="text-2xl font-bold">{timeLeft.minutes}</span>
-        <span className="text-xs font-normal uppercase text-gray-300">
-          Minutes
-        </span>
+        <span className="text-xs font-normal  text-gray-300">Minutes</span>
       </div>
 
       {/* Separator */}
@@ -95,9 +89,7 @@ const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
       {/* Seconds */}
       <div className="flex flex-col items-center justify-center bg-[#0f1113] text-white rounded-md shadow-lg min-w-[60px] min-h-[74px] border-[1px] border-[rgba(255,255,255,0.09)] mx-1">
         <span className="text-2xl font-bold">{timeLeft.seconds}</span>
-        <span className="text-xs font-normal uppercase text-gray-300">
-          Seconds
-        </span>
+        <span className="text-xs font-normal  text-gray-300">Seconds</span>
       </div>
     </div>
   );

@@ -1,10 +1,12 @@
+"use client";
+
 import ProjectTiming from "@/components/tokenization/ProjectTiming";
 import Image from "next/image";
 import React from "react";
 
 const page = () => {
   return (
-    <div className="bg-[#000] px-12 py-12 w-[100vw] min-h-[100vh]">
+    <div className="bg-[#000] px-10 py-12 w-[100vw] min-h-[100vh]">
       <div className="flex justify-between full">
         <div className="w-[65vw] px-6 flex flex-col  justify-center rounded-2xl py-6 min-h-fit bg-[#0f1113]">
           <div className=" w-full mx-auto rounded-xl  object-contain bg-no-repeat">
@@ -43,6 +45,19 @@ const page = () => {
         </div>
         <div className="flex flex-col gap-4 ">
           <ProjectTiming />
+          <div className="flex !text-lg text-white gap-1 items-center">
+            <h1 className="  !text-lg">
+              Referral Earning {"(BNB)"}:{" "}
+              <span className="gradient-text !text-lg">0.00</span>
+            </h1>
+          </div>
+          <div className="flex !text-lg text-white gap-1 items-center">
+            <h1 className=" !text-lg">
+              Referral Earning {"(USDT)"}:{" "}
+              <span className="gradient-text !text-lg">0.00</span>
+            </h1>
+          </div>
+          <div>{/* here keep the bidding token form */}</div>
         </div>
       </div>
     </div>

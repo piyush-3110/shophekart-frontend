@@ -73,7 +73,7 @@ export const BidToken: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 bg-white w-full max-w-md mt-4">
+    <div className="flex flex-col gap-4 bg-[#0f1113]  w-full max-w-[25vw] mt-4">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
           <div className="flex gap-4">
@@ -87,7 +87,7 @@ export const BidToken: React.FC = () => {
                       <Input
                         type="number"
                         placeholder="Enter the amount"
-                        className="px-4 py-2 border  text-sm border-gray-300 rounded-md text-black placeholder-[#c7bfbf] focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        className="px-4 py-2  text-sm border-[1px] border-[rgba(255,255,255,0.09)] rounded-md text-white placeholder-[#988f8f] focus:outline-none focus:ring-1 focus:ring-blue-500"
                         {...field}
                       />
                       <button
@@ -107,14 +107,14 @@ export const BidToken: React.FC = () => {
               control={form.control}
               name="currencyType"
               render={({ field }) => (
-                <FormItem className="min-w-fit w-40 ">
+                <FormItem className="min-w-fit w-40 text-white   ">
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                     // disabled={isPending}
                   >
                     <FormControl>
-                      <SelectTrigger className="">
+                      <SelectTrigger className="border-[1px] border-[rgba(255,255,255,0.09)] ">
                         <SelectValue placeholder="Please Select Token" />
                       </SelectTrigger>
                     </FormControl>

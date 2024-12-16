@@ -1,5 +1,6 @@
 "use client";
 
+import BidTokenForm from "@/components/tokenization/BidTokenForm";
 import ProjectTiming from "@/components/tokenization/ProjectTiming";
 import Image from "next/image";
 import React from "react";
@@ -57,7 +58,10 @@ const page = () => {
               <span className="gradient-text !text-lg">0.00</span>
             </h1>
           </div>
-          <div>{/* here keep the bidding token form */}</div>
+          <div>
+            {/* here keep the bidding token form */}
+            <BidTokenForm />
+          </div>
         </div>
       </div>
     </div>

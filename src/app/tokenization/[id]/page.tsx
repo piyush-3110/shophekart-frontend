@@ -7,9 +7,9 @@ import React from "react";
 
 const page = () => {
   return (
-    <div className="bg-[#000] px-10 py-12 w-[100vw] min-h-[100vh]">
+    <div className="bg-[#000] px-3 md:px-6 lg:px-10 py-12 w-[100vw] min-h-[100vh]">
       <div className="flex flex-col gap-6 lg:gap-0 lg:flex-row lg:justify-between ">
-        <div className="w-[65vw] px-6 flex flex-col  justify-center rounded-2xl py-6 min-h-fit bg-[#0f1113]">
+        <div className="w-[93vw] lg:w-[65vw] px-6 flex flex-col  justify-center rounded-2xl py-6 min-h-fit bg-[#0f1113]">
           <div className=" w-full mx-auto rounded-xl  object-contain bg-no-repeat">
             <Image
               src="/images/tokenization/featured.png"

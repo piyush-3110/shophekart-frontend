@@ -78,21 +78,21 @@ const Page = () => {
             }`}
             onClick={() => setSelectedChat(chatId)}
           >
-            <div className="flex items-start justify-between">
+            <div className="relative">
               <div className="flex items-center">
                 <div className="w-10 h-10 bg-blue-500 rounded-full mr-3"></div>
                 <div>
                   <h3 className="text-sm font-semibold">
                     {chatDetails[chatId].name}
                   </h3>
-                  <p className="text-xs text-gray-400 ">
+                  <p className="text-xs text-gray-400 truncate max-w-[12rem]">
                     {messages[chatId][messages[chatId].length - 1]?.content}
                   </p>
                 </div>
               </div>
 
               <p
-                className={`text-xs ${
+                className={`text-xs absolute top-0 right-2 ${
                   chatDetails[chatId].status === "online"
                     ? "text-green-500"
                     : "text-gray-500"

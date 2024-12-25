@@ -141,7 +141,7 @@ const Page = () => {
                 }`}
               >
                 <div
-                  className={`inline-block px-4 py-2 rounded ${
+                  className={`inline-block max-w-[70%] text-left px-4 py-2 rounded ${
                     msg.sender === "You"
                       ? "bg-blue-500 text-white"
                       : "bg-gray-300"

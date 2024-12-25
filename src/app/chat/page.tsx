@@ -69,7 +69,7 @@ const Page = () => {
     <div className="flex h-screen">
       {/* Sidebar */}
       <div className="w-1/4 bg-gray-800 text-white p-4">
-        <h2 className="text-lg font-bold mb-4">Chats</h2>
+        <h2 className="text-lg font-bold mb-4">Messages</h2>
         {Object.keys(messages).map((chatId) => (
           <div
             key={chatId}
@@ -131,7 +131,7 @@ const Page = () => {
         )}
 
         {/* Messages */}
-        <div className="flex-1 bg-gray-100 p-4 overflow-y-scroll">
+        <div className="flex-1 bg-gray-100 p-4 mb-12 overflow-y-scroll">
           {selectedChat ? (
             messages[selectedChat].map((msg) => (
               <div
@@ -143,9 +143,9 @@ const Page = () => {
                 <div
                   className={`inline-block max-w-[70%] text-left px-4 py-2 rounded ${
                     msg.sender === "You"
-                      ? "bg-blue-500 text-white"
+                      ? "gradient-background text-white"
                       : "bg-gray-300"
-                  }`}
+                  } break-words overflow-hidden`}
                 >
                   {msg.content}
                 </div>

@@ -20,6 +20,9 @@ input[type="number"] {
   font-size: 2rem; /* Adjust size as needed */
   font-weight: bold; /* Optional: make it bold */
 }
+.gradient-background {
+  background: linear-gradient(to right, #03a6dc, #017ffe, #003aff);
+}
 /* styles/globals.css or a specific CSS module */
 .gradient-button {
   background: linear-gradient(to right, #01bfff, #017ffe, #003aff);

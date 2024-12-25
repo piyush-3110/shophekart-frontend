@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const Page = () => {
   const [selectedChat, setSelectedChat] = useState<string | null>(null);
@@ -40,6 +40,8 @@ const Page = () => {
     "3": { name: "Charlie", status: "online", lastSeen: new Date() }, // Currently online
   };
 
+  const messagesEndRef = useRef<HTMLDivElement>(null); // Ref for the bottom of the chat container
+
   const sendMessage = () => {
     if (newMessage.trim() && selectedChat && selectedChat in messages) {
       setMessages((prevMessages) => ({
@@ -64,6 +66,13 @@ const Page = () => {
     if (diffHours < 24) return `${diffHours} hr${diffHours > 1 ? "s" : ""} ago`;
     return lastSeen.toLocaleDateString();
   };
+
+  // Scroll to the bottom of the chat when messages or selected chat change
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages, selectedChat]); // Trigger when messages or selected chat change
 
   return (
     <div className="flex h-screen">
@@ -154,6 +163,7 @@ const Page = () => {
           ) : (
             <p className="text-gray-500">Select a chat to start messaging.</p>
           )}
+          <div ref={messagesEndRef} /> {/* Empty div to scroll to */}
         </div>
 
         {/* Input Section */}

@@ -168,15 +168,25 @@ const Page = () => {
 
         {/* Input Section */}
         <div className="p-4 bg-gray-200 flex items-center fixed bottom-0 w-3/4">
+          <div className="flex items-center mr-2">
+            {/* Attach Icon */}
+            <button className="text-gray-600 hover:text-gray-800 mr-2">
+              <i className="fas fa-paperclip"></i>
+            </button>
+            {/* Emoji Icon */}
+            <button className="text-gray-600 hover:text-gray-800">
+              <i className="fas fa-smile"></i>
+            </button>
+          </div>
           <input
             type="text"
-            className="flex-1 px-4 py-2 border border-gray-300 rounded mr-2"
+            className="flex-1 px-4 py-2 border border-gray-300 rounded"
             placeholder="Type a message..."
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
           />
           <button
-            className="px-4 py-2 bg-blue-500 text-white rounded"
+            className="gradient-button !px-4 !py-2 !text-[1rem]"
             onClick={sendMessage}
           >
             Send

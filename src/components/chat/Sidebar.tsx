@@ -4,15 +4,19 @@ interface SidebarProps {
   chats: { [key: string]: { id: string; sender: string; content: string }[] };
   selectedChat: string | null;
   onSelectChat: (chatId: string) => void;
+  className?: string; // Adding the className prop to pass custom classes
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
   chats,
   selectedChat,
   onSelectChat,
+  className,
 }) => {
   return (
-    <div className="w-1/4 bg-gray-800 text-white p-4">
+    <div
+      className={`bg-gray-800 text-white p-4 ${className}`} // Apply custom className passed as a prop
+    >
       <h2 className="text-lg font-bold mb-4">Messages</h2>
       {Object.keys(chats).map((chatId) => (
         <div

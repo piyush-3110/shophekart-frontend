@@ -51,7 +51,7 @@ const Messages: React.FC<MessagesProps> = ({
   }, [messages, chatId]);
 
   return (
-    <div className="w-3/4 flex flex-col">
+    <div className="w-full min-h-[100vh] flex flex-col">
       {chatId ? (
         <>
           {/* Header */}
@@ -84,7 +84,7 @@ const Messages: React.FC<MessagesProps> = ({
           </div>
 
           {/* Input Section */}
-          <div className="p-4 bg-gray-200 flex items-center fixed bottom-0 w-3/4">
+          <div className="p-4 bg-gray-200 flex items-center fixed bottom-0 md:w-3/4 w-full">
             <button
               className="mr-2 text-gray-500"
               onClick={() => setShowEmojiPicker((prev) => !prev)}
@@ -112,7 +112,7 @@ const Messages: React.FC<MessagesProps> = ({
               onChange={(e) => setNewMessage(e.target.value)}
             />
             <button
-              className="gradient-button !px-4 !py-2 !text-[1rem]"
+              className="gradient-button  !px-4 !py-2 !text-[1rem]"
               onClick={sendMessage}
             >
               Send

@@ -52,7 +52,7 @@ const Messages: React.FC<MessagesProps> = ({
   }, [messages, chatId]);
 
   return (
-    <div className="w-full nexa-bold min-h-[100vh] flex flex-col">
+    <div className="w-full  min-h-[100vh] flex flex-col">
       {chatId ? (
         <>
           {/* Header */}
@@ -62,7 +62,7 @@ const Messages: React.FC<MessagesProps> = ({
           </div>
 
           {/* Messages */}
-          <div className="flex-1 bg-white p-4 mb-12 overflow-y-scroll">
+          <div className="flex-1  bg-white p-4 mb-12 overflow-y-scroll">
             {messages[chatId]?.map((msg) => (
               <div
                 key={msg.id}

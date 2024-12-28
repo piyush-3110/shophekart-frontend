@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400&family=Pixelify+Sans:wght@400..700&family=Poppins:wght@200;300;400;500&family=Press+Start+2P&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -41,6 +42,9 @@ input[type="number"] {
 .nexa-bold {
   font-family: "Nexa Bold", sans-serif;
   font-weight: 300;
+}
+.nexa-regular {
+  font-family: "Nexa Regular", sans-serif;
 }
 .gradient-border::before {
   content: "";
@@ -91,6 +95,13 @@ input[type="number"] {
 
 .rotate-right {
   animation: rotateRight 4s ease-in-out infinite; /* Smooth right rotation */
+}
+
+.josefin-sans {
+  font-family: "Josefin Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
 }
 /* CSS for Blob Shape */
 /* CSS for Blob Shape */

@@ -29,6 +29,10 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link
+          href="https://db.onlinewebfonts.com/c/cefa2bca89ec27b6b9c51c215bce8ba2?family=Nexa-Regular"
+          rel="stylesheet"
+        />
+        <link
           href="https://db.onlinewebfonts.com/c/c9f309b3d47969ecac64a77a6c672594?family=Nexa+Bold"
           rel="stylesheet"
         />

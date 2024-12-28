@@ -29,6 +29,10 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link
+          href="https://db.onlinewebfonts.com/c/c9f309b3d47969ecac64a77a6c672594?family=Nexa+Bold"
+          rel="stylesheet"
+        />
+        <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         />

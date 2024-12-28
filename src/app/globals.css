@@ -38,6 +38,10 @@ input[type="number"] {
 .gradient-border {
   position: relative;
 }
+.nexa-bold {
+  font-family: "Nexa Bold", sans-serif;
+  font-weight: 300;
+}
 .gradient-border::before {
   content: "";
   position: absolute;

@@ -58,7 +58,7 @@ const Page = () => {
   };
 
   return (
-    <div className="flex h-screen nexa-bold">
+    <div className="flex h-screen">
       <div className={`flex flex-col sm:flex-row w-full`}>
         {/* Sidebar */}
         <Sidebar

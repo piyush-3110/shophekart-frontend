@@ -70,13 +70,24 @@ const Messages: React.FC<MessagesProps> = ({
                 }`}
               >
                 <div
-                  className={`inline-block max-w-[70%] text-left px-4 py-2 rounded ${
+                  className={`inline-block max-w-[70%] text-left px-4 py-2 rounded-lg shadow-lg transition-all duration-200 ${
                     msg.sender === "You"
                       ? "gradient-background text-white"
                       : "bg-gray-300"
-                  } break-words overflow-hidden`}
+                  } break-words overflow-hidden relative`}
+                  style={{
+                    borderRadius: "12px",
+                    padding: "10px 16px",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                  }}
                 >
                   {msg.content}
+                  {msg.sender !== "You" && (
+                    <div className="absolute top-[-8px] left-[10px] w-0 h-0 border-l-[8px] border-r-[8px] border-t-[8px] border-transparent border-t-gray-300"></div>
+                  )}
+                  {msg.sender === "You" && (
+                    <div className="absolute top-[-8px] right-[10px] w-0 h-0 border-l-[8px] border-r-[8px] border-t-[8px] border-transparent border-t-gradient-background"></div>
+                  )}
                 </div>
               </div>
             ))}

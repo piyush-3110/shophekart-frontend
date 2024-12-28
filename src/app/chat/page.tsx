@@ -1,11 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useState, useEffect, useRef } from "react";
+import EmojiPicker from "emoji-picker-react"; // Import emoji picker
 
 const Page = () => {
   const [selectedChat, setSelectedChat] = useState<string | null>(null);
   const [newMessage, setNewMessage] = useState<string>("");
+  const [attachedFile, setAttachedFile] = useState<File | null>(null); // State for the attached file
   const [messages, setMessages] = useState<{
-    [key: string]: { id: string; sender: string; content: string }[];
+    [key: string]: { id: string; sender: string; content: string }[]; // Messages content
   }>({
     "1": [
       { id: "1", sender: "Alice", content: "Hey, how are you?" },
@@ -24,55 +27,49 @@ const Page = () => {
     ],
   });
 
-  const chatDetails: {
-    [key: string]: { name: string; status: string; lastSeen: Date };
-  } = {
-    "1": {
-      name: "Alice",
-      status: "online",
-      lastSeen: new Date(Date.now() - 5 * 60 * 1000),
-    }, // 5 minutes ago
-    "2": {
-      name: "Bob",
-      status: "offline",
-      lastSeen: new Date(Date.now() - 2 * 60 * 60 * 1000),
-    }, // 2 hours ago
-    "3": { name: "Charlie", status: "online", lastSeen: new Date() }, // Currently online
-  };
-
-  const messagesEndRef = useRef<HTMLDivElement>(null); // Ref for the bottom of the chat container
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false); // Control emoji picker visibility
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const sendMessage = () => {
-    if (newMessage.trim() && selectedChat && selectedChat in messages) {
+    if (
+      (newMessage.trim() || attachedFile) &&
+      selectedChat &&
+      selectedChat in messages
+    ) {
       setMessages((prevMessages) => ({
         ...prevMessages,
         [selectedChat]: [
           ...prevMessages[selectedChat],
-          { id: Date.now().toString(), sender: "You", content: newMessage },
+          {
+            id: Date.now().toString(),
+            sender: "You",
+            content: attachedFile
+              ? `${newMessage} [Attached: ${attachedFile.name}]`
+              : newMessage,
+          },
         ],
       }));
       setNewMessage("");
+      setAttachedFile(null); // Reset the attached file
     }
   };
 
-  const getLastSeenText = (lastSeen: Date): string => {
-    const now = new Date();
-    const diffMs = now.getTime() - lastSeen.getTime();
-    const diffMinutes = Math.floor(diffMs / (1000 * 60));
-
-    if (diffMinutes < 1) return "just now";
-    if (diffMinutes < 60) return `${diffMinutes} min ago`;
-    const diffHours = Math.floor(diffMinutes / 60);
-    if (diffHours < 24) return `${diffHours} hr${diffHours > 1 ? "s" : ""} ago`;
-    return lastSeen.toLocaleDateString();
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setAttachedFile(event.target.files[0]);
+    }
   };
 
-  // Scroll to the bottom of the chat when messages or selected chat change
+  const addEmoji = (emojiObject: any) => {
+    setNewMessage((prevMessage) => prevMessage + emojiObject.emoji);
+    setShowEmojiPicker(false); // Hide the emoji picker after selection
+  };
+
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [messages, selectedChat]); // Trigger when messages or selected chat change
+  }, [messages, selectedChat]);
 
   return (
     <div className="flex h-screen">
@@ -91,26 +88,12 @@ const Page = () => {
               <div className="flex items-center">
                 <div className="w-10 h-10 bg-blue-500 rounded-full mr-3"></div>
                 <div>
-                  <h3 className="text-sm font-semibold">
-                    {chatDetails[chatId].name}
-                  </h3>
+                  <h3 className="text-sm font-semibold">Chat {chatId}</h3>
                   <p className="text-xs text-gray-400 truncate max-w-[12rem]">
                     {messages[chatId][messages[chatId].length - 1]?.content}
                   </p>
                 </div>
               </div>
-
-              <p
-                className={`text-xs absolute top-0 right-2 ${
-                  chatDetails[chatId].status === "online"
-                    ? "text-green-500"
-                    : "text-gray-500"
-                }`}
-              >
-                {chatDetails[chatId].status === "online"
-                  ? "Online"
-                  : getLastSeenText(chatDetails[chatId].lastSeen)}
-              </p>
             </div>
           </div>
         ))}
@@ -123,18 +106,7 @@ const Page = () => {
           <div className="bg-gray-200 p-4 flex items-center">
             <div className="w-12 h-12 bg-blue-500 rounded-full mr-3"></div>
             <div>
-              <h3 className="text-lg font-semibold">
-                {chatDetails[selectedChat].name}
-              </h3>
-              <p
-                className={`text-sm ${
-                  chatDetails[selectedChat].status === "online"
-                    ? "text-green-500"
-                    : "text-gray-500"
-                }`}
-              >
-                {chatDetails[selectedChat].status}
-              </p>
+              <h3 className="text-lg font-semibold">Chat {selectedChat}</h3>
             </div>
           </div>
         )}
@@ -168,19 +140,24 @@ const Page = () => {
 
         {/* Input Section */}
         <div className="p-4 bg-gray-200 flex items-center fixed bottom-0 w-3/4">
-          <div className="flex items-center mr-2">
-            {/* Attach Icon */}
-            <button className="text-gray-600 hover:text-gray-800 mr-2">
-              <i className="fas fa-paperclip"></i>
-            </button>
-            {/* Emoji Icon */}
-            <button className="text-gray-600 hover:text-gray-800">
-              <i className="fas fa-smile"></i>
-            </button>
-          </div>
+          <button
+            className="mr-2 text-gray-500"
+            onClick={() => setShowEmojiPicker((prev) => !prev)}
+          >
+            😊
+          </button>
+          {showEmojiPicker && (
+            <div className="absolute bottom-16 left-4 z-10">
+              <EmojiPicker onEmojiClick={addEmoji} />
+            </div>
+          )}
+          <label className="mr-2 text-gray-500 cursor-pointer">
+            📎
+            <input type="file" className="hidden" onChange={handleFileChange} />
+          </label>
           <input
             type="text"
-            className="flex-1 px-4 py-2 border border-gray-300 rounded"
+            className="flex-1 px-4 py-2 border border-gray-300 rounded mr-2"
             placeholder="Type a message..."
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}

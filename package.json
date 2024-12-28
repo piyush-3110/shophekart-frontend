@@ -35,6 +35,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
     "country-state-city": "^3.2.1",
+    "emoji-picker-react": "^4.12.0",
     "encoding": "^0.1.13",
     "ethers": "^6.13.4",
     "framer-motion": "^11.11.9",

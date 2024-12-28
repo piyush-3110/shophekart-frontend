@@ -15,14 +15,14 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   return (
     <div
-      className={`bg-gray-800 text-white p-4 ${className}`} // Apply custom className passed as a prop
+      className={`bg-white m-4 rounded-xl text-black border border-[#D7DDE7] p-4 ${className}`} // Apply custom className passed as a prop
     >
       <h2 className="text-lg font-bold mb-4">Messages</h2>
       {Object.keys(chats).map((chatId) => (
         <div
           key={chatId}
           className={`p-2 mb-2 rounded cursor-pointer ${
-            selectedChat === chatId ? "bg-gray-700" : "bg-gray-900"
+            selectedChat === chatId ? "#f6f9fe shadow-md" : ""
           }`}
           onClick={() => onSelectChat(chatId)}
         >

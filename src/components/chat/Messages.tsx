@@ -2,6 +2,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import EmojiPicker from "emoji-picker-react";
+import Image from "next/image";
 
 interface Message {
   id: string;
@@ -55,13 +56,13 @@ const Messages: React.FC<MessagesProps> = ({
       {chatId ? (
         <>
           {/* Header */}
-          <div className="bg-gray-200 p-4 flex items-center">
+          <div className="bg-white p-4  border border-b-[#D7DDE7] flex items-center">
             <div className="w-12 h-12 bg-blue-500 rounded-full mr-3"></div>
             <h3 className="text-lg font-semibold">Chat {chatId}</h3>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 bg-gray-100 p-4 mb-12 overflow-y-scroll">
+          <div className="flex-1 bg-white p-4 mb-12 overflow-y-scroll">
             {messages[chatId]?.map((msg) => (
               <div
                 key={msg.id}
@@ -95,7 +96,7 @@ const Messages: React.FC<MessagesProps> = ({
           </div>
 
           {/* Input Section */}
-          <div className="p-4 bg-gray-200 flex items-center fixed bottom-0 md:w-3/4 w-full">
+          <div className="p-4 bg-gray-200 flex items-center fixed bottom-0 md:w-[71%] w-full">
             <button
               className="mr-2 text-gray-500"
               onClick={() => setShowEmojiPicker((prev) => !prev)}
@@ -115,19 +116,28 @@ const Messages: React.FC<MessagesProps> = ({
                 onChange={handleFileChange}
               />
             </label>
-            <input
-              type="text"
-              className="flex-1 px-4 py-2 border border-gray-300 rounded mr-2"
-              placeholder="Type a message..."
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-            />
-            <button
-              className="gradient-button  !px-4 !py-2 !text-[1rem]"
-              onClick={sendMessage}
-            >
-              Send
-            </button>
+
+            <div className="relative flex-1">
+              <input
+                type="text"
+                className="w-full px-4 py-2 border border-gray-300 rounded mr-2 "
+                placeholder="Type a message..."
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+              />
+              <button
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-blue-500"
+                onClick={sendMessage}
+              >
+                <Image
+                  src="/images/shared/send.png"
+                  alt="Send"
+                  width={70}
+                  height={70}
+                  className="w-[20px] h-[20px]"
+                />
+              </button>
+            </div>
           </div>
         </>
       ) : (

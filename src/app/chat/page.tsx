@@ -72,7 +72,7 @@ const Page = () => {
 
         {/* Chat Messages */}
         <div
-          className={`w-full  mx-4 mt-4  border border-[#D7DDE7] md:w-[60%] lg:w-[75%] ${
+          className={`w-full  md:mx-4 md:mt-4  border border-[#D7DDE7] md:w-[60%] lg:w-[75%] ${
             isSmallScreen && selectedChat ? "p-4" : ""
           }`}
         >

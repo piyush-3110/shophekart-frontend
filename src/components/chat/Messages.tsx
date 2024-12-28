@@ -96,7 +96,7 @@ const Messages: React.FC<MessagesProps> = ({
           </div>
 
           {/* Input Section */}
-          <div className="p-4 bg-gray-200 flex items-center fixed bottom-0 md:w-[71%] w-full">
+          <div className="p-4 bg-gray-200 flex items-center fixed bottom-0 md:w-[53%] lg:w-[71%] w-full">
             <button
               className="mr-2 text-gray-500"
               onClick={() => setShowEmojiPicker((prev) => !prev)}

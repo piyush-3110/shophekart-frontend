@@ -15,7 +15,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   return (
     <div
-      className={`bg-white m-4 rounded-xl text-black border border-[#D7DDE7] p-4 ${className}`} // Apply custom className passed as a prop
+      className={`bg-white md:m-4 rounded-xl text-black border border-[#D7DDE7] p-4 ${className}`} // Apply custom className passed as a prop
     >
       <h2 className="text-lg font-bold mb-4">Messages</h2>
       {Object.keys(chats).map((chatId) => (

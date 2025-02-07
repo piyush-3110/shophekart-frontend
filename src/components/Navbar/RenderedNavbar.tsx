@@ -21,7 +21,7 @@ const RenderedNavbar = () => {
           <div className="w-[45vw] lg:w-[600px]">
             <Searchbar />
           </div>
-          <Link href="https://www.shophekart.com/add-product/" className="">
+          <Link href="https://product.shophekart.com/add-product/" className="">
             <button className="text-white gradient-button w-auto lg:w-auto">
               Add Product
             </button>

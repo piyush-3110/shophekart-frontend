@@ -24,3 +24,4 @@ const page = () => {
 };
 
 export default page;
+/* eslint-disable react-hooks/rules-of-hooks */

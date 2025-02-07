@@ -39,7 +39,7 @@ const NavbarLinks = () => {
 
   return (
     <div className="flex space-x-8  items-center justify-center">
-      <NavLink href="/">Buy $CSHOP</NavLink>
+      <NavLink href="https://www.shophekart.com/">Buy $CSHOP</NavLink>
 
       {/* Staking Dropdown */}
       <div ref={stakingRef} className="relative">
@@ -66,7 +66,7 @@ const NavbarLinks = () => {
           }`}
         >
           <NavLink
-            href="/staking"
+            href="https://product.shophekart.com/staking"
             className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
           >
             Staking
@@ -78,7 +78,7 @@ const NavbarLinks = () => {
             Vesting
           </NavLink> */}
           <NavLink
-            href="/dao"
+            href="https://product.shophekart.com/dao"
             className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
           >
             DAO
@@ -111,13 +111,13 @@ const NavbarLinks = () => {
           }`}
         >
           <NavLink
-            href="/products/buy-now"
+            href="https://product.shophekart.com/products/buy-now"
             className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
           >
             Crypto Shop
           </NavLink>
           <NavLink
-            href="/tokenization"
+            href="https://product.shophekart.com/tokenization"
             className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
           >
             Tokenization
@@ -125,7 +125,9 @@ const NavbarLinks = () => {
         </div>
       </div>
 
-      <NavLink href="/cshopCard">CSHOP Card</NavLink>
+      <NavLink href="https://product.shophekart.com/cshopCard">
+        CSHOP Card
+      </NavLink>
       <NavLink target="_blank" href="https://shophekart.gitbook.io/shophekart">
         Whitepaper
       </NavLink>
